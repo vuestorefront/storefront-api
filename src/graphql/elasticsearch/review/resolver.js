@@ -13,6 +13,36 @@ async function list (search, filter, currentPage, pageSize = 200, sort, context,
     _sourceInclude
   });
 
+  // Process hits
+  response.items = []
+  response.hits.hits.forEach(hit => {
+    let item = hit._source
+    item._score = hit._score
+    response.items.push(item)
+  });
+
+  response.total_count = response.hits.total
+
+  // Process sort
+  let sortOptions = []
+  for (var sortAttribute in sort) {
+    sortOptions.push(
+      {
+        label: sortAttribute,
+        value: sortAttribute
+      }
+    )
+  }
+
+  response.sort_fields = {}
+  if (sortOptions.length > 0) {
+    response.sort_fields.options = sortOptions
+  }
+
+  response.page_info = {
+    page_size: pageSize,
+    current_page: currentPage
+  }
   return response;
 }
 
