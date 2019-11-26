@@ -2,7 +2,7 @@
   "name": "vue-storefront-api",
   "version": "1.11.0-dev",
   "private": true,
-  "description": "vue-storefront API and data services",
+  "description": "Storefront GraphQL API",
   "main": "dist",
   "scripts": {
     "dev": "nodemon",
@@ -43,7 +43,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DivanteLtd/vue-storefront-api.git"
+    "url": "git+https://github.com/DivanteLtd/storefront-graphql-api.git"
   },
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "license": "MIT",

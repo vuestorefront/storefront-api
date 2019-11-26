@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
@@ -15,13 +15,14 @@ import typeDefs from './graphql/schema';
 import * as path from 'path'
 
 const app = express();
+app.use(cors({
+  exposedHeaders: config.get('corsHeaders')
+}) as express.RequestHandler)
 
 // logger
 app.use(morgan('dev'));
 
 app.use('/media', express.static(path.join(__dirname, config.get(`${config.get('platform')}.assetPath`))))
-
-
 
 app.use(bodyParser.json({
   limit: config.get('bodyLimit')
@@ -50,13 +51,12 @@ initializeDb(db => {
   });
 });
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const server = new ApolloServer({ typeDefs, resolvers, rootValue: global, playground: true, context: (integrationContext) => integrationContext })
-server.applyMiddleware({ app, path: '/graphql' }, );
+server.applyMiddleware({ app, path: '/graphql' });
 
-//app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 export default app;
