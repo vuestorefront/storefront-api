@@ -7,6 +7,7 @@ extend type Query {
     currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
     sort: CategorySortInput @doc(description: "Specifies which attribute to sort on, and whether to return the results in ascending or descending order."),
     _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
+    _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
     ): Categories
 }
 

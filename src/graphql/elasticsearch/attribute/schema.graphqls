@@ -1,18 +1,41 @@
 extend type Query {
     customAttributeMetadata(
-        attributes: AttributeInput!,
+        attributes: AttributeInput, @deprecated(reason: "Please use `filter` instead")
+        filter: AttributeInput,
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
+        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
     ): CustomAttributeMetadata
 }
 
-type CustomAttributeMetadata @doc(description: "CustomAttributeMetadata defines an array of attribute_codes and entity_types") {
+type CustomAttributeMetadata implements ESResponseInterface @doc(description: "CustomAttributeMetadata defines an array of attribute_codes and entity_types") {
     items: [Attribute] @doc(description: "An array of attributes")
+    total_count: Int @doc(description: "The number of categories returned")
+    hits: JSON
+    suggest: JSON
+    aggregations: JSON          
 }
 
 type Attribute @doc(description: "Attribute contains the attribute_type of the specified attribute_code and entity_type") {
     attribute_code: String @doc(description: "The unique identifier for an attribute code. This value should be in lowercase letters without spaces.")
     entity_type: String @doc(description: "The type of entity that defines the attribute")
     attribute_type: String @doc(description: "The data type of the attribute")
+    apply_to: [String] @doc(description: "Product types this attribute applies to")
+    position: Int @doc(description: "Attribute sorting priority")
+    is_searchable: Boolean @doc(description: "Is this attribute available for search")    
+    is_comparable: Boolean @doc(description: "Is this attribute comparable")    
+    is_user_defined: Boolean @doc(description: "Is this attribute user defined")    
+    is_visible: Boolean @doc(description: "Is this attribute visible on PDP")   
+    is_filterable: Boolean @doc(description: "Is this attribute available for search")    
+    is_filterable_in_search: Boolean @doc(description: "Is this attribute available for search")    
+    frontend_input: String @doc(description: "Frontend input type")    
+    default_frontend_label: String @doc(description: "Default frontend label")    
+    options: [AttributeOption] @doc(description: "Available attribute option values")
+
+}
+
+type AttributeOption {
+    value: String @doc(description: "Value")
+    label: String @doc(description: "Label")
 }
 
 input AttributeInput @doc(description: "AttributeInput specifies the attribute_code and entity_type to search") {
