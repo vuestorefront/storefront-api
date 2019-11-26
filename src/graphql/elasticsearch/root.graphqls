@@ -1,0 +1,8 @@
+directive @doc(
+  description: String
+) on FIELD_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ARGUMENT_DEFINITION
+
+
+type Query {
+  version: String
+}

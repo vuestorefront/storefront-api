@@ -1,9 +1,4 @@
-directive @doc(
-  description: String
-) on FIELD_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ARGUMENT_DEFINITION
-
-
-type Query {
+extend type Query {
     customAttributeMetadata(
         attributes: AttributeInput!,
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
