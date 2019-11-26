@@ -3,6 +3,6 @@
   "debug": false,
   "exec": "ts-node src",
   "watch": ["./src"],
-  "ext": "ts, js",
+  "ext": "ts, js, graphqls",
   "inspect": true
 }

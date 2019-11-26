@@ -10,10 +10,13 @@ extend type Query {
     ): Categories
 }
 
-type Categories @doc(description: "The Categories object is the top-level object returned in a category search") {
+type Categories implements ESResponseInterface @doc(description: "The Categories object is the top-level object returned in a category search") {
     items: [Category] @doc(description: "An array of categories that match the specified search criteria")
     page_info: SearchResultPageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
     total_count: Int @doc(description: "The number of categories returned")
+    hits: JSON
+    suggest: JSON
+    aggregations: JSON      
 }
 type Category @doc(description: "ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
     id: ID @doc(description: "An ID that uniquely identifies the category")

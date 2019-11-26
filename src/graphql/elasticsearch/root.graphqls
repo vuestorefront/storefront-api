@@ -6,3 +6,15 @@ directive @doc(
 type Query {
   version: String
 }
+
+interface ESResponseInterface { 
+  hits: JSON
+  suggest: JSON
+  aggregations: JSON
+}
+
+type ESResponse implements ESResponseInterface {
+  hits: JSON
+  suggest: JSON
+  aggregations: JSON  
+}

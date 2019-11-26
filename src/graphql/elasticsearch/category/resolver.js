@@ -6,7 +6,7 @@ import { getIndexName } from '../mapping'
 async function list (search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
 
-  const esResponse = await client.search({
+  const response = await client.search({
     index: getIndexName(context.req.url),
     type: config.elasticsearch.indexTypes[1],
     body: query,
@@ -14,17 +14,15 @@ async function list (search, filter, currentPage, pageSize = 200, sort, context,
     _source_include: _sourceInclude
   });
 
-  let response = {}
-
   // Process hits
   response.items = []
-  esResponse.hits.hits.forEach(hit => {
+  response.hits.hits.forEach(hit => {
     let item = hit._source
     item._score = hit._score
     response.items.push(item)
   });
 
-  response.total_count = esResponse.hits.total
+  response.total_count = response.hits.total
 
   // Process sort
   let sortOptions = []

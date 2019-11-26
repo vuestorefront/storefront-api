@@ -284,9 +284,3 @@ enum SortEnum {
     ASC
     DESC
 }
-
-type ESResponse {
-  hits: JSON
-  suggest: JSON
-  aggregations: JSON
-}
