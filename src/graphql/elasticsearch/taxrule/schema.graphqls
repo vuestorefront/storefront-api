@@ -1,15 +1,38 @@
 extend type Query {
-    taxrule(filter: TaxRuleInput): ESResponse
+    taxrule(filter: TaxRuleInput): TaxRules
+}
+
+type TaxRules implements ESResponseInterface @doc(description: "Tax rules collection") {
+    total_count: Int @doc(description: "The number of tax rules returned")
+    items: [TaxRule] @doc(description: "An array of tax rules that match the specified search criteria")
+    hits: JSON
+    suggest: JSON
+    aggregations: JSON 
+}
+
+type TaxRate @doc(description: "Tax rate - a part of Tax Rule") {
+    tax_region_id: Int @doc(description: "Tax region assigned to this rate")
+    tax_country_id: Int @doc(description: "Tax country assigned to this rate")
+    titles: [String] @doc(description: "Tax rule titles")
+    tax_postcode: String @doc(description: "Post code assigned to this rule")
+    code: String @doc(description: "Code/name of this rule")
+    rate: Int @doc(description: "Percentage tax rate")
+    id: ID @doc(description: "Rule id")
+}
+
+type TaxRule @doc(description: "Product review - related product review") {
+  id: ID @doc(description: "TaxRule id")
+  code: String @doc(description: "Tax rule code")
+  rates: [TaxRate] @doc(description: "Tax rates assigned to this rule")
+  customer_tax_class_ids: [ID] @doc(description: "Customer tax class ids assigned to this rule")
+  product_tax_class_ids: [ID] @doc(description: "Product tax class ids assigned to this rule")
+  tax_rate_ids: [ID] @doc(description: "Tax rate ids assigned with this rule")
 }
 
 input TaxRuleInput @doc(description: "TaxRuleInput specifies the tax rules information to search") {
     id: FilterTypeInput @doc(description: "An ID that uniquely identifies the tax rule")
     code: FilterTypeInput @doc(description: "The unique identifier for an tax rule. This value should be in lowercase letters without spaces.")
-    priority: FilterTypeInput @doc(description: "Priority of the tax rule")
-    position: FilterTypeInput @doc(description: "Position of the tax rule")
     customer_tax_class_ids: FilterTypeInput @doc(description: "Cunstomer tax class ids of the tax rule")
     product_tax_class_ids: FilterTypeInput @doc(description: "Products tax class ids of the tax rule")
     tax_rate_ids: FilterTypeInput @doc(description: "Tax rates ids of the tax rule")
-    calculate_subtotal: FilterTypeInput @doc(description: "Calculating subtotals of the tax rule")
-    rates: FilterTypeInput @doc(description: "Rates of the tax rule")
 }

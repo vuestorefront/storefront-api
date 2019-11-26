@@ -12,6 +12,15 @@ async function taxrule (filter, context, rootValue) {
     body: query
   });
 
+  // Process hits
+  response.items = []
+  response.hits.hits.forEach(hit => {
+    let item = hit._source
+    item._score = hit._score
+    response.items.push(item)
+  });
+
+  response.total_count = response.hits.total
   return response;
 }
 
