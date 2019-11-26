@@ -11,9 +11,7 @@ async function list (filter, currentPage, pageSize = 200, _sourceInclude, type) 
     type,
     _sourceInclude
   });
-  const items = buildItems(response)
-
-  return items;
+  return buildItems(response)
 }
 
 function buildItems (response) {

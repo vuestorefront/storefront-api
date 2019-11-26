@@ -16,8 +16,11 @@ input CmsInput @doc(description: "ProductFilterInput defines the filters to be u
     store_id: FilterTypeInput @doc(description: "Store Id of the CMS entity")
 }
 
-type CmsPages @doc(description: "CMS pages information") {
+type CmsPages implements ESResponseInterface @doc(description: "CMS pages information") {
     items: [CmsPage] @doc(description: "An array of CMS pages")
+    hits: JSON
+    suggest: JSON
+    aggregations: JSON   
 }
 
 type CmsPage @doc(description: "CMS page defines all CMS page information") {
@@ -31,8 +34,11 @@ type CmsPage @doc(description: "CMS page defines all CMS page information") {
     store_id: Int @doc(description: "Store Id of CMS page")
 }
 
-type CmsBlocks @doc(description: "CMS blocks information") {
+type CmsBlocks implements ESResponseInterface @doc(description: "CMS blocks information") {
     items: [CmsBlock] @doc(description: "An array of CMS blocks")
+    hits: JSON
+    suggest: JSON
+    aggregations: JSON    
 }
 
 type CmsBlock @doc(description: "CMS block defines all CMS block information") {
@@ -43,8 +49,11 @@ type CmsBlock @doc(description: "CMS block defines all CMS block information") {
     store_id: Int @doc(description: "Store Id of CMS block")
 }
 
-type CmsHierarchies @doc(description: "CMS hierarchies information") {
+type CmsHierarchies implements ESResponseInterface @doc(description: "CMS hierarchies information") {
     items: [CmsHierarchy] @doc(description: "An array of CMS hierarchies")
+    hits: JSON
+    suggest: JSON
+    aggregations: JSON    
 }
 
 type CmsHierarchy {
