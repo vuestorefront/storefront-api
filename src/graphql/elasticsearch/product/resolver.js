@@ -55,7 +55,7 @@ const resolver = {
 };
 
 async function listProductCategories (_, { search }, context, rootValue) {
-  const categoryIds =  _.category.map(item => item.category_id)
+  const categoryIds = _.category.map(item => item.category_id)
   const catQuery = {
     index: getIndexName(context.req.url),
     type: 'category',
@@ -67,7 +67,7 @@ async function listProductCategories (_, { search }, context, rootValue) {
   })
 }
 
-async function list (filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude) {
+async export function list (filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude) {
   let _req = {
     query: {
       _source_exclude: _sourceExclude,

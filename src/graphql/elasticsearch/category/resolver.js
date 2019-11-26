@@ -2,6 +2,7 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
+import { list as listProducts } from '../product/resolver'
 
 async function list (search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
@@ -53,7 +54,10 @@ const resolver = {
       list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude)
   },
   Category: {
-    children: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude }, context, rootValue) =>
+    products: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
+      return listProducts(Object.assign({}, filter, { category_ids: { in: _.id } }), sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude)
+    },
+    children: (_, { search }, context, rootValue) =>
       _.children_data
   }
 };
