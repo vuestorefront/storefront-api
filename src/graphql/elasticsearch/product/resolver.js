@@ -1,6 +1,7 @@
 import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
+import bodybuilder from 'bodybuilder'
 import esResultsProcessor from './processor'
 import { getIndexName } from '../mapping'
 import { getCurrentPlatformConfig } from '../../../platform/helpers'
@@ -11,12 +12,10 @@ const resolver = {
       list(filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude)
   },
   Products: {
-    items: (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions
+    items: async (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions
   },
   Product: {
-    categories: (_, { search }, context, rootValue) => {
-      return _.category
-    },
+    categories: listProductCategories,
     /* TODO: We can extend our resolvers to meet the Magento2 GraphQL data model easily
     breadcrumbs: (_, { search }, context, rootValue) => {
       return _.category
@@ -54,6 +53,19 @@ const resolver = {
     } // entry point for product extensions
   }
 };
+
+async function listProductCategories (_, { search }, context, rootValue) {
+  const categoryIds =  _.category.map(item => item.category_id)
+  const catQuery = {
+    index: getIndexName(context.req.url),
+    type: 'category',
+    body: bodybuilder().filter('terms', 'id', categoryIds).build()
+  }
+  const response = await client.search(catQuery)
+  return response.hits.hits.map(el => {
+    return el._source
+  })
+}
 
 async function list (filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude) {
   let _req = {
