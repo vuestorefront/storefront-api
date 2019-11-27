@@ -18,7 +18,7 @@ type Products implements ESResponseInterface  {
     # An object that includes the default sort field and all available sort fields
     sort_fields: SortFields 
 
-    # Document returned by this search query wits 
+    # Document returned by this search query hits 
     hits: JSON 
 
     # Search suggest feature

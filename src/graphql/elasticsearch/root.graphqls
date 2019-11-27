@@ -11,7 +11,7 @@ type Query {
 # The classic ElasticSearch result interface
 interface ESResponseInterface  { 
 
-  # Document returned by this search query wits
+  # Document returned by this search query hits
   hits: JSON 
 
   # Search suggest feature
@@ -23,7 +23,7 @@ interface ESResponseInterface  {
 
 type ESResponse implements ESResponseInterface {
 
-  # Document returned by this search query wits 
+  # Document returned by this search query hits 
   hits: JSON 
 
   # Search suggest feature

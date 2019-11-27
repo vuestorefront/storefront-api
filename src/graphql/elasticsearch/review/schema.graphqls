@@ -35,7 +35,7 @@ type Reviews implements ESResponseInterface {
     # An array of reviews that match the specified search criteria 
     items: [Review] 
 
-    # Document returned by this search query wits 
+    # Document returned by this search query hits 
     hits: JSON 
 
     # Search suggest feature
