@@ -16,7 +16,7 @@ Already included in `vue-storefront-api` Docker image (required locally, if you 
 
 Storefront GraphQL comes with the default product schema - compatible with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project and can be a drop-in replacement of `vue-storefront-api`.
 
-## Elastic 5.6
+### Elastic 5.6
 
 To run the `storefront-graphql-api` in the `development` mode with ElasticSearch 5.6 please run:
 
@@ -26,7 +26,7 @@ Then, to restore the demo data set please run:
 
 `docker exec -it sga_app_1 yarn restore`
 
-## Elastic 7.2
+### Elastic 7.2
 
 To run the `storefront-graphql-api` in the `development` mode with ElasticSearch 7.2 please do:
 
