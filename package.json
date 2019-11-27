@@ -13,6 +13,7 @@
     "build:copy:schema": "cpx 'src/**/*.schema*.json' dist",
     "docs:dev": "vuepress dev docs --port 8090",
     "docs:build": "vuepress build docs",
+    "docs:deploy": "yarn docs:build && now --prod docs",
     "start": "pm2 start ecosystem.json $PM2_ARGS",
     "db": "node scripts/db.js",
     "db7": "node scripts/db7.js",
