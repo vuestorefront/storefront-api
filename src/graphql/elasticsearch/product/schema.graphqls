@@ -18,6 +18,13 @@ extend type Query {
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
         _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
         ): Products
+    product ( 
+        sku: String @doc(description: "Get Single product by it's SKU")
+        id: ID @doc(description: "Get Single product by it's ID")
+        url_path: String @doc(description: "Get Single product by it's url_path")
+        _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
+        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")        
+        ): Product
 }
 
 type SearchResultPageInfo @doc(description: "SearchResultPageInfo provides navigation for the query response") {

@@ -48,10 +48,24 @@ async function list (search, filter, currentPage, pageSize = 200, sort, context,
   return response;
 }
 
+export async function listSingleCategory (id, url_path, context, rootValue, _sourceInclude, _sourceExclude) {
+  const filter = {}
+  if (id) filter['id'] = { eq: id }
+  if (url_path) filter['url_path'] = { eq: url_path }
+  const categoryList = await list('', filter, 0, 1, null, context, rootValue, _sourceInclude, _sourceExclude)
+  if (categoryList && categoryList.items.length > 0) {
+    return categoryList.items[0]
+  } else {
+    return null
+  }
+}
+
 const resolver = {
   Query: {
     categories: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude }, context, rootValue) =>
-      list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude)
+      list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude),
+    category: (_, { id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
+      listSingleCategory(id, url_path, context, rootValue, _sourceInclude, _sourceExclude)                  
   },
   Category: {
     products: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {

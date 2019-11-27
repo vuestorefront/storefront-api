@@ -9,6 +9,12 @@ extend type Query {
     _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
     _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
     ): Categories
+    category ( 
+        id: ID @doc(description: "Get Single product by it's SKU")
+        url_path: String @doc(description: "Get Single product by it's url_path")
+        _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
+        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")        
+        ): Category    
 }
 
 type Categories implements ESResponseInterface @doc(description: "The Categories object is the top-level object returned in a category search") {

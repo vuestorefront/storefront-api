@@ -10,7 +10,9 @@ import { list as listProductReviews } from '../review/resolver'
 const resolver = {
   Query: {
     products: (_, { search, filter, sort, currentPage, pageSize, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      list(filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude)
+      list(filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude),
+    product: (_, { sku, id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
+      listSingleProduct(sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude)      
   },
   Products: {
     items: async (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions
@@ -71,7 +73,20 @@ async function listProductCategories (_, { search }, context, rootValue) {
   })
 }
 
-async export function list (filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude) {
+export async function listSingleProduct (sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude) {
+  const filter = {}
+  if (sku) filter['sku'] = { eq: sku }
+  if (id) filter['id'] = { eq: id }
+  if (url_path) filter['url_path'] = { eq: url_path }
+  const productList = await list(filter, null, 0, 1, '', context, rootValue, _sourceInclude, _sourceExclude)
+  if (productList && productList.items.length > 0) {
+    return productList.items[0]
+  } else {
+    return null
+  }
+}
+
+export async function list (filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude) {
   let _req = {
     query: {
       _source_exclude: _sourceExclude,
