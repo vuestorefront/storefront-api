@@ -13,7 +13,7 @@ async function list ({ filter, currentPage, pageSize = 200, context, _sourceIncl
     _sourceInclude
   }, type, config)));
 
-  return buildItems(response.body)
+  return buildItems(response)
 }
 
 function buildItems (response) {

@@ -23,11 +23,7 @@ async function listAttributes ({ attributes, filter, context, rootValue, _source
     item._score = hit._score
     response.items.push(item)
   });
-
-  if (parseInt(config.elasticsearch.apiVersion) < 6) {
-    esQuery.type = config.elasticsearch.indexTypes[3]
-  }
-  return response.body;
+  return response;
 }
 
 export async function listSingleAttribute ({ attribute_id, attribute_code, context, rootValue, _sourceInclude, _sourceExclude }) {
