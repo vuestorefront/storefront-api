@@ -12,7 +12,7 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
     body: query,
     _sourceInclude,
     _sourceExclude
-  }, "review", config)));
+  }, 'review', config)));
 
   // Process hits
   response.items = []
