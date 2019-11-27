@@ -18,7 +18,7 @@ const resolver = {
   Product: {
     reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
       return listProductReviews(search, Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude)
-    },    
+    },
     categories: listProductCategories,
     /* TODO: We can extend our resolvers to meet the Magento2 GraphQL data model easily
     breadcrumbs: (_, { search }, context, rootValue) => {
