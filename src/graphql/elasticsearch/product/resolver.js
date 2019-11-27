@@ -12,7 +12,7 @@ const resolver = {
     products: (_, { search, filter, sort, currentPage, pageSize, _sourceInclude, _sourceExclude }, context, rootValue) =>
       list(filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude),
     product: (_, { sku, id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      listSingleProduct(sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude)      
+      listSingleProduct(sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude)
   },
   Products: {
     items: async (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions

@@ -65,7 +65,7 @@ const resolver = {
     categories: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude }, context, rootValue) =>
       list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude),
     category: (_, { id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      listSingleCategory(id, url_path, context, rootValue, _sourceInclude, _sourceExclude)                  
+      listSingleCategory(id, url_path, context, rootValue, _sourceInclude, _sourceExclude)
   },
   Category: {
     products: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
