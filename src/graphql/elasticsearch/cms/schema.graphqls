@@ -1,7 +1,7 @@
 extend type Query {
     cmsPages (
         filter: CmsInput @doc(description: "An array of options for search criteria")
-    ): CmsPages @doc(description: "The CMS page query returns information about a CMS page")
+    ): CmsPages @doc(description: "The CMS page query returns information about a CMS pages")
     cmsBlocks (
         filter: CmsInput @doc(description: "An array of options for search criteria")
     ): CmsBlocks @doc(description: "The CMS block query returns information about CMS blocks")

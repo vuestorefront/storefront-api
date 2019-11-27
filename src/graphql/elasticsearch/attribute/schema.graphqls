@@ -4,7 +4,11 @@ extend type Query {
         filter: AttributeInput,
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
         _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
-    ): CustomAttributeMetadata
+    ): CustomAttributeMetadata @doc(description: "List attribute meta data based on search full text query or structure filter")
+    attribute(
+        attribute_code: String @doc(description: "Search the attribute by its code")
+        attribute_id: String @doc(description: "Search the attribute by its id")
+    ): Attribute @doc(description: "List single attribute metadata by attribute_code or attribute_id")
 }
 
 type CustomAttributeMetadata implements ESResponseInterface @doc(description: "CustomAttributeMetadata defines an array of attribute_codes and entity_types") {

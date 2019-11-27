@@ -6,7 +6,7 @@ extend type Query {
     currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
     _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
     _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
-    ): Reviews
+    ): Reviews @doc(description: "List reviews based on search full text query or structure filter")
 }
 
 type Reviews implements ESResponseInterface @doc(description: "Product reviews - collection; revierws related to specific products") {

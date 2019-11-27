@@ -10,20 +10,20 @@ import { list as listProductReviews } from '../review/resolver'
 const resolver = {
   Query: {
     products: (_, { search, filter, sort, currentPage, pageSize, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      list(filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude),
+      list({ filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude }),
     product: (_, { sku, id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      listSingleProduct(sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude)
+      listSingleProduct({ sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude })
   },
   Products: {
     items: async (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions
   },
   BundleOptionLink: {
     product: (_, params, context, rootValue) =>
-      listSingleProduct(_.sku, null, null, context, rootValue, null, null)
+      listSingleProduct({ sku: _.sku, context, rootValue })
   },
   Product: {
     reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
-      return listProductReviews(search, Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude)
+      return listProductReviews({ search, filter: Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude })
     },
     categories: listProductCategories,
     /* TODO: We can extend our resolvers to meet the Magento2 GraphQL data model easily
@@ -77,12 +77,12 @@ async function listProductCategories (_, { search }, context, rootValue) {
   })
 }
 
-export async function listSingleProduct (sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude) {
+export async function listSingleProduct ({ sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude }) {
   const filter = {}
   if (sku) filter['sku'] = { eq: sku }
   if (id) filter['id'] = { eq: id }
   if (url_path) filter['url_path'] = { eq: url_path }
-  const productList = await list(filter, null, 0, 1, '', context, rootValue, _sourceInclude, _sourceExclude)
+  const productList = await list({ filter, pageSize: 1, context, rootValue, _sourceInclude, _sourceExclude })
   if (productList && productList.items.length > 0) {
     return productList.items[0]
   } else {
@@ -90,7 +90,7 @@ export async function listSingleProduct (sku, id, url_path, context, rootValue, 
   }
 }
 
-export async function list (filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude) {
+export async function list ({ filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude }) {
   let _req = {
     query: {
       _source_exclude: _sourceExclude,

@@ -1,5 +1,5 @@
 extend type Query {
-    taxrule(filter: TaxRuleInput): TaxRules
+    taxrule(filter: TaxRuleInput): TaxRules @doc(description: "List tax rules by filter")
 }
 
 type TaxRules implements ESResponseInterface @doc(description: "Tax rules collection") {

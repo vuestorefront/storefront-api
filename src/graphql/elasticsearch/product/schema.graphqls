@@ -19,14 +19,14 @@ extend type Query {
         sort: ProductSortInput @doc(description: "Specifies which attribute to sort on, and whether to return the results in ascending or descending order."),
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
         _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
-        ): Products
+        ): Products @doc(description: "List products based on search full text query or structure filter")
     product ( 
         sku: String @doc(description: "Get Single product by it's SKU")
         id: ID @doc(description: "Get Single product by it's ID")
         url_path: String @doc(description: "Get Single product by it's url_path")
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
         _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")        
-        ): Product
+        ): Product @doc(description: "List single product by sku, id or url_path")
 }
 
 type SearchResultPageInfo @doc(description: "SearchResultPageInfo provides navigation for the query response") {

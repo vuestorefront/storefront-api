@@ -2,7 +2,7 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 
-async function list (filter, currentPage, pageSize = 200, _sourceInclude, type) {
+async function list ({ filter, currentPage, pageSize = 200, _sourceInclude, type }) {
   let query = buildQuery({ filter, currentPage, pageSize, _sourceInclude, type });
 
   const response = await client.search({
@@ -28,11 +28,11 @@ function buildItems (response) {
 const resolver = {
   Query: {
     cmsPages: (_, { filter, currentPage, pageSize, _sourceInclude, type = 'cms_page' }) =>
-      list(filter, currentPage, pageSize, _sourceInclude, type),
+      list({ filter, currentPage, pageSize, _sourceInclude, type }),
     cmsBlocks: (_, { filter, currentPage, pageSize, _sourceInclude, type = 'cms_block' }) =>
-      list(filter, currentPage, pageSize, _sourceInclude, type),
+      list({ filter, currentPage, pageSize, _sourceInclude, type }),
     cmsHierarchies: (_, { filter, currentPage, pageSize, _sourceInclude, type = 'cms_hierarchy' }) =>
-      list(filter, currentPage, pageSize, _sourceInclude, type)
+      list({ filter, currentPage, pageSize, _sourceInclude, type })
   }
 };
 

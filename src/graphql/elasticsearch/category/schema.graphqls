@@ -8,13 +8,13 @@ extend type Query {
     sort: CategorySortInput @doc(description: "Specifies which attribute to sort on, and whether to return the results in ascending or descending order."),
     _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
     _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
-    ): Categories
+    ): Categories @doc(description: "List categories based on search full text query or structure filter")
     category ( 
         id: ID @doc(description: "Get Single product by it's SKU")
         url_path: String @doc(description: "Get Single product by it's url_path")
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
         _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")        
-        ): Category    
+        ): Category @doc(description: "Find single category by id ir url_path")
 }
 
 type Categories implements ESResponseInterface @doc(description: "The Categories object is the top-level object returned in a category search") {

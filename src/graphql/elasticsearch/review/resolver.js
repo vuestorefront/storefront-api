@@ -3,7 +3,7 @@ import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
 
-export async function list (search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude) {
+export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
   const response = await client.search({
@@ -50,7 +50,7 @@ export async function list (search, filter, currentPage, pageSize = 200, sort, c
 const resolver = {
   Query: {
     reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude)
+      list({ search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude })
   }
 };
 
