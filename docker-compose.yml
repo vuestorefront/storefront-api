@@ -32,14 +32,14 @@ services:
     ports:
       - '6379:6379'
   app:
-    # image: divante/vue-storefront-api:latest
+    # image: divante/storefront-graphql-api:latest
     build:
       context: .
-      dockerfile: docker/vue-storefront-api/Dockerfile
+      dockerfile: docker/storefront-graphql-api/Dockerfile
     depends_on:
       - es1
       - redis
-    env_file: docker/vue-storefront-api/default.env
+    env_file: docker/storefront-graphql-api/default.env
     environment:
       VS_ENV: dev
     volumes:
@@ -50,6 +50,7 @@ services:
       - './babel.config.js:/var/www/babel.config.js'
       - './tsconfig.json:/var/www/tsconfig.json'
       - './nodemon.json:/var/www/nodemon.json'
+      - './graphql-schema-linter.config.js:/var/www/graphql-schema-linter.config.js'
       - './scripts:/var/www/scripts'
       - './src:/var/www/src'
       - './var:/var/www/var'

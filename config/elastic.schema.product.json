@@ -12,7 +12,7 @@
        "color": {"type": "integer"},
        "color_options": {"type": "integer"},
        "pattern": {"type": "text"},
-       "id": {"type": "long"},
+       "id": {"type": "integer"},
        "status": {"type": "integer"},
        "weight": {"type": "integer"},
        "visibility": {"type": "integer"},
@@ -53,7 +53,7 @@
         },
        "configurable_options": {
            "properties": {
-               "attribute_id": {"type": "long"},
+               "attribute_id": {"type": "integer"},
                "default_label": {"type": "text"},
                "label": {"type": "text"},
                "frontend_label": {"type": "text"},   
@@ -69,7 +69,7 @@
                 }
             }
         },
-       "category_ids": {"type": "long"},
+       "category_ids": {"type": "integer"},
        "eco_collection": {"type": "integer"},
        "eco_collection_options": {"type": "integer"},
        "erin_recommends": {"type": "integer"},

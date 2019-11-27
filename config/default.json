@@ -239,12 +239,12 @@
       "active": false,
       "type": "file",
       "file": {
-        "path": "/tmp/vue-storefront-api"
+        "path": "/tmp/storefront-graphql-api"
       },
       "google-cloud-storage": {
         "libraryOptions": {},
         "bucket": "",
-        "prefix": "vue-storefront-api/image-cache"
+        "prefix": "storefront-graphql-api/image-cache"
       }
     },
     "action": {

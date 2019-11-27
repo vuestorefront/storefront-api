@@ -1,5 +1,5 @@
 {
-  "name": "vue-storefront-api",
+  "name": "storefront-graphql-api",
   "version": "1.11.0-dev",
   "private": true,
   "description": "Storefront GraphQL API",
@@ -54,6 +54,7 @@
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "license": "MIT",
   "dependencies": {
+    "@2fd/graphdoc": "^2.4.0",
     "@elastic/elasticsearch": "^7.3.0",
     "@google-cloud/storage": "^3.0.3",
     "@types/cors": "^2.8.6",
@@ -126,9 +127,9 @@
     "typescript": "3.3.*"
   },
   "bugs": {
-    "url": "https://github.com/DivanteLtd/vue-storefront-api/issues"
+    "url": "https://github.com/DivanteLtd/storefront-graphql-api/issues"
   },
-  "homepage": "https://github.com/DivanteLtd/vue-storefront-api/",
+  "homepage": "https://github.com/DivanteLtd/storefront-graphql-api/",
   "keywords": [
     "storefront",
     "rest",

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vue-storefront-api
+  name: storefront-graphql-api
 spec:
   selector:
     matchLabels:
-      app: vue-storefront-api
+      app: storefront-graphql-api
   template:
     metadata:
       labels:
-        app: vue-storefront-api
+        app: storefront-graphql-api
     spec:
       containers:
-      - name: vue-storefront-api
-        image: divante/vue-storefront-api:latest
+      - name: storefront-graphql-api
+        image: divante/storefront-graphql-api:latest
         envFrom:
         - configMapRef:
-            name: vue-storefront-api-config
+            name: storefront-graphql-api-config
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: code
         hostPath:
-          path: "/root/vue-storefront-api"
+          path: "/root/storefront-graphql-api"
       - name: dist
         emptyDir:
           medium: Memory

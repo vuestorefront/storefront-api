@@ -13,6 +13,6 @@ RUN apk add --no-cache --virtual .build-deps ca-certificates wget && \
     yarn install --no-cache && \
     apk del .build-deps
 
-COPY docker/vue-storefront-api/vue-storefront-api.sh /usr/local/bin/
+COPY docker/storefront-graphql-api/storefront-graphql-api.sh /usr/local/bin/
 
-CMD ["vue-storefront-api.sh"]
+CMD ["storefront-graphql-api.sh"]
