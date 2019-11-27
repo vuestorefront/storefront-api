@@ -11,6 +11,8 @@
     "build:code": "tsc --build",
     "build:copy:graphql": "cpx src/**/*.graphqls dist",
     "build:copy:schema": "cpx 'src/**/*.schema*.json' dist",
+    "docs:dev": "vuepress dev docs --port 8090",
+    "docs:build": "vuepress build docs",
     "start": "pm2 start ecosystem.json $PM2_ARGS",
     "db": "node scripts/db.js",
     "db7": "node scripts/db7.js",
@@ -99,6 +101,7 @@
     "sharp": "^0.22.1",
     "soap": "^0.25.0",
     "syswide-cas": "latest",
+    "vuepress": "^1.2.0",
     "winston": "^2.4.2"
   },
   "devDependencies": {
