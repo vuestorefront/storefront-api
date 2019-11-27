@@ -1,7 +1,8 @@
 Storefront GraphQL API
-===================================
+======================
 
-This is a general purpose GraphQL and REST API gateway for eCommerce projects. 
+Storefront GraphQL API. Easy to use. Extendable. Blazing fast. ElasticSearch included.
+Works great with Magento1, Magento2, Spree, OpenCart, Pimcore out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
 
 ## Requirements
 
