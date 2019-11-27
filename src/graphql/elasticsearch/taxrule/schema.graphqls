@@ -12,7 +12,7 @@ type TaxRules implements ESResponseInterface {
     # An array of tax rules that match the specified search criteria
     items: [TaxRule] 
 
-    # Document returned by this search query wits 
+    # Document returned by this search query hits 
     hits: JSON 
 
     # Search suggest feature
