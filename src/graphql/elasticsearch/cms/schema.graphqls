@@ -47,7 +47,7 @@ type CmsPages implements ESResponseInterface  {
     # An array of CMS pages
     items: [CmsPage] 
 
-    # Document returned by this search query wits 
+    # Document returned by this search query hits 
     hits: JSON 
 
     # Search suggest feature
@@ -94,7 +94,7 @@ type CmsBlocks implements ESResponseInterface  {
     # An array of CMS blocks
     items: [CmsBlock] 
     
-    # Document returned by this search query wits 
+    # Document returned by this search query hits 
     hits: JSON 
 
     # Search suggest feature
@@ -132,7 +132,7 @@ type CmsHierarchies implements ESResponseInterface  {
     # An array of CMS hierarchies
     items: [CmsHierarchy]
 
-    # Document returned by this search query wits 
+    # Document returned by this search query hits 
     hits: JSON 
 
     # Search suggest feature

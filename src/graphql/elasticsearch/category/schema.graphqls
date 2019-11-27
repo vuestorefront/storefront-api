@@ -56,7 +56,7 @@ type Categories implements ESResponseInterface {
     # The number of categories returned
     total_count: Int 
 
-    # Document returned by this search query wits
+    # Document returned by this search query hits
     hits: JSON 
 
     # Search suggest feature
