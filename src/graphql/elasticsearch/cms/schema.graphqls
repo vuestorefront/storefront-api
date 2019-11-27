@@ -1,72 +1,174 @@
 extend type Query {
+    
+    # The CMS page query returns information about a CMS pages
     cmsPages (
-        filter: CmsInput @doc(description: "An array of options for search criteria")
-    ): CmsPages @doc(description: "The CMS page query returns information about a CMS pages")
+
+        # An array of options for search criteria
+        filter: CmsInput 
+
+    ): CmsPages 
+    
+    # The CMS block query returns information about CMS blocks
     cmsBlocks (
-        filter: CmsInput @doc(description: "An array of options for search criteria")
-    ): CmsBlocks @doc(description: "The CMS block query returns information about CMS blocks")
+
+        # An array of options for search criteria
+        filter: CmsInput 
+
+    ): CmsBlocks 
+    
+    # The CMS block query returns information about CMS blocks
     cmsHierarchies (
-        filter: CmsInput @doc(description: "An array of options for search criteria")
-    ): CmsHierarchies @doc(description: "The CMS block query returns information about CMS blocks")
+
+        # An array of options for search criteria
+        filter: CmsInput 
+
+    ): CmsHierarchies 
 }
 
-input CmsInput @doc(description: "ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
-    id: FilterTypeInput @doc(description: "Id of the CMS entity")
-    identifier: FilterTypeInput @doc(description: "Identifiers of the CMS entity")
-    store_id: FilterTypeInput @doc(description: "Store Id of the CMS entity")
-    url_path: FilterTypeInput @doc(description: "The url path assigned to the cms_page")
+# CmsInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input CmsInput {
+
+    # Id of the CMS entity
+    id: FilterTypeInput 
+
+    # Identifiers of the CMS entity
+    identifier: FilterTypeInput 
+
+    # Store Id of the CMS entity
+    store_id: FilterTypeInput 
+
+    # The url path assigned to the cms_page
+    url_path: FilterTypeInput 
 }
 
-type CmsPages implements ESResponseInterface @doc(description: "CMS pages information") {
-    items: [CmsPage] @doc(description: "An array of CMS pages")
-    hits: JSON @doc(description: "Document returned by this search query wits") 
-    suggest: JSON @doc(description: "Search suggest feature")
-    aggregations: JSON @doc(description: "Aggregations returned when filter have been applied")
+# CMS pages information
+type CmsPages implements ESResponseInterface  {
+    
+    # An array of CMS pages
+    items: [CmsPage] 
+
+    # Document returned by this search query wits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+
+    # Aggregations returned when filter have been applied
+    aggregations: JSON 
 }
 
-type CmsPage @doc(description: "CMS page defines all CMS page information") {
-    page_id: Int @doc(description: "Id of CMS page")
-    title: String @doc(description: "CMS page title")
-    identifier: String @doc(description: "URL key of CMS page")
-    content: String @doc(description: "CMS page content")
-    content_heading: String @doc(description: "CMS page content heading")
-    meta_description: String @doc(description: "CMS page meta description")
-    meta_keywords: String @doc(description: "CMS page meta keywords")
-    store_id: Int @doc(description: "Store Id of CMS page")
-    url_path: String @doc(description: "CMS page meta keywords")
+# CMS page defines all CMS page information
+type CmsPage  {
+
+    # Id of CMS page
+    page_id: ID
+
+    # CMS page title
+    title: String 
+
+    # URL key of CMS page
+    identifier: String 
+
+    # CMS page content
+    content: String 
+
+    # CMS page content heading
+    content_heading: String 
+
+    # CMS page meta description
+    meta_description: String 
+
+    # CMS page meta keywords
+    meta_keywords: String
+
+    # Store Id of CMS page
+    store_id: Int 
+    
+    # CMS page meta keywords
+    url_path: String 
 }
 
-type CmsBlocks implements ESResponseInterface @doc(description: "CMS blocks information") {
-    items: [CmsBlock] @doc(description: "An array of CMS blocks")
-    hits: JSON
-    suggest: JSON
-    aggregations: JSON    
+# CMS blocks information
+type CmsBlocks implements ESResponseInterface  {
+    
+    # An array of CMS blocks
+    items: [CmsBlock] 
+    
+    # Document returned by this search query wits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+
+    # Aggregations returned when filter have been applied
+    aggregations: JSON 
 }
 
-type CmsBlock @doc(description: "CMS block defines all CMS block information") {
-    identifier: String @doc(description: "CMS block identifier")
-    id: Int @doc(description: "CMS block identifier")
-    title: String @doc(description: "CMS block title")
-    content: String @doc(description: "CMS block content")
-    creation_time: String @doc(description: "Timestamp indicating when the CMS block was created")
-    store_id: Int @doc(description: "Store Id of CMS block")
+# CMS block defines all CMS block information
+type CmsBlock  {
+    
+    # CMS block identifier
+    identifier: String 
+
+    # CMS block identifier
+    id: ID 
+
+    # CMS block title
+    title: String 
+
+    # CMS block content
+    content: String 
+
+    # Timestamp indicating when the CMS block was created
+    creation_time: String 
+
+    # Store Id of CMS block
+    store_id: Int 
 }
 
-type CmsHierarchies implements ESResponseInterface @doc(description: "CMS hierarchies information") {
-    items: [CmsHierarchy] @doc(description: "An array of CMS hierarchies")
-    hits: JSON
-    suggest: JSON
-    aggregations: JSON    
+# CMS hierarchies information
+type CmsHierarchies implements ESResponseInterface  {
+
+    # An array of CMS hierarchies
+    items: [CmsHierarchy]
+
+    # Document returned by this search query wits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+
+    # Aggregations returned when filter have been applied
+    aggregations: JSON  
 }
 
+# The relation between CmsPages is set by CmsHierarchies
 type CmsHierarchy {
-    node_id: Int @doc(description: "Node Id of the CMS hierarchy")
-    parent_node_id: Int @doc(description: "Parent node Id of the CMS hierarchy node")
-    page_id: Int @doc(description: "Id of the CMS page")
-    identifier: String @doc(description: "Identifier of the CMS hierarchy node")
-    label: String @doc(description: "Label of CMS hierarchy node")
-    level: Int @doc(description: "Level of CMS hierarchy node")
-    request_url: String @doc(description: "Request URL of CMS hierarchy node")
-    xpath: String @doc(description: "XPATH of CMS hierarchy node")
-    store_id: Int @doc(description: "Store Id of CMS hierarchy node")
+
+    # Node Id of the CMS hierarchy
+    node_id: Int 
+
+    # Parent node Id of the CMS hierarchy node
+    parent_node_id: Int 
+
+    # Id of the CMS page
+    page_id: Int 
+
+    # Identifier of the CMS hierarchy node
+    identifier: String 
+
+    # Label of CMS hierarchy node
+    label: String 
+
+    # Level of CMS hierarchy node
+    level: Int 
+
+    # Request URL of CMS hierarchy node
+    request_url: String 
+
+    # XPATH of CMS hierarchy node
+    xpath: String 
+    
+    # Store Id of CMS hierarchy node
+    store_id: Int 
 }

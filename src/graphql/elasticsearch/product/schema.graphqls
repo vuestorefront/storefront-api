@@ -1,346 +1,864 @@
 scalar JSON
 
-type Products implements ESResponseInterface @doc(description: "The Products object is the top-level object returned in a product search") {
-    items: [Product] @doc(description: "An array of products that match the specified search criteria")
-    page_info: SearchResultPageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
-    total_count: Int @doc(description: "The number of products returned")
-    aggregations: JSON @doc(description: "Layered navigation filters array as aggregations")
-    sort_fields: SortFields @doc(description: "An object that includes the default sort field and all available sort fields")
-    hits: JSON @doc(description: "Document returned by this search query wits") 
-    suggest: JSON @doc(description: "Search suggest feature")
+# The Products object is the top-level object returned in a product search
+type Products implements ESResponseInterface  {
+    
+    # An array of products that match the specified search criteria
+    items: [Product] 
+
+    # An object that includes the page_info and currentPage values specified in the query
+    page_info: SearchResultPageInfo 
+
+    # The number of products returned
+    total_count: Int 
+
+    # Layered navigation filters array as aggregations
+    aggregations: JSON 
+
+    # An object that includes the default sort field and all available sort fields
+    sort_fields: SortFields 
+
+    # Document returned by this search query wits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
 }
 
 extend type Query {
+    # List products based on search full text query or structure filter
     products (
-        search: String @doc(description: "Performs a full-text search using the specified key words."),
-        filter: ProductFilterInput @doc(description: "Identifies which product attributes to search for and return."),
-        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
-        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
-        sort: ProductSortInput @doc(description: "Specifies which attribute to sort on, and whether to return the results in ascending or descending order."),
-        _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
-        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
-        ): Products @doc(description: "List products based on search full text query or structure filter")
+
+        # Performs a full-text search using the specified key words.,
+        search: String 
+        
+        # Identifies which product attributes to search for and return.,
+        filter: ProductFilterInput 
+
+        # Specifies the maximum number of results to return at once. This attribute is optional.,
+        pageSize: Int = 20
+
+        # Specifies which page of results to return. The default value is 1.,
+        currentPage: Int = 1 
+
+        # Specifies which attribute to sort on, and whether to return the results in ascending or descending order.,
+        sort: ProductSortInput 
+
+        # Specifies which attribute we include in result.
+        _sourceInclude: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExclude: [String] 
+        ): Products
+    
+    # List single product by sku, id or url_path
     product ( 
-        sku: String @doc(description: "Get Single product by it's SKU")
-        id: ID @doc(description: "Get Single product by it's ID")
-        url_path: String @doc(description: "Get Single product by it's url_path")
-        _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
-        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")        
-        ): Product @doc(description: "List single product by sku, id or url_path")
+        
+        # Get Single product by it's SKU
+        sku: String 
+
+        # Get Single product by it's ID
+        id: ID 
+
+        # Get Single product by it's url_path
+        url_path: String 
+
+        # Specifies which attribute we include in result.
+        _sourceInclude: [String] 
+
+        # Specifies which attribute we exclude in result.        
+        _sourceExclude: [String] 
+        ): Product 
 }
 
-type SearchResultPageInfo @doc(description: "SearchResultPageInfo provides navigation for the query response") {
-    page_size: Int @doc(description: "Specifies the maximum number of items to return")
-    current_page: Int @doc(description: "Specifies which page of results to return")
+# SearchResultPageInfo provides navigation for the query response 
+type SearchResultPageInfo {
+    
+    # Specifies the maximum number of items to return
+    page_size: Int 
+
+     # Specifies which page of results to return
+    current_page: Int
 }
 
-input FilterTypeInput @doc(description: "FilterTypeInput specifies which action will be performed in a query ") {
-    eq: JSON @doc(description: "Equals")
-    finset: [String] @doc(description: "Find in set. The value can contain a set of comma-separated values")
-    from: String @doc(description: "From. Must be used with 'to'")
-    gt: String @doc(description: "Greater than")
-    gte: String @doc(description: "Greater than or equal to")
-    gteq: String @doc(description: "Greater than or equal to")
-    in: [JSON] @doc(description: "In. The value can contain a set of comma-separated values")
-    like: String @doc(description: "Like. The specified value can contain % (percent signs) to allow matching of 0 or more characters")
-    lt: String @doc(description: "Less than")
-    lte: String @doc(description: "Less than or equal to")
-    lteq: String @doc(description: "Less than or equal to")
-    moreq: String @doc(description: "More than or equal to")
-    neq: JSON @doc(description: "Not equal to")
-    notnull: String @doc(description: "Not null")
-    null: String @doc(description: "Is null")
-    to: String@doc(description: "To. Must be used with 'from'")
-    nin: [String] @doc(description: "Not in. The value can contain a set of comma-separated values")
-    scope: [String] @doc(description: "describe the filter scope (default | catalog)")
+# FilterTypeInput specifies which action will be performed in a query
+input FilterTypeInput {
+
+    # Equals
+    eq: JSON 
+
+    # Find in set. The value can contain a set of comma-separated values
+    finset: [String] 
+
+    # From. Must be used with 'to'
+    from: String 
+
+    # Greater than
+    gt: String 
+
+    # Greater than or equal to
+    gte: String 
+
+    # Greater than or equal to
+    gteq: String 
+
+    # In. The value can contain a set of comma-separated values
+    in: [JSON] 
+
+     # Like. The specified value can contain % (percent signs) to allow matching of 0 or more characters
+    like: String
+
+    # Less than
+    lt: String 
+
+    # Less than or equal to
+    lte: String 
+
+    # Less than or equal to
+    lteq: String 
+
+    # More than or equal to
+    moreq: String 
+
+    # Not equal to
+    neq: JSON 
+
+    # Not null
+    notnull: String 
+
+    # Is null
+    null: String 
+
+    # To. Must be used with 'from'
+    to: String
+
+    # Not in. The value can contain a set of comma-separated values
+    nin: [String] 
+
+    # describe the filter scope (default | catalog)
+    scope: [String] 
 }
 
+# Indicates the sort direction for the product listings
 input ProductSortInput {
-    name: SortEnum @doc(description: "The product name. Customers use this name to identify the product.")
-    sku: SortEnum @doc(description: "A number or code assigned to a product to identify the product, options, price, and manufacturer")
-    description: SortEnum @doc(description: "Detailed information about the product. The value can include simple HTML tags.")
-    short_description: SortEnum @doc(description: "A short description of the product. Its use depends on the theme.")
-    price: SortEnum @doc(description: "The price of the item")
-    final_price: SortEnum @doc(description: "The price of the item")
-    special_price: SortEnum @doc(description: "The discounted price of the product")
-    special_from_date: SortEnum @doc(description: "The beginning date that a product has a special price")
-    special_to_date: SortEnum @doc(description: "The end date that a product has a special price")
-    weight: SortEnum @doc(description: "The weight of the item, in units defined by the store")
-    manufacturer: SortEnum @doc(description: "A number representing the product's manufacturer")
-    meta_title: SortEnum @doc(description: "A string that is displayed in the title bar and tab of the browser and in search results lists")
-    meta_keyword: SortEnum @doc(description: "A comma-separated list of keywords that are visible only to search engines")
-    meta_description: SortEnum @doc(description: "A brief overview of the product for search results listings, maximum 255 characters")
-    image: SortEnum @doc(description: "The relative path to the main image on the product page")
-    small_image: SortEnum @doc(description: "The relative path to the small image, which is used on catalog pages")
-    thumbnail: SortEnum @doc(description: "The relative path to the product's thumbnail image")
-    tier_price: SortEnum @doc(description: "The price when tier pricing is in effect and the items purchased threshold has been reached")
-    news_from_date: SortEnum @doc(description: "The beginning date for new product listings, and determines if the product is featured as a new product")
-    news_to_date: SortEnum @doc(description: "The end date for new product listings")
-    custom_layout_update: SortEnum @doc(description: "XML code that is applied as a layout update to the product page")
-    options_container: SortEnum @doc(description: "If the product has multiple options, determines where they appear on the product page")
-    required_options: SortEnum @doc(description: "Indicates whether the product has required options")
-    has_options: SortEnum @doc(description: "Indicates whether additional attributes have been created for the product")
-    image_label: SortEnum @doc(description: "The label assigned to a product image")
-    small_image_label: SortEnum @doc(description: "The label assigned to a product's small image")
-    thumbnail_label: SortEnum @doc(description: "The label assigned to a product's thumbnail image")
-    created_at: SortEnum @doc(description: "Timestamp indicating when the product was created")
-    updated_at: SortEnum @doc(description: "Timestamp indicating when the product was updated")
-    country_of_manufacture: SortEnum @doc(description: "The product's country of origin")
-    custom_layout: SortEnum @doc(description: "The name of a custom layout")
-    gift_message_available: SortEnum @doc(description: "Indicates whether a gift message is available")
+
+    # The product name. Customers use this name to identify the product.
+    name: SortEnum 
+
+    # A number or code assigned to a product to identify the product, options, price, and manufacturer
+    sku: SortEnum 
+
+    # Detailed information about the product. The value can include simple HTML tags.
+    description: SortEnum 
+
+    # A short description of the product. Its use depends on the theme.
+    short_description: SortEnum 
+
+    # The price of the item
+    price: SortEnum 
+    
+    # The price of the item
+    final_price: SortEnum 
+
+    # The discounted price of the product
+    special_price: SortEnum 
+
+    # The beginning date that a product has a special price
+    special_from_date: SortEnum 
+
+    # The end date that a product has a special price
+    special_to_date: SortEnum 
+
+    # The weight of the item, in units defined by the store
+    weight: SortEnum 
+
+    # A number representing the product's manufacturer
+    manufacturer: SortEnum 
+
+    # A string that is displayed in the title bar and tab of the browser and in search results lists
+    meta_title: SortEnum 
+
+    # A comma-separated list of keywords that are visible only to search engines
+    meta_keyword: SortEnum 
+
+    # A brief overview of the product for search results listings, maximum 255 characters
+    meta_description: SortEnum 
+
+    # The relative path to the main image on the product page
+    image: SortEnum 
+
+    # The relative path to the small image, which is used on catalog pages
+    small_image: SortEnum 
+
+    # The relative path to the product's thumbnail image
+    thumbnail: SortEnum 
+
+    # The price when tier pricing is in effect and the items purchased threshold has been reached
+    tier_price: SortEnum 
+
+    # The beginning date for new product listings, and determines if the product is featured as a new product
+    news_from_date: SortEnum 
+
+    # The end date for new product listings
+    news_to_date: SortEnum 
+
+    # XML code that is applied as a layout update to the product page
+    custom_layout_update: SortEnum 
+
+    # If the product has multiple options, determines where they appear on the product page
+    options_container: SortEnum 
+
+    # Indicates whether the product has required options
+    required_options: SortEnum
+
+    # Indicates whether additional attributes have been created for the product
+    has_options: SortEnum 
+
+    # The label assigned to a product image
+    image_label: SortEnum 
+
+    # The label assigned to a product's small image
+    small_image_label: SortEnum 
+
+    # The label assigned to a product's thumbnail image
+    thumbnail_label: SortEnum 
+
+    # Timestamp indicating when the product was created
+    created_at: SortEnum 
+
+    # Timestamp indicating when the product was updated
+    updated_at: SortEnum 
+
+    # The product's country of origin
+    country_of_manufacture: SortEnum 
+
+    # The name of a custom layout
+    custom_layout: SortEnum 
+
+    # Indicates whether a gift message is available
+    gift_message_available: SortEnum 
 }
 
-type Product @doc(description: "ProductFieldsInput defines the product fields to be used in the search.") {
-    id: Int @doc(description: "The product id")
-    type_id: String @doc(description: "The product type - simple, configurable, virtual, downloadable, grouped")    
-    visibility: Int @doc(description: "The product visibility. Customers use this visibility to identify the product.")
-    status: Int  @doc(description: "The product status. Customers use this status to identify the product.")
-    name: String @doc(description: "The product name. Customers use this name to identify the product.")
-    sku: String @doc(description: "A number or code assigned to a product to identify the product, options, price, and manufacturer")
-    description: String @doc(description: "Detailed information about the product. The value can include simple HTML tags.")
-    short_description: String @doc(description: "A short description of the product. Its use depends on the theme.")   
-    price: Float @doc(description: "The price of an item")
-    price_incl_tax: Float @doc(description: "The price of an item")
-    price_tax: Float @doc(description: "The price of an item")
-    final_price: Float @doc(description: "The final price of an item")
-    final_price_incl_tax: Float @doc(description: "The price of an item")
-    final_price_tax: Float @doc(description: "The price of an item")
-    original_price: Float @doc(description: "The price of an item")
-    original_price_incl_tax: Float @doc(description: "The price of an item")
-    original_price_tax: Float @doc(description: "The price of an item")
-    min_price: Float @doc(description:"The numeric minimal price of the product. Do not include the currency code.")
-    max_price: Float @doc(description:"The numeric maximal price of the product. Do not include the currency code.")
-    special_price: Float @doc(description: "The discounted price of the product")
-    special_price_incl_tax: Float @doc(description: "The discounted price of the product")
-    special_price_tax: Float @doc(description: "The discounted price of the product")
-    special_from_date: String @doc(description: "The beginning date that a product has a special price")
-    special_to_date: String @doc(description: "The end date that a product has a special price")
-    weight: Float @doc(description: "The weight of the item, in units defined by the store")
-    manufacturer: String @doc(description: "A number representing the product's manufacturer")
-    meta_title: String @doc(description: "A string that is displayed in the title bar and tab of the browser and in search results lists")
-    meta_keyword: String @doc(description: "A comma-separated list of keywords that are visible only to search engines")
-    meta_description: String @doc(description: "A brief overview of the product for search results listings, maximum 255 characters")
-    image: String @doc(description: "The relative path to the main image on the product page")
-    small_image: String @doc(description: "The relative path to the small image, which is used on catalog pages")
-    thumbnail: String @doc(description: "The relative path to the product's thumbnail image")
-    tier_price: Float @doc(description: "The price when tier pricing is in effect and the items purchased threshold has been reached")
-    tier_prices: [ProductTierPrice] @doc(description: "Product tier prices")
-    news_from_date: String @doc(description: "The beginning date for new product listings, and determines if the product is featured as a new product")
-    news_to_date: String @doc(description: "The end date for new product listings")
-    required_options: Boolean @doc(description: "Indicates whether the product has required options")
-    has_options: Boolean @doc(description: "Indicates whether additional attributes have been created for the product")
-    image_label: String @doc(description: "The label assigned to a product image")
-    small_image_label: String @doc(description: "The label assigned to a product's small image")
-    thumbnail_label: String @doc(description: "The label assigned to a product's thumbnail image")
-    country_of_manufacture: String @doc(description: "The product's country of origin")
-    gift_message_available: Boolean @doc(description: "Indicates whether a gift message is available")
-    created_at: String @doc(description: "Timestamp indicating when the product was created")
-    updated_at: String @doc(description: "Timestamp indicating when the product was updated")
-    size: String @doc(description: "The product size. Customers use this size to identify the product.")
-    size_options: [String] @doc(description: "The product sizes for all configurable_children variants. Customers use this size to identify the product.")
-    color: String @doc(description: "The product color. Customers use this color to identify the product.")
-    color_options: [String] @doc(description: "The product colors for all configurable_children variants. Customers use this color to identify the product.")
-    category_ids: [String] @doc(description: "Category ID the product belongs to")    
-    categories: [Category] @doc(description: "The product categories. It executes additional query to fetch full category objects")
-    category: [CategoryBinding] @doc(description: "The product categories. This is just a simplified object with no structure")
-    configurable_children: [Product] @doc(description: "Configurable product childrens")
-    stock: StockItem @doc(description: "The product stock. Customers use this stock to identify the product.")
-    is_in_stock: Boolean @doc(description: "Is product in stock")
-    keyword: String @doc(description: "keyword filter input")
-    media_gallery: [MediaGalleryItem] @doc(description: "Media items assigned to this specific product")
-    configurable_options: [ConfigurableOption] @doc(description: "Configurable attributes for this product")
-    custom_options: [CustomOption] @doc(description: "Custom options for this product")
-    bundle_options: [BundleOption] @doc(description: "Bundle options for this product")
-    #links: [ProductLinks] @doc(description: "Bundle options for this product")
+# The Product entity
+type Product  {
+
+    # The product id
+    id: Int 
+
+    # The product type - simple, configurable, virtual, downloadable, grouped    
+    type_id: String 
+
+    # The product visibility. Customers use this visibility to identify the product.
+    visibility: Int 
+
+    # The product status. Customers use this status to identify the product.
+    status: Int  
+
+    # The product name. Customers use this name to identify the product.
+    name: String
+
+    # A number or code assigned to a product to identify the product, options, price, and manufacturer 
+    sku: String 
+     
+     # Detailed information about the product. The value can include simple HTML tags.
+    description: String
+
+    # A short description of the product. Its use depends on the theme.   
+    short_description: String 
+
+    # The price of an item
+    price: Float
+
+    # The price of an item
+    price_incl_tax: Float 
+
+    # The price of an item
+    price_tax: Float 
+
+    # The final price of an item
+    final_price: Float 
+
+    # The price of an item
+    final_price_incl_tax: Float 
+
+    # The price of an item
+    final_price_tax: Float 
+
+    # The price of an item
+    original_price: Float 
+
+    # The price of an item
+    original_price_incl_tax: Float 
+
+    # The price of an item
+    original_price_tax: Float 
+
+    # The numeric minimal price of the product. Do not include the currency code.
+    min_price: Float 
+
+    # The numeric maximal price of the product. Do not include the currency code.
+    max_price: Float 
+
+    # The discounted price of the product
+    special_price: Float 
+
+    # The discounted price of the product
+    special_price_incl_tax: Float 
+
+    # The discounted price of the product
+    special_price_tax: Float 
+
+    # The beginning date that a product has a special price
+    special_from_date: String 
+
+    # The end date that a product has a special price
+    special_to_date: String 
+
+    # The weight of the item, in units defined by the store
+    weight: Float 
+
+    # A number representing the product's manufacturer
+    manufacturer: String
+
+    # A string that is displayed in the title bar and tab of the browser and in search results lists 
+    meta_title: String 
+
+    # A comma-separated list of keywords that are visible only to search engines
+    meta_keyword: String 
+
+    # A brief overview of the product for search results listings, maximum 255 characters
+    meta_description: String 
+
+    # The relative path to the main image on the product page
+    image: String 
+
+    # The relative path to the small image, which is used on catalog pages
+    small_image: String 
+
+     # The relative path to the product's thumbnail image
+    thumbnail: String
+
+    # The price when tier pricing is in effect and the items purchased threshold has been reached
+    tier_price: Float 
+
+    # Product tier prices
+    tier_prices: [ProductTierPrice] 
+
+    # The beginning date for new product listings, and determines if the product is featured as a new product
+    news_from_date: String 
+
+     # The end date for new product listings
+    news_to_date: String
+
+    # Indicates whether the product has required options
+    required_options: Boolean 
+
+    # Indicates whether additional attributes have been created for the product
+    has_options: Boolean
+
+    # The label assigned to a product image 
+    image_label: String 
+
+    # The label assigned to a product's small image
+    small_image_label: String 
+
+    # The label assigned to a product's thumbnail image
+    thumbnail_label: String 
+
+    # The product's country of origin
+    country_of_manufacture: String 
+
+    # Indicates whether a gift message is available
+    gift_message_available: Boolean 
+
+    # Timestamp indicating when the product was created
+    created_at: String 
+
+    # Timestamp indicating when the product was updated
+    updated_at: String 
+
+    # The product size. Customers use this size to identify the product.
+    size: String 
+
+    # The product sizes for all configurable_children variants. Customers use this size to identify the product.
+    size_options: [String] 
+
+     # The product color. Customers use this color to identify the product.
+    color: String
+
+    # The product colors for all configurable_children variants. Customers use this color to identify the product.
+    color_options: [String] 
+
+    # Category ID the product belongs to    
+    category_ids: [String] 
+
+    # The product categories. It executes additional query to fetch full category objects
+    categories: [Category] 
+    
+    # The product categories. This is just a simplified object with no structure
+    category: [CategoryBinding] 
+
+    # Configurable product childrens
+    configurable_children: [Product] 
+    
+    # The product stock. Customers use this stock to identify the product.
+    stock: StockItem 
+
+    # Is product in stock
+    is_in_stock: Boolean 
+
+    # keyword filter input
+    keyword: String 
+
+    # Media items assigned to this specific product
+    media_gallery: [MediaGalleryItem] 
+
+    # Configurable attributes for this product
+    configurable_options: [ConfigurableOption] 
+
+    # Custom options for this product
+    custom_options: [CustomOption] 
+
+    # Bundle options for this product
+    bundle_options: [BundleOption] 
+
+    # TODO: Product links (related, crosselss, upsells)
+    #links: [ProductLinks] 
+
+    # Get the product reviews
     reviews (
-        search: String @doc(description: "Performs a full-text search using the specified key words."),
-        filter: ReviewFilterInput @doc(description: "An array of categories that match the specified search criteria"),
-        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
-        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
-        _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
-        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
-        ): Reviews @doc(description: "Get the product reviews")
+
+        # Performs a full-text search using the specified key words.,
+        search: String 
+
+        # An array of categories that match the specified search criteria,
+        filter: ReviewFilterInput 
+
+        # Specifies the maximum number of results to return at once. This attribute is optional.,
+        pageSize: Int = 20 
+
+        # Specifies which page of results to return. The default value is 1.,
+        currentPage: Int = 1 
+
+        # Specifies which attribute we include in result.
+        _sourceInclude: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExclude: [String] 
+        ): Reviews 
 }
 
-type CustomOptionValue @doc(description: "One single option value for specific custom option")
+# One single option value for specific custom option
+type CustomOptionValue 
 {
-    price: Float @doc(description: "Price for this custom option")
-    price_type: String @doc(description: "Price modifier: fixed means it changes the whole product price, percent - is a percentage change from the base price")
-    option_type_id: ID @doc(description: "Option type")
-    title: String @doc(description: "Option title")
-    sort_order: Int @doc(description: "Sorting order")
+    # Price for this custom option
+    price: Float 
+
+    # Price modifier: fixed means it changes the whole product price, percent - is a percentage change from the base price
+    price_type: String 
+
+    # Option type
+    option_type_id: ID 
+
+    # Option title
+    title: String 
+
+    # Sorting order
+    sort_order: Int 
 }
 
-type CustomOption @doc(description: "A single product custom option that can be configured before putting the product into the cart") {
-    image_size_x: Int @doc(description: "If the custom option is an image - this is the width")
-    image_size_y: Int @doc(description: "If the custom option is an image - this is the height")
-    max_characters: Int @doc(description: "Maximum length if the custom option is a text")
-    values: [CustomOptionValue] @doc(description: "Available values for this custom option")
-    option_id: ID @doc(description: "Option identifier")
-    is_require: Boolean @doc(description: "Is this option required")
-    title: String @doc(description: "Option title")
-    type: String @doc(description: "Option type - text, drop_down, field, checkbox, radio")
+# A single product custom option that can be configured before putting the product into the cart 
+type CustomOption {
+    
+    # If the custom option is an image - this is the width
+    image_size_x: Int 
+
+    # If the custom option is an image - this is the height
+    image_size_y: Int 
+
+    # Maximum length if the custom option is a text
+    max_characters: Int 
+
+    # Available values for this custom option
+    values: [CustomOptionValue] 
+
+    # Option identifier
+    option_id: ID 
+
+    # Is this option required
+    is_require: Boolean 
+
+    # Option title
+    title: String
+
+    # Option type - text, drop_down, field, checkbox, radio 
+    type: String 
 }
 
-type BundleOption @doc(description: "A single option defined for bundle products") {
-    option_id: Int @doc(description: "Option identifier")
-    position: Int @doc(description: "Option position")
-    title: String @doc(description: "Option name")
-    type: String @doc(description: "Option type - radio, text ...")
-    sku: String @doc(description: "Product assigned with this option")
-    required: Boolean @doc(description: "If this option is required")
-    product_links: [BundleOptionLink] @doc(description: "Link to the simple products assigned with this option")
+# A single option defined for bundle products
+type BundleOption  {
+    
+    # Option identifier
+    option_id: Int 
+
+    # Option position
+    position: Int 
+
+    # Option name
+    title: String
+
+    # Option type - radio, text ... 
+    type: String
+
+    # Product assigned with this option 
+    sku: String 
+    
+    # If this option is required
+    required: Boolean 
+
+    # Link to the simple products assigned with this option
+    product_links: [BundleOptionLink] 
 }
 
-type BundleOptionLink @doc(description: "Link to the product") {
-    price: Float @doc(description: "Price of this sub-product")
-    qty: Float @doc(description: "The default quantity of this product in the bundle")
-    can_change_quantity: Boolean @doc(description: "If user may change the quantity")
-    option_id: Int @doc(description: "Option identifier to which this link is related to")
-    id: Int @doc(description: "Unique product link identifier")
-    sku: String @doc(description: "Product assigned with this option")
-    product: Product @doc(description: "Product related to this bundle link")
-    position: Int @doc(description: "Product position")
+ # Link to the product
+type BundleOptionLink {
+
+    # Price of this sub-product
+    price: Float 
+
+    # The default quantity of this product in the bundle
+    qty: Float 
+
+    # If user may change the quantity
+    can_change_quantity: Boolean
+
+    # Option identifier to which this link is related to
+    option_id: Int
+
+    # Unique product link identifier
+    id: Int 
+
+    # Product assigned with this option
+    sku: String 
+
+    # Product related to this bundle link
+    product: Product 
+
+    # Product position
+    position: Int 
 }
 
-type ConfigurableOptionValue @doc(description: "One single option available for given cofigurable option") {
-    value_index: Int @doc(description: "Incremental value index")
-    label: String @doc(description: "Option label")
+# One single option available for given cofigurable option
+type ConfigurableOptionValue  {
+
+    # Incremental value index
+    value_index: Int 
+
+    # Option label
+    label: String 
 }
 
-type ConfigurableOption @doc(description: "Product configurable option used for the cofnigurable products") {
-    id: ID @doc(description: "Configurable option id")
-    attribute_id: ID @doc(description: "Attribute id from the attribute collection")
-    attribute_code: String @doc(description: "Attribute code from the attribute collection")
-    label: String @doc(description: "Configurable option name - Size, Color ...")
-    position: Int @doc(description: "Configurable option position on the product page")
-    values: [ConfigurableOptionValue] @doc(description: "Available configurable options")
-    product_id: ID @doc(description: "Product Id this option is assigned to")
+# Product configurable option used for the cofnigurable products
+type ConfigurableOption  {
+
+    # Configurable option id
+    id: ID 
+
+    # Attribute id from the attribute collection
+    attribute_id: ID 
+
+    # Attribute code from the attribute collection
+    attribute_code: String 
+
+    # Configurable option name - Size, Color ...
+    label: String 
+
+    # Configurable option position on the product page
+    position: Int 
+
+    # Available configurable options
+    values: [ConfigurableOptionValue] 
+
+    # Product Id this option is assigned to
+    product_id: ID 
 }
 
-type ProductTierPrice @doc(description: "The ProductTierPrice object defines a tier price, which is a quantity discount offered to a specific customer group.") {
-    customer_group_id: String @doc(description: "The ID of the customer group.")
-    qty: Float @doc(description: "The number of items that must be purchased to qualify for tier pricing.")
-    value: Float @doc(description: "The price of the fixed price item.")
-    percentage_value: Float @doc(description: "The percentage discount of the item.")
-    website_id: Float @doc(description: "The ID assigned to the website.")
+ # The ProductTierPrice object defines a tier price, which is a quantity discount offered to a specific customer group.
+type ProductTierPrice {
+    
+    # The ID of the customer group.
+    customer_group_id: String 
+
+    # The number of items that must be purchased to qualify for tier pricing.
+    qty: Float
+
+    # The price of the fixed price item.
+    value: Float 
+
+    # The percentage discount of the item.
+    percentage_value: Float
+
+    # The ID assigned to the website.
+    website_id: Float 
 }
 
 
-type MediaGalleryItem @doc(description: "Contains basic information about a product image or video.")  {
-    image: String @doc(description: "The relative URL of the product image or video.")
-    pos: Int @doc(description: "Position in the gallery")
-    typ: String @doc(description: "Media type") @deprecated(reason: "Use `type` instead")
-    type: String @doc(description: "Media type")
-    url: String @doc(description: "The URL of the product image or video.")
-    lab: String @doc(description: "Media label") @deprecated(reason: "Use `label` instead")
-    label: String @doc(description: "The label of the product image or video.")
-    vid: JSON @doc(description: "The Video data.") @deprecated(reason: "Use `video` instead")
-    video: JSON @doc(description: "The Video data.")
+# Contains basic information about a product image or video.
+type MediaGalleryItem {
+
+    # The relative URL of the product image or video.
+    image: String 
+
+    # Position in the gallery
+    pos: Int 
+
+    # Media type @deprecated(reason: "Use `type` instead
+    typ: String 
+
+    # Media type
+    type: String
+
+    # The URL of the product image or video. 
+    url: String 
+
+    # Media label @deprecated(reason: "Use `label` instead
+    lab: String 
+
+    # The label of the product image or video.
+    label: String 
+
+    # The Video data. @deprecated(reason: "Use `video` instead
+    vid: JSON 
+
+     # The Video data.
+    video: JSON
 }
 
+# Stock item assigned to the product
 type StockItem {
-    item_id: ID @doc(description: "Stock item id")
-    product_id: ID @doc(description: "Product identifier")
-    stock_id: ID @doc(description: "Stock id")
-    qty: Float @doc(description: "Stock quantity")
-    is_in_stock: Boolean @doc(description: "Is item on stock")
-    is_qty_decimal: Boolean @doc(description: "Is quantity decimal")
-    min_qty: Float @doc(description: "Min sale quantity")
-    max_sale_qty: Float @doc(description: "Max sale quantity")
-    backorders: Int @doc(description: "Does this item support backorders")
-    qty_increments: Float @doc(description: "How quantity increments")
+
+    # Stock item id
+    item_id: ID 
+
+    # Product identifier
+    product_id: ID 
+
+    # Stock id
+    stock_id: ID 
+
+     # Stock quantity
+    qty: Float
+    
+    # Is item on stock
+    is_in_stock: Boolean 
+
+    # Is quantity decimal
+    is_qty_decimal: Boolean 
+
+    # Min sale quantity
+    min_qty: Float 
+
+    # Max sale quantity
+    max_sale_qty: Float 
+
+    # Does this item support backorders
+    backorders: Int 
+
+    # How quantity increments
+    qty_increments: Float 
 }
 
-input StockFilterInput @doc(description: "StockFilterInput defines the filters to be used in the search for a product. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
-    is_in_stock: FilterTypeInput @doc(description: "Is product in stock")
-    qty: FilterTypeInput @doc(description: "Product quantity")
+# StockFilterInput defines the filters to be used in the search for a product. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input StockFilterInput  {
+
+    # Is product in stock
+    is_in_stock: FilterTypeInput 
+
+    # Product quantity
+    qty: FilterTypeInput 
 }
 
-input CategoryBindingFilterInput @doc(description: "CategoryBindingFilterInput defines the filters to be used in the search for a product. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
-    category_id: FilterTypeInput @doc(description: "Category id")
+# CategoryBindingFilterInput defines the filters to be used in the search for a product. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input CategoryBindingFilterInput  {
+
+    # Category id
+    category_id: FilterTypeInput 
 }
 
-input ProductFilterInput @doc(description: "ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
-    id: FilterTypeInput @doc(description: "The id - an unique product identifier")
-    name: FilterTypeInput @doc(description: "The product name. Customers use this name to identify the product.")
-    sku: FilterTypeInput @doc(description: "A number or code assigned to a product to identify the product, options, price, and manufacturer.")
-    description: FilterTypeInput @doc(description: "Detailed information about the product. The value can include simple HTML tags.")
-    short_description: FilterTypeInput @doc(description: "A short description of the product. Its use depends on the theme.")
-    price: FilterTypeInput @doc(description: "The price of an item.")
-    special_price: FilterTypeInput @doc(description: "The discounted price of the product. Do not include the currency code.")
-    special_from_date: FilterTypeInput @doc(description: "The beginning date that a product has a special price.")
-    special_to_date: FilterTypeInput @doc(description: "The end date that a product has a special price.")
-    weight: FilterTypeInput @doc(description: "The weight of the item, in units defined by the store.")
-    category: CategoryBindingFilterInput @doc(description: "The category this product belongs to")
-    manufacturer: FilterTypeInput @doc(description: "A number representing the product's manufacturer.")
-    meta_title: FilterTypeInput @doc(description: "A string that is displayed in the title bar and tab of the browser and in search results lists.")
-    meta_keyword: FilterTypeInput @doc(description: "A comma-separated list of keywords that are visible only to search engines.")
-    meta_description: FilterTypeInput @doc(description: "A brief overview of the product for search results listings, maximum 255 characters.")
-    image: FilterTypeInput @doc(description: "The relative path to the main image on the product page.")
-    small_image: FilterTypeInput @doc(description: "The relative path to the small image, which is used on catalog pages.")
-    thumbnail: FilterTypeInput @doc(description: "The relative path to the product's thumbnail image.")
-    tier_price: FilterTypeInput @doc(description: "The price when tier pricing is in effect and the items purchased threshold has been reached.")
-    news_from_date: FilterTypeInput @doc(description: "The beginning date for new product listings, and determines if the product is featured as a new product.")
-    news_to_date: FilterTypeInput @doc(description: "The end date for new product listings.")
-    custom_layout_update: FilterTypeInput @doc(description: "XML code that is applied as a layout update to the product page.")
-    min_price: FilterTypeInput @doc(description:"The numeric minimal price of the product. Do not include the currency code.")
-    max_price: FilterTypeInput @doc(description:"The numeric maximal price of the product. Do not include the currency code.")
-    category_ids: FilterTypeInput @doc(description: "Category ID the product belongs to.")
-    options_container: FilterTypeInput @doc(description: "If the product has multiple options, determines where they appear on the product page.")
-    required_options: FilterTypeInput @doc(description: "Indicates whether the product has required options.")
-    has_options: FilterTypeInput @doc(description: "Indicates whether additional attributes have been created for the product.")
-    image_label: FilterTypeInput @doc(description: "The label assigned to a product image.")
-    small_image_label: FilterTypeInput @doc(description: "The label assigned to a product's small image.")
-    thumbnail_label: FilterTypeInput @doc(description: "The label assigned to a product's thumbnail image.")
-    created_at: FilterTypeInput @doc(description: "Timestamp indicating when the product was created.")
-    updated_at: FilterTypeInput @doc(description: "Timestamp indicating when the product was updated.")
-    country_of_manufacture: FilterTypeInput @doc(description: "The product's country of origin.")
-    custom_layout: FilterTypeInput @doc(description: "The name of a custom layout.")
-    gift_message_available: FilterTypeInput @doc(description: "Indicates whether a gift message is available.")
-    visibility: FilterTypeInput @doc(description: "The product visibility. Customers use this visibility to identify the product.")
-    type_id: FilterTypeInput @doc(description: "The product type - simple, configurable, virtual, downloadable, grouped")
-    is_in_stock: FilterTypeInput @doc(description: "Is product in stock")
-    stock: StockFilterInput @doc(description: "Product stock information")
-    status: FilterTypeInput @doc(description: "Product status information")
-    size: FilterTypeInput @doc(description: "The product size. Customers use this size to identify the product.")
-    size_options: FilterTypeInput @doc(description: "The product sizes for all configurable_children variants. Customers use this size to identify the product.")
-    color: FilterTypeInput @doc(description: "The product color. Customers use this color to identify the product.")
-    color_options: FilterTypeInput @doc(description: "The product colors for all configurable_children variants. Customers use this color to identify the product.")    
-    or: ProductFilterInput @doc(description: "The keyword required to perform a logical OR comparison.")
+# ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input ProductFilterInput  {
+
+    # The id - an unique product identifier
+    id: FilterTypeInput 
+
+    # The product name. Customers use this name to identify the product.
+    name: FilterTypeInput
+
+    # A number or code assigned to a product to identify the product, options, price, and manufacturer. 
+    sku: FilterTypeInput 
+    
+    # Detailed information about the product. The value can include simple HTML tags.
+    description: FilterTypeInput 
+
+    # A short description of the product. Its use depends on the theme.
+    short_description: FilterTypeInput 
+
+     # The price of an item.
+    price: FilterTypeInput
+
+    # The discounted price of the product. Do not include the currency code.
+    special_price: FilterTypeInput 
+
+    # The beginning date that a product has a special price.
+    special_from_date: FilterTypeInput 
+
+    # The end date that a product has a special price.
+    special_to_date: FilterTypeInput 
+
+    # The weight of the item, in units defined by the store.
+    weight: FilterTypeInput 
+
+    # The category this product belongs to
+    category: CategoryBindingFilterInput 
+
+    # A number representing the product's manufacturer.
+    manufacturer: FilterTypeInput 
+
+    # A string that is displayed in the title bar and tab of the browser and in search results lists.
+    meta_title: FilterTypeInput 
+
+    # A comma-separated list of keywords that are visible only to search engines.
+    meta_keyword: FilterTypeInput 
+
+     # A brief overview of the product for search results listings, maximum 255 characters.
+    meta_description: FilterTypeInput
+
+    # The relative path to the main image on the product page.
+    image: FilterTypeInput 
+
+    # The relative path to the small image, which is used on catalog pages.
+    small_image: FilterTypeInput 
+
+    # The relative path to the product's thumbnail image.
+    thumbnail: FilterTypeInput 
+
+    # The price when tier pricing is in effect and the items purchased threshold has been reached.
+    tier_price: FilterTypeInput 
+
+    # The beginning date for new product listings, and determines if the product is featured as a new product.
+    news_from_date: FilterTypeInput 
+
+    # The end date for new product listings.
+    news_to_date: FilterTypeInput 
+
+    # XML code that is applied as a layout update to the product page.
+    custom_layout_update: FilterTypeInput 
+
+    # The numeric minimal price of the product. Do not include the currency code.
+    min_price: FilterTypeInput 
+    
+    # The numeric maximal price of the product. Do not include the currency code.
+    max_price: FilterTypeInput 
+
+    # Category ID the product belongs to.
+    category_ids: FilterTypeInput
+
+    # If the product has multiple options, determines where they appear on the product page.
+    options_container: FilterTypeInput
+
+    # Indicates whether the product has required options. 
+    required_options: FilterTypeInput 
+
+    # Indicates whether additional attributes have been created for the product.
+    has_options: FilterTypeInput 
+
+    # The label assigned to a product image.
+    image_label: FilterTypeInput 
+
+    # The label assigned to a product's small image.
+    small_image_label: FilterTypeInput 
+
+    # The label assigned to a product's thumbnail image.
+    thumbnail_label: FilterTypeInput 
+
+    # Timestamp indicating when the product was created.
+    created_at: FilterTypeInput 
+
+    # Timestamp indicating when the product was updated.
+    updated_at: FilterTypeInput 
+    
+    # The product's country of origin.
+    country_of_manufacture: FilterTypeInput 
+
+    # The name of a custom layout.
+    custom_layout: FilterTypeInput 
+
+    # Indicates whether a gift message is available.
+    gift_message_available: FilterTypeInput 
+
+    # The product visibility. Customers use this visibility to identify the product.
+    visibility: FilterTypeInput 
+
+    # The product type - simple, configurable, virtual, downloadable, grouped
+    type_id: FilterTypeInput
+
+    # Is product in stock
+    is_in_stock: FilterTypeInput 
+
+    # Product stock information
+    stock: StockFilterInput 
+
+    # Product status information
+    status: FilterTypeInput 
+
+    # The product size. Customers use this size to identify the product.
+    size: FilterTypeInput 
+
+    # The product sizes for all configurable_children variants. Customers use this size to identify the product.
+    size_options: FilterTypeInput 
+
+    # The product color. Customers use this color to identify the product.
+    color: FilterTypeInput 
+
+    # The product colors for all configurable_children variants. Customers use this color to identify the product.    
+    color_options: FilterTypeInput 
+
+    # The keyword required to perform a logical OR comparison.
+    or: ProductFilterInput 
 }
 
-type CategoryBinding @doc(description: "CategoryBinding defines the category anchor which product is bound to") {
-    category_id: ID @doc(description: "Category identifier")
-    name: String @doc(description: "Category name")
-    slug: ID @doc(description: "Category unique slug")
-    path: ID @doc(description: "Category url path")
+# CategoryBinding defines the category anchor which product is bound to
+type CategoryBinding  {
+    # Category identifier
+    category_id: ID 
+
+    # Category name
+    name: String 
+
+    # Category unique slug
+    slug: ID 
+
+    # Category url path
+    path: ID 
 }
 
-#type LayerFilter {
-#    name: String @doc(description: "Layered navigation filter name")
-#    request_var: String @doc(description: "Request variable name for filter query")
-#    filter_items_count: Int @doc(description: "Count of filter items in filter group")
-#    filter_items: [LayerFilterItemInterface] @doc(description: "Array of filter items")
-#}
-
-#interface LayerFilterItemInterface {
-#    label: String @doc(description: "Filter label")
-#    value_string: String @doc(description: "Value for filter request variable to be used in query")
-#    items_count: Int @doc(description: "Count of items by filter")
-#}
-
-#type LayerFilterItem implements LayerFilterItemInterface {
-#}
-
+# A field on which we can sort the items
 type SortField {
-    value: String @doc(description: "Attribute code of sort field")
-    label: String @doc(description: "Label of sort field")
+    # Attribute code of sort field
+    value: String 
+
+    # Label of sort field
+    label: String 
 }
 
-type SortFields @doc(description: "SortFields contains a default value for sort fields and all available sort fields") {
-    default: String @doc(description: "Default value of sort fields")
-    options: [SortField] @doc(description: "Available sort fields")
+# SortFields contains a default value for sort fields and all available sort fields
+type SortFields {
+    
+    # Default value of sort fields
+    default: String 
+
+     # Available sort fields
+    options: [SortField]
 }
 
 enum SortEnum {

@@ -1,24 +1,34 @@
-directive @doc(
-  description: String
-) on FIELD_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ARGUMENT_DEFINITION | INTERFACE
-
 directive @deprecated(
   reason: String
 ) on FIELD_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ARGUMENT_DEFINITION | INTERFACE
 
 
+# This is the root Query object - an entry point for `product`, `categories`, `reviews` and other queries
 type Query {
   version: String
 }
 
-interface ESResponseInterface @doc(description: "The classic ElasticSearch result interface") { 
-  hits: JSON @doc(description: "Document returned by this search query wits")
-  suggest: JSON @doc(description: "Search suggest feature")
-  aggregations: JSON @doc(description: "Aggregations returned when filter have been applied")
+# The classic ElasticSearch result interface
+interface ESResponseInterface  { 
+
+  # Document returned by this search query wits
+  hits: JSON 
+
+  # Search suggest feature
+  suggest: JSON 
+
+  # Aggregations returned when filter have been applied
+  aggregations: JSON 
 }
 
 type ESResponse implements ESResponseInterface {
-  hits: JSON @doc(description: "Document returned by this search query wits") 
-  suggest: JSON @doc(description: "Search suggest feature")
-  aggregations: JSON @doc(description: "Aggregations returned when filter have been applied")
+
+  # Document returned by this search query wits 
+  hits: JSON 
+
+  # Search suggest feature
+  suggest: JSON 
+
+  # Aggregations returned when filter have been applied
+  aggregations: JSON 
 }
