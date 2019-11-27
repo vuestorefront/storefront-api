@@ -2,17 +2,17 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
+import { adjustQuery, getResponseObject } from './../../../lib/elastic'
 
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
-  const response = await client.search({
+  const response = await getResponseObject(client.search(adjustQuery({
     index: getIndexName(context.req.url),
-    type: config.elasticsearch.indexTypes[5],
     body: query,
     _sourceInclude,
     _sourceExclude
-  });
+  }, "review", config)));
 
   // Process hits
   response.items = []

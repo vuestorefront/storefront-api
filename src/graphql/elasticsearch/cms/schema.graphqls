@@ -14,6 +14,7 @@ input CmsInput @doc(description: "ProductFilterInput defines the filters to be u
     id: FilterTypeInput @doc(description: "Id of the CMS entity")
     identifier: FilterTypeInput @doc(description: "Identifiers of the CMS entity")
     store_id: FilterTypeInput @doc(description: "Store Id of the CMS entity")
+    url_path: FilterTypeInput @doc(description: "The url path assigned to the cms_page")
 }
 
 type CmsPages implements ESResponseInterface @doc(description: "CMS pages information") {
@@ -32,6 +33,7 @@ type CmsPage @doc(description: "CMS page defines all CMS page information") {
     meta_description: String @doc(description: "CMS page meta description")
     meta_keywords: String @doc(description: "CMS page meta keywords")
     store_id: Int @doc(description: "Store Id of CMS page")
+    url_path: String @doc(description: "CMS page meta keywords")
 }
 
 type CmsBlocks implements ESResponseInterface @doc(description: "CMS blocks information") {
@@ -43,6 +45,7 @@ type CmsBlocks implements ESResponseInterface @doc(description: "CMS blocks info
 
 type CmsBlock @doc(description: "CMS block defines all CMS block information") {
     identifier: String @doc(description: "CMS block identifier")
+    id: Int @doc(description: "CMS block identifier")
     title: String @doc(description: "CMS block title")
     content: String @doc(description: "CMS block content")
     creation_time: String @doc(description: "Timestamp indicating when the CMS block was created")

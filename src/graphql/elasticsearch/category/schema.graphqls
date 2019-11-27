@@ -9,11 +9,11 @@ extend type Query {
     _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
     _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
     ): Categories @doc(description: "List categories based on search full text query or structure filter")
-    category ( 
+    category (
         id: ID @doc(description: "Get Single product by it's SKU")
         url_path: String @doc(description: "Get Single product by it's url_path")
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
-        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")        
+        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
         ): Category @doc(description: "Find single category by id ir url_path")
 }
 
@@ -21,7 +21,7 @@ type Categories implements ESResponseInterface @doc(description: "The Categories
     items: [Category] @doc(description: "An array of categories that match the specified search criteria")
     page_info: SearchResultPageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
     total_count: Int @doc(description: "The number of categories returned")
-    hits: JSON @doc(description: "Document returned by this search query wits") 
+    hits: JSON @doc(description: "Document returned by this search query wits")
     suggest: JSON @doc(description: "Search suggest feature")
     aggregations: JSON @doc(description: "Aggregations returned when filter have been applied")
 }

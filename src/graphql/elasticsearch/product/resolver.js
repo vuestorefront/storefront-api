@@ -6,6 +6,7 @@ import esResultsProcessor from './processor'
 import { getIndexName } from '../mapping'
 import { getCurrentPlatformConfig } from '../../../platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
+import { adjustQuery, getResponseObject } from './../../../lib/elastic'
 
 const resolver = {
   Query: {
@@ -71,7 +72,7 @@ async function listProductCategories (_, { search }, context, rootValue) {
     type: 'category',
     body: bodybuilder().filter('terms', 'id', categoryIds).build()
   }
-  const response = await client.search(catQuery)
+  const response = getResponseObject(await client.search(adjustQuery(catQuery, 'category', config)))
   return response.hits.hits.map(el => {
     return el._source
   })
@@ -109,13 +110,13 @@ export async function list ({ filter, sort, currentPage, pageSize, search, conte
 
   let esIndex = getIndexName(context.req.url)
 
-  let response = await client.search({
+  let response = getResponseObject(await client.search(adjustQuery({
     index: esIndex,
     type: config.elasticsearch.indexTypes[0],
     body: query,
     _sourceInclude,
     _sourceExclude
-  });
+  }, 'product', config)));
 
   if (response && response.hits && response.hits.hits) {
     // process response result (caluclate taxes etc...)

@@ -2,15 +2,15 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
+import { adjustQuery, getResponseObject } from './../../../lib/elastic'
 
 async function taxrule ({ filter, context, rootValue }) {
   let query = buildQuery({ filter, pageSize: 150, type: 'taxrule' });
 
-  const response = await client.search({
+  const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
-    type: config.elasticsearch.indexTypes[4],
     body: query
-  });
+  }, 'taxrule', config)))
 
   // Process hits
   response.items = []

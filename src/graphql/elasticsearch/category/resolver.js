@@ -1,19 +1,19 @@
 import config from 'config';
 import client from '../client';
-import { buildQuery } from '../queryBuilder';
+import { buildQuery } from '../queryBuilder'
 import { getIndexName } from '../mapping'
 import { list as listProducts } from '../product/resolver'
+import { adjustQuery, getResponseObject } from './../../../lib/elastic'
 
 async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
 
-  const response = await client.search({
+  const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
-    type: config.elasticsearch.indexTypes[1],
     body: query,
     _source_exclude: _sourceExclude,
     _source_include: _sourceInclude
-  });
+  }, 'category', config)));
 
   // Process hits
   response.items = []

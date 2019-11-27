@@ -2,17 +2,19 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
+import { adjustQuery, getResponseObject } from './../../../lib/elastic'
 
 async function listAttributes ({ attributes, filter, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ filter: filter || attributes, pageSize: 150, type: 'attribute' });
 
-  const response = await client.search({
+  const esQuery = {
     index: getIndexName(context.req.url),
-    type: config.elasticsearch.indexTypes[3],
     body: query,
     _source_include: _sourceInclude,
     _source_exclude: _sourceExclude
-  });
+  }
+
+  const response = getResponseObject(await client.search(adjustQuery(esQuery, 'attribute', config)));
 
   response.items = []
   response.total_count = response.hits.total
@@ -22,7 +24,10 @@ async function listAttributes ({ attributes, filter, context, rootValue, _source
     response.items.push(item)
   });
 
-  return response;
+  if (parseInt(config.elasticsearch.apiVersion) < 6) {
+    esQuery.type = config.elasticsearch.indexTypes[3]
+  }
+  return response.body;
 }
 
 export async function listSingleAttribute ({ attribute_id, attribute_code, context, rootValue, _sourceInclude, _sourceExclude }) {
