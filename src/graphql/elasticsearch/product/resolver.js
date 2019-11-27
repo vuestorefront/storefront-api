@@ -17,6 +17,10 @@ const resolver = {
   Products: {
     items: async (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions
   },
+  BundleOptionLink: {
+    product: (_, params, context, rootValue) =>
+      listSingleProduct(_.sku, null, null, context, rootValue, null, null)
+  },
   Product: {
     reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
       return listProductReviews(search, Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude)
@@ -105,7 +109,7 @@ export async function list (filter, sort, currentPage, pageSize, search, context
 
   let esIndex = getIndexName(context.req.url)
 
-  let esResponse = await client.search({
+  let response = await client.search({
     index: esIndex,
     type: config.elasticsearch.indexTypes[0],
     body: query,
@@ -113,22 +117,20 @@ export async function list (filter, sort, currentPage, pageSize, search, context
     _sourceExclude
   });
 
-  if (esResponse && esResponse.hits && esResponse.hits.hits) {
+  if (response && response.hits && response.hits.hits) {
     // process response result (caluclate taxes etc...)
-    esResponse.hits.hits = await esResultsProcessor(esResponse, _req, config.elasticsearch.indexTypes[0], esIndex);
+    response.hits.hits = await esResultsProcessor(response, _req, config.elasticsearch.indexTypes[0], esIndex);
   }
-
-  let response = {}
 
   // Process hits
   response.items = []
-  esResponse.hits.hits.forEach(hit => {
+  response.hits.hits.forEach(hit => {
     let item = hit._source
     item._score = hit._score
     response.items.push(item)
   });
 
-  response.total_count = esResponse.hits.total
+  response.total_count = response.hits.total
 
   // Process sort
   let sortOptions = []
@@ -140,8 +142,6 @@ export async function list (filter, sort, currentPage, pageSize, search, context
       }
     )
   }
-
-  response.aggregations = esResponse.aggregations
   response.sort_fields = {}
   if (sortOptions.length > 0) {
     response.sort_fields.options = sortOptions
