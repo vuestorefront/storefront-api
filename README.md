@@ -62,8 +62,6 @@ To do this, define the `package.json` with your dependencies in your custom modu
 - `src/api/extensions/{your-custom-extension}/package.json` 
 - `src/platforms/{your-custom-platform}/package.json`
 
-Executing `docker exec -it vue-storefrontapiapp_1 yarn install` will also download your custom modules dependencies.
-
 NOTE: `npm` users will still have to install the dependencies individually in their modules.
 
 ## Self signed certificates
