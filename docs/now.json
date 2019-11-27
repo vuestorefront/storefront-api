@@ -1,0 +1,4 @@
+{
+  "name": "sga-docs",
+  "routes": [{ "src": "/public", "dest": "/" }]
+}
