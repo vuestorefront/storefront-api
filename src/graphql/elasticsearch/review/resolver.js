@@ -3,14 +3,15 @@ import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
 
-async function list (search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude) {
+export async function list (search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
   const response = await client.search({
     index: getIndexName(context.req.url),
     type: config.elasticsearch.indexTypes[5],
     body: query,
-    _sourceInclude
+    _sourceInclude,
+    _sourceExclude
   });
 
   // Process hits
@@ -48,8 +49,8 @@ async function list (search, filter, currentPage, pageSize = 200, sort, context,
 
 const resolver = {
   Query: {
-    reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude }, context, rootValue) =>
-      list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude)
+    reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) =>
+      list(search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude)
   }
 };
 

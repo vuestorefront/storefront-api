@@ -82,6 +82,7 @@ input ProductSortInput {
 }
 
 type Product @doc(description: "ProductFieldsInput defines the product fields to be used in the search.") {
+    id: Int @doc(description: "The product id")
     type_id: String @doc(description: "The product type - simple, configurable, virtual, downloadable, grouped")    
     visibility: Int @doc(description: "The product visibility. Customers use this visibility to identify the product.")
     status: Int  @doc(description: "The product status. Customers use this status to identify the product.")
@@ -139,6 +140,14 @@ type Product @doc(description: "ProductFieldsInput defines the product fields to
     keyword: String @doc(description: "keyword filter input")
     media_gallery: [MediaGalleryItem] @doc(description: "Media items assigned to this specific product")
     configurable_options: [ConfigurableOption] @doc(description: "Configurable attributes for this product")
+    reviews (
+        search: String @doc(description: "Performs a full-text search using the specified key words."),
+        filter: ReviewFilterInput @doc(description: "An array of categories that match the specified search criteria"),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+        _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
+        _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
+        ): Reviews @doc(description: "Get the product reviews")
 }
 
 type ConfigurableOptionValue @doc(description: "One single option available for given cofigurable option") {
@@ -200,6 +209,7 @@ input CategoryBindingFilterInput @doc(description: "CategoryBindingFilterInput d
 }
 
 input ProductFilterInput @doc(description: "ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
+    id: FilterTypeInput @doc(description: "The id - an unique product identifier")
     name: FilterTypeInput @doc(description: "The product name. Customers use this name to identify the product.")
     sku: FilterTypeInput @doc(description: "A number or code assigned to a product to identify the product, options, price, and manufacturer.")
     description: FilterTypeInput @doc(description: "Detailed information about the product. The value can include simple HTML tags.")
