@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storefront-graphql-api
+spec:
+  selector:
+    matchLabels:
+      app: storefront-graphql-api
+  template:
+    metadata:
+      labels:
+        app: storefront-graphql-api
+    spec:
+      containers:
+      - name: storefront-graphql-api
+        image: divante/storefront-graphql-api:latest
+        envFrom:
+        - configMapRef:
+            name: storefront-graphql-api-config
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /var/www/config
+          name: code
+          subPath: config
+        - mountPath: /var/www/migrations
+          name: code
+          subPath: migrations
+          readOnly: true
+        - mountPath: /var/www/package.json
+          name: code
+          subPath: package.json
+          readOnly: true
+        - mountPath: /var/www/scripts
+          name: code
+          subPath: scripts
+          readOnly: true
+        - mountPath: /var/www/src
+          name: code
+          subPath: src
+          readOnly: true
+        - mountPath: /var/www/var
+          name: code
+          subPath: var
+          readOnly: true
+        - mountPath: /var/www/dist
+          name: dist
+      volumes:
+      - name: code
+        hostPath:
+          path: "/root/storefront-graphql-api"
+      - name: dist
+        emptyDir:
+          medium: Memory

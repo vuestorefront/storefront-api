@@ -1,15 +1,89 @@
-type Query {
-    taxrule(filter: TaxRuleInput): ESResponse
+extend type Query {
+    # List tax rules by filter
+    taxrule(filter: TaxRuleInput): TaxRules 
 }
 
-input TaxRuleInput @doc(description: "TaxRuleInput specifies the tax rules information to search") {
-    id: FilterTypeInput @doc(description: "An ID that uniquely identifies the tax rule")
-    code: FilterTypeInput @doc(description: "The unique identifier for an tax rule. This value should be in lowercase letters without spaces.")
-    priority: FilterTypeInput @doc(description: "Priority of the tax rule")
-    position: FilterTypeInput @doc(description: "Position of the tax rule")
-    customer_tax_class_ids: FilterTypeInput @doc(description: "Cunstomer tax class ids of the tax rule")
-    product_tax_class_ids: FilterTypeInput @doc(description: "Products tax class ids of the tax rule")
-    tax_rate_ids: FilterTypeInput @doc(description: "Tax rates ids of the tax rule")
-    calculate_subtotal: FilterTypeInput @doc(description: "Calculating subtotals of the tax rule")
-    rates: FilterTypeInput @doc(description: "Rates of the tax rule")
+ # Tax rules collection
+type TaxRules implements ESResponseInterface {
+
+    # The number of tax rules returned
+    total_count: Int 
+
+    # An array of tax rules that match the specified search criteria
+    items: [TaxRule] 
+
+    # Document returned by this search query wits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+
+    # Aggregations returned when filter have been applied
+    aggregations: JSON 
+}
+
+# Tax rate - a part of Tax Rule 
+type TaxRate {
+
+    # Tax region assigned to this rate
+    tax_region_id: Int 
+
+    # Tax country assigned to this rate
+    tax_country_id: Int 
+
+     # Tax rule titles
+    titles: [String]
+
+    # Post code assigned to this rule
+    tax_postcode: String 
+
+    # Code/name of this rule
+    code: String
+
+    # Percentage tax rate
+    rate: Int 
+
+    # Rule id
+    id: ID 
+}
+
+# Product review - related product review
+type TaxRule  {
+
+  # TaxRule id
+  id: ID 
+
+  # Tax rule code
+  code: String 
+
+  # Tax rates assigned to this rule
+  rates: [TaxRate] 
+
+  # Customer tax class ids assigned to this rule
+  customer_tax_class_ids: [ID]
+
+  # Product tax class ids assigned to this rule 
+  product_tax_class_ids: [ID] 
+
+  # Tax rate ids assigned with this rule
+  tax_rate_ids: [ID] 
+}
+
+# TaxRuleInput specifies the tax rules information to search
+input TaxRuleInput  {
+    
+    # An ID that uniquely identifies the tax rule
+    id: FilterTypeInput
+    
+    # The unique identifier for an tax rule. This value should be in lowercase letters without spaces.
+    code: FilterTypeInput 
+
+    # Cunstomer tax class ids of the tax rule
+    customer_tax_class_ids: FilterTypeInput
+
+    # Products tax class ids of the tax rule 
+    product_tax_class_ids: FilterTypeInput 
+
+    # Tax rates ids of the tax rule
+    tax_rate_ids: FilterTypeInput 
 }

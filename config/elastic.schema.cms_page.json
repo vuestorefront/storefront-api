@@ -1,7 +1,7 @@
 {
     "properties": {
         "id": {
-            "type": "long"
+            "type": "integer"
         },
         "identifier": {
             "type": "keyword"

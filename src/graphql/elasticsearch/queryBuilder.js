@@ -18,6 +18,16 @@ function processNestedFieldFilter (attribute, value) {
   return processedFilter;
 }
 
+/**
+ *
+ * @param {Object} object
+ * @param {String} scope
+ * @returns {boolean}
+ */
+function checkIfObjectHasScope ({ object, scope }) {
+  return object.scope === scope || (Array.isArray(object.scope) && object.scope.find(scrope => scrope === scope));
+}
+
 function applyFilters (filter, query, type) {
   if (filter.length === 0) {
     return query
@@ -46,7 +56,7 @@ function applyFilters (filter, query, type) {
 
     // apply default filters
     appliedFilters.forEach((filter) => {
-      if (filter.scope === 'default' && Object.keys(filter.value).length) {
+      if (checkIfObjectHasScope({ object: filter, scope: 'default' }) && Object.keys(filter.value).length) {
         if (rangeOperators.every(rangeOperator => Object.prototype.hasOwnProperty.call(filter.value, rangeOperator))) {
           // process range filters
           query = query.filter('range', filter.attribute, filter.value);
@@ -67,7 +77,7 @@ function applyFilters (filter, query, type) {
     let attrFilterBuilder = (filterQr, attrPostfix = '') => {
       appliedFilters.forEach((catalogfilter) => {
         const valueKeys = Object.keys(catalogfilter.value);
-        if (catalogfilter.scope === 'catalog' && valueKeys.length) {
+        if (checkIfObjectHasScope({ object: catalogfilter, scope: 'catalog' }) && valueKeys.length) {
           const isRange = valueKeys.filter(value => rangeOperators.indexOf(value) !== -1)
           if (isRange.length) {
             let rangeAttribute = catalogfilter.attribute
@@ -124,12 +134,13 @@ function applyFilters (filter, query, type) {
   return query;
 }
 
-function applySearchQuery (search, query) {
+function applySearchQuery (search, query) { // TODO: as search is avaialble for other entities than product we should modify this query part to apply to any entity
   if (search !== '') {
     query = query.andQuery('bool', b => b.orQuery('match_phrase_prefix', 'name', { query: search, boost: getBoosts('name'), slop: 2 })
       .orQuery('match_phrase', 'category.name', { query: search, boost: getBoosts('category.name') })
       .orQuery('match_phrase', 'short_description', { query: search, boost: getBoosts('short_description') })
       .orQuery('match_phrase', 'description', { query: search, boost: getBoosts('description') })
+      .orQuery('match_phrase', 'detail', { query: search, boost: getBoosts('description') }) // reviews
       .orQuery('bool', b => b.orQuery('terms', 'sku', search.split('-'))
         .orQuery('terms', 'configurable_children.sku', search.split('-'))
         .orQuery('match_phrase', 'sku', { query: search, boost: getBoosts('sku') })

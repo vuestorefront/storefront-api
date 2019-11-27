@@ -59,6 +59,14 @@ function adjustQuery (esQuery, entityType, config) {
   return esQuery
 }
 
+function getResponseObject (result) {
+  if (result.body) { // differences between ES5 andd ES7
+    return result.body
+  } else {
+    return result
+  }
+}
+
 function getHits (result) {
   if (result.body) { // differences between ES5 andd ES7
     return result.body.hits.hits
@@ -138,7 +146,6 @@ function reIndex (db, fromIndexName, toIndexName, next) {
   }).then(res => {
     next()
   }).catch(err => {
-    console.error(err)
     next(err)
   })
 }
@@ -220,48 +227,54 @@ function putMappings (db, indexName, next) {
     type: 'product',
     body: productSchema
   }).then(res1 => {
-    console.dir(res1, { depth: null, colors: true })
+    console.dir(res1.body, { depth: null, colors: true })
 
     db.indices.putMapping({
       index: indexName,
       type: 'taxrule',
       body: taxruleSchema
     }).then(res2 => {
-      console.dir(res2, { depth: null, colors: true })
+      console.dir(res2.body, { depth: null, colors: true })
 
       db.indices.putMapping({
         index: indexName,
         type: 'attribute',
         body: attributeSchema
       }).then(res3 => {
-        console.dir(res3, { depth: null, colors: true })
+        console.dir(res3.body, { depth: null, colors: true })
         db.indices.putMapping({
           index: indexName,
           type: 'cms_page',
           body: pageSchema
         }).then(res4 => {
-          console.dir(res4, { depth: null, colors: true })
+          console.dir(res4.body, { depth: null, colors: true })
           db.indices.putMapping({
             index: indexName,
             type: 'cms_block',
             body: blockSchema
           }).then(res5 => {
-            console.dir(res5, { depth: null, colors: true })
+            console.dir(res5.body, { depth: null, colors: true })
             db.indices.putMapping({
               index: indexName,
               type: 'category',
               body: categorySchema
             }).then(res6 => {
-              console.dir(res6, { depth: null, colors: true })
+              console.dir(res6.body, { depth: null, colors: true })
               next()
+            }).catch(err6 => {
+              next(err6)
             })
+          }).catch(err5 => {
+            next(err5)
           })
+        }).catch(err4 => {
+          next(err4)
         })
       }).catch(err3 => {
-        throw new Error(err3)
+        next(err3)
       })
     }).catch(err2 => {
-      throw new Error(err2)
+      next(err2)
     })
   }).catch(err1 => {
     console.error(err1)
@@ -279,6 +292,7 @@ module.exports = {
   adjustBackendProxyUrl,
   getClient,
   getHits,
+  getResponseObject,
   adjustIndexName,
   putMappings
 }

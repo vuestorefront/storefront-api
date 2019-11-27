@@ -32,6 +32,7 @@
       "category",
       "cms_block",
       "cms_page",
+      "cms_hierarchy",
       "attribute",
       "taxrule",
       "review"
@@ -63,6 +64,7 @@
       "storeCode": "de",
       "disabled": false,
       "storeId": 3,
+      "websiteId": 1,
       "name": "German Store",
       "url": "/de",
       "elasticsearch": {
@@ -97,6 +99,7 @@
       "storeCode": "it",
       "disabled": false,
       "storeId": 4,
+      "websiteId": 1,
       "name": "Italian Store",
       "url": "/it",
       "elasticsearch": {
@@ -147,7 +150,7 @@
     "useOnlyDefaultUserGroupId": false
   },
   "review": {
-    "defaultReviewStatus": 2 
+    "defaultReviewStatus": 2
   },
   "bodyLimit": "100kb",
   "corsHeaders": [
@@ -236,12 +239,12 @@
       "active": false,
       "type": "file",
       "file": {
-        "path": "/tmp/vue-storefront-api"
+        "path": "/tmp/storefront-graphql-api"
       },
       "google-cloud-storage": {
         "libraryOptions": {},
         "bucket": "",
-        "prefix": "vue-storefront-api/image-cache"
+        "prefix": "storefront-graphql-api/image-cache"
       }
     },
     "action": {

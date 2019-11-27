@@ -1,0 +1,34 @@
+directive @deprecated(
+  reason: String
+) on FIELD_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ARGUMENT_DEFINITION | INTERFACE
+
+
+# This is the root Query object - an entry point for `product`, `categories`, `reviews` and other queries
+type Query {
+  version: String
+}
+
+# The classic ElasticSearch result interface
+interface ESResponseInterface  { 
+
+  # Document returned by this search query wits
+  hits: JSON 
+
+  # Search suggest feature
+  suggest: JSON 
+
+  # Aggregations returned when filter have been applied
+  aggregations: JSON 
+}
+
+type ESResponse implements ESResponseInterface {
+
+  # Document returned by this search query wits 
+  hits: JSON 
+
+  # Search suggest feature
+  suggest: JSON 
+
+  # Aggregations returned when filter have been applied
+  aggregations: JSON 
+}
