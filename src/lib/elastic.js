@@ -224,64 +224,40 @@ function putMappings (db, indexName, next) {
   let pageSchema = loadSchema('cms_page', '5.6');
   let blockSchema = loadSchema('cms_block', '5.6');
 
-  db.indices.putMapping({
-    index: indexName,
-    type: 'product',
-    body: productSchema
-  }).then(res1 => {
-    console.dir(res1.body, { depth: null, colors: true })
-
+  Promise.all([
+    db.indices.putMapping({
+      index: indexName,
+      type: 'product',
+      body: productSchema
+    }),
     db.indices.putMapping({
       index: indexName,
       type: 'taxrule',
       body: taxruleSchema
-    }).then(res2 => {
-      console.dir(res2.body, { depth: null, colors: true })
-
-      db.indices.putMapping({
-        index: indexName,
-        type: 'attribute',
-        body: attributeSchema
-      }).then(res3 => {
-        console.dir(res3.body, { depth: null, colors: true })
-        db.indices.putMapping({
-          index: indexName,
-          type: 'cms_page',
-          body: pageSchema
-        }).then(res4 => {
-          console.dir(res4.body, { depth: null, colors: true })
-          db.indices.putMapping({
-            index: indexName,
-            type: 'cms_block',
-            body: blockSchema
-          }).then(res5 => {
-            console.dir(res5.body, { depth: null, colors: true })
-            db.indices.putMapping({
-              index: indexName,
-              type: 'category',
-              body: categorySchema
-            }).then(res6 => {
-              console.dir(res6.body, { depth: null, colors: true })
-              next()
-            }).catch(err6 => {
-              next(err6)
-            })
-          }).catch(err5 => {
-            next(err5)
-          })
-        }).catch(err4 => {
-          next(err4)
-        })
-      }).catch(err3 => {
-        next(err3)
-      })
-    }).catch(err2 => {
-      next(err2)
+    }),
+    db.indices.putMapping({
+      index: indexName,
+      type: 'attribute',
+      body: attributeSchema
+    }),
+    db.indices.putMapping({
+      index: indexName,
+      type: 'cms_page',
+      body: pageSchema
+    }),
+    db.indices.putMapping({
+      index: indexName,
+      type: 'cms_block',
+      body: blockSchema
+    }),
+    db.indices.putMapping({
+      index: indexName,
+      type: 'category',
+      body: categorySchema
     })
-  }).catch(err1 => {
-    console.error(err1)
-    next(err1)
-  })
+  ]).then(values => values.forEach(res => console.dir(res.body, { depth: null, colors: true })))
+    .then(next)
+    .catch(next)
 }
 
 module.exports = {
