@@ -10,9 +10,9 @@ extend type Query {
 type CustomAttributeMetadata implements ESResponseInterface @doc(description: "CustomAttributeMetadata defines an array of attribute_codes and entity_types") {
     items: [Attribute] @doc(description: "An array of attributes")
     total_count: Int @doc(description: "The number of categories returned")
-    hits: JSON
-    suggest: JSON
-    aggregations: JSON          
+    hits: JSON @doc(description: "Document returned by this search query wits") 
+    suggest: JSON @doc(description: "Search suggest feature")
+    aggregations: JSON @doc(description: "Aggregations returned when filter have been applied") 
 }
 
 type Attribute @doc(description: "Attribute contains the attribute_type of the specified attribute_code and entity_type") {

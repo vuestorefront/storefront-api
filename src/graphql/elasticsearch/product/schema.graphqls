@@ -6,8 +6,8 @@ type Products implements ESResponseInterface @doc(description: "The Products obj
     total_count: Int @doc(description: "The number of products returned")
     aggregations: JSON @doc(description: "Layered navigation filters array as aggregations")
     sort_fields: SortFields @doc(description: "An object that includes the default sort field and all available sort fields")
-    hits: JSON
-    suggest: JSON
+    hits: JSON @doc(description: "Document returned by this search query wits") 
+    suggest: JSON @doc(description: "Search suggest feature")
 }
 
 extend type Query {
@@ -149,7 +149,7 @@ type Product @doc(description: "ProductFieldsInput defines the product fields to
     keyword: String @doc(description: "keyword filter input")
     media_gallery: [MediaGalleryItem] @doc(description: "Media items assigned to this specific product")
     configurable_options: [ConfigurableOption] @doc(description: "Configurable attributes for this product")
-    #custom_options: [CustomOption] @doc(description: "Custom options for this product")
+    custom_options: [CustomOption] @doc(description: "Custom options for this product")
     bundle_options: [BundleOption] @doc(description: "Bundle options for this product")
     #links: [ProductLinks] @doc(description: "Bundle options for this product")
     reviews (
@@ -160,6 +160,26 @@ type Product @doc(description: "ProductFieldsInput defines the product fields to
         _sourceInclude: [String] @doc(description: "Specifies which attribute we include in result.")
         _sourceExclude: [String] @doc(description: "Specifies which attribute we exclude in result.")
         ): Reviews @doc(description: "Get the product reviews")
+}
+
+type CustomOptionValue @doc(description: "One single option value for specific custom option")
+{
+    price: Float @doc(description: "Price for this custom option")
+    price_type: String @doc(description: "Price modifier: fixed means it changes the whole product price, percent - is a percentage change from the base price")
+    option_type_id: ID @doc(description: "Option type")
+    title: String @doc(description: "Option title")
+    sort_order: Int @doc(description: "Sorting order")
+}
+
+type CustomOption @doc(description: "A single product custom option that can be configured before putting the product into the cart") {
+    image_size_x: Int @doc(description: "If the custom option is an image - this is the width")
+    image_size_y: Int @doc(description: "If the custom option is an image - this is the height")
+    max_characters: Int @doc(description: "Maximum length if the custom option is a text")
+    values: [CustomOptionValue] @doc(description: "Available values for this custom option")
+    option_id: ID @doc(description: "Option identifier")
+    is_require: Boolean @doc(description: "Is this option required")
+    title: String @doc(description: "Option title")
+    type: String @doc(description: "Option type - text, drop_down, field, checkbox, radio")
 }
 
 type BundleOption @doc(description: "A single option defined for bundle products") {

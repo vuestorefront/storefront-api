@@ -13,9 +13,9 @@ type Reviews implements ESResponseInterface @doc(description: "Product reviews -
     page_info: SearchResultPageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
     total_count: Int @doc(description: "The number of reviews returned")
     items: [Review] @doc(description: "An array of reviews that match the specified search criteria")
-    hits: JSON
-    suggest: JSON
-    aggregations: JSON 
+    hits: JSON @doc(description: "Document returned by this search query wits") 
+    suggest: JSON @doc(description: "Search suggest feature")
+    aggregations: JSON @doc(description: "Aggregations returned when filter have been applied")
 }
 
 type Review @doc(description: "Product review - related product review") {
