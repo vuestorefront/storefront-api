@@ -7,12 +7,12 @@
        "product_count": {"type": "integer"},
        "parent_id": {"type": "integer"},
        "position": {"type": "integer"},
-       "created_at": { 
-           "type": "date",           
+       "created_at": {
+           "type": "date",
            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
-       "updated_at": { 
-           "type": "date",           
+       "updated_at": {
+           "type": "date",
            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         }
     }
