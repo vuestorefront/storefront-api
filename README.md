@@ -15,7 +15,7 @@ By default all the catalog information are stored in ElasticSearch and all the w
  - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
 
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
-<em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
+<em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
 
 ## Key features
 
@@ -24,7 +24,7 @@ By default all the catalog information are stored in ElasticSearch and all the w
  - Additional integrations including [Prismic](https://forum.vuestorefront.io/t/prismic-connector/160) with GraphQL support,
  - [Vue Storefront](https://vuestorefront.io) PWA frontend support,
  - Blazing Fast - based on ElasticSearch with avg. response times < 100ms,
- - GraphQL API with 100% Customizable [GraphQL schema](https://divanteltd.github.io/storefront-api-schema/),
+ - GraphQL API with 100% Customizable [GraphQL schema](https://divanteltd.github.io/storefront-graphql-api-schema/),
  - REST API with [ElasticSearch DSL support](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html),
  - Catalog, Cart, User, Stock, Review, Order, Image resizer modules available thru REST API,
  - Multistore support based on store-views (aka. sales channels) concept,
@@ -83,7 +83,7 @@ Elastic search endpoint: `http://localhost:8080/api/catalog/search/<INDEX_NAME>/
 ## Data formats
 
 The data formats can be easily modified up to your needs by modifying the `src/graphql/elasticsearch/**` schemas and resolvers.
-Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-api-schema/) for the details regarding data formats.
+Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/) for the details regarding data formats.
 
 ## Adding custom modules with own dependencies (Yarn only)
 When adding custom [Extensions to the API](https://github.com/DivanteLtd/vue-storefront/blob/master/doc/Extending%20vue-storefront-api.md) you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) dependencies defined inside your custom module will be installed when you execute `yarn` at project root level, so it's way easier and faster than installing all modules dependencies separately.
