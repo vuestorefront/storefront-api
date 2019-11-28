@@ -7,13 +7,6 @@ Works great with Magento1, Magento2, Spree, OpenCart, Pimcore out of the box. [E
 You can use **Storefront GraphQL API** to integrate **all your backend systems** under single GraphQL/REST API with your eCommerce frontend.
 By default all the catalog information are stored in ElasticSearch and all the write operations are being forwarded to the **platform driver** (Magento1, Magento2, Spree and others avaialble),
 
-## Example use cases
-
- - **Headless eCommerce data source** for any React/Vue/Angular frontend connected to Magento or any other supported eCommerce platform,
- - **GraphQL Gateway** taking the data from **existing REST API and mixing** with ElasticSearch or Database data,
- - **Custom GraphQL schema** - optimized for your backend platform,
- - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
-
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
 <em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
 
@@ -32,6 +25,13 @@ By default all the catalog information are stored in ElasticSearch and all the w
  - Extendable via custom extensions (including GraphQL schema and resolver extensions),
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
  - Custom eCommerce Backend integrations via [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
+
+## Example use cases
+
+ - **Headless eCommerce data source** for any React/Vue/Angular frontend connected to Magento or any other supported eCommerce platform,
+ - **GraphQL Gateway** taking the data from **existing REST API and mixing** with ElasticSearch or Database data,
+ - **Custom GraphQL schema** - optimized for your backend platform,
+ - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
  
 ## Requirements
 
