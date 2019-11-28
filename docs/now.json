@@ -1,4 +1,4 @@
 {
-  "name": "sga-docs",
+  "name": "sfa-docs",
   "routes": [{ "src": "/public", "dest": "/" }]
 }

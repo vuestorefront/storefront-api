@@ -1,13 +1,35 @@
 Storefront API
 ==============
 
-Storefront GraphQL API. Easy to use. Extendable. Blazing fast. ElasticSearch included.
+Storefront GraphQL API. Easy to use. Extendable. Blazing fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
 Works great with Magento1, Magento2, Spree, OpenCart, Pimcore out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
 
-Features:
+You can use **Storefront GraphQL API** to integrate **all your backend systems** under single GraphQL/REST API with your eCommerce frontend.
+By default all the catalog information are stored in ElasticSearch and all the write operations are being forwarded to the **platform driver** (Magento1, Magento2, Spree and others avaialble),
 
- - 100% Customizable [GraphQL schema]() dedicated to eCommerce,
+## Example use cases
 
+ - **Headless eCommerce data source** for any React/Vue/Angular frontend connected to Magento or any other supported eCommerce platform,
+ - **GraphQL Gateway** taking the data from **existing REST API and mixing** with ElasticSearch or Database data,
+ - **Custom GraphQL schema** - optimized for your backend platform,
+ - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
+
+## Key features
+
+ - Fully functional and extendbable eCommerce API Gateway,
+ - Read/Write integrations with [Magento1](https://github.com/DivanteLtd/magento1-vsbridge-indexer), [EpiServer](https://github.com/makingwaves/epi-commerce-to-vue-storefront), [Magento2](https://github.com/DivanteLtd/magento2-vsbridge-indexer), [OpenCart](https://github.com/butopea/vue-storefront-opencart-vsbridge), [SpreeCommerce](https://github.com/spark-solutions/spree2vuestorefront),
+ - Additional integrations including [Prismic](https://forum.vuestorefront.io/t/prismic-connector/160) with GraphQL support,
+ - [Vue Storefront](https://vuestorefront.io) PWA frontend support,
+ - Blazing Fast - based on ElasticSearch with avg. response times < 100ms,
+ - GraphQL API with 100% Customizable [GraphQL schema](https://divanteltd.github.io/storefront-api-schema/),
+ - REST API with [ElasticSearch DSL support](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html),
+ - Catalog, Cart, User, Stock, Review, Order, Image resizer modules available thru REST API,
+ - Multistore support based on store-views (aka. sales channels) concept,
+ - Dynamic tax calculation engine,
+ - Extendable via custom extensions (including GraphQL schema and resolver extensions),
+ - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
+ - Custom eCommerce Backend integrations via [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
+ 
 ## Requirements
 
 - Docker and Docker Compose
@@ -28,7 +50,7 @@ To run the `storefront-api` in the `development` mode with ElasticSearch 5.6 ple
 
 Then, to restore the demo data set please run:
 
-`docker exec -it sga_app_1 yarn restore`
+`docker exec -it sfa_app_1 yarn restore`
 
 ### Elastic 7.2
 
@@ -42,7 +64,7 @@ Then start the docker container:
 `docker-compose -f docker-compose.elastic7.yml up `
 
 Restore the demo data set:
-`docker exec -it sga_app_1 yarn restore7`
+`docker exec -it sfa_app_1 yarn restore7`
 
 ## GraphQL Access
 

@@ -7,13 +7,14 @@ import { adjustQuery, getResponseObject } from './../../../lib/elastic'
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
-  const response = await getResponseObject(client.search(adjustQuery({
+  const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
     body: query,
     _sourceInclude,
     _sourceExclude
   }, 'review', config)));
 
+  console.log(response)
   // Process hits
   response.items = []
   response.hits.hits.forEach(hit => {
