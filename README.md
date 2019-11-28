@@ -15,6 +15,7 @@ By default all the catalog information are stored in ElasticSearch and all the w
  - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
 
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
+<em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. [Check the schema docs](https://divanteltd.github.io/storefront-api-schema/). It can be 100% customized.</em>
 
 ## Key features
 
