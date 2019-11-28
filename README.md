@@ -14,6 +14,8 @@ By default all the catalog information are stored in ElasticSearch and all the w
  - **Custom GraphQL schema** - optimized for your backend platform,
  - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
 
+<img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
+
 ## Key features
 
  - Fully functional and extendbable eCommerce API Gateway,
