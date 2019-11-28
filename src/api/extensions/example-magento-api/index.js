@@ -9,7 +9,7 @@ module.exports = ({ config, db }) => {
    * This is just an example on how to extend magento2 api client and get the cms blocks
    * https://devdocs.magento.com/swagger/#!/cmsBlockRepositoryV1/cmsBlockRepositoryV1GetListGet
    *
-   * NOTICE: storefront-graphql-api should be platform agnostic. This is just for the customization example
+   * NOTICE: storefront-api should be platform agnostic. This is just for the customization example
    */
   mcApi.get('/cmsBlock', (req, res) => {
     const client = Magento2Client(config.magento2.api);

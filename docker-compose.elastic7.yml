@@ -24,14 +24,14 @@ services:
       - '6379:6379'
 
   app:
-    # image: divante/storefront-graphql-api:latest
+    # image: divante/storefront-api:latest
     build:
       context: .
-      dockerfile: docker/storefront-graphql-api/Dockerfile
+      dockerfile: docker/storefront-api/Dockerfile
     depends_on:
       - es7
       - redis
-    env_file: docker/storefront-graphql-api/default.env
+    env_file: docker/storefront-api/default.env
     environment:
       VS_ENV: dev
     volumes:

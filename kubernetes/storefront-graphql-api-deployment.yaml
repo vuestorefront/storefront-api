@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: storefront-graphql-api
+  name: storefront-api
 spec:
   selector:
     matchLabels:
-      app: storefront-graphql-api
+      app: storefront-api
   template:
     metadata:
       labels:
-        app: storefront-graphql-api
+        app: storefront-api
     spec:
       containers:
-      - name: storefront-graphql-api
-        image: divante/storefront-graphql-api:latest
+      - name: storefront-api
+        image: divante/storefront-api:latest
         envFrom:
         - configMapRef:
-            name: storefront-graphql-api-config
+            name: storefront-api-config
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: code
         hostPath:
-          path: "/root/storefront-graphql-api"
+          path: "/root/storefront-api"
       - name: dist
         emptyDir:
           medium: Memory

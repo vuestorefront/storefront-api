@@ -239,12 +239,12 @@
       "active": false,
       "type": "file",
       "file": {
-        "path": "/tmp/storefront-graphql-api"
+        "path": "/tmp/storefront-api"
       },
       "google-cloud-storage": {
         "libraryOptions": {},
         "bucket": "",
-        "prefix": "storefront-graphql-api/image-cache"
+        "prefix": "storefront-api/image-cache"
       }
     },
     "action": {

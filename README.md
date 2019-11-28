@@ -1,24 +1,28 @@
-Storefront GraphQL API
-======================
+Storefront API
+==============
 
 Storefront GraphQL API. Easy to use. Extendable. Blazing fast. ElasticSearch included.
 Works great with Magento1, Magento2, Spree, OpenCart, Pimcore out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
+
+Features:
+
+ - 100% Customizable [GraphQL schema]() dedicated to eCommerce,
 
 ## Requirements
 
 - Docker and Docker Compose
 
-Already included in `vue-storefront-api` Docker image (required locally, if you do not use containerization):
+Already included in `storefront-api` Docker image (required locally, if you do not use containerization):
 - Node.js 10.x or higher
 - Yarn
 
 ## How to get started?
 
-Storefront GraphQL comes with the default product schema - compatible with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project and can be a drop-in replacement of `vue-storefront-api`.
+Storefront API comes with the default product schema - compatible with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project and can be a drop-in replacement of `vue-storefront-api`. You can easily start the dev instance including the demo data set integrated with [Magento 2.3 demo instance](http://demo-magento2.vuestorefront.io).
 
 ### Elastic 5.6
 
-To run the `storefront-graphql-api` in the `development` mode with ElasticSearch 5.6 please run:
+To run the `storefront-api` in the `development` mode with ElasticSearch 5.6 please run:
 
 `docker-compose up`
 
@@ -28,7 +32,7 @@ Then, to restore the demo data set please run:
 
 ### Elastic 7.2
 
-To run the `storefront-graphql-api` in the `development` mode with ElasticSearch 7.2 please do:
+To run the `storefront-api` in the `development` mode with ElasticSearch 7.2 please do:
 
 Change the config file (`config.elasticsearch.apiVersion`):
 
@@ -44,7 +48,7 @@ Restore the demo data set:
 
 After the successfull installation you can start playing with GraphQL queries using your local GraphQL Playground which is exposed under: [http://localhost:8080/graphql](http://localhost:8080/graphql)
 
-## REST API Access
+## REST Access
 Catalog API calls are compliant with ElasticSearch (it works like a filtering proxy to ES). More on ES queries: [ElasticSearch queries tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html)
 
 Elastic search endpoint: `http://localhost:8080/api/catalog/search/<INDEX_NAME>/`. You can run the following command to check if everything is up and runing (it assumes `vue_storefront_catalog` as default index name):
@@ -54,7 +58,7 @@ Elastic search endpoint: `http://localhost:8080/api/catalog/search/<INDEX_NAME>/
 ## Data formats
 
 The data formats can be easily modified up to your needs by modifying the `src/graphql/elasticsearch/**` schemas and resolvers.
-Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/) for the details regarding data formats.
+Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-api-schema/) for the details regarding data formats.
 
 ## Adding custom modules with own dependencies (Yarn only)
 When adding custom [Extensions to the API](https://github.com/DivanteLtd/vue-storefront/blob/master/doc/Extending%20vue-storefront-api.md) you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) dependencies defined inside your custom module will be installed when you execute `yarn` at project root level, so it's way easier and faster than installing all modules dependencies separately.

@@ -10,7 +10,7 @@ module.exports = {
   },
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
   themeConfig: {
-    repo: 'DivanteLtd/storefront-graphql-api',
+    repo: 'DivanteLtd/storefront-api',
     docsDir: 'docs',
     editLinks: true,
     sidebarDepth: 3,
