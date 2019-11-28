@@ -1,4 +1,4 @@
-# REST API docs for Storefront Api
+# REST Interfaces
 
 This product manages to be platform-agnostic thanks to the dedicated API connectors for eCommerce backend platforms. The data format in `storefront-api` is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.
 

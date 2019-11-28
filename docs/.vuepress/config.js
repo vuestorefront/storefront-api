@@ -30,40 +30,29 @@ module.exports = {
           title : 'General Information',
           collapsable: false,
           children: [
-            'general/introduction'
+            'general/introduction',
+            'general/installation',
+            'general/config',
+            'general/api',
+            'general/graphql',
+            'general/extensions'
           ]
 	      },
         {
-          title: 'Cookbook',
+          title: 'Integrations',
           collapsable: false,
           children: [
-            'cookbook/data-import',
-            'cookbook/elastic',
-            'cookbook/setup',
-            'cookbook/integration',
-            'cookbook/devops',
+            'integration/integration',
+            'integration/prices-how-to',
+            'integration/format-product',
+            'integration/format-category',
+            'integration/format-attribute',
+            'integration/database-tools'
           ],
-        },
-        {
-          title: 'Installation',
-          collapsable: false,
-          children: [
-            'installation/linux-mac',
-            'installation/windows',
-            'installation/magento',
-            'installation/production-setup',
-          ],
-        },
-        {
-          title: 'Extensions',
-          collapsable: false,
-          children: [
-            'extensions/extending-api'
-          ],
-        },
+        }
       ],
     },
   },
-  title: 'Storefront GraphQL API',
-  description: 'Storefront GraphQL API Gateway',
+  title: 'Storefront API',
+  description: 'Storefront API Gateway',
 };

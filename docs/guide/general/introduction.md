@@ -1,4 +1,4 @@
-# Introduction to the Storefront Api
+# Introduction
 
 Storefront Api is a customizable eCommerce API gateway. You can use this product to provide all your frontends - including mobile applications with single data source. **GraphQL support** let you to easily implement BFF ([Backend for Frontend](https://samnewman.io/patterns/architectural/bff/)) pattern. It unifies the interfaces between all the systems backing your frontend and lets you query multiple data sources with single HTTP request.
 
@@ -44,7 +44,9 @@ Some of the most popular backend platforms already have their integrations ([Mag
 
 Most of the Storefront configuration (like the active theme, backend API addresses, multistore setup, etc.) is done through its [config](./config.md) file that can be found under the `config` folder. The `default.json` file contains all the default setup.
 
-For your own implementation you should create a `local.json` file in the same directory and include fields from `default.json` that you want to override. These two files will be merged in favor of `local.json` during the build process..
+For your own implementation you should create a `local.json` file in the same directory and include fields from `default.json` that you want to override. These two files will be merged in favor of `local.json` during the build process.
+
+[Read more on configs](./config.md)
 
 ## What else
 You may not believe me but this is all you need to know to start working with Vue Storefront! Once you are done wrapping your head around the basics, just look around docs and visit community [slack](https://slack.vuestorefront.io) to dig deeper into the project.

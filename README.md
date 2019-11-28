@@ -26,6 +26,10 @@ By default all the catalog information are stored in ElasticSearch and all the w
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
  - Custom eCommerce Backend integrations via [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
 
+## Documentation
+
+Please check our [**Official documentation**](https://sfa-docs.now.sh/). You may find there some integration tutorials, API specification and customization tutorials.
+
 ## Example use cases
 
  - **Headless eCommerce data source** for any React/Vue/Angular frontend connected to Magento or any other supported eCommerce platform,
