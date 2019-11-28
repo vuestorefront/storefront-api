@@ -13,7 +13,7 @@ By default all the catalog information are stored in ElasticSearch and all the w
 
 ## The Story
 
-Storefront Api is brought to you by [**Vue Storefront Team**](https://www.vuestorefront.io/) based on [Vue Storefront Api](https://github.com/DivanteLtd/vue-storefront-api) The intention is to replace vue-storefront-api with more general purpose API Gateway product you may use with any Vue, React, Angular ... frontend.
+Storefront Api is brought to you by [**Vue Storefront Team**](https://www.vuestorefront.io/) based on [Vue Storefront Api](https://github.com/DivanteLtd/vue-storefront-api) The intention is to replace vue-storefront-api with more general purpose API Gateway product you may use with any Vue, React, Angular ... frontend. It's a drop-in replacement for `vue-storefront-api` if you happened to use it before. Works great with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront).
 
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
 <em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
