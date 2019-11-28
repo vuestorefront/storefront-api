@@ -5,6 +5,8 @@ Storefront API
 ![Branch Develop](https://img.shields.io/badge/dev%20branch-develop-blue.svg)
 <a href="http://slack.vuestorefront.io">![Join Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)</a>
 
+<div style=" text-align: center;display: block;"><img src="https://divante.com/github/storefront-api/sfa-logo.png" style="text-align:center;" width="400" /></div>
+
 Storefront GraphQL API. Easy to use. Extendable. Blazing fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
 Works great with Magento1, Magento2, Spree, OpenCart, Pimcore out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
 
