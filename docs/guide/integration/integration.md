@@ -12,7 +12,7 @@ The API connector, by default, works in two phases:
 
 Some of the most popular backend platforms already have their integrations ([Magento 2](https://github.com/DivanteLtd/mage2vuestorefront), [Magento 1](https://github.com/DivanteLtd/magento1-vsbridge), [CoreShop](https://github.com/DivanteLtd/coreshop-vsbridge), [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront), [WooCommerce](https://github.com/DivanteLtd/woocommerce2vuestorefront)), but you can easily make your own with the [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
 
-# Vue Storefront Custom Integration Tutorial
+# Storefront Api Custom Integration Tutorial
 
 Storefront Api projects has been born from the [Vue Storefront Api](https://github.com/DivanteLtd/vue-storefront-api). The integration strategy for both these projects is pretty similar. The original integration tutorial [has been posted here](https://github.com/DivanteLtd/storefront-integration-sdk/edit/tutorial/README.md).
 
@@ -30,18 +30,17 @@ First we need pull the products and categories data into Elastic Search.
 
 Now, we're to go through all three steps to integrate Storefront Api with custom or 3rd party eCommerce platform.
 
-First, make sure you've got the [vue-storefront and vue-storefront-api installed](https://docs.vuestorefront.io/guide/installation/linux-mac.html#installing-the-vue-storefront-api-locally) on your local machine, up and running. Opening the [http://localhost:3000](http://localhost:3000) should display default Vue Storefront theme with demo products.
+First, make sure you've got the [storefront-api installed](../general/installation.md) on your local machine, up and running. Opening the [http://localhost:8080](http://localhost:8080) should display the default Storefront Api GraphQL playground and you should be able to query some products and cateogires
 
 **Note:** As we'll be using extensively Elastic Search for the next steps in this tutorial, make sure you've got the right tooling to browse the ES indexes. I'm using [es-head](https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm). Pretty easy to use and simple tool, provided as a Google Chrome plugin.
 
-
 ### **Empty the `vue_storefront_catalog` index**.  
-This is the default Vue Storefront index which is configured in both `vue-storefront` and `vue-storefront-api` projects - in the `config/local.json`, `elasticsearch.indices` section. We'll be using "default".
+This is the default Storefront Api index which is the default index used by [`vue-storefront`](https://github.com/DivanteLtd/vue-storefront) - set up in the `config/local.json`, `elasticsearch.indices` section. We'll be using "default".
 
-First, please go to `vue-storefront-api` directory with the following command:
+First, please go to `storefront-api` directory with the following command:
 
 ```bash
-$ cd ./vue-storefront-api
+$ cd ./storefront-api
 ```
 
 Then you can empty the default index:
@@ -64,21 +63,22 @@ Elasticsearch DEBUG: 2019-09-06T19:32:23Z
 ...
 ```
 
-**Note:** Please make sure your local Elastic instance is up and running. After you've got the `vue-storefront` plus `vue-storefront-api` installed, you can ensure it by just running `docker-compose up -d` in the `vue-storefront-api` directory.
+**Note:** Please make sure your local Elastic instance is up and running. After you've got the `storefront-api` installed, you can ensure it by just running `docker-compose up -d` in the `storefront-api` directory.
 
 ### **Import data**.
 In your custom integration, you'll probably be pumping the data directly to ElasticSearch as it changed in the platform admin panel.
 
-This is exactly how other Vue Storefront integrations work. 
+This is exactly how standard integrations work. 
+
 You might want to get inspired by:
 - [`magento2-vsbridge-indexer`](https://github.com/DivanteLtd/magento2-vsbridge-indexer) - the PHP based integration for Magento2,
 - [`shopware2vuestorefront](https://github.com/DivanteLtd/shopware2vuestorefront/tree/master/vsf-shopware-indexer) - which is using a NodeJS app to pull the data from Shopware API and push it to Elastic,
 - [`spree2vuestorefront`](https://github.com/spark-solutions/spree2vuestorefront/) - which is putting thte data to Elastic directly from Ruby code, from Spree Commerce database,
 - [See other integrations ...](https://github.com/frqnck/awesome-vue-storefront#github-repos)
 
-In our example, we'll push the static JSON files from `sample-data` directly to the ElasticSearch index. Then I'll explain these data formats in details to let you prepare such an automatic exporter on your own.
+In our example, we'll push the static JSON files from `integration-sdk/sample-data` directly to the ElasticSearch index. Then I'll explain these data formats in details to let you prepare such an automatic exporter on your own.
 
-To push the data into ElasticSearch we'll be using a simple NodeJS tool [located in the sample-data folder](https://github.com/DivanteLtd/vue-storefront-integration-boilerplate/blob/tutorial/sample-data/import.js).
+To push the data into ElasticSearch we'll be using a simple NodeJS tool [located in the sample-data folder]().
 
 Now we can import the data:
 
