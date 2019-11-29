@@ -7,75 +7,75 @@ Storefront API
 ![Branch Develop](https://img.shields.io/badge/dev%20branch-develop-blue.svg)
 <a href="http://slack.vuestorefront.io">![Join Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)</a>
 
-Storefront GraphQL API. Easy to use. Extendable. Blazing fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
-Works great with Magento1, Magento2, Spree, OpenCart, Pimcore out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
+Storefront GraphQL API. Easy to use. Extendable. Blazingly fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
+Works great with Magento1, Magento2, Spree, OpenCart, and Pimcore out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
 
-You can use **Storefront GraphQL API** to integrate **all your backend systems** under single GraphQL/REST API with your eCommerce frontend.
-By default all the catalog information are stored in ElasticSearch and all the write operations are being forwarded to the **platform driver** (Magento1, Magento2, Spree and others avaialble).
+You can use the **Storefront GraphQL API** to integrate **all your backend systems** with your eCommerce frontend under a single GraphQL/REST API.
+By default, all catalog information is stored in ElasticSearch, and all the write operations are forwarded to the **platform driver** (Magento1, Magento2, Spree and others available).
 
 ## The Story
 
-Storefront Api is brought to you by [**Vue Storefront Team**](https://www.vuestorefront.io/) based on [Vue Storefront Api](https://github.com/DivanteLtd/vue-storefront-api) The intention is to replace vue-storefront-api with more general purpose API Gateway product you may use with any web or mobile frontend inclduing Vue, React, Angular and native apps. It's a drop-in replacement for `vue-storefront-api` if you happened to use it before. Works great with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront).
+Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vuestorefront.io/) and is based on [Vue Storefront API](https://github.com/DivanteLtd/vue-storefront-api). The intention is to replace vue-storefront-api with a more general-purpose API Gateway which you may use with any web or mobile frontend, including Vue, React, Angular and native apps. It's a drop-in replacement for `vue-storefront-api` if you happened to use it before. It works great with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront).
 
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
-<em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
+<em style="text-align:center;">This is a screenshot showing the GraphQL Playground on the storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
 
 ## Key features
 
- - Fully functional and extendbable eCommerce API Gateway,
+ - Fully functional and extendable eCommerce API Gateway,
  - Read/Write integrations with [Magento1](https://github.com/DivanteLtd/magento1-vsbridge-indexer), [EpiServer](https://github.com/makingwaves/epi-commerce-to-vue-storefront), [Magento2](https://github.com/DivanteLtd/magento2-vsbridge-indexer), [OpenCart](https://github.com/butopea/vue-storefront-opencart-vsbridge), [SpreeCommerce](https://github.com/spark-solutions/spree2vuestorefront),
  - Additional integrations including [Prismic](https://forum.vuestorefront.io/t/prismic-connector/160) with GraphQL support,
  - [Vue Storefront](https://vuestorefront.io) PWA frontend support,
- - Blazing Fast - based on ElasticSearch with avg. response times < 100ms,
- - GraphQL API with 100% Customizable [GraphQL schema](https://divanteltd.github.io/storefront-graphql-api-schema/),
+ - Blazingly fast - based on ElasticSearch with avg. response times < 100ms,
+ - GraphQL API with 100% customizable [GraphQL schema](https://divanteltd.github.io/storefront-graphql-api-schema/),
  - REST API with [ElasticSearch DSL support](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html),
- - Catalog, Cart, User, Stock, Review, Order, Image resizer modules available thru REST API,
- - Multistore support based on store-views (aka. sales channels) concept,
+ - Catalog, Cart, User, Stock, Review, Order, and Image resizer modules available through the REST API,
+ - Multistore support based on a store-views (aka. sales channels) concept,
  - Dynamic tax calculation engine,
  - Extendable via custom extensions (including GraphQL schema and resolver extensions),
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
- - Custom eCommerce Backend integrations via [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
+ - Custom eCommerce Backend integrations via [an integration SDK](https://github.com/DivanteLtd/storefront-integration-sdk).
 
 ## Production ready
 
-Storefront Api originated from [`vue-storefront-api`](https://github.com/DivanteLtd/vue-storefront-api) project and currently is [backing 30+ production sites](https://www.vuestorefront.io/live-projects/) including: [Zadig&Voltaire](https://zadig-et-voltaire.com/pt/en/), [Klebefieber](https://www.klebefieber.de/), [Wonect](https://wonect.com/sg/) and others.
+Storefront API originated from the [`vue-storefront-api`](https://github.com/DivanteLtd/vue-storefront-api) project and is currently [backing 30+ production sites](https://www.vuestorefront.io/live-projects/), including: [Zadig&Voltaire](https://zadig-et-voltaire.com/pt/en/), [Klebefieber](https://www.klebefieber.de/), [Wonect](https://wonect.com/sg/) and others.
 
 ## Documentation
 
-Please check our [**Official documentation**](https://sfa-docs.now.sh/). You may find there some integration tutorials, API specification and customization tutorials.
+Please check our [**Official documentation**](https://sfa-docs.now.sh/). You will find there some integration and customization tutorials, and the API specification.
 
 ## Example use cases
 
  - **Headless eCommerce data source** for any React/Vue/Angular frontend connected to Magento or any other supported eCommerce platform,
- - **GraphQL Gateway** taking the data from **existing REST API and mixing** with ElasticSearch or Database data,
+ - **GraphQL Gateway** which takes data from **an existing REST API and mixes it** with ElasticSearch or Database data,
  - **Custom GraphQL schema** - optimized for your backend platform,
- - **Custom eCommerce Backend** - by just implementing the custom Cart, User, Stock .. modules and re-using the Catalog service.
+ - **Custom eCommerce Backend** - by implementing custom Cart, User, Stock ... modules and re-using the Catalog service.
  
 ## Requirements
 
 - Docker and Docker Compose
 
-Already included in `storefront-api` Docker image (required locally, if you do not use containerization):
+The following are already included in the `storefront-api` Docker image, but required locally if you do not use containerization:
 - Node.js 10.x or higher
 - Yarn
 
 ## How to get started?
 
-Storefront API comes with the default product schema - compatible with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project and can be a drop-in replacement of `vue-storefront-api`. You can easily start the dev instance including the demo data set integrated with [Magento 2.3 demo instance](http://demo-magento2.vuestorefront.io).
+Storefront API comes with a default product schema - compatible with the [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project - and can be a drop-in replacement for `vue-storefront-api`. You can easily start a dev instance including a demo data set integrated with a [Magento 2.3 demo instance](http://demo-magento2.vuestorefront.io).
 
 ### Elastic 5.6
 
-To run the `storefront-api` in the `development` mode with ElasticSearch 5.6 please run:
+To run `storefront-api` in `development` mode with ElasticSearch 5.6, please run:
 
 `docker-compose up`
 
-Then, to restore the demo data set please run:
+Then, to restore the demo data set, please run:
 
 `docker exec -it sfa_app_1 yarn restore`
 
 ### Elastic 7.2
 
-To run the `storefront-api` in the `development` mode with ElasticSearch 7.2 please do:
+To run `storefront-api` in `development` mode with ElasticSearch 7.2, please:
 
 Change the config file (`config.elasticsearch.apiVersion`):
 
@@ -89,22 +89,22 @@ Restore the demo data set:
 
 ## GraphQL Access
 
-After the successfull installation you can start playing with GraphQL queries using your local GraphQL Playground which is exposed under: [http://localhost:8080/graphql](http://localhost:8080/graphql)
+After successfull installation, you can start playing with GraphQL queries using your local GraphQL Playground, which is exposed under: [http://localhost:8080/graphql](http://localhost:8080/graphql)
 
 ## REST Access
-Catalog API calls are compliant with ElasticSearch (it works like a filtering proxy to ES). More on ES queries: [ElasticSearch queries tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html)
+Catalog API calls are compliant with ElasticSearch (they work like a filtering proxy to ES). More on ES queries here: [ElasticSearch queries tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html)
 
-Elastic search endpoint: `http://localhost:8080/api/catalog/search/<INDEX_NAME>/`. You can run the following command to check if everything is up and runing (it assumes `vue_storefront_catalog` as default index name):
+The Elastic search endpoint is: `http://localhost:8080/api/catalog/search/<INDEX_NAME>/`. You can run the following command to check if everything is up and runing (it assumes `vue_storefront_catalog` as the default index name):
 
 `curl -i http://elastic:changeme@localhost:8080/api/catalog/vue_storefront_catalog/_search`
 
 ## Data formats
 
-The data formats can be easily modified up to your needs by modifying the `src/graphql/elasticsearch/**` schemas and resolvers.
+The data formats can be easily modified to suit your needs by modifying the `src/graphql/elasticsearch/**` schemas and resolvers.
 Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/) for the details regarding data formats.
 
-## Adding custom modules with own dependencies (Yarn only)
-When adding custom [Extensions to the API](https://github.com/DivanteLtd/vue-storefront/blob/master/doc/Extending%20vue-storefront-api.md) you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) dependencies defined inside your custom module will be installed when you execute `yarn` at project root level, so it's way easier and faster than installing all modules dependencies separately.
+## Adding custom modules with their own dependencies (Yarn only)
+When adding custom [Extensions to the API](https://github.com/DivanteLtd/vue-storefront/blob/master/doc/Extending%20vue-storefront-api.md), you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/), dependencies defined inside your custom module will be installed when you execute `yarn` at the project root level, so it's way easier and faster than installing all modules dependencies separately.
 
 To do this, define the `package.json` with your dependencies in your custom module:
 - `src/api/extensions/{your-custom-extension}/package.json` 
@@ -112,21 +112,21 @@ To do this, define the `package.json` with your dependencies in your custom modu
 
 NOTE: `npm` users will still have to install the dependencies individually in their modules.
 
-## Self signed certificates
+## Self-signed certificates
 
-Often in non production environment other services are using self signed certificates for secure connection.
-You can easily setup the application to trust them by putting them in config/certs directory.  
+In non-production environments, other services often use self-signed certificates for secure connections.
+You can easily set up the application to trust them by putting them in the config/certs directory.
 
 ## Contributing
 
-If you like the idea behind Vue Storefront and want to become a contributor - do not hesitate and check our [list of the active issues](https://github.com/DivanteLtd/storefront-api/issues) or contact us directly via contributors@vuestorefront.io.
+If you like the idea behind Vue Storefront and want to become a contributor, do not hesitate and check our [list of active issues](https://github.com/DivanteLtd/storefront-api/issues) or contact us directly via contributors@vuestorefront.io.
 
-If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
+If you have discovered a bug, or have a feature suggestion, feel free to create an issue on Github.
 
 
 ## Partners
 
-Storefront Api is a Community effort brought to You by our great **Vue Storefront Core Team** and supported by the following companies.
+Storefront API is a Community effort brought to you by our great **Vue Storefront Core Team** and supported by the following companies:
 
 <table>
   <tbody>
@@ -696,9 +696,9 @@ Storefront Api is a Community effort brought to You by our great **Vue Storefron
   </tbody>
 </table> 
 
-Partners are encouraged to support the project in various ways - mostly by contributing the source code, marketing activities, evangelizing and of course - implementing the production projects. We do support our partners by dedicated contact channels, workshops and by sharing the leads from merchants interested in implementations.
+Partners are encouraged to support the project in various ways - mostly by contributing to the source code, performing marketing activities, evangelizing and, of course, implementing production projects. We support our partners via dedicated contact channels, workshops and by sharing leads from merchants interested in implementations.
 
-If you like to become our Partner just let us know via contributors@vuestorefront.io.
+If you would like to become our Partner, just let us know via contributors@vuestorefront.io.
 
 ## License
 
