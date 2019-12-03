@@ -1,7 +1,7 @@
 import { version } from '../../package.json';
 import { Router } from 'express';
 import order from './order';
-import catalog from './catalog';
+import catalog from '../../default-catalog/api/catalog';
 import user from './user';
 import stock from './stock';
 import review from './review';

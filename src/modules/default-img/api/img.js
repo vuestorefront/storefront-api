@@ -1,6 +1,6 @@
 // @ts-check
-import CacheFactory from '../../../image/cache/factory';
-import ActionFactory from '../../../image/action/factory';
+import CacheFactory from '../image/cache/factory';
+import ActionFactory from '../image/action/factory';
 
 const asyncMiddleware = fn => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(next);

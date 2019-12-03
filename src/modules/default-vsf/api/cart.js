@@ -1,6 +1,6 @@
 import { apiStatus, apiError } from '../../../lib/util';
 import { Router } from 'express';
-import PlatformFactory from '../platform/factory';
+import PlatformFactory from '../../../platform/factory';
 
 export default ({ config, db }) => {
   let cartApi = Router();

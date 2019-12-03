@@ -1,8 +1,8 @@
 import jwt from 'jwt-simple';
 import request from 'request';
 import ProcessorFactory from '../processor/factory';
-import { adjustBackendProxyUrl } from '../../../lib/elastic'
-import cache from '../../../lib/cache-instance'
+import { adjustBackendProxyUrl } from 'src/lib/elastic'
+import cache from 'src/lib/cache-instance'
 import { sha3_224 } from 'js-sha3'
 
 function _cacheStorageHandler (config, result, hash, tags) {

@@ -4,7 +4,7 @@ import { buildQuery } from '../queryBuilder';
 import bodybuilder from 'bodybuilder'
 import esResultsProcessor from './processor'
 import { getIndexName } from '../mapping'
-import { getCurrentPlatformConfig } from '../../../platform/helpers'
+import { getCurrentPlatformConfig } from '../../../../../platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
 import { adjustQuery, getResponseObject } from '../../../../../lib/elastic'
 

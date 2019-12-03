@@ -147,7 +147,7 @@
   ],
   "_moduleAliases": {
     "src": "./src",
-    "src/modules": "./src/modules",
+    "lib": "./src/lib",
     "package.json": "./package.json"
   }
 }

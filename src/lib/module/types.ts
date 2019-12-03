@@ -14,7 +14,8 @@ export interface StorefrontApiContext {
 
 export interface GraphqlConfiguration {
   schema: any[],
-  resolvers: any[]
+  resolvers: any[],
+  hasGraphqlSupport: Boolean
 }
 
 export interface ElasticSearchMappings {

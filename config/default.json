@@ -157,14 +157,22 @@
     "Link"
   ],
   "platform": "magento2",
-  "registeredExtensions": [
-    "mailchimp-subscribe",
-    "example-magento-api",
-    "cms-data",
-    "mail-service",
-    "example-processor",
-    "elastic-stock"
-  ],
+  "modules": {
+    "default_catalog": {
+      "registeredExtensions": [
+        "example-processor",
+        "elastic-stock"
+      ]
+    },
+    "default_vsf": {
+      "registeredExtensions": [
+        "mailchimp-subscribe",
+        "example-magento-api",
+        "cms-data",
+        "mail-service"
+      ]
+    }    
+  },
   "extensions": {
     "mailchimp": {
       "listId": "e06875a7e1",

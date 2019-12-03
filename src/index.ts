@@ -5,13 +5,13 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import initializeDb from './db';
-import { loadAdditionalCertificates } from './helpers/loadAdditionalCertificates'
+import { loadAdditionalCertificates } from 'src/lib/helpers/loadAdditionalCertificates'
 import config from 'config';
 import { ApolloServer } from 'apollo-server-express';
 import * as path from 'path'
 import enabledModules from 'src/modules'
-import { registerModules } from './lib/module';
-import { StorefrontApiContext } from './lib/module/types';
+import { registerModules } from 'src/lib/module';
+import { StorefrontApiContext } from 'src/lib/module/types';
 import { mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
 
 const app = express();
@@ -39,10 +39,14 @@ initializeDb(db => {
   app.use(bodyParser.json());
 
   const context: StorefrontApiContext = { app, config, db }
-  const { aggregatedGraphqlConfig, registeredModules } = registerModules(enabledModules, context)
+  const { aggregatedGraphqlConfig } = registerModules(enabledModules, context)
 
-  const server = new ApolloServer({ typeDefs: mergeTypes(aggregatedGraphqlConfig.schema, { all: true }), resolvers: aggregatedGraphqlConfig.resolvers, rootValue: global, playground: true, context: (integrationContext) => integrationContext })
-  server.applyMiddleware({ app, path: '/graphql' });
+  if (aggregatedGraphqlConfig.hasGraphqlSupport) {
+    const server = new ApolloServer({ typeDefs: mergeTypes(aggregatedGraphqlConfig.schema, { all: true }), resolvers: aggregatedGraphqlConfig.resolvers, rootValue: global, playground: true, context: (integrationContext) => integrationContext })
+    server.applyMiddleware({ app, path: '/graphql' });
+  } else {
+    console.info('No GraphQL Support enabled. Please provide at least one module supporting graphQL schema.')
+  }
 
   // app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
