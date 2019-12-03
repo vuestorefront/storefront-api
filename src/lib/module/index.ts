@@ -12,7 +12,7 @@ const aggregatedElasticSearchSchema: ElasticSearchMappings = { schemas: {} }
 function registerModules (modules: StorefrontApiModule[], context): {
   registeredModules: StorefrontApiModule[],
   aggregatedGraphqlConfig: GraphqlConfiguration,
-  aggregatedElasticSearchSchema: ElasticSearchMappings,
+  aggregatedElasticSearchSchema: ElasticSearchMappings
 } {
   modules.forEach(m => m.register(context))
   console.log('API Modules registration finished.', {
@@ -52,15 +52,15 @@ class StorefrontApiModule {
     this._c = config
   }
 
-  public aggregateElasticSearchSchema(context:StorefrontApiContext): void {
-    if(this._c.loadMappings) {
+  public aggregateElasticSearchSchema (context: StorefrontApiContext): void {
+    if (this._c.loadMappings) {
       const elasticMappings = this._c.loadMappings(context)
       if (elasticMappings && elasticMappings.schemas) {
         aggregatedElasticSearchSchema.schemas = merge(aggregatedElasticSearchSchema.schemas, elasticMappings.schemas) // merge schemas
       }
-    }    
+    }
   }
-  public aggreagateGraphqlSchema(context:StorefrontApiContext): void {
+  public aggreagateGraphqlSchema (context: StorefrontApiContext): void {
     if (this._c.initGraphql) {
       const gqlModuleConfig = this._c.initGraphql(context)
       if (gqlModuleConfig.resolvers.length > 0) {
@@ -68,7 +68,7 @@ class StorefrontApiModule {
         aggregatedGraphqlConfig.resolvers = aggregatedGraphqlConfig.resolvers.concat(gqlModuleConfig.resolvers)
         aggregatedGraphqlConfig.schema = aggregatedGraphqlConfig.schema.concat(gqlModuleConfig.schema)
       }
-    }    
+    }
   }
   public register (context: StorefrontApiContext): StorefrontApiModuleConfig | void {
     if (!this._isRegistered) {

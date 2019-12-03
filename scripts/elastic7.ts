@@ -1,8 +1,8 @@
+import enabledModules from '../src/modules'
+
 const program = require('commander')
 const config = require('config')
 const spawnSync = require('child_process').spawnSync
-
-import enabledModules from '../src/modules'
 const { aggregateElasticSearchSchema } = require('../src/lib/module/index')
 const aggregatedSchema = aggregateElasticSearchSchema(enabledModules, { config })
 
@@ -41,7 +41,7 @@ program
     if (!cmd.inputFile.indexOf('.json')) {
       console.error('Please provide the file name ending with .json ext.')
     }
-    for (var collectionName in aggregatedSchema.schemas){
+    for (var collectionName in aggregatedSchema.schemas) {
       var outputIndex = `${cmd.outputIndex}_${collectionName}`
       var inputFile = cmd.inputFile.replace('.json', `_${collectionName}.json`)
 
