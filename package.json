@@ -90,6 +90,7 @@
     "merge-graphql-schemas": "^1.7.3",
     "migrate": "^1.6.2",
     "mime-types": "^2.1.18",
+    "module-alias": "^2.2.2",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.8",
     "oauth-1.0a": "^1.0.1",
@@ -143,5 +144,10 @@
   "workspaces": [
     "src/api/extensions/*",
     "src/platform/*"
-  ]
+  ],
+  "_moduleAliases": {
+    "src": "./src",
+    "src/modules": "./src/modules",
+    "package.json": "./package.json"
+  }
 }

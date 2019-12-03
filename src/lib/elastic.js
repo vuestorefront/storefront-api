@@ -199,14 +199,14 @@ function createIndex (db, indexName, collectionName, next) {
  * Load the schema definition for particular entity type
  * @param {String} entityType
  */
-function loadSchema (entityType, apiVersion = '7.1') {
-  const rootSchemaPath = path.join(__dirname, '../../config/elastic.schema.' + entityType + '.json')
+function loadSchema (rootPath, entityType, apiVersion = '7.1') {
+  const rootSchemaPath = path.join(rootPath, 'elastic.schema.' + entityType + '.json')
   if (!fs.existsSync(rootSchemaPath)) {
     return null
   }
   let schemaContent = jsonFile.readFileSync(rootSchemaPath)
   let elasticSchema = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
-  const extensionsPath = path.join(__dirname, '../../config/elastic.schema.' + entityType + '.extension.json');
+  const extensionsPath = path.join(__dirname, 'elastic.schema.' + entityType + '.extension.json');
   if (fs.existsSync(extensionsPath)) {
     schemaContent = jsonFile.readFileSync(extensionsPath)
     let elasticSchemaExtensions = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
@@ -272,5 +272,6 @@ module.exports = {
   getHits,
   getResponseObject,
   adjustIndexName,
-  putMappings
+  putMappings,
+  loadSchema
 }
