@@ -71,28 +71,28 @@ class StorefrontApiModule {
 }
 
 interface ExtensionContext { config: IConfig, app: IRouter, db: DbContext, registeredExtensions: string[], rootPath: string }
-function registerExtensions (context:ExtensionContext): void {
-    /** Register the custom extensions */
-    for (let ext of context.registeredExtensions as string[]) {
-      let entryPoint
+function registerExtensions (context: ExtensionContext): void {
+  /** Register the custom extensions */
+  for (let ext of context.registeredExtensions as string[]) {
+    let entryPoint
 
+    try {
+      entryPoint = require(path.join(context.rootPath, ext))
+    } catch (err) {
       try {
-        entryPoint = require(path.join(context.rootPath, ext))
+        entryPoint = require(ext)
       } catch (err) {
-        try {
-          entryPoint = require(ext)
-        } catch (err) {
-          console.error(err)
-        }
+        console.error(err)
       }
+    }
 
-      if (entryPoint) {
-        const route = entryPoint({ context: context.config, db: context.db })
-        context.app.use('/api/' + ext, route) // a way to override the default module api's by the extension
-        context.app.use('/api/ext/' + ext, route) // backward comaptibility
-        console.log('Extension ' + ext + ' registered under /ext/' + ext + ' base URL')
-      }
-    }  
+    if (entryPoint) {
+      const route = entryPoint({ context: context.config, db: context.db })
+      context.app.use('/api/' + ext, route) // a way to override the default module api's by the extension
+      context.app.use('/api/ext/' + ext, route) // backward comaptibility
+      console.log('Extension ' + ext + ' registered under /ext/' + ext + ' base URL')
+    }
+  }
 }
 
 export {
