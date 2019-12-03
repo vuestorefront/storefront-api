@@ -1,6 +1,10 @@
 const program = require('commander')
-const config = require('config').elasticsearch
+const config = require('config')
 const spawnSync = require('child_process').spawnSync
+
+import enabledModules from '../src/modules'
+const { aggregateElasticSearchSchema } = require('../src/lib/module/index')
+const aggregatedSchema = aggregateElasticSearchSchema(enabledModules, { config })
 
 function stdOutErr (stdout, stderr) {
   if (stdout.length > 0) { console.log(stdout.toString('utf8')) }
@@ -15,11 +19,10 @@ program
     if (!cmd.outputFile.indexOf('.json')) {
       console.error('Please provide the file name ending with .json ext.')
     }
-    for (var indexTypeIterator in config.indexTypes) {
-      var collectionName = config.indexTypes[indexTypeIterator]
+    for (var collectionName in aggregatedSchema.schemas) {
       var inputIndex = `${cmd.inputIndex}_${collectionName}`
       var outputFile = cmd.outputFile.replace('.json', `_${collectionName}.json`)
-      const input = `http://${config.host}:${config.port}/${inputIndex}`
+      const input = `http://${config.elasticsearch.host}:${config.elasticsearch.port}/${inputIndex}`
 
       const child = spawnSync('node', [
         'node_modules/elasticdump/bin/elasticdump',
@@ -38,12 +41,11 @@ program
     if (!cmd.inputFile.indexOf('.json')) {
       console.error('Please provide the file name ending with .json ext.')
     }
-    for (var indexTypeIterator in config.indexTypes) {
-      var collectionName = config.indexTypes[indexTypeIterator]
+    for (var collectionName in aggregatedSchema.schemas){
       var outputIndex = `${cmd.outputIndex}_${collectionName}`
       var inputFile = cmd.inputFile.replace('.json', `_${collectionName}.json`)
 
-      const output = `http://${config.host}:${config.port}/${outputIndex}`
+      const output = `http://${config.elasticsearch.host}:${config.elasticsearch.port}/${outputIndex}`
 
       const child = spawnSync('node', [
         'node_modules/elasticdump/bin/elasticdump',

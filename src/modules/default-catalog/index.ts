@@ -1,6 +1,5 @@
 import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
 import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from 'src/lib/module/types'
-import { Router } from 'express';
 import invalidateCache from './api/invalidate'
 import catalog from './api/catalog';
 

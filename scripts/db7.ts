@@ -2,6 +2,9 @@ const program = require('commander')
 const config = require('config')
 const common = require('../migrations/.common')
 const es = require('../src/lib/elastic')
+import enabledModules from '../src/modules'
+const { aggregateElasticSearchSchema } = require('../src/lib/module/index')
+const aggregatedSchema = aggregateElasticSearchSchema(enabledModules, { config })
 
 program
   .command('rebuild')
@@ -13,15 +16,13 @@ program
     }
 
     let waitingCounter = 0
-    for (var indexTypeIterator in config.elasticsearch.indexTypes) {
-      var collectionName = config.elasticsearch.indexTypes[indexTypeIterator]
-      console.log(config.elasticsearch.indexTypes);
+    for (var collectionName in aggregatedSchema.schemas) {
       console.log('** Hello! I am going to rebuild EXISTING ES index to fix the schema')
       const originalIndex = cmd.indexName + '_' + collectionName;
       const tempIndex = originalIndex + '_' + Math.round(+new Date() / 1000)
 
       console.log(`** Creating temporary index ${tempIndex}`)
-      es.createIndex(common.db, tempIndex, collectionName, (err) => {
+      es.createIndex(common.db, tempIndex, aggregatedSchema.schemas[collectionName], (err) => {
         if (err) {
           console.log(err)
         }
@@ -47,7 +48,7 @@ program
       })
     }
     setInterval(() => {
-      if (waitingCounter === config.elasticsearch.indexTypes.length) process.exit(0)
+      if (waitingCounter === Object.keys(aggregatedSchema.schemas).length) process.exit(0)
     }, 1000)
   })
 
@@ -64,9 +65,8 @@ program
     const indexName = cmd.indexName
 
     let waitingCounter = 0
-    for (var indexTypeIterator in config.elasticsearch.indexTypes) {
-      var collectionName = config.elasticsearch.indexTypes[indexTypeIterator]
-      es.createIndex(common.db, indexName + '_' + collectionName, collectionName, (err) => {
+    for (var collectionName in aggregatedSchema.schemas) {
+      es.createIndex(common.db, indexName + '_' + collectionName, aggregatedSchema.schemas[collectionName], (err) => {
         if (err) {
           console.log(err)
         }
@@ -74,7 +74,7 @@ program
       })
     }
     setInterval(() => {
-      if (waitingCounter === config.elasticsearch.indexTypes.length) process.exit(0)
+      if (waitingCounter === Object.keys(aggregatedSchema.schemas).length) process.exit(0)
     }, 1000)
   })
 

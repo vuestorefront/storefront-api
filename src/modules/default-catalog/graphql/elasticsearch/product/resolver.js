@@ -112,14 +112,14 @@ export async function list ({ filter, sort, currentPage, pageSize, search, conte
 
   let response = getResponseObject(await client.search(adjustQuery({
     index: esIndex,
-    type: config.elasticsearch.indexTypes[0],
+    type: 'product',
     body: query,
     _sourceInclude,
     _sourceExclude
   }, 'product', config)));
   if (response && response.hits && response.hits.hits) {
     // process response result (caluclate taxes etc...)
-    response.hits.hits = await esResultsProcessor(response, _req, config.elasticsearch.indexTypes[0], esIndex);
+    response.hits.hits = await esResultsProcessor(response, _req, 'product', esIndex);
   }
 
   // Process hits

@@ -27,16 +27,6 @@
       "vue_storefront_catalog_de",
       "vue_storefront_catalog_it"
     ],
-    "indexTypes": [
-      "product",
-      "category",
-      "cms_block",
-      "cms_page",
-      "cms_hierarchy",
-      "attribute",
-      "taxrule",
-      "review"
-    ],
     "apiVersion": "7.2"
   },
   "redis": {

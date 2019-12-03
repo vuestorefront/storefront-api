@@ -152,9 +152,7 @@ function reIndex (db, fromIndexName, toIndexName, next) {
   })
 }
 
-function createIndex (db, indexName, collectionName, next) {
-  let indexSchema = collectionName ? loadSchema(collectionName) : loadSchema('index', '5.6'); /** index schema is used only for 5.6 */
-
+function createIndex (db, indexName, indexSchema, next) {
   const step2 = () => {
     db.indices.delete({
       'index': indexName
@@ -216,7 +214,7 @@ function loadSchema (rootPath, entityType, apiVersion = '7.1') {
 }
 
 // this is deprecated just for ES 5.6
-function putMappings (db, indexName, next) {
+function putMappings (db, indexName, schemas, next) {
   let productSchema = loadSchema('product', '5.6');
   let categorySchema = loadSchema('category', '5.6');
   let taxruleSchema = loadSchema('taxrule', '5.6');

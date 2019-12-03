@@ -1,4 +1,4 @@
-import PlatformFactory from 'src/ platform/factory'
+import PlatformFactory from 'src/platform/factory'
 import { sgnSrc } from 'src/lib/util'
 const jwa = require('jwa');
 const hmac = jwa('HS256');
@@ -22,7 +22,7 @@ class ProductProcessor {
 
     processorChain.push(taxProcessor.process(items, groupId))
 
-    for (const ext of this._config.registeredExtensions) {
+    for (const ext of this._config.modules.default_catalog.registeredExtensions) {
       // in each registered extension, check 'resultProcessor' is defined
       if (configExtensions && (ext in this._config.extensions) && ('resultProcessors' in this._config.extensions[ext]) && ('product' in this._config.extensions[ext].resultProcessors)) {
         const extProcessorPath = '../api/extensions/' + ext + '/processors'

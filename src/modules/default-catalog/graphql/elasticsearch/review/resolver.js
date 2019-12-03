@@ -14,7 +14,6 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
     _sourceExclude
   }, 'review', config)));
 
-  console.log(response)
   // Process hits
   response.items = []
   response.hits.hits.forEach(hit => {

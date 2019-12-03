@@ -1,4 +1,4 @@
-import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
+import { StorefrontApiModule } from 'src/lib/module'
 import { StorefrontApiContext } from 'src/lib/module/types'
 import img from './api/img'
 

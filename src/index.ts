@@ -12,7 +12,7 @@ import * as path from 'path'
 import enabledModules from 'src/modules'
 import { registerModules } from 'src/lib/module';
 import { StorefrontApiContext } from 'src/lib/module/types';
-import { mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
+import {  mergeTypes } from 'merge-graphql-schemas';
 
 const app = express();
 app.use(cors({

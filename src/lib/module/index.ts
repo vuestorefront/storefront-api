@@ -1,15 +1,18 @@
 // @deprecated from 2.0
-import { StorefrontApiContext, StorefrontApiModuleConfig, GraphqlConfiguration, DbContext } from './types'
+import { StorefrontApiContext, StorefrontApiModuleConfig, GraphqlConfiguration, DbContext, ElasticSearchMappings } from './types'
 import { IConfig } from 'config'
-import { Router, IRouter } from 'express'
+import { IRouter } from 'express'
 import path from 'path'
+import merge from 'deepmerge'
 
 const registeredModules: StorefrontApiModuleConfig[] = []
 const aggregatedGraphqlConfig: GraphqlConfiguration = { schema: [], resolvers: [], hasGraphqlSupport: false }
+const aggregatedElasticSearchSchema: ElasticSearchMappings = { schemas: {} }
 
 function registerModules (modules: StorefrontApiModule[], context): {
   registeredModules: StorefrontApiModule[],
-  aggregatedGraphqlConfig: GraphqlConfiguration
+  aggregatedGraphqlConfig: GraphqlConfiguration,
+  aggregatedElasticSearchSchema: ElasticSearchMappings,
 } {
   modules.forEach(m => m.register(context))
   console.log('API Modules registration finished.', {
@@ -20,8 +23,17 @@ function registerModules (modules: StorefrontApiModule[], context): {
 
   return {
     registeredModules: modules,
-    aggregatedGraphqlConfig
+    aggregatedGraphqlConfig,
+    aggregatedElasticSearchSchema
   }
+}
+
+function aggregateElasticSearchSchema (modules: StorefrontApiModule[], context): ElasticSearchMappings {
+  modules.forEach(m => {
+    m.aggregateElasticSearchSchema(context)
+  })
+
+  return aggregatedElasticSearchSchema
 }
 
 class StorefrontApiModule {
@@ -40,6 +52,24 @@ class StorefrontApiModule {
     this._c = config
   }
 
+  public aggregateElasticSearchSchema(context:StorefrontApiContext): void {
+    if(this._c.loadMappings) {
+      const elasticMappings = this._c.loadMappings(context)
+      if (elasticMappings && elasticMappings.schemas) {
+        aggregatedElasticSearchSchema.schemas = merge(aggregatedElasticSearchSchema.schemas, elasticMappings.schemas) // merge schemas
+      }
+    }    
+  }
+  public aggreagateGraphqlSchema(context:StorefrontApiContext): void {
+    if (this._c.initGraphql) {
+      const gqlModuleConfig = this._c.initGraphql(context)
+      if (gqlModuleConfig.resolvers.length > 0) {
+        aggregatedGraphqlConfig.hasGraphqlSupport = true
+        aggregatedGraphqlConfig.resolvers = aggregatedGraphqlConfig.resolvers.concat(gqlModuleConfig.resolvers)
+        aggregatedGraphqlConfig.schema = aggregatedGraphqlConfig.schema.concat(gqlModuleConfig.schema)
+      }
+    }    
+  }
   public register (context: StorefrontApiContext): StorefrontApiModuleConfig | void {
     if (!this._isRegistered) {
       if (this._c.beforeRegistration) {
@@ -49,14 +79,8 @@ class StorefrontApiModule {
       if (this._c.initApi) {
         this._c.initApi(context)
       }
-      if (this._c.initGraphql) {
-        const gqlModuleConfig = this._c.initGraphql(context)
-        if (gqlModuleConfig.resolvers.length > 0) {
-          aggregatedGraphqlConfig.hasGraphqlSupport = true
-          aggregatedGraphqlConfig.resolvers = aggregatedGraphqlConfig.resolvers.concat(gqlModuleConfig.resolvers)
-          aggregatedGraphqlConfig.schema = aggregatedGraphqlConfig.schema.concat(gqlModuleConfig.schema)
-        }
-      }
+      this.aggreagateGraphqlSchema(context)
+      this.aggregateElasticSearchSchema(context)
       if (this._c.initMiddleware) {
         this._c.initMiddleware(context)
       }
@@ -99,5 +123,6 @@ export {
   StorefrontApiModuleConfig,
   StorefrontApiModule,
   registerModules,
-  registerExtensions
+  registerExtensions,
+  aggregateElasticSearchSchema
 }
