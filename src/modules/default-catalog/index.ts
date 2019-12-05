@@ -29,7 +29,7 @@ export const DefaultCatalogModule: StorefrontApiModule = new StorefrontApiModule
     }
   },
   initApi: ({ config, db, app }: StorefrontApiContext): void => {
-    registerExtensions({ app, config, db, registeredExtensions: config.get('modules.default_catalog.registeredExtensions'), rootPath: path.join(__dirname, 'api', 'extensions') })
+    registerExtensions({ app, config, db, registeredExtensions: config.get('modules.defaultCatalog.registeredExtensions'), rootPath: path.join(__dirname, 'api', 'extensions') })
 
     // mount the catalog resource
     app.use('/api/catalog', catalog({ config, db }))

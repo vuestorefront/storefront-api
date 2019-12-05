@@ -1,5 +1,7 @@
 # Integration Tutorial
 
+**Note:** This integration tutorial will guide you thru the custom backend integration with Storefront Api. We're using the default data schema as provided by the  `default-catalog` [module](../modules/introduction.md). This data format is compatible with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront). Please don't mind some notes specific to how Vue Storefront works (in regards to prices and taxes). I left them as it's easier to understand the business logic given the real example how the data is being consumed.
+
 This product manages to be platform-agnostic thanks to the [dedicated API connectors](https://github.com/DivanteLtd/vue-storefront#integrations) for eCommerce backend platforms. The data format in `storefront-api` is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.
 
 It's a great strategy for migrations since you can easily migrate from one platform to another (or one version to another, e.g. Magento 1 to 2) without touching your frontend.
@@ -130,7 +132,7 @@ $ node import.js attributes.json attribute vue_storefront_catalog
 $ node import.js categories.json category vue_storefront_catalog
 ```
 
-After importing the data, we need to make sure the Vue Storefront Elastic index schema has been properly applied. To ensure this, we'll use the [Database tool](../tools/database-tools.md) used previously to clear out the index - once again:
+After importing the data, we need to make sure the Storefront Api Elastic index schema has been properly applied. To ensure this, we'll use the [Database tool](../tools/database-tools.md) used previously to clear out the index - once again:
 
 ```bash
 $ docker exec -it sfa_app_1 yarn db rebuild
@@ -149,7 +151,7 @@ Elasticsearch DEBUG: 2019-09-06T20:13:28Z
   }
 ```
 
-**Congratulations!** Now it's a good moment to take a deep breath and study the data formats we'd just imported to create your own mapper from the custom platform of your choice to Vue Storefront format.
+**Congratulations!** Now it's a good moment to take a deep breath and study the data formats we'd just imported to create your own mapper from the custom platform of your choice to Storefront Api format.
 
 ### Product entity
 
@@ -159,7 +161,7 @@ You might have seen that our data formats are pretty much similar to Magento for
 
 ### Attribute entity
 
-Vue Storefront uses the attributes meta data dictionaries saved in the `attribute` entities. They're related to the `product`. The `attribute.attribute_code` represents the `product[attribute_code]` proeprty - when defined. When not, the `product[attribute_code]` is being used as a plain tetxt.
+Storefront Api uses the attributes meta data dictionaries saved in the `attribute` entities. They're related to the `product`. The `attribute.attribute_code` represents the `product[attribute_code]` proeprty - when defined. When not, the `product[attribute_code]` is being used as a plain tetxt.
 
 [Read more on why Attributes are important](./format-attribute.md)
 

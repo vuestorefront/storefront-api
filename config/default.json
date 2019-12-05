@@ -148,13 +148,13 @@
   ],
   "platform": "magento2",
   "modules": {
-    "default_catalog": {
+    "defaultCatalog": {
       "registeredExtensions": [
         "example-processor",
         "elastic-stock"
       ]
     },
-    "default_vsf": {
+    "defaultVsf": {
       "registeredExtensions": [
         "mailchimp-subscribe",
         "example-magento-api",

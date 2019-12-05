@@ -37,7 +37,15 @@ module.exports = {
             'general/graphql',
             'general/extensions'
           ]
-	      },
+        },
+        {
+          title: 'Modules',
+          collapsable: false,
+          children: [
+            'modules/introduction',
+            'modules/tutorial'
+          ],
+        },        
         {
           title: 'Integrations',
           collapsable: false,

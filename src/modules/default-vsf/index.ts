@@ -47,7 +47,7 @@ export const DefaultVuestorefrontApiModule: StorefrontApiModule = new Storefront
       res.json({ version });
     });
 
-    registerExtensions({ app, config, db, registeredExtensions: config.get('modules.default_vsf.registeredExtensions'), rootPath: path.join(__dirname, 'api', 'extensions') })
+    registerExtensions({ app, config, db, registeredExtensions: config.get('modules.defaultVsf.registeredExtensions'), rootPath: path.join(__dirname, 'api', 'extensions') })
 
     // api router
     app.use('/api', api);

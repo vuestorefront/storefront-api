@@ -23,6 +23,7 @@ Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vu
 ## Key features
 
  - Fully functional and extendable eCommerce API Gateway,
+ - Modular architecture with easy customizable default e-Commerce module,
  - Read/Write integrations with [Magento1](https://github.com/DivanteLtd/magento1-vsbridge-indexer), [EpiServer](https://github.com/makingwaves/epi-commerce-to-vue-storefront), [Magento2](https://github.com/DivanteLtd/magento2-vsbridge-indexer), [OpenCart](https://github.com/butopea/vue-storefront-opencart-vsbridge), [SpreeCommerce](https://github.com/spark-solutions/spree2vuestorefront),
  - Additional integrations including [Prismic](https://forum.vuestorefront.io/t/prismic-connector/160) with GraphQL support,
  - [Vue Storefront](https://vuestorefront.io) PWA frontend support,
@@ -63,26 +64,11 @@ The following are already included in the `storefront-api` Docker image, but req
 
 Storefront API comes with a default product schema - compatible with the [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project - and can be a drop-in replacement for `vue-storefront-api`. You can easily start a dev instance including a demo data set integrated with a [Magento 2.3 demo instance](http://demo-magento2.vuestorefront.io).
 
-### Elastic 5.6
-
-To run `storefront-api` in `development` mode with ElasticSearch 5.6, please run:
-
-`docker-compose up`
-
-Then, to restore the demo data set, please run:
-
-`docker exec -it sfa_app_1 yarn restore`
-
 ### Elastic 7.2
 
-To run `storefront-api` in `development` mode with ElasticSearch 7.2, please:
+To run `storefront-api` in `development` mode with ElasticSearch 7.2, please run:
 
-Change the config file (`config.elasticsearch.apiVersion`):
-
-`echo '{ "elasticsearch": { "apiVersion": "7.2" } }' > config/local.json`
-
-Then start the docker container:
-`docker-compose -f docker-compose.elastic7.yml up `
+`docker-compose up`
 
 Restore the demo data set:
 `docker exec -it sfa_app_1 yarn restore7`

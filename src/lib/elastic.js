@@ -213,50 +213,6 @@ function loadSchema (rootPath, entityType, apiVersion = '7.1') {
   return elasticSchema
 }
 
-// this is deprecated just for ES 5.6
-function putMappings (db, indexName, schemas, next) {
-  let productSchema = loadSchema('product', '5.6');
-  let categorySchema = loadSchema('category', '5.6');
-  let taxruleSchema = loadSchema('taxrule', '5.6');
-  let attributeSchema = loadSchema('attribute', '5.6');
-  let pageSchema = loadSchema('cms_page', '5.6');
-  let blockSchema = loadSchema('cms_block', '5.6');
-
-  Promise.all([
-    db.indices.putMapping({
-      index: indexName,
-      type: 'product',
-      body: productSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'taxrule',
-      body: taxruleSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'attribute',
-      body: attributeSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'cms_page',
-      body: pageSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'cms_block',
-      body: blockSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'category',
-      body: categorySchema
-    })
-  ]).then(values => values.forEach(res => console.dir(res.body, { depth: null, colors: true })))
-    .then(next)
-    .catch(next)
-}
 
 module.exports = {
   putAlias,
@@ -270,6 +226,5 @@ module.exports = {
   getHits,
   getResponseObject,
   adjustIndexName,
-  putMappings,
   loadSchema
 }

@@ -53,20 +53,13 @@ This step can be skipped if you are OK with values of `default.json` since it fo
 
 3. Run the following Docker command : 
 
-For using Storefront Api with embedded the Elastic 5:
+For using Storefront Api with embedded the Elastic 7:
 ```bash
 docker-compose -f docker-compose.yml up -d
 ```
 
-For using Storefront Api with embedded the Elastic 7:
-```bash
-docker-compose -f docker-compose.elastic7.yml up -d
-```
-
-
 Then, to restore the demo data set please run:
-`docker exec -it sfa_app_1 yarn restore`
-
+`docker exec -it sfa_app_1 yarn restore7`
 
 The result would look something like this : 
 ```bash

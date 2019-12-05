@@ -5,8 +5,7 @@ The default GraphQL resolvers fetch the data from Elasticsearch. You can easily 
 
 ## GraphQL Schema
 
-Our default GraphQL schema is defined in the [graphql](https://github.com/DivanteLtd/storefront-api/tree/develop/src/graphql/elasticsearch) folder.
-Check the [Schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/)
+Our default GraphQL schema is defined in the within the [modules](../modules/introduction.md). By default we provide the `default-catalog` module which contains pretty comprehensive eCommerce schema that can be easily modified up to your needs. Check the [Default schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/)
 
 ## GraphQL Playground and queries
 
@@ -51,5 +50,4 @@ You can find an example request for querying the products entity below:
 
 ## Extending GraphQL schema
 
-Of course you can modify the GraphQL schema and resolvers which are located in the [`graphql`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/graphql/elasticsearch) directory. The other way around is to create your own [extensions](./extensions.md)
-
+The default schema can be easily modified by just tweaking the `modules/default-catalog/graphql` definitions. You can add your own custom [modules](../modules/introduction.md) that defines custom GraphQL schema. The same way you can disable the `default-catalog` module if you don't like to use our default entities.
