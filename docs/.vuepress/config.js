@@ -32,10 +32,7 @@ module.exports = {
           children: [
             'general/introduction',
             'general/installation',
-            'general/config',
-            'general/api',
-            'general/graphql',
-            'general/extensions'
+            'general/config'
           ]
         },
         {

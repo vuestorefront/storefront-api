@@ -129,7 +129,6 @@ You will see 4 containers are running, which is :
 |------------------------|---------------------|
 | Storefront Api app | :8080               |
 | Elasticsearch          | :9200               |
-| Kibana                 | :5601               |
 | Redis                  | :6379               |
 
 

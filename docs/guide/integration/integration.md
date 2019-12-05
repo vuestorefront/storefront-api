@@ -203,7 +203,7 @@ Here is the data format:
 To read more on how tax rates are processed when `config.tax.calculateServerSide=false`, please read the [Prices how to](./prices-how-to.md) and then [study the taxCalc.ts](https://github.com/DivanteLtd/storefront-api/blob/develop/src/lib/taxcalc.js).
 
 
-### <a name="api-adapters">Write your API adapter for dynamic requests</a>
+### Write your API adapter for dynamic requests
 
 Storefront Api doesn't store any user data, order or payment information. Whenever a product is added to the cart, or user authorization is performed, there is an API request executed.
 
