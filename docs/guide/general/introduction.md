@@ -1,10 +1,10 @@
 # Introduction
 
-Storefront Api is a customizable eCommerce API gateway. You can use this product to provide all your frontends - including mobile applications with single data source. **GraphQL support** let you to easily implement BFF ([Backend for Frontend](https://samnewman.io/patterns/architectural/bff/)) pattern. It unifies the interfaces between all the systems backing your frontend and lets you query multiple data sources with single HTTP request.
+Storefront Api is a customizable, modular eCommerce API gateway. You can use this product to provide all your frontends - including mobile applications with single data source. **GraphQL support** let you to easily implement BFF ([Backend for Frontend](https://samnewman.io/patterns/architectural/bff/)) pattern. It unifies the interfaces between all the systems backing your frontend and lets you query multiple data sources with single HTTP request.
 
 Storefront Api is **backend agnostic**. That means it's not an eCommerce backend itself. Out of the box it's provided with Read/Write integrations with [Magento1](https://github.com/DivanteLtd/magento1-vsbridge-indexer), [EpiServer](https://github.com/makingwaves/epi-commerce-to-vue-storefront), [Magento2](https://github.com/DivanteLtd/magento2-vsbridge-indexer), [OpenCart](https://github.com/butopea/vue-storefront-opencart-vsbridge), [SpreeCommerce](https://github.com/spark-solutions/spree2vuestorefront)
 
-By default all the catalog information are stored in ElasticSearch (read operations). The write operations are forwarded to the **dedicated API drivers** (Magento1, Magento2, Spree and others avaialble).
+The architecture is modular. Out of the box we provided a set of modules (`default-catalog`, `default-vsf`, `default-img`) implementing our agnostic eCommerce data formats.  By default all the catalog information are stored in ElasticSearch (read operations). The write operations are forwarded to the **dedicated API drivers** (Magento1, Magento2, Spree and others avaialble).
 
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
 <em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
@@ -24,6 +24,19 @@ By default all the catalog information are stored in ElasticSearch (read operati
  - Extendable via custom extensions (including GraphQL schema and resolver extensions),
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
  - Custom eCommerce Backend integrations via [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
+
+
+## Modules
+
+Storefront Api do provide all the features, GraphQL schemas, ElasticSearch resolvers and API handlers via [Modules](../modules/introduction.md). That's it. The default schema and the features described in the further parts of the documentation have been implemented by the `default-catalog`, `default-img` and `default-vsf` modules. You can customize them, clone, modify or just disable.
+
+Each individual module provide it's own:
+- GraphQL schema and resolvers,
+- ElasticSearch mappings,
+- API methods - via express.js hanlders and middlewares.
+
+[Read more on Storefront Api modules](../modules/introduction.md)
+[Read more on The Default modules](../default-modules/introduction.md)
 
 ## How does it connect with backend platforms?
 This product manages to be platform-agnostic thanks to the [dedicated API connectors](https://github.com/DivanteLtd/vue-storefront#integrations) for eCommerce backend platforms. The data format in `storefront-api` is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.
@@ -49,5 +62,5 @@ For your own implementation you should create a `local.json` file in the same di
 [Read more on configs](./config.md)
 
 ## What else
-You may not believe me but this is all you need to know to start working with Vue Storefront! Once you are done wrapping your head around the basics, just look around docs and visit community [slack](https://slack.vuestorefront.io) to dig deeper into the project.
+You may not believe me but this is all you need to know to start working with Storefront Api! Once you are done wrapping your head around the basics, just look around docs and visit community [slack](https://slack.vuestorefront.io) to dig deeper into the project.
 

@@ -15,7 +15,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```
 - This is where your API backend is defined. The server will listen `server.host`:`server.port` unless it's defined otherwise in environment variables. 
 
-- `server.searchEngine` is used in the integration with `graphql` so please don't change it. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/master/src/graphql/resolvers.js#L6)
+- `server.searchEngine` is used in the integration with `graphql` so please don't change it. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/develop/src/graphql/resolvers.js#L6)
 ```json
   "orders": {
     "useServerQueue": false
@@ -24,7 +24,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
     "excludeDisabledProducts": false
   },
 ```
-- `orders.useServerQueue` allows you to use queue process when `order` API is used to create an order. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/order.js#L65)
+- `orders.useServerQueue` allows you to use queue process when `order` API is used to create an order. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/order.js#L65)
 
 - `catalog.excludeDisabledProducts` allows you to skip disabled products when importing products using `mage2vs`. 
 [jump to code](https://github.com/DivanteLtd/mage2vuestorefront/blob/master/src/adapters/magento/product.js#L166)
@@ -57,7 +57,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 
   - `host`, `port`, `protocol` defines `elasticsearch` connect information. 
 - `user`, `password` is default credentials of `elasticsearch`. If you changed the credentials of `elasticsearch`, please change this accordingly. [more info](https://www.elastic.co/guide/en/x-pack/current/security-getting-started.html)
-  - `min_score` sets a `min_score` when building a query for `elasticsearch`. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/master/src/graphql/elasticsearch/queryBuilder.js#L172)
+  - `min_score` sets a `min_score` when building a query for `elasticsearch`. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/develop/src/graphql/elasticsearch/queryBuilder.js#L172)
     :::tip TIP
     `min_score` helps you exclude documents with `_score` less than `min_score` value. 
     :::
@@ -67,7 +67,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
      :::
   The default values for `indices` assume you have 2 additional stores(`de`, `it`) plus the default store.  
   - `indexTypes` contains values for mapping. You can consider it as `table` if you take `indices` as database.
-  - `apiVersion` defines the `elasticsearch` version it uses. 
+  - `apiVersion` defines the `elasticsearch` version it uses. The default is 7.1.
 
 ```json
   "redis": {
@@ -109,7 +109,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
         "defaultCountry": "DE",
         "defaultRegion": "",
         "calculateServerSide": true,
-		"sourcePriceIncludesTax": false
+      "sourcePriceIncludesTax": false
       },
       "i18n": {
         "fullCountryName": "Germany",
@@ -153,7 +153,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 
 ```
 - `storeViews` element contains the whole information of ***additional*** stores. The default store information doesn't exist here, it exists on top level.
-- `multistore` is supposed to tell the platform if it has multiple stores to consider. For example, it is used to configure `tax` values of additional store. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/platform/magento2/tax.js#L14) 
+- `multistore` is supposed to tell the platform if it has multiple stores to consider. For example, it is used to configure `tax` values of additional store. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/platform/magento2/tax.js#L14) 
 - `mapStoreUrlsFor` is used for building url routes in frontend. [jump to code](https://github.com/DivanteLtd/storefront/blob/master/core/lib/multistore.ts#L85)
 - `de` element contains detailed information of `de` store. You need to have this kind of element for all the additional stores you added to `availableStores` with `storeCode` as the key. `de` and `it` in the `default.json` exhibits an example you can copy & paste for other stores you need to add. 
   - `storeCode` denotes store code for the store. 
@@ -167,8 +167,8 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
   - `tax` contains tax information of the store.
     - `defaultCountry` is the code name of the country on which tax is calculated for the store. 
     - `defaultRegion` is default region.
-    - `calculateServerSide` determines if price is fetched with(`true`)/without(`false`) tax calculated. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/product.js#L48)
-    - `sourcePriceIncludesTax` determines whether price is stored with tax applied (`true`) or tax calculated on runtime (`false`).  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/platform/magento2/tax.js#L12)
+    - `calculateServerSide` determines if price is fetched with(`true`)/without(`false`) tax calculated. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/product.js#L48)
+    - `sourcePriceIncludesTax` determines whether price is stored with tax applied (`true`) or tax calculated on runtime (`false`).  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/platform/magento2/tax.js#L12)
   - `i18n` connotes *internationalization*. [more info](https://en.wikipedia.org/wiki/Internationalization_and_localization)   
     - `fullCountryName` is the full name of the country this `i18n` is applied to.
     - `fullLanguageName` is the full name of the language this `i18n` is applied to.
@@ -202,9 +202,9 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
   },
 ```
 - `cart` 
-  - `setConfigurableProductOptions` flag determines to show either the parent item or the child item (aka selected option item) in the cart context. `true` shows parent item instead of the option item selected.  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/platform/magento2/o2m.js#L94)
+  - `setConfigurableProductOptions` flag determines to show either the parent item or the child item (aka selected option item) in the cart context. `true` shows parent item instead of the option item selected.  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/platform/magento2/o2m.js#L94)
 - `tax`
-  - `alwaysSyncPlatformPricesOver`  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/order.js#L49)
+  - `alwaysSyncPlatformPricesOver`  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/order.js#L49)
   - `usePlatformTotals` 
   These two options are used to determine whether to fetch prices from data source on the fly or not. If you set `alwaysSyncPlatformPricesOver` true, then it skips checking the checksum for cart items based on price.  
   
@@ -220,7 +220,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```json
   "platform": "magento2",
 ```
-- `platform` defines which e-commerce platform is used as a source. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/order.js#L13)
+- `platform` defines which e-commerce platform is used as a source. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/order.js#L13)
 
 ```json
   "registeredExtensions": [
@@ -248,14 +248,14 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
     }
   },
 ```
-- `registeredExtensions` element contains the list of supported extensions, it bootstraps entry points for those extensions [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/index.js#L45)
+- `modules.defaultCatalog.registeredExtensions` element contains the list of supported extensions, it bootstraps entry points for those extensions [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/index.js#L45)
 
 - `extensions` contains additional configuration for extensions. [jump to code](https://github.com/DivanteLtd/storefront-api/tree/master/src/api/extensions)
   - `mailchimp` provides `POST`, `DELETE` APIs for *Mailchimp* `subscribe` method.
     - `listId` is the ID of list you are publishing.
     - `apiKey` is API key you are assigned.
     - `apiUrl` is API base url for *Mailchimp* service. 
-  - `mailService`  is used to send emails from Vue Storefront via *Gmail*.
+  - `mailService`  is used to send emails from Storefront Api via *Gmail*.
     - `transport` contains basic information for *Gmail* service.
       - `host` is where your mail is sent en route.
       - `port` is the port number used for the service.
@@ -300,9 +300,9 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```
 - `magento2`  is used to integrate with Magento 2 as a data source. 
   
-  - `imgUrl` is base image url. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/img.js#L38)
+  - `imgUrl` is base image url. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/img.js#L38)
     
-  - `assetPath` is used for the `media` path. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/master/src/index.js#L22)
+  - `assetPath` is used for the `media` path. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/develop/src/index.js#L22)
   
   - `api` contains API credentials for integration.
   
@@ -351,8 +351,8 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```
 - `imageable` deals with everything you need to configure when it comes to your storefront images, especially product images. 
   
-  - `maxListeners` limits maximum listeners to request's socket. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/img.js#L21)
-  - `imageSizeLimit`  limits maximum image size. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/api/img.js#L56)
+  - `maxListeners` limits maximum listeners to request's socket. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/img.js#L21)
+  - `imageSizeLimit`  limits maximum image size. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/img.js#L56)
   - `whitelist` contains a white-list of image source domains
     
     - `allowedHosts` contains the array of white-list
@@ -369,7 +369,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
     
     :::
     
-  - `cache` limits `libvips` operation cache from *Sharp*. Values hereunder are default values. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/lib/image.js#L5) 
+  - `cache` limits `libvips` operation cache from *Sharp*. Values hereunder are default values. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/lib/image.js#L5) 
   
     - `memory` is the maximum memory in MB to use for the cache. 
     - `files` is the maximum number of files to hold open. 
@@ -414,9 +414,9 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```
 - `entities` is used to integrate with *GraphQL* in **Storefront API**.  
   - `category`
-    - `includeFields` contains an array of fields to be added as `sourceInclude` [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/graphql/elasticsearch/category/resolver.js#L10)
+    - `includeFields` contains an array of fields to be added as `sourceInclude` [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/graphql/elasticsearch/category/resolver.js#L10)
   - `product`
-    - `filterFieldMapping` adds a field mapping to apply a filter in a query [jump to code](https://github.com/DivanteLtd/storefront-api/blob/master/src/graphql/elasticsearch/mapping.js#L19)
+    - `filterFieldMapping` adds a field mapping to apply a filter in a query [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/graphql/elasticsearch/mapping.js#L19)
       - `category.name` 
       
 ```json

@@ -93,7 +93,7 @@ module.exports = ({ config, db }) => {
 3. Add the extension to `config/local.json`:
 
 ```json
-	"registeredExtensions": ["mailchimp-subscribe"],
+   "registeredExtensions": ["mailchimp-subscribe"],
 ```
 
 4. Restart the `storefront-api`

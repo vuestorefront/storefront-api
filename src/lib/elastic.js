@@ -152,9 +152,7 @@ function reIndex (db, fromIndexName, toIndexName, next) {
   })
 }
 
-function createIndex (db, indexName, collectionName, next) {
-  let indexSchema = collectionName ? loadSchema(collectionName) : loadSchema('index', '5.6'); /** index schema is used only for 5.6 */
-
+function createIndex (db, indexName, indexSchema, next) {
   const step2 = () => {
     db.indices.delete({
       'index': indexName
@@ -199,65 +197,20 @@ function createIndex (db, indexName, collectionName, next) {
  * Load the schema definition for particular entity type
  * @param {String} entityType
  */
-function loadSchema (entityType, apiVersion = '7.1') {
-  const rootSchemaPath = path.join(__dirname, '../../config/elastic.schema.' + entityType + '.json')
+function loadSchema (rootPath, entityType, apiVersion = '7.1') {
+  const rootSchemaPath = path.join(rootPath, 'elastic.schema.' + entityType + '.json')
   if (!fs.existsSync(rootSchemaPath)) {
     return null
   }
   let schemaContent = jsonFile.readFileSync(rootSchemaPath)
   let elasticSchema = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
-  const extensionsPath = path.join(__dirname, '../../config/elastic.schema.' + entityType + '.extension.json');
+  const extensionsPath = path.join(__dirname, 'elastic.schema.' + entityType + '.extension.json');
   if (fs.existsSync(extensionsPath)) {
     schemaContent = jsonFile.readFileSync(extensionsPath)
     let elasticSchemaExtensions = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
     elasticSchema = _.merge(elasticSchema, elasticSchemaExtensions) // user extensions
   }
   return elasticSchema
-}
-
-// this is deprecated just for ES 5.6
-function putMappings (db, indexName, next) {
-  let productSchema = loadSchema('product', '5.6');
-  let categorySchema = loadSchema('category', '5.6');
-  let taxruleSchema = loadSchema('taxrule', '5.6');
-  let attributeSchema = loadSchema('attribute', '5.6');
-  let pageSchema = loadSchema('cms_page', '5.6');
-  let blockSchema = loadSchema('cms_block', '5.6');
-
-  Promise.all([
-    db.indices.putMapping({
-      index: indexName,
-      type: 'product',
-      body: productSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'taxrule',
-      body: taxruleSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'attribute',
-      body: attributeSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'cms_page',
-      body: pageSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'cms_block',
-      body: blockSchema
-    }),
-    db.indices.putMapping({
-      index: indexName,
-      type: 'category',
-      body: categorySchema
-    })
-  ]).then(values => values.forEach(res => console.dir(res.body, { depth: null, colors: true })))
-    .then(next)
-    .catch(next)
 }
 
 module.exports = {
@@ -272,5 +225,5 @@ module.exports = {
   getHits,
   getResponseObject,
   adjustIndexName,
-  putMappings
+  loadSchema
 }

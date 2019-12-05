@@ -27,16 +27,6 @@
       "vue_storefront_catalog_de",
       "vue_storefront_catalog_it"
     ],
-    "indexTypes": [
-      "product",
-      "category",
-      "cms_block",
-      "cms_page",
-      "cms_hierarchy",
-      "attribute",
-      "taxrule",
-      "review"
-    ],
     "apiVersion": "7.2"
   },
   "redis": {
@@ -157,14 +147,33 @@
     "Link"
   ],
   "platform": "magento2",
-  "registeredExtensions": [
-    "mailchimp-subscribe",
-    "example-magento-api",
-    "cms-data",
-    "mail-service",
-    "example-processor",
-    "elastic-stock"
-  ],
+  "modules": {
+    "defaultCatalog": {
+      "registeredExtensions": [
+        "example-processor",
+        "elastic-stock"
+      ]
+    },
+    "defaultVsf": {
+      "registeredExtensions": [
+        "mailchimp-subscribe",
+        "example-magento-api",
+        "cms-data",
+        "mail-service"
+      ]
+    },
+    "sampleApi": {
+      "registeredExtensions": [
+      ],
+      "images": {
+        "baseUrl": "http://demo-magento2.vuestorefront.io/media/catalog/product"
+      }
+    },
+    "templateModule": {
+      "registeredExtensions": [
+      ]
+    }       
+  },
   "extensions": {
     "mailchimp": {
       "listId": "e06875a7e1",

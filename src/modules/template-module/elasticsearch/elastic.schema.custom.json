@@ -1,0 +1,17 @@
+{
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "attribute_id": {
+            "type": "integer"
+        },
+        "options": {
+            "properties": {
+                "value": {
+                    "type": "text"
+                }
+            }
+        }
+    }
+}
