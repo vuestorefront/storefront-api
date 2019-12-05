@@ -1,6 +1,6 @@
 ## Product entity
 
-In the `Vue Storefront` there is a [defined Product type](https://github.com/DivanteLtd/vue-storefront/blob/master/core/modules/catalog/types/Product.ts) you're to use in your TypeScript code. It contains quite many optional fields. Please check the [sample-data/products.json](sample-data/products.json) to make sure which fields are trully crucial for Vue Storefront to work.
+In the `Vue Storefront` there is a [defined Product type](https://github.com/DivanteLtd/vue-storefront/blob/master/core/modules/catalog/types/Product.ts) you're to use in your TypeScript code. It contains quite many optional fields. Please check the [sample-data/products.json](sample-data/products.json) to make sure which fields are trully crucial for Storefront Api to work.
 
 Here we present the core purpose of the product properties:
 
@@ -42,7 +42,7 @@ As of Vue Storefront 1.9 the `url_key` is no longer used for URL routing. It's j
     "type_id": "configurable",
 ```
 
-Vue Storefront is supporting the following product types:
+Storefront Api is supporting the following product types:
 - `simple` - [simple product](https://demo.storefrontcloud.io/gear/gear-3/wayfarer-messenger-bag-4.html) with no configurable options,
 - `configurable` - [product with variants](https://demo.storefrontcloud.io/men/bottoms-men/shorts-men/shorts-19/sol-active-short-1007.html?childSku=MSH10) - they're assigned in the `configurable_children` and the options used to select the proper variant (like `color` and `size`) are defined in the `configurable_options`,
 - `bundle` - [product that consits other products](https://demo.storefrontcloud.io/gear/gear-3/sprite-yoga-companion-kit-45.html) under single virtual SKU. The sub-products can be configured / checked / unchecked. 

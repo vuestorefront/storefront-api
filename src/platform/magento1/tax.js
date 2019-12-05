@@ -1,6 +1,6 @@
 import AbstractTaxProxy from '../abstract/tax'
 import { calculateProductTax, checkIfTaxWithUserGroupIsActive, getUserGroupIdToUse } from '../../lib/taxcalc'
-import TierHelper from '../../helpers/priceTiers'
+import TierHelper from '../../lib/helpers/priceTiers'
 import bodybuilder from 'bodybuilder'
 import es from '../../lib/elastic'
 

@@ -1,0 +1,12 @@
+extend type Query {
+    # This is an example call to just display your name :)
+    sayHello (
+        name: String
+    ): String
+    
+    # Execute simple ElasticSearch Query
+    testElastic(
+        # Product SKU to get from Elastic
+        sku: String 
+    ): Product
+}

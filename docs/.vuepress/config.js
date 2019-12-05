@@ -26,7 +26,7 @@ module.exports = {
     ],
     sidebar: {
       '/guide/': [
-      	{
+         {
           title : 'General Information',
           collapsable: false,
           children: [
@@ -37,7 +37,24 @@ module.exports = {
             'general/graphql',
             'general/extensions'
           ]
-	      },
+        },
+        {
+          title: 'Default gateway',
+          collapsable: false,
+          children: [
+            'default-modules/introduction',
+            'default-modules/api',
+            'default-modules/graphql'
+          ],
+        },            
+        {
+          title: 'Modules',
+          collapsable: false,
+          children: [
+            'modules/introduction',
+            'modules/tutorial'
+          ],
+        },        
         {
           title: 'Integrations',
           collapsable: false,

@@ -1,8 +1,8 @@
 ## Category entity
 
-Please check the [sample-data/categories.json](sample-data/categories.json) to make sure which fields are trully crucial for Vue Storefront to work.
+Please check the [sample-data/categories.json](sample-data/categories.json) to make sure which fields are trully crucial for Storefront Api to work.
 
-Remember - you can add any properties you like to the JSON objects to consume them on Vue Storefront level. Please just make sure you added the new property names to [the proper `includeFields` list for queries](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L151).
+Remember - you can add any properties you like to the JSON objects to consume them on Storefront Api level. Please just make sure you added the new property names to [the proper `includeFields` list for queries](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L151).
 
 Here we present the core purpose of the product properties:
 
@@ -50,7 +50,7 @@ Sorting position of the category on it's level
   "level": 4,
 ```
 
-The category level in the tree. By default Vue Storefront is displaying categories witht `level: 2` in the main menu.
+The category level in the tree. By default Storefront Api is displaying categories witht `level: 2` in the main menu.
 
 ```json
     "product_count": 182,

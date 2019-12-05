@@ -15,21 +15,14 @@
     "docs:build": "vuepress build docs",
     "docs:deploy": "yarn docs:build && now --prod docs",
     "start": "pm2 start ecosystem.json $PM2_ARGS",
-    "db": "node scripts/db.js",
-    "db7": "node scripts/db7.js",
+    "db7": "export TS_NODE_PROJECT=\"tsconfig.json\" && ts-node -r tsconfig-paths/register scripts/db7.ts",
     "cache": "node ./scripts/cache",
     "mage2vs": "node scripts/mage2vs.js",
-    "restore": "node scripts/elastic.js restore && npm run db rebuild",
-    "restore7": "node scripts/elastic7.js restore --output-index=vue_storefront_catalog && npm run db7 rebuild --indexName=vue_storefront_catalog",
+    "restore7": "export TS_NODE_PROJECT=\"tsconfig.json\" && ts-node -r tsconfig-paths/register scripts/elastic7.ts restore --output-index=vue_storefront_catalog && npm run db7 rebuild --indexName=vue_storefront_catalog",
     "restore7_it": "npm run restore7 -- --input-file=var/catalog_it.json --output-index=vue_storefront_catalog_it && npm run db7 rebuild -- --indexName=vue_storefront_catalog_it",
     "restore7_de": "npm run restore7 -- --input-file=var/catalog_de.json --output-index=vue_storefront_catalog_de && npm run db7 rebuild -- --indexName=vue_storefront_catalog_de",
     "restore_it": "npm run restore -- --input-file=var/catalog_it.json --output-index=vue_storefront_catalog_it && npm run db rebuild -- --indexName=vue_storefront_catalog_it",
-    "restore_de": "npm run restore -- --input-file=var/catalog_de.json --output-index=vue_storefront_catalog_de && npm run db rebuild -- --indexName=vue_storefront_catalog_de",
-    "restore2main": "npm run restore -- --output-index=vue_storefront_catalog",
-    "dump": "node scripts/elastic.js dump",
-    "dump_it": "npm run dump -- --input-index=vue_storefront_catalog_it --output-file=var/catalog_it.json",
-    "dump_de": "npm run dump -- --input-index=vue_storefront_catalog_de --output-file=var/catalog_de.json",
-    "dump7": "node scripts/elastic7.js dump",
+    "dump7": "export TS_NODE_PROJECT=\"tsconfig.json\" && ts-node -r tsconfig-paths/register scripts/elastic7.ts dump",
     "dump7_it": "npm run dump7 -- --input-index=vue_storefront_catalog_it --output-file=var/catalog_it.json",
     "dump7_de": "npm run dump7 -- --input-index=vue_storefront_catalog_de --output-file=var/catalog_de.json",
     "kue": "node scripts/kue.js",
@@ -69,6 +62,7 @@
     "compression": "^1.7.2",
     "config": "^1.30.0",
     "cors": "^2.8.4",
+    "deepmerge": "^4.2.2",
     "elasticdump": "^6.9.1",
     "email-check": "^1.1.0",
     "express": "^4.16.3",
@@ -90,6 +84,7 @@
     "merge-graphql-schemas": "^1.7.3",
     "migrate": "^1.6.2",
     "mime-types": "^2.1.18",
+    "module-alias": "^2.2.2",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.8",
     "oauth-1.0a": "^1.0.1",
@@ -102,6 +97,7 @@
     "sharp": "^0.22.1",
     "soap": "^0.25.0",
     "syswide-cas": "latest",
+    "tsconfig-paths": "^3.9.0",
     "vuepress": "^1.2.0",
     "winston": "^2.4.2"
   },
@@ -128,7 +124,7 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "tslib": "^1.9.3",
-    "typescript": "3.3.*"
+    "typescript": "3.7.*"
   },
   "bugs": {
     "url": "https://github.com/DivanteLtd/storefront-api/issues"
@@ -143,5 +139,10 @@
   "workspaces": [
     "src/api/extensions/*",
     "src/platform/*"
-  ]
+  ],
+  "_moduleAliases": {
+    "src": "./src",
+    "lib": "./src/lib",
+    "package.json": "./package.json"
+  }
 }
