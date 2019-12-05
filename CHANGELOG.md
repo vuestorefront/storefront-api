@@ -4,12 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.11.0-rc.2] - unreleased
+## [1.0] - The New Begining as Storefront Api
 
-### Fixed
+We've restarted the version numering as the product architecture and brand changed.
 
-- Fixed some smaller issues with graphql so that it is now working again with the fronted - #350
+### Added
 
+- New modular architecture introduced - [read more](https://sfa-docs.now.sh/guide/modules/introduction.html),
+- Default `vue-storefront-api` features moved to `default-vsf`, `default-catalog` and `default-img` modules,
+- GraphQL Schemas extended, typed, new query types added to `Product` and `Category` entities,
+- New documentation, 
+- The `vue-storefront-integration-sdk` merged in.
+
+
+# The Vue Storefront Api changelog
+
+This project has been founded on the roots of [vue-storefront-api](https://github.com/DivanteLtd/vue-storefront-api)
 
 ## [1.11.0-rc.1] - 2019.10.03
 
