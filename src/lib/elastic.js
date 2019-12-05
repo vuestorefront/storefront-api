@@ -213,7 +213,6 @@ function loadSchema (rootPath, entityType, apiVersion = '7.1') {
   return elasticSchema
 }
 
-
 module.exports = {
   putAlias,
   createIndex,
