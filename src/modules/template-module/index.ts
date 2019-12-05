@@ -24,7 +24,7 @@ export const TemplateModule: StorefrontApiModule = new StorefrontApiModule({
       schemas: {
         'custom': loadSchema(path.join(__dirname, 'elasticsearch'), 'custom', config.get('elasticsearch.apiVersion'))
       }}
-  },  
+  },
 
   initApi: ({ config, db, app }: StorefrontApiContext): void => {
     let api = Router();
