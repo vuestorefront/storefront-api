@@ -1,11 +1,12 @@
 import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
-import { StorefrontApiContext, GraphqlConfiguration } from 'src/lib/module/types'
+import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from 'src/lib/module/types'
 import { Router } from 'express'
 import resolvers from './graphql/resolvers'
 import schema from './graphql/schema'
 
 import path from 'path'
 import version from './api/version'
+import { loadSchema } from 'src/lib/elastic'
 
 export const TemplateModule: StorefrontApiModule = new StorefrontApiModule({
   key: 'template-module',
@@ -17,6 +18,13 @@ export const TemplateModule: StorefrontApiModule = new StorefrontApiModule({
       hasGraphqlSupport: true
     }
   },
+
+  loadMappings: ({ config, db, app }: StorefrontApiContext): ElasticSearchMappings => {
+    return {
+      schemas: {
+        'custom': loadSchema(path.join(__dirname, 'elasticsearch'), 'custom', config.get('elasticsearch.apiVersion'))
+      }}
+  },  
 
   initApi: ({ config, db, app }: StorefrontApiContext): void => {
     let api = Router();
