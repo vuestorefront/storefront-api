@@ -51,7 +51,7 @@ The API connector, by default, works in two phases:
 
 Some of the most popular backend platforms already have their integrations ([Magento 2](https://github.com/DivanteLtd/mage2vuestorefront), [Magento 1](https://github.com/DivanteLtd/magento1-vsbridge), [CoreShop](https://github.com/DivanteLtd/coreshop-vsbridge), [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront), [WooCommerce](https://github.com/DivanteLtd/woocommerce2vuestorefront)), but you can easily make your own with the [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
 
-[Read the integration tutorial](./integration.md)
+[Read the integration tutorial](./integration/integration.md)
 
 ## Storefront Api config file
 
