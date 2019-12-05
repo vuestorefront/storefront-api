@@ -161,7 +161,18 @@
         "cms-data",
         "mail-service"
       ]
-    }    
+    },
+    "sampleApi": {
+      "registeredExtensions": [
+      ],
+      "images": {
+        "baseUrl": "http://demo-magento2.vuestorefront.io/media/catalog/product"
+      }
+    },
+    "templateModule": {
+      "registeredExtensions": [
+      ]
+    }       
   },
   "extensions": {
     "mailchimp": {

@@ -4,7 +4,7 @@ Storefront Api is a customizable, modular eCommerce API gateway. You can use thi
 
 Storefront Api is **backend agnostic**. That means it's not an eCommerce backend itself. Out of the box it's provided with Read/Write integrations with [Magento1](https://github.com/DivanteLtd/magento1-vsbridge-indexer), [EpiServer](https://github.com/makingwaves/epi-commerce-to-vue-storefront), [Magento2](https://github.com/DivanteLtd/magento2-vsbridge-indexer), [OpenCart](https://github.com/butopea/vue-storefront-opencart-vsbridge), [SpreeCommerce](https://github.com/spark-solutions/spree2vuestorefront)
 
-By default all the catalog information are stored in ElasticSearch (read operations). The write operations are forwarded to the **dedicated API drivers** (Magento1, Magento2, Spree and others avaialble).
+The architecture is modular. Out of the box we provided a set of modules (`default-catalog`, `default-vsf`, `default-img`) implementing our agnostic eCommerce data formats.  By default all the catalog information are stored in ElasticSearch (read operations). The write operations are forwarded to the **dedicated API drivers** (Magento1, Magento2, Spree and others avaialble).
 
 <img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
 <em style="text-align:center;">This is a screen showing the GraphQL Playground on storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
@@ -36,6 +36,7 @@ Each individual module provide it's own:
 - API methods - via express.js hanlders and middlewares.
 
 [Read more on Storefront Api modules](../modules/introduction.md)
+[Read more on The Default modules](../default-modules/introduction.md)
 
 ## How does it connect with backend platforms?
 This product manages to be platform-agnostic thanks to the [dedicated API connectors](https://github.com/DivanteLtd/vue-storefront#integrations) for eCommerce backend platforms. The data format in `storefront-api` is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.

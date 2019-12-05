@@ -109,7 +109,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
         "defaultCountry": "DE",
         "defaultRegion": "",
         "calculateServerSide": true,
-		"sourcePriceIncludesTax": false
+      "sourcePriceIncludesTax": false
       },
       "i18n": {
         "fullCountryName": "Germany",

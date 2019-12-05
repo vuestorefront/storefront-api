@@ -1,0 +1,14 @@
+{
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "rates": {
+            "properties": {
+                "rate": {
+                    "type": "float"
+                }
+            }
+        }
+    }
+}
