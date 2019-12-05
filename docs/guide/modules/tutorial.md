@@ -77,7 +77,6 @@ app_1    |      { key: 'template-module',
 app_1    |        initGraphql: [Function: initGraphql],
 app_1    |        loadMappings: [Function: loadMappings],
 app_1    |        initApi: [Function: initApi] } ] }
-app_1    | Type "ESResponseInterface" is missing a "__resolveType" resolver. Pass false into "resolverValidationOptions.requireResolversForResolveType" to disable this warning.
 app_1    | Storefront GraphQL API started at http://0.0.0.0:8080
 ```
 
@@ -303,7 +302,6 @@ app_1    |      { key: 'template-module',
 app_1    |        initGraphql: [Function: initGraphql],
 app_1    |        loadMappings: [Function: loadMappings],
 app_1    |        initApi: [Function: initApi] } ] }
-app_1    | Type "ESResponseInterface" is missing a "__resolveType" resolver. Pass false into "resolverValidationOptions.requireResolversForResolveType" to disable this warning.
 app_1    | Storefront GraphQL API started at http://0.0.0.0:8080
 ```
 

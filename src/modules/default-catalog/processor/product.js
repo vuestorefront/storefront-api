@@ -22,7 +22,8 @@ class ProductProcessor {
 
     processorChain.push(taxProcessor.process(items, groupId))
 
-    for (const ext of this._config.modules.defaultCatalog.registeredExtensions) {
+    /*TODO: Refactor to support modules
+      for (const ext of this._config.modules.defaultCatalog.registeredExtensions) {
       // in each registered extension, check 'resultProcessor' is defined
       if (configExtensions && (ext in this._config.extensions) && ('resultProcessors' in this._config.extensions[ext]) && ('product' in this._config.extensions[ext].resultProcessors)) {
         const extProcessorPath = '../api/extensions/' + ext + '/processors'
@@ -36,7 +37,7 @@ class ProductProcessor {
           console.log(err)
         }
       }
-    }
+    }*/
 
     return Promise.all(processorChain).then((resultSet) => {
       if (!resultSet || resultSet.length === 0) {
