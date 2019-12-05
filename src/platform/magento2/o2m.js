@@ -2,9 +2,9 @@
 const Magento2Client = require('magento2-rest-client').Magento2Client;
 
 const config = require('config')
-const redis = require('../../lib/redis');
+const redis = require('src/lib/redis');
 const redisClient = redis.getClient(config)
-const countryMapper = require('../../lib/countrymapper')
+const countryMapper = require('src/lib/countrymapper')
 const Ajv = require('ajv'); // json validator
 const fs = require('fs');
 const ajv = new Ajv(); // validator

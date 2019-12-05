@@ -1,7 +1,6 @@
-import { version } from '../../package.json';
+import { version } from 'src/package.json';
 import { Router } from 'express';
 import order from './order';
-import catalog from '../../default-catalog/api/catalog';
 import user from './user';
 import stock from './stock';
 import review from './review';
@@ -11,9 +10,6 @@ import sync from './sync';
 
 export default ({ config, db }) => {
   let api = Router();
-
-  // mount the catalog resource
-  api.use('/catalog', catalog({ config, db }))
 
   // mount the order resource
   api.use('/order', order({ config, db }));

@@ -37,6 +37,19 @@ Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vu
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
  - Custom eCommerce Backend integrations via [an integration SDK](https://github.com/DivanteLtd/storefront-integration-sdk).
 
+## Modules
+
+Storefront Api do provide all the features, GraphQL schemas, ElasticSearch resolvers and API handlers via [Modules](https://sfa-docs.now.sh/guide/modules/introduction.html). That's it. The default schema and the features described in the further parts of the documentation have been implemented by the `default-catalog`, `default-img` and `default-vsf` modules. You can customize them, clone, modify or just disable.
+
+Each individual module provide it's own:
+- GraphQL schema and resolvers,
+- ElasticSearch mappings,
+- API methods - via express.js hanlders and middlewares.
+
+[Read more on Storefront Api modules](https://sfa-docs.now.sh/guide/modules/introduction.html)
+[Read more on The Default modules](https://sfa-docs.now.sh/guide/modules/default-modules/introduction.html)
+
+
 ## Production ready
 
 Storefront API originated from the [`vue-storefront-api`](https://github.com/DivanteLtd/vue-storefront-api) project and is currently [backing 30+ production sites](https://www.vuestorefront.io/live-projects/), including: [Zadig&Voltaire](https://zadig-et-voltaire.com/pt/en/), [Klebefieber](https://www.klebefieber.de/), [Wonect](https://wonect.com/sg/) and others.
@@ -90,10 +103,10 @@ The data formats can be easily modified to suit your needs by modifying the `src
 Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/) for the details regarding data formats.
 
 ## Adding custom modules with their own dependencies (Yarn only)
-When adding custom [Extensions to the API](https://github.com/DivanteLtd/vue-storefront/blob/master/doc/Extending%20vue-storefront-api.md), you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/), dependencies defined inside your custom module will be installed when you execute `yarn` at the project root level, so it's way easier and faster than installing all modules dependencies separately.
+When adding custom modules(https://sfa-docs.sh/guide/modules/introduction.html), you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/), dependencies defined inside your custom module will be installed when you execute `yarn` at the project root level, so it's way easier and faster than installing all modules dependencies separately.
 
 To do this, define the `package.json` with your dependencies in your custom module:
-- `src/api/extensions/{your-custom-extension}/package.json` 
+- `src/modules/{your-custom-extension}/package.json` 
 - `src/platforms/{your-custom-platform}/package.json`
 
 NOTE: `npm` users will still have to install the dependencies individually in their modules.

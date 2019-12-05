@@ -3,7 +3,7 @@ import client from '../client';
 import { buildQuery } from '../queryBuilder'
 import { getIndexName } from '../mapping'
 import { list as listProducts } from '../product/resolver'
-import { adjustQuery, getResponseObject } from '../../../../../lib/elastic'
+import { adjustQuery, getResponseObject } from 'src/lib/elastic'
 
 async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });

@@ -11,7 +11,7 @@ const config = require('config')
 let queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
 
 let numCPUs = require('os').cpus().length;
-const processSingleOrder = require('../../../platform/magento2/o2m').processSingleOrder
+const processSingleOrder = require('src/platform/magento2/o2m').processSingleOrder
 
 // RUN
 program
@@ -29,13 +29,13 @@ program
 program
   .command('testAuth')
   .action(() => {
-    processSingleOrder(require('../../var/testOrderAuth.json'), config, null, (err, result) => {});
+    processSingleOrder(require('var/testOrderAuth.json'), config, null, (err, result) => {});
   });
 
 program
   .command('testAnon')
   .action(() => {
-    processSingleOrder(require('../../var/testOrderAnon.json'), config, null, (err, result) => {});
+    processSingleOrder(require('var/testOrderAnon.json'), config, null, (err, result) => {});
   });
 
 program

@@ -2,7 +2,7 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '../../../../../lib/elastic'
+import { adjustQuery, getResponseObject } from 'src/lib/elastic'
 
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });

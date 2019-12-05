@@ -51,3 +51,5 @@ You can find an example request for querying the products entity below:
 ## Extending GraphQL schema
 
 The default schema can be easily modified by just tweaking the `modules/default-catalog/graphql/*` definitions. You can add your own custom [modules](../modules/introduction.md) that defines custom GraphQL schema. The same way you can disable the `default-catalog` module if you don't like to use our default entities.
+
+[Check the tutorial](../modules/tutorial.md) on how to extend GraphQL schema.

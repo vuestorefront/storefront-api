@@ -1,6 +1,6 @@
-import { apiStatus, sgnSrc, apiError } from '../../../lib/util';
+import { apiStatus, sgnSrc, apiError } from 'src/lib/util';
 import { Router } from 'express';
-import PlatformFactory from '../../../platform/factory';
+import PlatformFactory from 'src/platform/factory';
 
 const jwa = require('jwa');
 const hmac = jwa('HS256');

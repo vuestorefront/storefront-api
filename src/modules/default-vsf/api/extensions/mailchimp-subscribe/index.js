@@ -1,4 +1,4 @@
-import { apiStatus } from '../../../../../lib/util'
+import { apiStatus } from 'src/lib/util'
 import { Router } from 'express'
 const request = require('request')
 const md5 = require('md5')

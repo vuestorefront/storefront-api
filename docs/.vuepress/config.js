@@ -44,7 +44,9 @@ module.exports = {
           children: [
             'default-modules/introduction',
             'default-modules/api',
-            'default-modules/graphql'
+            'default-modules/graphql',
+            'default-modules/platforms',
+            'default-modules/extensions'
           ],
         },            
         {
