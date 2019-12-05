@@ -18,11 +18,11 @@ class ProductProcessor {
     const factory = new PlatformFactory(this._config, this._req)
     const taxCountry = this._config.tax.defaultCountry
     const taxProcessor = factory.getAdapter(platform, 'tax', this._indexName, taxCountry)
-    const configExtensions = 'extensions' in this._config // check 'extensions' defined in config
+    // const configExtensions = 'extensions' in this._config // check 'extensions' defined in config
 
     processorChain.push(taxProcessor.process(items, groupId))
 
-    /*TODO: Refactor to support modules
+    /* TODO: Refactor to support modules
       for (const ext of this._config.modules.defaultCatalog.registeredExtensions) {
       // in each registered extension, check 'resultProcessor' is defined
       if (configExtensions && (ext in this._config.extensions) && ('resultProcessors' in this._config.extensions[ext]) && ('product' in this._config.extensions[ext].resultProcessors)) {
@@ -37,7 +37,7 @@ class ProductProcessor {
           console.log(err)
         }
       }
-    }*/
+    } */
 
     return Promise.all(processorChain).then((resultSet) => {
       if (!resultSet || resultSet.length === 0) {
