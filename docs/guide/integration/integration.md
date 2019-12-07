@@ -128,7 +128,7 @@ $ node import.js attributes.json attribute vue_storefront_catalog
 $ node import.js categories.json category vue_storefront_catalog
 ```
 
-After importing the data, we need to make sure the Storefront API Elastic index schema has been properly applied. To ensure this, we'll use the [Database tool](../tools/database-tools.md) used previously to clear out the index - once again:
+After importing the data, we need to make sure the Storefront API Elastic index schema has been properly applied. To ensure this, we'll use the [Database tool](./database-tools.md) used previously to clear out the index - once again:
 
 ```bash
 $ docker exec -it sfa_app_1 yarn db rebuild7

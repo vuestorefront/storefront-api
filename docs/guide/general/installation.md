@@ -44,7 +44,7 @@ cd storefront-api
 ```bash
 cp config/default.json config/local.json
 ```
-Then edit `local.json` to your need. 
+Then edit `local.json` to your needs. 
 
 :::tip TIP
 This step can be skipped if you are OK with values of `default.json` since it follows the [files load order](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-load-order) of [node-config](https://github.com/lorenwest/node-config)

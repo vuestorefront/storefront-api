@@ -63,7 +63,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
     :::
   - `indices` may contain one or multiple indexes. Each index acts as a data store for a storefront. You may add entries to the array with arbitrary names or remove entries from it. 
     :::warning CAUTION !
-     However, the index name should match the one you will use for [data pump](data-import.md#_2-2-recipe-b-using-on-premise). 
+     However, the index name should match the one you will use for data import tool.
      :::
   The default values for `indices` assume you have 2 additional stores(`de`, `it`) plus the default store.  
   - `indexTypes` contains values for mapping. You can consider it as `table` if you take `indices` as database.
@@ -154,7 +154,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```
 - `storeViews` element contains the whole information of ***additional*** stores. The default store information doesn't exist here, it exists on top level.
 - `multistore` is supposed to tell the platform if it has multiple stores to consider. For example, it is used to configure `tax` values of additional store. [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/platform/magento2/tax.js#L14) 
-- `mapStoreUrlsFor` is used for building url routes in frontend. [jump to code](https://github.com/DivanteLtd/storefront/blob/master/core/lib/multistore.ts#L85)
+- `mapStoreUrlsFor` is used for building url routes in frontend. [jump to code](https://github.com/DivanteLtd/vue-storefront/blob/master/core/lib/multistore.ts#L85)
 - `de` element contains detailed information of `de` store. You need to have this kind of element for all the additional stores you added to `availableStores` with `storeCode` as the key. `de` and `it` in the `default.json` exhibits an example you can copy & paste for other stores you need to add. 
   - `storeCode` denotes store code for the store. 
   - `disabled` means if this store is disabled. 

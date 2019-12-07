@@ -12,7 +12,7 @@ module.exports = {
   themeConfig: {
     repo: 'DivanteLtd/storefront-api',
     docsDir: 'docs',
-    editLinks: true,
+    editLinks: false,
     sidebarDepth: 3,
     nav: [
       {

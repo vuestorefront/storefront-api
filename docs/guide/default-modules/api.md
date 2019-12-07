@@ -1440,7 +1440,7 @@ curl 'https://your-domain.example.com/api/catalog/vue_storefront_catalog/attribu
 
 #### REQUEST BODY
 
-Request body is a Elastic Search query. [Please read more on Elastic querying DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/_introducing_the_query_language.html)
+Request body is a Elastic Search query. [Please read more on Elastic querying DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
 
 ```json
 {

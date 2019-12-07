@@ -47,11 +47,11 @@ The API connector, by default, works in two phases:
 
 - **data pump** is pulling static data (catalog, orders, etc.) from your eCommerce platform to Storefront API Elasticsearch and changes its format to our [data schema](https://divanteltd.github.io/storefront-graphql-api-schema/). Once finished pulling the data, you can query the product catalog. After pumping the data into Elasticsearch is done, it will stay in sync with changes made on the backend platform and update its content accordingly.
 
-- **dynamic calls API** - it's a set of REST API modules: user, cart, review etc. The dynamic API endpoints are located in the `src/api` folder and can be extended by custom extensions. The default API endpoints make use of the `PlatformFactory` which is calling the platform-specific API clients defined under the `src/platform`. Platform drivers works like a Proxy to the real eCommerce backend. [Check the API specification](./api.md)
+- **dynamic calls API** - it's a set of REST API modules: user, cart, review etc. The dynamic API endpoints are located in the `src/api` folder and can be extended by custom extensions. The default API endpoints make use of the `PlatformFactory` which is calling the platform-specific API clients defined under the `src/platform`. Platform drivers works like a Proxy to the real eCommerce backend. [Check the API specification](../default-modules/api.md)
 
 Some of the most popular backend platforms already have their integrations ([Magento 2](https://github.com/DivanteLtd/mage2vuestorefront), [Magento 1](https://github.com/DivanteLtd/magento1-vsbridge), [CoreShop](https://github.com/DivanteLtd/coreshop-vsbridge), [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront), [WooCommerce](https://github.com/DivanteLtd/woocommerce2vuestorefront)), but you can easily make your own with the [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
 
-[Read the integration tutorial](./integration/integration.md)
+[Read the integration tutorial](../integration/integration.md)
 
 ## Storefront API config file
 

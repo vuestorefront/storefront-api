@@ -1,6 +1,6 @@
 ## Category entity
 
-Please check the [sample-data/categories.json](sample-data/categories.json) to make sure which fields are critical for Storefront API to work.
+Please check the [sample-data/categories.json](https://github.com/DivanteLtd/storefront-api/blob/develop/integration-sdk/sample-data/categories.json) to make sure which fields are critical for Storefront API to work.
 
 Remember - you can add any properties you like to the JSON objects to consume them on Storefront API level. Please make sure you added the new property names to [the proper `includeFields` list for queries](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L151).
 

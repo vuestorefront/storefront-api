@@ -1,6 +1,6 @@
 ## Product entity
 
-In the `Vue Storefront` there is a [defined Product type](https://github.com/DivanteLtd/vue-storefront/blob/master/core/modules/catalog/types/Product.ts) you're to use in your TypeScript code. It contains quite many optional fields. Please check the [sample-data/products.json](sample-data/products.json) to make sure which fields are actually critical for Storefront API to work.
+In the `Vue Storefront` there is a [defined Product type](https://github.com/DivanteLtd/vue-storefront/blob/master/core/modules/catalog/types/Product.ts) you're to use in your TypeScript code. It contains quite many optional fields. Please check the [sample-data/products.json](shttps://github.com/DivanteLtd/storefront-api/blob/develop/integration-sdk/sample-data/products.json) to make sure which fields are critical for Storefront API to work.
 
 Here we present the core purpose of the product properties:
 
@@ -102,9 +102,9 @@ Visibility status:
     "color": null,
 ```
 
-Color, size - typically a numeric indexes. Vue Storefront for all [non system properties](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L181) is loading the `attribute` definitions.
+Color, size - typically numeric indexes. Vue Storefront for all [non system properties](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L181) is loading the `attribute` definitions.
 
-If the definition exists then if the type is `select` or `multiselect` the value of the property is used as a index in the attribute values dictionary. [Read more on attributes](Format-attribute.md). Otherwise it's being used as a text.
+If the definition exists then if the type is `select` or `multiselect` the value of the property is used as a index in the attribute values dictionary. [Read more on attributes](Format-attribute.md). Otherwise, it's being used as a text.
 
 So you can put any color name you like in this field and it still could be used for product browsing. This is for example how the [`bigcommerce2vuestorefront`](https://github.com/DivanteLtd/bigcommerce2vuestorefront/blob/42efbb05aef1f37bfb944910b662d39c5de5e37a/src/templates/product.js#L77) integration works. It's not using the attribute metadata at all because for some platforms using kind of Wordpress like semantics it's very hard to create  an attribute dictionary.
 
@@ -223,7 +223,7 @@ This is just a list of images used by the `ProductGallery` component. Paths can 
     ],
 ```
 
-This collection contains all configurable options that can be used to identify the `simple` product, assigned in the `configurable_children` collection. Usually it's a set of available `colors` and `sizes`. It's being used to construct the Color/Size switcher on `Product.vue` page. If you set the proper `label`'s then the `attribute_id` is not required. It means you don't have to have the [attribute defined in the dictionary](Format-attribute.md). It's pretty usefull option for the platforms that doesn't support attribute dictionaries like [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront/blob/42efbb05aef1f37bfb944910b662d39c5de5e37a/src/templates/product.js#L90).
+This collection contains all configurable options that can be used to identify the `simple` product, assigned in the `configurable_children` collection. Usually it's a set of available `colors` and `sizes`. It's being used to construct the Color/Size switcher on `Product.vue` page. If you set the proper `label`'s then the `attribute_id` is not required. It means you don't have to have the [attribute defined in the dictionary](format-attribute.md). It's pretty usefull option for the platforms that doesn't support attribute dictionaries like [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront/blob/42efbb05aef1f37bfb944910b662d39c5de5e37a/src/templates/product.js#L90).
 
 ```json
     "stock": [
