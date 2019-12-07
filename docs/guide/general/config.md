@@ -316,7 +316,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
   
     :::tip TIP
   
-    These 4 nodes above is the required credentials for integration with Magento 2. [how to get them](data-import.html#_2-2-recipe-b-using-on-premise)
+    These 4 nodes above is the required credentials for integration with Magento 2.
   
     :::
 

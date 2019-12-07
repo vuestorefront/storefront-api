@@ -104,7 +104,7 @@ Visibility status:
 
 Color, size - typically numeric indexes. Vue Storefront for all [non system properties](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L181) is loading the `attribute` definitions.
 
-If the definition exists then if the type is `select` or `multiselect` the value of the property is used as a index in the attribute values dictionary. [Read more on attributes](Format-attribute.md). Otherwise, it's being used as a text.
+If the definition exists then if the type is `select` or `multiselect` the value of the property is used as a index in the attribute values dictionary. [Read more on attributes](./format-attribute.md). Otherwise, it's being used as a text.
 
 So you can put any color name you like in this field and it still could be used for product browsing. This is for example how the [`bigcommerce2vuestorefront`](https://github.com/DivanteLtd/bigcommerce2vuestorefront/blob/42efbb05aef1f37bfb944910b662d39c5de5e37a/src/templates/product.js#L77) integration works. It's not using the attribute metadata at all because for some platforms using kind of Wordpress like semantics it's very hard to create  an attribute dictionary.
 

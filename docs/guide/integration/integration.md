@@ -219,4 +219,4 @@ The other way to go is to create your own, custom API based on the provided boil
 
 
 
-[Read more on the required API endpoints you must provide to have Vue Storefront synchronized](../general/api.md)
+[Read more on the required API endpoints you must provide to have Vue Storefront synchronized](../default-modules/api.md)
