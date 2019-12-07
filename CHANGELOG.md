@@ -1,12 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+The format base on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0] -  The New Beginning as Storefront Api
+## [1.0] -  The New Beginning as Storefront API
 
-We've restarted the version numering as the product architecture and brand changed.
+We've restarted the version numbering as the product architecture and brand changed.
 
 ### Added
 
@@ -17,7 +17,7 @@ We've restarted the version numering as the product architecture and brand chang
 - The `vue-storefront-integration-sdk` merged in.
 
 
-# The Vue Storefront Api changelog
+# The Vue Storefront API changelog
 
 This project has been founded on the roots of [vue-storefront-api](https://github.com/DivanteLtd/vue-storefront-api)
 

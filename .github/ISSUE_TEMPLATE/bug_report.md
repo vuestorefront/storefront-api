@@ -17,7 +17,7 @@ labels: bug
 
 ## Steps to reproduce the issue
 <!--
-Please provide the steps to reproduce and if possible a *minimal reproducible example* of the problem via
+Please provide the steps to reproduce and, if possible, a *minimal reproducible example* of the problem via
 https://stackblitz.com or with a screenshot if it's more accurate.
  -->
 

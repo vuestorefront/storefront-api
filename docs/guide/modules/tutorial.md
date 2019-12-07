@@ -1,14 +1,14 @@
 # Creating a new module
 
-Storefront Api modules are a great way to add custom GraphQL schemas, REST Api endpoints or customize the ElasticSearch mappings. The easiest way to create a new module is to use the [https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module] as a boilerplate.
+Storefront API modules are a great way to add custom GraphQL schemas, REST API endpoints or customize the ElasticSearch mappings. The easiest way to create a new module is to use the [https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module] as a boilerplate.
 
 ## 1. Create a repository
 
-The [`storefront-api`](https://github.com/DivanteLtd/storefront-api) is a `Template`. That means you can use the `Use template` feature to create a new repository for customizing the api
+The [`storefront-api`](https://github.com/DivanteLtd/storefront-api) is a `Template`. That means you can use the `Use template` feature to create a new repository for customizing the API
 
 ![Use template](https://divante.com/github/storefront-api/tutorial/step_1_use_template.png)
 
-Then you just need to name your repository properly:
+Then you need to name your repository properly:
 
 ![Prepare your repository](https://divante.com//github/storefront-api/tutorial/step_2_prepare_repo.png)
 
@@ -16,7 +16,7 @@ Then you just need to name your repository properly:
 You can find [my demo repository here](https://github.com/pkarw/storefront-api-example).
 
 
-## 2. Setup Storefront Api
+## 2. Setup Storefront API
 
 The installation process is pretty straight forward. You start with cloning your brand new repo:
 
@@ -112,7 +112,7 @@ Done in 62.18s.
 
 ## 3. Use the template
 
-The easiest way to extend Storefront Api is to use the `template-module`
+The easiest way to extend Storefront API is to use the `template-module`
 
 ```bash
 pkarwatka$ cd src/modules/
@@ -136,7 +136,7 @@ api		elasticsearch	graphql		index.ts
 
 ## 4. Modify the module entry point
 
-Our goal is to add the custom GraphQL query to add two numbers and a REST API which returns the provided query parameter. Yeah. I know. Sounds silly :) Let's try it out!
+Our goal is to add the custom GraphQL query to add two numbers and a REST API, which returns the provided query parameter. Yeah. I know. Sounds silly :) Let's try it out!
 
 First, we need to edit the `src/modules/my-custom-module/index.ts` to apply the proper module name - we'll change the `key` that should be unique and change the `TemplateModule` object name to `CustomModule`. We'll also simplify the interface - we'll remove `loadMappings` as we don't plan to extend ElasticSearch mappings.
 
@@ -175,9 +175,9 @@ export const CustomModule: StorefrontApiModule = new StorefrontApiModule({
 })
 ```
 
-Of course you might want to define the api handlers in separate files and just import them to use with `api.use` or `app.use`. 
+Of course, you might want to define the API handlers in separate files and import them to use with `api.use` or `app.use`. 
 
-**Note:** The `registerExtensions` call is 100% optional. It provides you with a way to have dynamic extension points. All the handlers defined in folder you've provided to this function call (in our case it will be: `src/modules/custom-api/api*` will be loaded and mounted to the `api` router section. [See example](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/default-catalog/api/extensions/elastic-stock/index.js))
+**Note:** The `registerExtensions` call is 100% optional. It provides you with a way to have dynamic extension points. All the handlers defined in a folder you've provided to this function call (in our example it will be: `src/modules/custom-api/api*` will be loaded and mounted to the `api` router section. [See example](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/default-catalog/api/extensions/elastic-stock/index.js))
 
 
 ## 5. Enable your module
@@ -225,9 +225,9 @@ app_1    | info Visit https://yarnpkg.com/en/docs/cli/run for documentation abou
 app_1    | [nodemon] app crashed - waiting for file changes before starting...
 ```
 
-**Note:** The default `docker-compose up` runs Storefront Api in `development` mode with the `nodemon` based dynamic recompile process. Each time you modify the `*.ts *.js` or `*.graphqls` files the app got recompiled and changes applied.
+**Note:** The default `docker-compose up` runs Storefront API in `development` mode with the `nodemon` based dynamic recompile process. Each time you modify the `*.ts *.js` or `*.graphqls` files, the app got recompiled, and changes applied.
 
- This error means we need to modify the GraphQL schema avoid conflicts with the default template module (the ancestor).
+ This error means we need to modify the GraphQL schema to avoid conflicts with the default template module (the ancestor).
 
  ## 6. Modify the GraphQL schema
 
@@ -305,7 +305,7 @@ app_1    |        initApi: [Function: initApi] } ] }
 app_1    | Storefront GraphQL API started at http://0.0.0.0:8080
 ```
 
-**Note:** You may use the `yarn lint-gql` to execute the [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter) over all GraphQL schemas used in the project. Pretty usefull tool for working with graphql.
+**Note:** You may use the `yarn lint-gql` to execute the [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter) overall GraphQL schemas used in the project. Pretty useful tool for working with graphql.
 
 Let's check the GraphQL first! Open http://localhost:8080/graphql to access the GraphQL Playground.
 
@@ -313,7 +313,7 @@ Let's check the GraphQL first! Open http://localhost:8080/graphql to access the 
 
 Looks awesome! Congratulations! 
 
-Let's just check if the API extension works as good as GraphQL featues we added. As you might remember we added a GET request handler under `/custom/sayHello`. Let's try it out:
+Let's check if the API extension works as good as GraphQL features we added. As you might remember, we appended a GET request handler under `/custom/sayHello`. Let's try it out:
 
 ```bash
 pkarwatka$ curl http://localhost:8080/custom/sayHello?name=Piotr

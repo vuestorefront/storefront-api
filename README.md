@@ -39,14 +39,14 @@ Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vu
 
 ## Modules
 
-Storefront Api do provide all the features, GraphQL schemas, ElasticSearch resolvers and API handlers via [Modules](https://sfa-docs.now.sh/guide/modules/introduction.html). That's it. The default schema and the features described in the further parts of the documentation have been implemented by the `default-catalog`, `default-img` and `default-vsf` modules. You can customize them, clone, modify or just disable.
+Storefront API do provide all the features, GraphQL schemas, ElasticSearch resolvers and API handlers via [Modules](https://sfa-docs.now.sh/guide/modules/introduction.html). That's it. The default schema and the features described in the further parts of the documentation have been implemented by the `default-catalog`, `default-img` and `default-vsf` modules. You can customize them, clone, modify or just disable.
 
 Each individual module provide it's own:
 - GraphQL schema and resolvers,
 - ElasticSearch mappings,
 - API methods - via express.js hanlders and middlewares.
 
-[Read more on Storefront Api modules](https://sfa-docs.now.sh/guide/modules/introduction.html)
+[Read more on Storefront API modules](https://sfa-docs.now.sh/guide/modules/introduction.html)
 [Read more on The Default modules](https://sfa-docs.now.sh/guide/modules/default-modules/introduction.html)
 
 

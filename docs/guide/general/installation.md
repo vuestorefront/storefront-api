@@ -12,12 +12,12 @@ In this chapter, we will cover :
 
 
 ## 0. Introduction
-Now you are definitely interested in **Storefront Api**. That's why you are here. You've come across the line. You made a choice. You will have something in return, which is great. Be it developers, entrepreneurs or even marketing managers that they may want to try something new for better products in hopes of enhancing their clients or customers' experience. You chose the right path. We will explore anything you need to get you started at all with [**Storefront Api** infrastructure](https://github.com/DivanteLtd/storefront-api).
+Now you are interested in **Storefront API**. That's why you are here. You've come across the line. You made a choice. You will have something in return, which is great. Be it developers, entrepreneurs, or even marketing managers that they may want to try something new for better products in hopes of enhancing their client's or customers' experience. You chose the right path. We will explore anything you need to get you started at all with [**Storefront API** infrastructure](https://github.com/DivanteLtd/storefront-api).
 
 ## 1. Install with Docker
-Docker has been arguably the most sought-after, brought to the market which took the community by storm ever since its introduction. Although it's yet controversial whether it's the best choice among its peers, I have never seen such an unanimous enthusiasm over one tech product throughout the whole developers community. 
+Docker has been arguably the most sought-after, brought to the market which took the community by storm ever since its introduction. Although it's yet controversial whether it's the best choice among its peers, I have never seen such a unanimous enthusiasm over one tech product throughout the whole developer's community. 
 
-Then, why so? In modern computer engineering, products are so complex with an endless list of dependencies intertwined with each other. Building such dependencies in place for every occasion where it's required is one hell of a job, not to mention glitches from all the version variation. That's where Docker steps in to make you achieve **infrastructure automation**. This concept was conceived to help you focus on your business logic rather than having you stuck with hassles of lower level tinkering. 
+Then, why so? In modern computer engineering, products are so complex with an endless list of dependencies intertwined with each other. Building such dependencies in place for every occasion where it's required is one hell of a job, not to mention glitches from all the version variation. That's where Docker steps in to make you achieve **infrastructure automation**. This concept was conceived to help you focus on your business logic rather than having you stuck with hassles of lower-level tinkering. 
 
 Luckily, we already have been through all this for you, got our hands dirty. All you need is run a set of docker commands to get you up and running from scratch. Without further ado, let's get started!
 
@@ -34,7 +34,7 @@ There is only one bias for Docker before using it; *Run it on Linux*. Docker is 
 :::
 
 ### 2. Recipe
-1. First, download [**Storefront Api**](https://github.com/DivanteLtd/storefront-api) from github.
+1. First, download [**Storefront API**](https://github.com/DivanteLtd/storefront-api) from github.
 ```bash
 git clone https://github.com/DivanteLtd/storefront-api.git storefront-api
 cd storefront-api
@@ -53,7 +53,7 @@ This step can be skipped if you are OK with values of `default.json` since it fo
 
 3. Run the following Docker command : 
 
-For using Storefront Api with embedded the Elastic 7:
+For using Storefront API with embedded the Elastic 7:
 ```bash
 docker-compose -f docker-compose.yml up -d
 ```
@@ -127,15 +127,15 @@ The ports number will be used later in the frontend configuration. In fact, they
 You will see 4 containers are running, which is :
 | Container              |          Port       |
 |------------------------|---------------------|
-| Storefront Api app | :8080               |
+| Storefront API app | :8080               |
 | Elasticsearch          | :9200               |
 | Redis                  | :6379               |
 
 
 ### 3. Peep into the kitchen (what happens internally) 
-We used `docker-compose` for setting up the entire environment of Storefront Api. It was more than enough to launch the machines behind for running the shop.
+We used `docker-compose` for setting up the entire environment of Storefront API. It was more than enough to launch the machines behind for running the shop.
 
-It was possible because `docker` encapsulated the whole bunch of infrastructure into a linear set of declarative definition for the desired state. 
+It was possible because `docker` encapsulated the whole bunch of infrastructure into a linear set of declarative description for the desired state. 
 
 The `docker-compose` had a `yml` file for input. This file describes its base requirement all but **Storefront API** itself; that is, **Elasticsearch** as data store, **Redis** for cache and **Kibana** for helping you grab your data visually (a pair of Elasticsearch).
 ```yaml

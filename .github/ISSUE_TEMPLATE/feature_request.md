@@ -5,13 +5,13 @@ labels: feature request
 
 ---
 
-## What is the motivation for adding / enhancing this feature?
-<!-- Describe the motivation or the concrete use case for new feature or why one of current ones should be enhanced. -->
+## What is the motivation for adding/enhancing this feature?
+<!-- Describe the motivation or the concrete use case for a new feature or why one of the current ones should be enhanced. -->
 
 
 
 ## What are the acceptance criteria 
-<!-- List the acceptance criteria for this task in a form of a list. -->
+<!-- List the acceptance criteria for this task in the form of a list. -->
 
 - [ ] ...
 
@@ -21,5 +21,5 @@ labels: feature request
 - [ ] NO
 
 ## Additional information
-<!-- If you think that any additional information would be useful please provide them here. -->
+<!-- If you think that any additional information would be useful, please provide them here. -->
 

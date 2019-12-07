@@ -2,7 +2,7 @@
 
 This product manages to be platform-agnostic thanks to the dedicated API connectors for eCommerce backend platforms. The data format in `default-catalog` and `default-vsf` modules is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.
 
-Storefront Api Default catalog offers two basic ways of querying the data:
+Storefront API Default catalog offers two basic ways of querying the data:
 - GraphQL for read access,
 - REST for read and write acces.
 

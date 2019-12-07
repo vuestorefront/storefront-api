@@ -1,9 +1,9 @@
 ## Configuration
-Starting point of customization is `default.json` or its copy `local.json` where the platform seeks configuration values. 
+The starting point of customization is `default.json` or its copy `local.json` where the platform seeks configuration values. 
 :::tip NOTE
 If you want to modify `default.json`, don't edit it directly but copy the whole file into `local.json` and start editing it in that file. Why it should be done that way is explained later at [Secret 3. Why use node-config?](#secret-3-why-use-node-config)
 :::
-We have 2 `local.json` files, one of which is for backend here, and we will look at [Secret 2](#secret-2-study-in-local-json-for-vue-storefront), the other for frontend . 
+We have 2 `local.json` files, one of which is for backend here, and we will look at [Secret 2](#secret-2-study-in-local-json-for-vue-storefront), the other for frontend. 
 
 At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/storefront-api/blob/develop/config/default.json) for **backend** : 
 ```json
@@ -206,7 +206,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 - `tax`
   - `alwaysSyncPlatformPricesOver`  [jump to code](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/order.js#L49)
   - `usePlatformTotals` 
-  These two options are used to determine whether to fetch prices from data source on the fly or not. If you set `alwaysSyncPlatformPricesOver` true, then it skips checking the checksum for cart items based on price.  
+  These two options are used to determine whether to fetch prices from a data source on the fly or not. If you set `alwaysSyncPlatformPricesOver` true, then it skips checking the checksum for cart items based on price.  
   
 ```json
   "bodyLimit": "100kb",
@@ -255,7 +255,7 @@ At [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
     - `listId` is the ID of list you are publishing.
     - `apiKey` is API key you are assigned.
     - `apiUrl` is API base url for *Mailchimp* service. 
-  - `mailService`  is used to send emails from Storefront Api via *Gmail*.
+  - `mailService`  is used to send emails from Storefront API via *Gmail*.
     - `transport` contains basic information for *Gmail* service.
       - `host` is where your mail is sent en route.
       - `port` is the port number used for the service.

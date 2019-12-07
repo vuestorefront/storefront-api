@@ -1,6 +1,9 @@
 # Extensions
 
+**Note:** You can extend Storefront API by adding new [modules](../modules/introduction.md). The modules themselves additionally offer the extensions mechanism described in this chapter. Extensions extend the modules. Modules extend Storefront API.
+
 Some extensions need to have additional API methods to get some data directly from Magento/other CMS or just from custom Elasticsearch data collections.
+
 You may extend the [`storefront-api`](https://github.com/DivanteLtd/storefront-api) to add your custom API methods. Please take a look at: [mailchimp-subscribe](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/extensions/mailchimp-subscribe/index.js) for reference.
 
 To add the API extension to `storefront-api`:
