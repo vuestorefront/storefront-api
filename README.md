@@ -49,6 +49,7 @@ Each module provides it's own:
 [Read more on Storefront API modules](https://sfa-docs.now.sh/guide/modules/introduction.html)
 [Read more on The Default modules](https://sfa-docs.now.sh/guide/modules/default-modules/introduction.html)
 
+<img src="https://divante.com//github/storefront-api/storefront-api-architecture.png" alt="Storefront API architecture" />
 
 ## Production-ready
 

@@ -38,6 +38,8 @@ Each module present it's own:
 [Read more on Storefront API modules](../modules/introduction.md)
 [Read more on The Default modules](../default-modules/introduction.md)
 
+<img src="https://divante.com//github/storefront-api/storefront-api-architecture.png" alt="Storefront API architecture" />
+
 ## How does it connect with backend platforms?
 This product manages to be platform-agnostic thanks to the [dedicated API connectors](https://github.com/DivanteLtd/vue-storefront#integrations) for eCommerce backend platforms. The data format in `storefront-api` is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.
 
