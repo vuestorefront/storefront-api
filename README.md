@@ -8,7 +8,7 @@ Storefront API
 <a href="http://slack.vuestorefront.io">![Join Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)</a>
 
 Storefront GraphQL API. Easy to use. Extendable. Blazingly fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
-Works great with: Magento1, Magento2, Spree, OpenCart, and Pimcore - out of the box. [Easy to integrate with custom backends](https://github.com/DivanteLtd/storefront-integration-sdk).
+Works great with: Magento1, Magento2, Spree, OpenCart, and Pimcore - out of the box. [Easy to integrate with custom backends](https://sfa-docs.now.sh/guide/integration/integration.html#two-steps-for-the-integration).
 
 You can use the **Storefront GraphQL API** to integrate **all your backend systems** with your eCommerce frontend under a single GraphQL/REST API.
 By default, all catalog information is stored in ElasticSearch, and all the write operations are forwarded to the **platform driver** (Magento1, Magento2, Spree, and others available).
@@ -35,7 +35,7 @@ Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vu
  - Dynamic tax calculation engine,
  - Extendable via custom extensions (including GraphQL schema and resolver extensions),
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
- - Custom eCommerce Backend integrations via [an integration SDK](https://github.com/DivanteLtd/storefront-integration-sdk).
+ - Custom eCommerce Backend integrations via [an integration SDK](https://sfa-docs.now.sh/guide/integration/integration.html#two-steps-for-the-integration).
 
 ## Modules
 

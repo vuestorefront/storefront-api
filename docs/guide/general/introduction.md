@@ -23,7 +23,7 @@ The architecture is modular. Out of the box, we provided a set of modules (`defa
  - Dynamic tax calculation engine,
  - Extendable via custom extensions (including GraphQL schema and resolver extensions),
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
- - Custom eCommerce Backend integrations via [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
+ - Custom eCommerce Backend integrations via [integration sdk](https://sfa-docs.now.sh/guide/integration/integration.html#two-steps-for-the-integration).
 
 
 ## Modules
@@ -51,7 +51,7 @@ The API connector, by default, works in two phases:
 
 - **dynamic calls API** - it's a set of REST API modules: user, cart, review etc. The dynamic API endpoints are located in the `src/api` folder and can be extended by custom extensions. The default API endpoints make use of the `PlatformFactory` which is calling the platform-specific API clients defined under the `src/platform`. Platform drivers works like a Proxy to the real eCommerce backend. [Check the API specification](../default-modules/api.md)
 
-Some of the most popular backend platforms already have their integrations ([Magento 2](https://github.com/DivanteLtd/mage2vuestorefront), [Magento 1](https://github.com/DivanteLtd/magento1-vsbridge), [CoreShop](https://github.com/DivanteLtd/coreshop-vsbridge), [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront), [WooCommerce](https://github.com/DivanteLtd/woocommerce2vuestorefront)), but you can easily make your own with the [integration sdk](https://github.com/DivanteLtd/storefront-integration-sdk).
+Some of the most popular backend platforms already have their integrations ([Magento 2](https://github.com/DivanteLtd/mage2vuestorefront), [Magento 1](https://github.com/DivanteLtd/magento1-vsbridge), [CoreShop](https://github.com/DivanteLtd/coreshop-vsbridge), [BigCommerce](https://github.com/DivanteLtd/bigcommerce2vuestorefront), [WooCommerce](https://github.com/DivanteLtd/woocommerce2vuestorefront)), but you can easily make your own with the [integration sdk](https://sfa-docs.now.sh/guide/integration/integration.html#two-steps-for-the-integration).
 
 [Read the integration tutorial](../integration/integration.md)
 
