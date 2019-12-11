@@ -13,12 +13,25 @@ Works great with: Magento1, Magento2, Spree, OpenCart, and Pimcore - out of the 
 You can use the **Storefront GraphQL API** to integrate **all your backend systems** with your eCommerce frontend under a single GraphQL/REST API.
 By default, all catalog information is stored in ElasticSearch, and all the write operations are forwarded to the **platform driver** (Magento1, Magento2, Spree, and others available).
 
-## The Story
+## How to get started?
 
-Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vuestorefront.io/) and is based on [Vue Storefront API](https://github.com/DivanteLtd/vue-storefront-api). The intention is to replace vue-storefront-api with a more general-purpose API Gateway which you may use with any web or mobile frontend, including Vue, React, Angular and native apps. Its a drop-in replacement for `vue-storefront-api` if you happened to use it before. It works great with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront).
+Storefront API comes with a default product schema - compatible with the [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project - and can be a drop-in replacement for `vue-storefront-api`. You can  start a dev instance, including a demo data set integrated with a [Magento 2.3 demo instance](http://demo-magento2.vuestorefront.io).
 
-<img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
-<em style="text-align:center;">This is a screenshot showing the GraphQL Playground on the storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
+To run `storefront-api` in `development` mode, please run:
+
+`docker-compose up`
+
+Restore the demo data set:
+`docker exec -it sfa_app_1 yarn restore7`
+
+After successful installation, you can start playing with GraphQL queries using your local GraphQL Playground, which is exposed under: [http://localhost:8080/graphql](http://localhost:8080/graphql)
+
+Details: 
+- [Installation tutorial](https://sfa-docs.now.sh/guide/general/installation.html)
+- [How to create a first module - tutorial](https://sfa-docs.now.sh/guide/modules/tutorial.html)
+- [GraphQL schema](https://sfa-docs.now.sh/guide/default-modules/graphql.html)
+- [REST API](https://sfa-docs.now.sh/guide/default-modules/api.html)
+- [Configuration file explained](https://sfa-docs.now.sh/guide/general/config.html)
 
 ## Key features
 
@@ -74,23 +87,6 @@ The following are already included in the `storefront-api` Docker image, but req
 - Node.js 10.x or higher
 - Yarn
 
-## How to get started?
-
-Storefront API comes with a default product schema - compatible with the [Vue Storefront](https://github.com/DivanteLtd/vue-storefront) project - and can be a drop-in replacement for `vue-storefront-api`. You can  start a dev instance including a demo data set integrated with a [Magento 2.3 demo instance](http://demo-magento2.vuestorefront.io).
-
-### Elastic 7.2
-
-To run `storefront-api` in `development` mode with ElasticSearch 7.2, please run:
-
-`docker-compose up`
-
-Restore the demo data set:
-`docker exec -it sfa_app_1 yarn restore7`
-
-## GraphQL Access
-
-After successful installation, you can start playing with GraphQL queries using your local GraphQL Playground, which is exposed under: [http://localhost:8080/graphql](http://localhost:8080/graphql)
-
 ## REST Access
 Catalog API calls are compliant with ElasticSearch (they work like a filtering proxy to ES). More on ES query here: [ElasticSearch queries tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html)
 
@@ -122,6 +118,13 @@ You can easily set up the application to trust them by putting them in the confi
 If you like the idea behind Vue Storefront and want to become a contributor, do not hesitate and check our [list of the issues](https://github.com/DivanteLtd/storefront-api/issues) or contact us directly via contributors@vuestorefront.io.
 
 If you have discovered a bug, or have a feature suggestion, feel free to create an issue on Github.
+
+## The Story
+
+Storefront API is brought to you by the [**Vue Storefront Team**](https://www.vuestorefront.io/) and is based on [Vue Storefront API](https://github.com/DivanteLtd/vue-storefront-api). The intention is to replace vue-storefront-api with a more general-purpose API Gateway which you may use with any web or mobile frontend, including Vue, React, Angular and native apps. Its a drop-in replacement for `vue-storefront-api` if you happened to use it before. It works great with [Vue Storefront](https://github.com/DivanteLtd/vue-storefront).
+
+<img src="https://divante.com/github/storefront-api/graphql-playground.png" alt="GraphQL Playground is included"/>
+<em style="text-align:center;">This is a screenshot showing the GraphQL Playground on the storefront-api schema. <a href="https://divanteltd.github.io/storefront-graphql-api-schema/">Check the schema docs</a>. It can be 100% customized.</em>
 
 
 ## Partners
