@@ -41,6 +41,7 @@ function toCamelCase (obj = {}) {
 function createSinglePrice (price = 0, rateFactor = 0, isPriceInclTax) {
   const _price = isPriceInclTax ? price / (1 + rateFactor) : price
   const tax = _price * rateFactor
+
   return { price: _price, tax }
 }
 
@@ -71,6 +72,7 @@ export function updateProductPrices ({ product, rate, sourcePriceInclTax = false
     product.hasOwnProperty('original_final_price') &&
     product.hasOwnProperty('original_special_price')
   )
+
   // build objects with original price and tax
   // for first calculation use `price`, for next one use `original_price`
   const priceWithTax = createSinglePrice(parseFloat(product.original_price || product.price), rate_factor, sourcePriceInclTax && !hasOriginalPrices)
@@ -99,12 +101,13 @@ export function updateProductPrices ({ product, rate, sourcePriceInclTax = false
 
   if (product.final_price) {
     if (product.final_price < product.price) { // compare the prices with the product final price if provided; final prices is used in case of active catalog promo rules for example
-      assignPrice({product, target: 'price', price: product.final_price, deprecatedPriceFieldsSupport})
-      if (product.final_price < product.special_price) { // for VS - special_price is any price lowered than regular price (`price`); in Magento there is a separate mechanism for setting the `special_prices`
-        assignPrice({product, target: 'price', price: product.special_price, deprecatedPriceFieldsSupport}) // if the `final_price` is lower than the original `special_price` - it means some catalog rules were applied over it
+      assignPrice({product, target: 'price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
+      if (product.special_price && product.final_price < product.special_price) { // for VS - special_price is any price lowered than regular price (`price`); in Magento there is a separate mechanism for setting the `special_prices`
+        assignPrice({product, target: 'price', ...specialPriceWithTax, deprecatedPriceFieldsSupport}) // if the `final_price` is lower than the original `special_price` - it means some catalog rules were applied over it
+        assignPrice({product, target: 'special_price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
+      } else {
+        assignPrice({product, target: 'price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
       }
-    } else {
-      assignPrice({product, target: 'special_price', price: product.final_price, deprecatedPriceFieldsSupport})
     }
   }
 
