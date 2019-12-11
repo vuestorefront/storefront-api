@@ -85,7 +85,7 @@ export function updateProductPrices ({ product, rate, sourcePriceInclTax = false
     }
     if (finalPriceWithTax.price) {
       product.original_final_price = finalPriceWithTax.price
-    }    
+    }
   }
 
   // reset previous calculation
