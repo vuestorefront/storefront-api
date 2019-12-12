@@ -1,10 +1,16 @@
+import { Request } from 'express';
+import { IConfig } from 'config';
+
 class AbstractProductProxy {
-  constructor (config, req) {
+  private _request: Request
+  private _config: IConfig
+
+  protected constructor (config, req) {
     this._config = config
     this._request = req
   }
 
-  /*  
+  /*
     GET /api/product/list
     Magento specific methods to return the product details for specifed SKUs. Methods are mostly used for data synchronization with Magento two and for some specific cases when overriding the platform prices inside the Storefront.
 
@@ -134,7 +140,7 @@ class AbstractProductProxy {
                 "special_price": null,
                 "regular_price": "<span class=\"price\">$48.00</span>"
               },
-              "extension_attributes": {           
+              "extension_attributes": {
                 "tax_adjustments": {
                   "final_price": 47.999999,
                   "max_price": 47.999999,
@@ -169,8 +175,11 @@ class AbstractProductProxy {
       }
     }
   */
-  list (skus) {
+  public list (skus): Promise<any> {
     throw new Error('ProductProxy::list must be implemented for specific platform')
+  }
+  public renderList (skus, currencyCode, storeId = 1): Promise<any> {
+    throw new Error('ProductProxy::renderList must be implemented for specific platform')
   }
 }
 

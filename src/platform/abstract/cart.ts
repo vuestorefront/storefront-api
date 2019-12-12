@@ -1,4 +1,15 @@
-class AbstractCartProxy {
+import { Request } from 'express';
+import { IConfig } from 'config';
+
+abstract class AbstractCartProxy {
+  private _request: Request
+  private _config: IConfig
+
+  protected constructor (config, req) {
+    this._config = config
+    this._request = req
+  }
+
   /*
     POST /api/cart/create
     #WHEN:
@@ -34,7 +45,7 @@ class AbstractCartProxy {
     200 when success
     500 in case of error
   */
-  create (customerToken) {}
+  public create (customerToken): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     POST /api/cart/update
@@ -92,21 +103,22 @@ class AbstractCartProxy {
         }
     }
   */
-  update (customerToken, cartId, cartItem) {}
+  public update (customerToken, cartId, cartItem): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
-  POST /api/cart/apply-coupon
-  This method is used to apply the discount code to the current server side quote.
-  https://sfa-docs.now.sh/guide/default-modules/api.html#post-api-cart-apply-coupon
+    POST /api/cart/apply-coupon
+    This method is used to apply the discount code to the current server side quote.
+    https://sfa-docs.now.sh/guide/default-modules/api.html#post-api-cart-apply-coupon
 
-  #EXAMPLE CALL:
-  curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANI' -X POST -H 'content-type: application/json'
-  #RESPONSE BODY:
-  {
-      "code":200,
-      "result":true
-  } */
-  applyCoupon (customerToken, cartId, coupon) {}
+    #EXAMPLE CALL:
+    curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANI' -X POST -H 'content-type: application/json'
+    #RESPONSE BODY:
+    {
+        "code":200,
+        "result":true
+    }
+  */
+  public applyCoupon (customerToken, cartId, coupon): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     POST /api/cart/delete-coupon
@@ -120,7 +132,7 @@ class AbstractCartProxy {
         "result":true
     }
   */
-  deleteCoupon (customerToken, cartId) {}
+  public deleteCoupon (customerToken, cartId): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     GET /api/cart/coupon
@@ -134,7 +146,7 @@ class AbstractCartProxy {
         "result":"ARMANI"
     }
   */
-  getCoupon (customerToken, cartId) {}
+  public getCoupon (customerToken, cartId): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     POST /api/cart/delete
@@ -164,7 +176,7 @@ class AbstractCartProxy {
         "result":true
     }
   */
-  delete (customerToken, cartId, cartItem) {}
+  public delete (customerToken, cartId, cartItem): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     GET /api/cart/pull
@@ -230,7 +242,7 @@ class AbstractCartProxy {
       ]
     }
  */
-  pull (customerToken, cartId, params) {}
+  public pull (customerToken, cartId, params): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     GET /api/cart/totals
@@ -320,7 +332,7 @@ class AbstractCartProxy {
             }
     }
   */
-  totals (customerToken, cartId, params) {}
+  public totals (customerToken, cartId, params): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     POST /api/cart/shipping-methods
@@ -360,7 +372,7 @@ class AbstractCartProxy {
         ]
     }
  */
-  getShippingMethods (customerToken, cartId, address) {}
+  public getShippingMethods (customerToken, cartId, address): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     GET /api/cart/payment-methods
@@ -391,7 +403,7 @@ class AbstractCartProxy {
             ]
     }
   */
-  getPaymentMethods (customerToken, cartId) {}
+  public getPaymentMethods (customerToken, cartId): Promise<any> { throw new Error('Please implement me :(') }
 
   /*
     POST /api/cart/shipping-information
@@ -509,7 +521,8 @@ class AbstractCartProxy {
       }
     }
   */
-  setShippingInformation (customerToken, cartId, address) {}
+  public setShippingInformation (customerToken, cartId, address): Promise<any> { throw new Error('Please implement me :(') }
+  public collectTotals (customerToken, cartId, shippingMethod): Promise<any> { throw new Error('Please implement me :(') }
 }
 
-module.exports = AbstractCartProxy;
+export default AbstractCartProxy;

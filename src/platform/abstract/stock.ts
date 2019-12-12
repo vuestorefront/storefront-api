@@ -1,5 +1,11 @@
+import { Request } from 'express';
+import { IConfig } from 'config';
+
 class AbstractStockProxy {
-  constructor (config, req) {
+  private _request: Request
+  private _config: IConfig
+
+  protected constructor (config, req) {
     this._config = config
     this._request = req
   }
@@ -8,7 +14,7 @@ class AbstractStockProxy {
     GET /api/stock/check/:sku
     This method is used to check the stock item for specified product sku
     https://sfa-docs.now.sh/guide/default-modules/api.html#get-api-stock-check-sku
-    
+
     #RESPONSE BODY:
     {
       "code": 200,
@@ -42,7 +48,7 @@ class AbstractStockProxy {
       }
     }
   */
-  check (sku) {
+  public check (sku): Promise<any> {
     throw new Error('UserProxy::check must be implemented for specific platform')
   }
 }

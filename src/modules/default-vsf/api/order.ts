@@ -2,6 +2,7 @@ import resource from 'resource-router-middleware';
 import { apiStatus, apiError } from 'src/lib/util';
 import { merge } from 'lodash';
 import PlatformFactory from 'src/platform/factory';
+import AbstractOrderProxy from 'src/platform/abstract/order';
 
 const Ajv = require('ajv'); // json validator
 const fs = require('fs');
@@ -9,7 +10,7 @@ const kue = require('kue');
 const jwa = require('jwa');
 const hmac = jwa('HS256');
 
-const _getProxy = (req, config) => {
+const _getProxy = (req, config): AbstractOrderProxy => {
   const platform = config.platform
   const factory = new PlatformFactory(config, req)
   return factory.getAdapter(platform, 'order')
@@ -81,6 +82,13 @@ export default ({ config, db }) => resource({
    *   "updated_at": "2018-04-04T03:14:22.622Z"
    *  }
    */
+  /*
+    #RESPONSE BODY:
+    {
+        "code":200,
+        "result":"OK"
+    }
+  */
   create (req, res) {
     const ajv = new Ajv();
     require('ajv-keywords')(ajv, 'regexp');
@@ -101,7 +109,7 @@ export default ({ config, db }) => resource({
     console.log(JSON.stringify(incomingOrder))
 
     for (let product of req.body.products) {
-      let key = config.tax.calculateServerSide ? { priceInclTax: product.priceInclTax } : { price: product.price }
+      let key = config.tax.calculateServerSide ? { priceInclTax: product.priceInclTax, id: null, sku: null } : { price: product.price, id: null, sku: null }
       if (config.tax.alwaysSyncPlatformPricesOver) {
         key.id = product.id
       } else {

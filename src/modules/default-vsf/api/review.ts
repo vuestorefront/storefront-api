@@ -1,12 +1,13 @@
 import { apiStatus, apiError } from 'src/lib/util'; import { Router } from 'express';
 import PlatformFactory from 'src/platform/factory'
+import AbstractReviewProxy from 'src/platform/abstract/review';
 
 const Ajv = require('ajv'); // json validator
 
 export default ({config, db}) => {
   const reviewApi = Router();
 
-  const _getProxy = (req) => {
+  const _getProxy = (req): AbstractReviewProxy => {
     const platform = config.platform
     const factory = new PlatformFactory(config, req)
     return factory.getAdapter(platform, 'review')

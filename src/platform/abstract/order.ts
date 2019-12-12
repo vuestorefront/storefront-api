@@ -1,12 +1,21 @@
-class AbstractOrderProxy {
+import { Request } from 'express';
+import { IConfig } from 'config';
 
-  /*  
+class AbstractOrderProxy {
+  private _request: Request
+  private _config: IConfig
+
+  protected constructor (config, req) {
+    this._config = config
+    this._request = req
+  }
+  /*
     POST '/api/order/create`
     Queue the order into the order queue which will be asynchronously submitted to the eCommerce backend.
-    
+
     #REQUEST BODY:
     The user_id field is a numeric user id as returned in api/user/me. The cart_id is a guest or authorized users quote id (You can mix guest cart with authroized user as well)
-    
+
     {
         "user_id": "",
         "cart_id": "d90e9869fbfe3357281a67e3717e3524",
@@ -67,10 +76,9 @@ class AbstractOrderProxy {
         "code":200,
         "result":"OK"
     }
-    In case of the JSON validation error, the validation errors will be returned inside the result object. 
-  */  
-  create (orderData) {
-  }
+    In case of the JSON validation error, the validation errors will be returned inside the result object.
+  */
+  public create (orderData): Promise<any> { throw new Error('Please implement me :(') }
 }
 
-module.exports = AbstractOrderProxy
+export default AbstractOrderProxy
