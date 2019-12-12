@@ -9,7 +9,7 @@ import { loadSchema } from 'src/lib/elastic'
 import path from 'path'
 
 export const DefaultCatalogModule: StorefrontApiModule = new StorefrontApiModule({
-  key: 'vsf-default',
+  key: 'default-catalog',
   loadMappings: ({ config, db, app }: StorefrontApiContext): ElasticSearchMappings => {
     return {
       schemas: {

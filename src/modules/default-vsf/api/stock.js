@@ -17,6 +17,11 @@ export default ({ config, db }) => {
 
   /**
    * GET get stock item
+   *
+   * req.params.sku - sku of the prodduct to check
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#get-vsbridgestockchecksku
+   *
    */
   api.get('/check/:sku', (req, res) => {
     const stockProxy = _getProxy(req)
@@ -37,6 +42,8 @@ export default ({ config, db }) => {
 
   /**
    * GET get stock item - 2nd version with the query url parameter
+   *
+   * req.query.url  - sku of the product to check
    */
   api.get('/check', (req, res) => {
     const stockProxy = _getProxy(req)
@@ -57,6 +64,8 @@ export default ({ config, db }) => {
 
   /**
    * GET get stock item list by skus (comma separated)
+   *
+   * req.query.skus = url encoded list of the SKUs
    */
   api.get('/list', (req, res) => {
     const stockProxy = _getProxy(req)

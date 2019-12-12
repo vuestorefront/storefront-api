@@ -14,6 +14,21 @@ export default ({ config, db }) => {
   /**
    * POST create a cart
    * req.query.token - user token
+   *
+   * For authorized user:
+   *
+   * ```bash
+   * curl 'http://localhost:8080/api/cart/create?token=xu8h02nd66yq0gaayj4x3kpqwity02or' -X POST
+   * ```
+   *
+   * For anonymous user:
+   *
+   * ```bash
+   * curl 'https://localhost:8080/api/cart/create' -X POST
+   * ```
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgecartcreate
+   *
    */
   cartApi.post('/create', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -26,11 +41,37 @@ export default ({ config, db }) => {
 
   /**
    * POST update or add the cart item
-   *   req.query.token - user token
-   *   body.cartItem: {
-   *    sku: orderItem.sku,
-   *    qty: orderItem.qty,
-   *   quoteId: cartKey}
+   *
+   * Request body:
+   *
+   * {
+   *   "cartItem":{
+   *      "sku":"WS12-XS-Orange",
+   *      "qty":1,
+   *      "product_option":{
+   *         "extension_attributes":{
+   *            "custom_options":[
+   *
+   *               ],
+   *            "configurable_item_options":[
+   *            {
+   *               "option_id":"93",
+   *               "option_value":"56"
+   *            },
+   *            {
+   *               "option_id":"142",
+   *               "option_value":"167"
+   *            }
+   *            ],
+   *            "bundle_options":[
+   *
+   *               ]
+   *         }
+   *      },
+   *      "quoteId":"0a8109552020cc80c99c54ad13ef5d5a"
+   *   }
+   *}
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgecartupdate
    */
   cartApi.post('/update', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -49,6 +90,12 @@ export default ({ config, db }) => {
    *   req.query.token - user token
    *   req.query.cartId - cart Ids
    *   req.query.coupon - coupon
+   *
+   * ```bash
+   * curl 'http://localhost:8080/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANi' -X POST -H 'content-type: application/json'
+   * ```
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgecartapply-coupon
    */
   cartApi.post('/apply-coupon', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -66,6 +113,12 @@ export default ({ config, db }) => {
    * POST remove the coupon code
    *   req.query.token - user token
    *   req.query.cartId - cart Ids
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/cart/delete-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -X POST -H 'content-type: application/json'
+   * ```
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgecartdelete-coupon
    */
   cartApi.post('/delete-coupon', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -80,6 +133,12 @@ export default ({ config, db }) => {
    * GET get the applied coupon code
    *   req.query.token - user token
    *   req.query.cartId - cart Ids
+   *
+   * ```bash
+   * curl 'http://loccalhost:8080/api/cart/coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -H 'content-type: application/json'
+   * ```
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#get-vsbridgecartcoupon
    */
   cartApi.get('/coupon', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -93,10 +152,18 @@ export default ({ config, db }) => {
   /**
    * POST delete the cart item
    *   req.query.token - user token
-   *   body.cartItem: {
-   *    sku: orderItem.sku,
-   *    qty: orderItem.qty,
-   *   quoteId: cartKey}
+   *
+   * Request body;
+   * {
+   *       "cartItem":
+   *       {
+   *          "sku":"MS10-XS-Black",
+   *          "item_id":5853,
+   *          "quoteId":"81668"
+   *       }
+   * }
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgecartdelete
    */
   cartApi.post('/delete', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -114,6 +181,15 @@ export default ({ config, db }) => {
    * GET pull the whole cart as it's currently se server side
    *   req.query.token - user token
    *   req.query.cartId - cartId
+   *
+   * For authorized users;
+   *
+   * ```bash
+   * curl http://localhost:8080/api/cart/pull?token=xu8h02nd66yq0gaqwity02or
+   * ```
+   *
+   * Details:
+   * https://sfa-docs.now.sh/guide/default-modules/api.html#get-vsbridgecartpull
    */
   cartApi.get('/pull', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -129,6 +205,10 @@ export default ({ config, db }) => {
    * GET totals the cart totals
    *   req.query.token - user token
    *   req.query.cartId - cartId
+   *
+   * ```bash
+   * curl 'http://localhost:8080/api/cart/totals?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json'
+   * ```
    */
   cartApi.get('/totals', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -145,6 +225,18 @@ export default ({ config, db }) => {
    *   req.query.token - user token
    *   req.query.cartId - cart ID if user is logged in, cart token if not
    *   req.body.address - shipping address object
+   *
+   * Request body:
+   * {
+   *       "address":
+   *       {
+   *          "country_id":"PL"
+   *       }
+   *    }
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/cart/shipping-methods?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' --data-binary '{"address":{"country_id":"PL"}}'
+   *
    */
   cartApi.post('/shipping-methods', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -163,6 +255,10 @@ export default ({ config, db }) => {
    * GET /payment-methods - available payment methods
    *   req.query.token - user token
    *   req.query.cartId - cart ID if user is logged in, cart token if not
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/cart/payment-methods?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json'
+   *
    */
   cartApi.get('/payment-methods', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -179,6 +275,19 @@ export default ({ config, db }) => {
    *   req.query.token - user token
    *   req.query.cartId - cart ID if user is logged in, cart token if not
    *   req.body.addressInformation - shipping address object
+   *
+   * Request body:
+   * {
+   *        "addressInformation":
+   *        {
+   *             "shipping_address":
+   *          {
+   *              "country_id":"PL"
+   *          },
+   *          "shipping_method_code":"flatrate",
+   *           "shipping_carrier_code":"flatrate"
+   *       }
+   *    }
    */
   cartApi.post('/shipping-information', (req, res) => {
     const cartProxy = _getProxy(req)
@@ -194,10 +303,13 @@ export default ({ config, db }) => {
   })
 
   /**
-   * POST /collect-totals - collect cart totals after shipping address changed
+   * POST totals the cart totals
    *   req.query.token - user token
-   *   req.query.cartId - cart ID if user is logged in, cart token if not
-   *   req.body.shippingMethod - shipping and payment methods object
+   *   req.query.cartId - cartId
+   *
+   * ```bash
+   * curl 'http://localhost:8080/api/cart/totals?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json'
+   * ```
    */
   cartApi.post('/collect-totals', (req, res) => {
     const cartProxy = _getProxy(req)

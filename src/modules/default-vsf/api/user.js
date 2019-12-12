@@ -31,6 +31,22 @@ export default ({config, db}) => {
 
   /**
    * POST create an user
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/user/create' -H 'content-type: application/json' -H 'accept: application/json, text/plain'--data-binary '{"customer":{"email":"pkarwatka9998@divante.pl","firstname":"Joe","lastname":"Black"},"password":"SecretPassword!@#123"}'
+   * ```
+   * Request body:
+   *
+   * {
+   *    "customer": {
+   *       "email": "pkarwatka9998@divante.pl",
+   *       "firstname": "Joe",
+   *       "lastname": "Black"
+   *    },
+   *    "password": "SecretPassword"
+   *    }
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeusercreate
    */
   userApi.post('/create', (req, res) => {
     const ajv = new Ajv();
@@ -57,6 +73,19 @@ export default ({config, db}) => {
 
   /**
    * POST login an user
+   *
+   * Request body:
+   *
+   * {
+   * "username":"pkarwatka102@divante.pl",
+   * "password":"TopSecretPassword"
+   * }
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/user/login' -H 'content-type: application/json' -H 'accept: application/json' --data-binary '"username":"pkarwatka102@divante.pl","password":"TopSecretPassword}'
+   * ```
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeuserlogin
    */
   userApi.post('/login', (req, res) => {
     const userProxy = _getProxy(req)
@@ -73,6 +102,13 @@ export default ({config, db}) => {
 
   /**
    * POST refresh user token
+   *
+   * Request body:
+   * {
+   * "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM"
+   * }
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeuserrefresh
    */
   userApi.post('/refresh', (req, res) => {
     const userProxy = _getProxy(req)
@@ -98,7 +134,18 @@ export default ({config, db}) => {
   });
 
   /**
-   * POST resetPassword (old, keep for backward compatibility)
+   * POST reset-password
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/user/resetPassword' -H 'content-type: application/json' -H 'accept: application/json, text/plain' --data-binary '{"email":"pkarwatka992@divante.pl"}'
+   * ```
+   *
+   * Request body:
+   * {
+   * "email": "pkarwatka992@divante.pl"
+   * }
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeuserresetpassword
    */
   userApi.post('/resetPassword', (req, res) => {
     const userProxy = _getProxy(req)
@@ -115,7 +162,18 @@ export default ({config, db}) => {
   });
 
   /**
-   * POST resetPassword
+   * POST reset-password
+   *
+   * ```bash
+   * curl 'https://your-domain.example.com/vsbridge/user/resetPassword' -H 'content-type: application/json' -H 'accept: application/json, text/plain' --data-binary '{"email":"pkarwatka992@divante.pl"}'
+   * ```
+   *
+   * Request body:
+   * {
+   * "email": "pkarwatka992@divante.pl"
+   * }
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeuserresetpassword
    */
   userApi.post('/reset-password', (req, res) => {
     const userProxy = _getProxy(req)
@@ -135,6 +193,10 @@ export default ({config, db}) => {
 
   /**
    * GET  an user
+   *
+   * req.query.token - user token obtained from the `/api/user/login`
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#get-vsbridgeuserme
    */
   userApi.get('/me', (req, res) => {
     const userProxy = _getProxy(req)
@@ -148,6 +210,10 @@ export default ({config, db}) => {
 
   /**
    * GET  an user order history
+   *
+   * req.query.token - user token
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#get-vsbridgeuserorder-history
    */
   userApi.get('/order-history', (req, res) => {
     const userProxy = _getProxy(req)
@@ -164,6 +230,52 @@ export default ({config, db}) => {
 
   /**
    * POST for updating user
+   *
+   * Request body:
+   *
+   * {
+   *    "customer": {
+   *       "id": 222,
+   *      "group_id": 1,
+   *      "default_billing": "105",
+   *      "default_shipping": "105",
+   *      "created_at": "2018-03-16 19:01:18",
+   *      "updated_at": "2018-04-03 12:59:13",
+   *      "created_in": "Default Store View",
+   *      "email": "pkarwatka30@divante.pl",
+   *      "firstname": "Piotr",
+   *      "lastname": "Karwatka",
+   *      "store_id": 1,
+   *      "website_id": 1,
+   *      "addresses": [
+   *      {
+   *         "id": 109,
+   *         "customer_id": 222,
+   *         "region": {
+   *         "region_code": null,
+   *         "region": null,
+   *         "region_id": 0
+   *         },
+   *         "region_id": 0,
+   *         "country_id": "PL",
+   *         "street": [
+   *         "Dmowskiego",
+   *         "17"
+   *         ],
+   *         "company": "Divante2",
+   *         "telephone": "",
+   *         "postcode": "50-203",
+   *         "city": "Wrocław",
+   *         "firstname": "Piotr",
+   *         "lastname": "Karwatka2",
+   *         "vat_id": "PL8951930748"
+   *      }
+   *      ],
+   *      "disable_auto_group_change": 0
+   *   }
+   *}
+   *
+   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeuserme
    */
   userApi.post('/me', (req, res) => {
     const ajv = new Ajv();
@@ -194,7 +306,14 @@ export default ({config, db}) => {
   })
 
   /**
-   * POST for changing user's password (old, keep for backward compatibility)
+   * POST for changing user's password
+   *
+   * Request body:
+   *
+   * {
+   *  "currentPassword":"OldPassword",
+   *  "newPassword":"NewPassword"
+   * }
    */
   userApi.post('/changePassword', (req, res) => {
     const userProxy = _getProxy(req)
@@ -207,6 +326,13 @@ export default ({config, db}) => {
 
   /**
    * POST for changing user's password
+   *
+   * Request body:
+   *
+   * {
+   *  "currentPassword":"OldPassword",
+   *  "newPassword":"NewPassword"
+   * }
    */
   userApi.post('/change-password', (req, res) => {
     const userProxy = _getProxy(req)

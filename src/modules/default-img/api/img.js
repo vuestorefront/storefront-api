@@ -6,6 +6,21 @@ const asyncMiddleware = fn => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(next);
 };
 
+/**
+ * Image resizer
+ *
+ * ```bash
+ *  curl https://your-domain.example.com/img/310/300/resize/w/p/wp07-black_main.jpg
+ * ```
+ *
+ * or
+ *
+ * ```bash
+ *  curl http://localhost:8080/sample-api/img/600/744/resize/m/p/mp10-black_main.jpg
+ * ```
+ *
+ * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#img
+ */
 export default ({ config, db }) =>
   asyncMiddleware(async (req, res, next) => {
     if (!(req.method === 'GET')) {
