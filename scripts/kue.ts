@@ -1,6 +1,6 @@
-const program = require('commander')
-const config = require('config').redis
-const kue = require('kue')
+import program from 'commander'
+import config from 'config'
+import kue from 'kue'
 
 program
   .command('dashboard')
@@ -8,7 +8,7 @@ program
   .option('-q|--prefix <prefix>', 'prefix', 'q')
   .action((cmd) => {
     kue.createQueue({
-      redis: config,
+      redis: config.get('redis'),
       prefix: cmd.prefix
     })
 

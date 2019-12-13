@@ -1,13 +1,13 @@
-const program = require('commander')
-const config = require('config')
-const spawn = require('child_process').spawn
+import program from 'commander'
+import config from 'config'
+import { spawn } from 'child_process'
 
 function multiStoreConfig (apiConfig, storeCode) {
   let confCopy = Object.assign({}, apiConfig)
 
-  if (storeCode && config.availableStores.indexOf(storeCode) >= 0) {
-    if (config.magento2['api_' + storeCode]) {
-      confCopy = Object.assign({}, config.magento2['api_' + storeCode]) // we're to use the specific api configuration - maybe even separate magento instance
+  if (storeCode && (config.get('availableStores') as string[]).indexOf(storeCode) >= 0) {
+    if (config.get('magento2')['api_' + storeCode]) {
+      confCopy = Object.assign({}, config.get('magento2')['api_' + storeCode]) // we're to use the specific api configuration - maybe even separate magento instance
     }
     confCopy.url = confCopy.url + '/' + storeCode
   } else {
@@ -19,7 +19,7 @@ function multiStoreConfig (apiConfig, storeCode) {
 }
 
 function getMagentoDefaultConfig (storeCode) {
-  const apiConfig = multiStoreConfig(config.magento2.api, storeCode)
+  const apiConfig = multiStoreConfig(config.get('magento2.api'), storeCode)
   return {
     TIME_TO_EXIT: 2000,
     PRODUCTS_SPECIAL_PRICES: true,
@@ -29,19 +29,19 @@ function getMagentoDefaultConfig (storeCode) {
     SKIP_ATTRIBUTES: false,
     SKIP_TAXRULE: false,
     SKIP_PRODUCTS: false,
-    PRODUCTS_EXCLUDE_DISABLED: config.catalog.excludeDisabledProducts,
+    PRODUCTS_EXCLUDE_DISABLED: config.get('catalog.excludeDisabledProducts'),
     MAGENTO_CONSUMER_KEY: apiConfig.consumerKey,
     MAGENTO_CONSUMER_SECRET: apiConfig.consumerSecret,
     MAGENTO_ACCESS_TOKEN: apiConfig.accessToken,
     MAGENTO_ACCESS_TOKEN_SECRET: apiConfig.accessTokenSecret,
     MAGENTO_URL: apiConfig.url,
-    MAGENTO_MSI_STOCK_ID: config.msi.defaultStockId,
-    REDIS_HOST: config.redis.host,
-    REDIS_PORT: config.redis.port,
-    REDIS_DB: config.redis.db,
-    REDIS_AUTH: config.redis.auth,
-    INDEX_NAME: config.elasticsearch.indices[0],
-    DATABASE_URL: `${config.elasticsearch.protocol}://${config.elasticsearch.host}:${config.elasticsearch.port}`
+    MAGENTO_MSI_STOCK_ID: config.get('msi.defaultStockId'),
+    REDIS_HOST: config.get('redis.host'),
+    REDIS_PORT: config.get('redis.port'),
+    REDIS_DB: config.get('redis.db'),
+    REDIS_AUTH: config.get('redis.auth'),
+    INDEX_NAME: config.get('elasticsearch.indices')[0],
+    DATABASE_URL: `${config.get('elasticsearch.protocol')}://${config.get('elasticsearch.host')}:${config.get('elasticsearch.port')}`
   }
 }
 
@@ -77,12 +77,12 @@ program
   .option('--skus <skus>', 'comma delimited list of SKUs to fetch fresh informations from', '')
   .option('--removeNonExistent <removeNonExistent>', 'remove non existent products', false)
   .action((cmd) => {
-    let magentoConfig = getMagentoDefaultConfig(cmd.storeCode)
+    let magentoConfig: any = getMagentoDefaultConfig(cmd.storeCode)
     magentoConfig.MAGENTO_STORE_ID = 1
     magentoConfig.INDEX_META_PATH = '.lastIndex.json'
 
     if (cmd.storeCode) {
-      const storeView = config.storeViews[cmd.storeCode]
+      const storeView = config.get('storeViews')[cmd.storeCode]
       if (!storeView) {
         console.error('Wrong storeCode provided - no such store in the config.storeViews[storeCode]', cmd.storeCode)
         process.exit(-1)
@@ -110,7 +110,7 @@ program
       '--initQueue=' + cmd.initQueue,
       '--skus=' + cmd.skus,
       '--removeNonExistent=' + cmd.removeNonExistent
-    ], { env: env, shell: true }).then((res) => {
+    ], { env: env, shell: true }).then((_) => {
 
     })
   })
@@ -128,10 +128,10 @@ program
   .option('--skip-blocks <skipBlocks>', 'skip import of cms blocks', false)
   .option('--generate-unique-url-keys <generateUniqueUrlKeys>', 'generate unique url keys for categories', true)
   .action((cmd) => {
-    let magentoConfig = getMagentoDefaultConfig(cmd.storeCode)
+    let magentoConfig: any = getMagentoDefaultConfig(cmd.storeCode)
 
     if (cmd.storeCode) {
-      const storeView = config.storeViews[cmd.storeCode]
+      const storeView = config.get('storeViews')[cmd.storeCode]
       if (!storeView) {
         console.error('Wrong storeCode provided - no such store in the config.storeViews[storeCode]', cmd.storeCode)
         process.exit(-1)
