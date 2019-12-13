@@ -735,7 +735,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@elastic/elasticsearch@^7.3.0", "es7@npm:@elastic/elasticsearch@^7.3.0":
+"@elastic/elasticsearch@^7.3.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-7.5.0.tgz#a54b07001e1a3912792bf9f34e6ec6a4fe0aef0c"
   integrity sha512-ahzu451ppXepQMb3Zr8eFfWn8QR7yCcUWQjU1dS4X63Ctin0GNwwSPertt4WwDkm6MnZ25o932wAEgyMFLwzdA==
@@ -4614,18 +4614,6 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-"es5@npm:@elastic/elasticsearch@^5.0.0":
-  version "5.6.20"
-  resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-5.6.20.tgz#990354700c3e3fbdae6cb1c62c2ba14b631af8dc"
-  integrity sha512-dOybHGWMo6J/rx/ad9IbROKYq5aQIOd0RrickbqrIU7pjg0J3qSIL4SN027jz1vdrtOcap7yovA+HUplrEXOog==
-  dependencies:
-    debug "^4.1.1"
-    decompress-response "^4.2.0"
-    into-stream "^5.1.0"
-    ms "^2.1.1"
-    once "^1.4.0"
-    pump "^3.0.0"
-
 es6-promise@^4.0.3, es6-promise@^4.1.0:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
@@ -4637,18 +4625,6 @@ es6-promisify@^5.0.0:
   integrity sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
   dependencies:
     es6-promise "^4.0.3"
-
-"es6@npm:@elastic/elasticsearch@^6.7.0":
-  version "6.8.4"
-  resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-6.8.4.tgz#73c37374ea03997df1156ca011dbfb77608f15cc"
-  integrity sha512-mBKNRtcLI2JjU81N/YAKqIwjVSz/7SorxbalSFsu2W5anXj/qGDVXq77hnOL21m0wEYwIPG4SE2lR+U1adwWmg==
-  dependencies:
-    debug "^4.1.1"
-    decompress-response "^4.2.0"
-    into-stream "^5.1.0"
-    ms "^2.1.1"
-    once "^1.4.0"
-    pump "^3.0.0"
 
 escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"

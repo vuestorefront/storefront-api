@@ -1,14 +1,11 @@
 import { IConfig } from 'config'
 import { Express } from 'express';
 import { RedisClient } from 'redis';
-import { Client as Client7 } from 'es7';
-import { Client as Client6 } from 'es6';
-import { Client as Client5 } from 'es5';
 import { Client } from '@elastic/elasticsearch'
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
 
 export interface DbContext {
-  getElasticClient(): Client|Client7|Client6|Client5,
+  getElasticClient(): Client,
   getRedisClient(): RedisClient
 }
 

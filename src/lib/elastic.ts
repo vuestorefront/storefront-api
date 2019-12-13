@@ -1,7 +1,4 @@
-import { Client as Client7, ClientOptions } from 'es7';
-import { Client as Client6 } from 'es6';
-import { Client as Client5, ClientOptions as ClientOptions5 } from 'es5';
-import es, { Client, RequestParams } from '@elastic/elasticsearch'
+import es, { Client, RequestParams, ClientOptions } from '@elastic/elasticsearch'
 import semver from 'semver';
 import _ from 'lodash'
 import path from 'path'
@@ -84,7 +81,7 @@ export function getHits (result) {
   }
 }
 
-export function getClient (config: IConfig): Client|Client7|Client6|Client5 {
+export function getClient (config: IConfig): Client {
   const esConfig: ClientOptions = { // as we're runing tax calculation and other data, we need a ES indexer
     node: `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`,
     requestTimeout: 5000
@@ -95,27 +92,10 @@ export function getClient (config: IConfig): Client|Client7|Client6|Client5 {
       password: config.get<string>('elasticsearch.password')
     }
   }
-  switch (semver.major(config.get<string>('elasticsearch.apiVersion'))) {
-    case 7:
-      return new Client7(esConfig);
-    case 6:
-      return new Client6(esConfig);
-    case 5:
-      let node = `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`
-      if (config.has('elasticsearch.user')) {
-        node = `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.user')}:${config.get<string>('elasticsearch.password')}@${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`
-      }
-      const esConfig5: ClientOptions5 = {
-        node,
-        requestTimeout: 5000
-      }
-      return new Client5(esConfig5);
-    default:
-      return new es.Client(esConfig)
-  }
+  return new es.Client(esConfig)
 }
 
-export function putAlias (db: Client|Client7|Client6|Client5, originalName: string, aliasName: string, next) {
+export function putAlias (db: Client, originalName: string, aliasName: string, next) {
   let step2 = () => {
     db.indices.putAlias({ index: originalName, name: aliasName }).then(_ => {
       console.log('Index alias created')
@@ -136,11 +116,11 @@ export function putAlias (db: Client|Client7|Client6|Client5, originalName: stri
   })
 }
 
-export function search (db: Client|Client7|Client6|Client5, query: RequestParams.Search) {
+export function search (db: Client, query: RequestParams.Search) {
   return db.search(query)
 }
 
-export function deleteIndex (db: Client|Client7|Client6|Client5, indexName: string, next) {
+export function deleteIndex (db: Client, indexName: string, next) {
   db.indices.delete({
     'index': indexName
   }).then((_) => {
@@ -159,11 +139,9 @@ export function deleteIndex (db: Client|Client7|Client6|Client5, indexName: stri
   })
 }
 
-export function reIndex (db: Client|Client7|Client6|Client5, fromIndexName: string, toIndexName: string, next) {
+export function reIndex (db: Client, fromIndexName: string, toIndexName: string, next) {
   db.reindex({
-    // @ts-ignore
     wait_for_completion: true,
-    waitForCompletion: true,
     body: {
       'source': {
         'index': fromIndexName
@@ -179,7 +157,7 @@ export function reIndex (db: Client|Client7|Client6|Client5, fromIndexName: stri
   })
 }
 
-export function createIndex (db: Client|Client7|Client6|Client5, indexName: string, indexSchema: any, next) {
+export function createIndex (db: Client, indexName: string, indexSchema: any, next) {
   const step2 = () => {
     db.indices.delete({
       'index': indexName
