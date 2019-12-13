@@ -1,4 +1,4 @@
-import es, { Client, RequestParams, ClientOptions } from '@elastic/elasticsearch'
+import { Client, RequestParams, ClientOptions } from '@elastic/elasticsearch'
 import semver from 'semver';
 import _ from 'lodash'
 import path from 'path'
@@ -92,7 +92,7 @@ export function getClient (config: IConfig): Client {
       password: config.get<string>('elasticsearch.password')
     }
   }
-  return new es.Client(esConfig)
+  return new Client(esConfig)
 }
 
 export function putAlias (db: Client, originalName: string, aliasName: string, next) {
@@ -120,7 +120,7 @@ export function search (db: Client, query: RequestParams.Search) {
   return db.search(query)
 }
 
-export function deleteIndex (db: Client, indexName: string, next) {
+export function deleteIndex (db: Client, indexName: string, next: () => void) {
   db.indices.delete({
     'index': indexName
   }).then((_) => {
@@ -139,7 +139,7 @@ export function deleteIndex (db: Client, indexName: string, next) {
   })
 }
 
-export function reIndex (db: Client, fromIndexName: string, toIndexName: string, next) {
+export function reIndex (db: Client, fromIndexName: string, toIndexName: string, next: (args?: Error) => void) {
   db.reindex({
     wait_for_completion: true,
     body: {
@@ -157,7 +157,7 @@ export function reIndex (db: Client, fromIndexName: string, toIndexName: string,
   })
 }
 
-export function createIndex (db: Client, indexName: string, indexSchema: any, next) {
+export function createIndex<T = any> (db: Client, indexName: string, indexSchema: T, next: (args?: Error) => void) {
   const step2 = () => {
     db.indices.delete({
       'index': indexName
