@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format base on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0] -  The New Beginning as Storefront API
+## [1.0-rc.2] -  Unreleased
+
+### Added
+
+- API and Platform comments for all the REST endpoints added with the links to the official docs - @pkarw
+
+## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
 We've restarted the version numbering as the product architecture and brand changed.
 

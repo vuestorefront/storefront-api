@@ -69,7 +69,7 @@
         "defaultRegion": "",
         "deprecatedPriceFieldsSupport": true,
         "calculateServerSide": true,
-        "sourcePriceIncludesTax": false,
+        "sourcePriceIncludesTax": true,
         "finalPriceIncludesTax": true,
         "userGroupId": null,
         "useOnlyDefaultUserGroupId": false

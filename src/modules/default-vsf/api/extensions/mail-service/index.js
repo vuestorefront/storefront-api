@@ -22,25 +22,25 @@ module.exports = ({ config }) => {
   msApi.post('/send-email', (req, res) => {
     const userData = req.body
     if (!userData.token || userData.token !== token) {
-      apiStatus(res, 'Email is not authorized!', 500)
+      apiStatus(res, 'Email is not authorized!', 401)
     }
     const { host, port, secure, user, pass } = config.extensions.mailService.transport
     if (!host || !port || !user || !pass) {
-      apiStatus(res, 'No transport is defined for mail service!', 500)
+      apiStatus(res, 'No transport is defined for mail service!', 400)
     }
     if (!userData.sourceAddress) {
-      apiStatus(res, 'Source email address is not provided!', 500)
+      apiStatus(res, 'Source email address is not provided!', 400)
       return
     }
     if (!userData.targetAddress) {
-      apiStatus(res, 'Target email address is not provided!', 500)
+      apiStatus(res, 'Target email address is not provided!', 400)
       return
     }
     // Check if email address we're sending to is from the white list from config
     const whiteList = config.extensions.mailService.targetAddressWhitelist
     const email = userData.confirmation ? userData.sourceAddress : userData.targetAddress
     if (!whiteList.includes(email)) {
-      apiStatus(res, `Target email address (${email}) is not from the whitelist!`, 500)
+      apiStatus(res, `Target email address (${email}) is not from the whitelist!`, 400)
       return
     }
 
@@ -49,7 +49,7 @@ module.exports = ({ config }) => {
       .then(response => {
         if (response) return EmailCheck(userData.targetAddress)
         else {
-          apiStatus(res, 'Source email address is invalid!', 500)
+          apiStatus(res, 'Source email address is invalid!', 400)
         }
       })
       .then(response => {
