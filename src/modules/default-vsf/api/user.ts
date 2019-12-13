@@ -185,13 +185,13 @@ export default ({config, db}) => {
     const userProxy = _getProxy(req)
 
     if (!req.body || !req.body.refreshToken) {
-      return apiStatus(res, 'No refresh token provided', 500);
+      return apiStatus(res, 'No refresh token provided', 400);
     }
     try {
       const decodedToken = jwt.decode(req.body ? decryptToken(req.body.refreshToken, config.authHashSecret ? config.authHashSecret : config.objHashSecret) : '', config.authHashSecret ? config.authHashSecret : config.objHashSecret)
 
       if (!decodedToken) {
-        return apiStatus(res, 'Invalid refresh token provided', 500);
+        return apiStatus(res, 'Invalid refresh token provided', 400);
       }
 
       userProxy.login(decodedToken).then((result) => {
@@ -229,7 +229,7 @@ export default ({config, db}) => {
     const userProxy = _getProxy(req)
 
     if (!req.body.email) {
-      return apiStatus(res, 'Invalid e-mail provided!', 500)
+      return apiStatus(res, 'Invalid e-mail provided!', 400)
     }
 
     userProxy.resetPassword({ email: req.body.email, template: 'email_reset', websiteId: 1 }).then((result) => {
@@ -266,7 +266,7 @@ export default ({config, db}) => {
     const websiteId = config.storeViews[storeCode].websiteId
 
     if (!req.body.email) {
-      return apiStatus(res, 'Invalid e-mail provided!', 500)
+      return apiStatus(res, 'Invalid e-mail provided!', 400)
     }
 
     userProxy.resetPassword({ email: req.body.email, template: 'email_reset', websiteId }).then((result) => {
@@ -722,7 +722,7 @@ export default ({config, db}) => {
 
     if (!validate(req.body)) {
       console.dir(validate.errors);
-      apiStatus(res, validate.errors, 500);
+      apiStatus(res, validate.errors, 400);
       return;
     }
 

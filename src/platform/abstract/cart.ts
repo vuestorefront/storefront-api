@@ -45,7 +45,7 @@ abstract class AbstractCartProxy {
     200 when success
     500 in case of error
   */
-  public create (customerToken): Promise<any> { throw new Error('Please implement me :(') }
+  public create (customerToken): Promise<any> { throw new Error('AbstractCartProxy::create must be implemented for specific platform') }
 
   /*
     POST /api/cart/update
@@ -103,7 +103,7 @@ abstract class AbstractCartProxy {
         }
     }
   */
-  public update (customerToken, cartId, cartItem): Promise<any> { throw new Error('Please implement me :(') }
+  public update (customerToken, cartId, cartItem): Promise<any> { throw new Error('AbstractCartProxy::update must be implemented for specific platform') }
 
   /*
     POST /api/cart/apply-coupon
@@ -118,7 +118,7 @@ abstract class AbstractCartProxy {
         "result":true
     }
   */
-  public applyCoupon (customerToken, cartId, coupon): Promise<any> { throw new Error('Please implement me :(') }
+  public applyCoupon (customerToken, cartId, coupon): Promise<any> { throw new Error('AbstractCartProxy::applyCoupon must be implemented for specific platform') }
 
   /*
     POST /api/cart/delete-coupon
@@ -132,7 +132,7 @@ abstract class AbstractCartProxy {
         "result":true
     }
   */
-  public deleteCoupon (customerToken, cartId): Promise<any> { throw new Error('Please implement me :(') }
+  public deleteCoupon (customerToken, cartId): Promise<any> { throw new Error('AbstractCartProxy::deleteCoupon must be implemented for specific platform') }
 
   /*
     GET /api/cart/coupon
@@ -146,7 +146,7 @@ abstract class AbstractCartProxy {
         "result":"ARMANI"
     }
   */
-  public getCoupon (customerToken, cartId): Promise<any> { throw new Error('Please implement me :(') }
+  public getCoupon (customerToken, cartId): Promise<any> { throw new Error('AbstractCartProxy::getCoupon must be implemented for specific platform') }
 
   /*
     POST /api/cart/delete
@@ -176,7 +176,7 @@ abstract class AbstractCartProxy {
         "result":true
     }
   */
-  public delete (customerToken, cartId, cartItem): Promise<any> { throw new Error('Please implement me :(') }
+  public delete (customerToken, cartId, cartItem): Promise<any> { throw new Error('AbstractCartProxy::delete must be implemented for specific platform') }
 
   /*
     GET /api/cart/pull
@@ -242,7 +242,7 @@ abstract class AbstractCartProxy {
       ]
     }
  */
-  public pull (customerToken, cartId, params): Promise<any> { throw new Error('Please implement me :(') }
+  public pull (customerToken, cartId, params): Promise<any> { throw new Error('AbstractCartProxy::pull must be implemented for specific platform') }
 
   /*
     GET /api/cart/totals
@@ -332,7 +332,7 @@ abstract class AbstractCartProxy {
             }
     }
   */
-  public totals (customerToken, cartId, params): Promise<any> { throw new Error('Please implement me :(') }
+  public totals (customerToken, cartId, params): Promise<any> { throw new Error('AbstractCartProxy::totals must be implemented for specific platform') }
 
   /*
     POST /api/cart/shipping-methods
@@ -372,7 +372,7 @@ abstract class AbstractCartProxy {
         ]
     }
  */
-  public getShippingMethods (customerToken, cartId, address): Promise<any> { throw new Error('Please implement me :(') }
+  public getShippingMethods (customerToken, cartId, address): Promise<any> { throw new Error('AbstractCartProxy::getShippingMethods must be implemented for specific platform') }
 
   /*
     GET /api/cart/payment-methods
@@ -403,7 +403,7 @@ abstract class AbstractCartProxy {
             ]
     }
   */
-  public getPaymentMethods (customerToken, cartId): Promise<any> { throw new Error('Please implement me :(') }
+  public getPaymentMethods (customerToken, cartId): Promise<any> { throw new Error('AbstractCartProxy::getPaymentMethods must be implemented for specific platform') }
 
   /*
     POST /api/cart/shipping-information
@@ -521,8 +521,8 @@ abstract class AbstractCartProxy {
       }
     }
   */
-  public setShippingInformation (customerToken, cartId, address): Promise<any> { throw new Error('Please implement me :(') }
-  public collectTotals (customerToken, cartId, shippingMethod): Promise<any> { throw new Error('Please implement me :(') }
+  public setShippingInformation (customerToken, cartId, address): Promise<any> { throw new Error('AbstractCartProxy::setShippingInformation must be implemented for specific platform') }
+  public collectTotals (customerToken, cartId, shippingMethod): Promise<any> { throw new Error('AbstractCartProxy::collectTotals must be implemented for specific platform') }
 }
 
 export default AbstractCartProxy;

@@ -529,8 +529,8 @@ class AbstractUserProxy {
     200 when success
     500 in case of error
   */
-  public update (userData): Promise<any> { throw new Error('Please implement me :(') }
-  public changePassword (passwordData): Promise<any> { throw new Error('Please implement me :(') }
+  public update (userData): Promise<any> { throw new Error('AbstractUserProxy::update must be implemented for specific platform') }
+  public changePassword (passwordData): Promise<any> { throw new Error('AbstractUserProxy::changePassword must be implemented for specific platform') }
 }
 
 export default AbstractUserProxy

@@ -3,7 +3,7 @@ import { Router } from 'express';
 import PlatformFactory from 'src/platform/factory';
 import AbstractProductProxy from 'src/platform/abstract/product';
 
-const jwa = require('jwa');
+import jwa from 'jwa';
 const hmac = jwa('HS256');
 
 export default ({ config, db }) => {
@@ -177,7 +177,7 @@ export default ({ config, db }) => {
   productApi.get('/list', (req, res) => {
     const productProxy = _getProxy(req)
 
-    if (!req.query.skus) { return apiStatus(res, 'skus parameter is required', 500); }
+    if (!req.query.skus) { return apiStatus(res, 'skus parameter is required', 400); }
 
     productProxy.list(req.query.skus.split(',')).then((result) => {
       apiStatus(res, result, 200);
@@ -348,7 +348,7 @@ export default ({ config, db }) => {
   productApi.get('/render-list', (req, res) => {
     const productProxy = _getProxy(req)
 
-    if (!req.query.skus) { return apiStatus(res, 'skus parameter is required', 500); }
+    if (!req.query.skus) { return apiStatus(res, 'skus parameter is required', 400); }
 
     productProxy.renderList(req.query.skus.split(','), req.query.currencyCode, (req.query.storeId && parseInt(req.query.storeId) > 0) ? req.query.storeId : 1).then((result) => {
       result.items = result.items.map((item) => {

@@ -24,7 +24,7 @@ module.exports = ({ config, db }) => {
   mcApi.post('/subscribe', (req, res) => {
     let userData = req.body;
     if (!userData.email) {
-      apiStatus(res, 'Invalid e-mail provided!', 500);
+      apiStatus(res, 'Invalid e-mail provided!', 400);
       return;
     }
 
@@ -59,7 +59,7 @@ module.exports = ({ config, db }) => {
   mcApi.delete('/subscribe', (req, res) => {
     let userData = req.body;
     if (!userData.email) {
-      apiStatus(res, 'Invalid e-mail provided!', 500);
+      apiStatus(res, 'Invalid e-mail provided!', 400);
       return;
     }
 

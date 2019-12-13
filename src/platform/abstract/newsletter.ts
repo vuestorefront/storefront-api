@@ -10,9 +10,9 @@ class AbstractNewsletterProxy {
     this._request = req
   }
 
-  public subscribe (emailAddress): Promise<any> { throw new Error('Please implement me :(') }
+  public subscribe (emailAddress): Promise<any> { throw new Error('AbstractNewsletterProxy::subscribe must be implemented for specific platform') }
 
-  public unsubscribe (customerToken): Promise<any> { throw new Error('Please implement me :(') }
+  public unsubscribe (customerToken): Promise<any> { throw new Error('AbstractNewsletterProxy::unsubscribe must be implemented for specific platform') }
 }
 
 export default AbstractNewsletterProxy

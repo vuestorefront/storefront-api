@@ -62,7 +62,7 @@ export default ({ config, db }) => {
     const stockProxy = _getProxy(req)
 
     if (!req.params.sku) {
-      return apiStatus(res, 'sku parameter is required', 500);
+      return apiStatus(res, 'sku parameter is required', 400);
     }
 
     stockProxy.check({
@@ -118,7 +118,7 @@ export default ({ config, db }) => {
     const stockProxy = _getProxy(req)
 
     if (!req.query.sku) {
-      return apiStatus(res, 'sku parameter is required', 500);
+      return apiStatus(res, 'sku parameter is required', 400);
     }
 
     stockProxy.check({
@@ -174,7 +174,7 @@ export default ({ config, db }) => {
     const stockProxy = _getProxy(req)
 
     if (!req.query.skus) {
-      return apiStatus(res, 'skus parameter is required', 500);
+      return apiStatus(res, 'skus parameter is required', 400);
     }
 
     const skuArray = req.query.skus.split(',')

@@ -100,7 +100,7 @@ export default ({ config, db }) => {
   cartApi.post('/update', (req, res) => {
     const cartProxy = _getProxy(req)
     if (!req.body.cartItem) {
-      return apiStatus(res, 'No cartItem element provided within the request body', 500)
+      return apiStatus(res, 'No cartItem element provided within the request body', 400)
     }
     cartProxy.update(req.query.token, req.query.cartId ? req.query.cartId : null, req.body.cartItem).then((result) => {
       apiStatus(res, result, 200);
@@ -131,7 +131,7 @@ export default ({ config, db }) => {
   cartApi.post('/apply-coupon', (req, res) => {
     const cartProxy = _getProxy(req)
     if (!req.query.coupon) {
-      return apiStatus(res, 'No coupon code provided', 500)
+      return apiStatus(res, 'No coupon code provided', 400)
     }
     cartProxy.applyCoupon(req.query.token, req.query.cartId ? req.query.cartId : null, req.query.coupon).then((result) => {
       apiStatus(res, result, 200);
@@ -220,7 +220,7 @@ export default ({ config, db }) => {
   cartApi.post('/delete', (req, res) => {
     const cartProxy = _getProxy(req)
     if (!req.body.cartItem) {
-      return apiStatus(res, 'No cartItem element provided within the request body', 500)
+      return apiStatus(res, 'No cartItem element provided within the request body', 400)
     }
     cartProxy.delete(req.query.token, req.query.cartId ? req.query.cartId : null, req.body.cartItem).then((result) => {
       apiStatus(res, result, 200);
@@ -449,7 +449,7 @@ export default ({ config, db }) => {
     const cartProxy = _getProxy(req)
     res.setHeader('Cache-Control', 'no-cache, no-store');
     if (!req.body.address) {
-      return apiStatus(res, 'No address element provided within the request body', 500)
+      return apiStatus(res, 'No address element provided within the request body', 400)
     }
     cartProxy.getShippingMethods(req.query.token, req.query.cartId ? req.query.cartId : null, req.body.address).then((result) => {
       apiStatus(res, result, 200);
@@ -616,7 +616,7 @@ export default ({ config, db }) => {
     const cartProxy = _getProxy(req)
     res.setHeader('Cache-Control', 'no-cache, no-store');
     if (!req.body.addressInformation) {
-      return apiStatus(res, 'No address element provided within the request body', 500)
+      return apiStatus(res, 'No address element provided within the request body', 400)
     }
     cartProxy.setShippingInformation(req.query.token, req.query.cartId ? req.query.cartId : null, req.body).then((result) => {
       apiStatus(res, result, 200);
@@ -718,7 +718,7 @@ export default ({ config, db }) => {
     const cartProxy = _getProxy(req)
     res.setHeader('Cache-Control', 'no-cache, no-store');
     if (!req.body.methods) {
-      return apiStatus(res, 'No shipping and payment methods element provided within the request body', 500)
+      return apiStatus(res, 'No shipping and payment methods element provided within the request body', 400)
     }
     cartProxy.collectTotals(req.query.token, req.query.cartId ? req.query.cartId : null, req.body.methods).then((result) => {
       apiStatus(res, result, 200);

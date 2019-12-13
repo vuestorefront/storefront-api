@@ -78,7 +78,7 @@ class AbstractOrderProxy {
     }
     In case of the JSON validation error, the validation errors will be returned inside the result object.
   */
-  public create (orderData): Promise<any> { throw new Error('Please implement me :(') }
+  public create (orderData): Promise<any> { throw new Error('AbstractOrderProxy::create must be implemented for specific platform') }
 }
 
 export default AbstractOrderProxy
