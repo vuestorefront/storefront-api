@@ -42,7 +42,17 @@ initializeDb(db => {
   const { aggregatedGraphqlConfig } = registerModules(enabledModules, context)
 
   if (aggregatedGraphqlConfig.hasGraphqlSupport) {
-    const server = new ApolloServer({ typeDefs: mergeTypes(aggregatedGraphqlConfig.schema, { all: true }), resolvers: aggregatedGraphqlConfig.resolvers, rootValue: global, playground: true, context: (integrationContext) => integrationContext })
+    const server = new ApolloServer({
+      typeDefs: mergeTypes(aggregatedGraphqlConfig.schema, { all: true }),
+      resolvers: aggregatedGraphqlConfig.resolvers,
+      rootValue: global,
+      playground: true,
+      context: (integrationContext) => ({
+        ...integrationContext,
+        config,
+        db
+      })
+    })
     server.applyMiddleware({ app, path: '/graphql' });
   } else {
     console.info('No GraphQL Support enabled. Please provide at least one module supporting graphQL schema.')

@@ -10,5 +10,4 @@ export const DefaultImgModule: StorefrontApiModule = new StorefrontApiModule({
       console.log(req.params)
     });
   }
-
 })

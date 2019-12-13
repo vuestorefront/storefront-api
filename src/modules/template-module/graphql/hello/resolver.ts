@@ -1,14 +1,15 @@
-import config from 'config';
+import { StoreFrontResloverContext } from 'src/lib/module/types';
+import { IResolvers } from 'apollo-server-express';
 import es from 'src/lib/elastic'
 import bodybuilder from 'bodybuilder'
 
-const resolver = {
+const resolver: IResolvers<any, StoreFrontResloverContext> = {
   Query: {
     sayHello: (_, { name }, context, rootValue) => {
       return `Hello ${name}!`
     },
-    testElastic: async (_, { sku }, context, rootValue) => {
-      const client = es.getClient(config)
+    testElastic: async (_, { sku }, { db, config }, rootValue) => {
+      const client = db.getElasticClient()
       const esQuery = es.adjustQuery({
         index: 'vue_storefront_catalog', // current index name
         type: 'product',

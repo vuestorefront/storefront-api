@@ -11,7 +11,7 @@ const NotLoggedUserGroupId = 0;
  * @param groupId
  * @returns {*}
  */
-function updatePrices (productData, groupId) {
+function updatePrices (productData, groupId: number) {
   if (productData.tier_prices && productData.tier_prices.length) {
     for (let i = productData.tier_prices.length - 1; i >= 0; i--) {
       const tier = productData.tier_prices[i];
@@ -41,7 +41,7 @@ function updatePrices (productData, groupId) {
  * @param groupId
  * @returns {*}
  */
-export default (productData, groupId) => {
+export default (productData, groupId?: number|null) => {
   groupId = groupId || NotLoggedUserGroupId;
 
   if (productData.type_id === 'configurable') {

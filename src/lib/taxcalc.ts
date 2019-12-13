@@ -1,13 +1,13 @@
 import camelCase from 'lodash/camelCase'
 
-function isSpecialPriceActive (fromDate, toDate) {
+function isSpecialPriceActive (fromDate: string|Date, toDate: string|Date) {
   if (!fromDate && !toDate) {
     return true
   }
 
   const now = new Date()
-  fromDate = fromDate ? new Date(fromDate) : false
-  toDate = toDate ? new Date(toDate) : false
+  fromDate = fromDate ? new Date(fromDate) : null
+  toDate = toDate ? new Date(toDate) : null
 
   if (fromDate && toDate) {
     return fromDate < now && toDate > now
@@ -38,7 +38,7 @@ function toCamelCase (obj = {}) {
  * @param rateFactor - tax % in decimal
  * @param isPriceInclTax - determines if price already include tax
  */
-function createSinglePrice (price = 0, rateFactor = 0, isPriceInclTax) {
+function createSinglePrice (price: number = 0, rateFactor: number = 0, isPriceInclTax: boolean) {
   const _price = isPriceInclTax ? price / (1 + rateFactor) : price
   const tax = _price * rateFactor
 

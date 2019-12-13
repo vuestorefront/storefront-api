@@ -2,12 +2,12 @@ import path from 'path';
 import { fileLoader } from 'merge-graphql-schemas';
 
 export function loadModuleResolversArray (graphQlPath: string, extensionsPath?: string) {
-  const rootResolvers = fileLoader(path.join(graphQlPath, `*.resolver.js`))
+  const rootResolvers = fileLoader(path.join(graphQlPath, `*.resolver.{js,ts}`))
   const coreResolvers = fileLoader(
-    path.join(graphQlPath, `/**/resolver.js`)
+    path.join(graphQlPath, `/**/resolver.{js,ts}`)
   );
   const extensionsResolvers = extensionsPath ? fileLoader(
-    path.join(extensionsPath, `/**/resolver.js`)
+    path.join(extensionsPath, `/**/resolver.{js,ts}`)
   ) : [];
   return rootResolvers.concat(coreResolvers).concat(extensionsResolvers)
 }

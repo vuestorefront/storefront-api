@@ -16,7 +16,9 @@
     "lib": ["es7"]
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "scripts/**/*",
+    "migrations/**/*"
   ],
   "paths": {
     "src/*": "./src/*",
