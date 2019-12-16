@@ -28,7 +28,7 @@ export default abstract class ImageAction {
 
   abstract validateMIMEType(): void
 
-  abstract prossesImage(): void
+  abstract processImage(): void
 
   public isImageSourceHostAllowed () {
     if (!this._isUrlWhitelisted(this.getImageURL(), 'allowedHosts', true, this.whitelistDomain)) {
