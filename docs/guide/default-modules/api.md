@@ -2037,13 +2037,13 @@ for example:
 
 `https://your-domain.example.com/img/310/300/resize/w/p/wp07-black_main.jpg`
 
-`width` - a numeric value of the picure width - to be "resized", "cropped" ... regarding the `operation` parameter
+`width` - a numeric value of the picure width - to be "resized", "cropped" ... regarding the `operation` parameter.
 
-`height` - a numeric value of the picure height - to be "resized", "cropped" ... regarding the `operation` parameter
+`height` - a numeric value of the picure height - to be "resized", "cropped" ... regarding the `operation` parameter.
 
-`operation` - one of the operations supported by [Imageable](https://github.com/sdepold/node-imageable): crop, fit, resize, identify (to get the picture EXIF data)
+`operation` - one of the operations supported by [Imageable](https://github.com/sdepold/node-imageable): crop, fit, resize, identify (to get the picture EXIF data).
 
-`relatveUrl` is the relative URL
+`relatveUrl` is the URL relative to the absolute, base path set in `config.magento2.imgUrl` or `config.magento1.imgUrl` - depending on `config.platform` (['magento1', 'magento2']).
 
 Other examples:
 
