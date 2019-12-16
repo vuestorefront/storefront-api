@@ -12,14 +12,14 @@ In this chapter, we will cover :
 
 
 ## 0. Introduction
-Now you are interested in **Storefront API**. That's why you are here. You've come across the line. You made a choice. You will have something in return, which is great. Be it developers, entrepreneurs, or even marketing managers that they may want to try something new for better products in hopes of enhancing their client's or customers' experience. You chose the right path. We will explore anything you need to get you started at all with [**Storefront API** infrastructure](https://github.com/DivanteLtd/storefront-api).
+So, you are interested in **Storefront API**? Well, that's why you are here. You've made a choice. Your decision will most certainly pay off, which is great. Be it developers, entrepreneurs, or even marketing managers who may want to try something new with the hope of enhancing their clients' or customers' experience, you chose the right path. We will explore everything you need to get you started with [**Storefront API** infrastructure](https://github.com/DivanteLtd/storefront-api).
 
-## 1. Install with Docker
-Docker has been arguably the most sought-after, brought to the market which took the community by storm ever since its introduction. Although it's yet controversial whether it's the best choice among its peers, I have never seen such a unanimous enthusiasm over one tech product throughout the whole developer's community. 
+## 1. Installation with Docker
+Docker has been arguably the most sought-after development tool ever brought to market, and has taken took the community by storm. Although it's still controversial whether it's the best choice among its peers, I have never seen such unanimous enthusiasm over one tech product throughout the whole developer community. 
 
-Then, why so? In modern computer engineering, products are so complex with an endless list of dependencies intertwined with each other. Building such dependencies in place for every occasion where it's required is one hell of a job, not to mention glitches from all the version variation. That's where Docker steps in to make you achieve **infrastructure automation**. This concept was conceived to help you focus on your business logic rather than having you stuck with hassles of lower-level tinkering. 
+Why is this so? In modern computer engineering, products are so complex, with an endless list of dependencies intertwined with each other. Building such dependencies in place, for every situation where they are required, is one hell of a job, to say nothing of the glitches from all the version variations. That's where Docker steps in to help you achieve **infrastructure automation**. This concept was conceived to help you focus on your business logic rather than having you stuck with the hassles of lower-level tinkering. 
 
-Luckily, we already have been through all this for you, got our hands dirty. All you need is run a set of docker commands to get you up and running from scratch. Without further ado, let's get started!
+Luckily, we have already been through all this for you, getting our hands dirty and doing a lot of the legwork for you. All you need to do is run a set of docker commands to get you up and running from scratch. Without further ado, let's get started!
 
 ### 1. Preparation
 - You need [`docker`](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) and [`docker-compose`](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04) installed. 
@@ -27,9 +27,9 @@ Luckily, we already have been through all this for you, got our hands dirty. All
 - You need [`git`](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-18-04) installed.
 
 :::tip NOTE
-We will walk you with docker on *Linux*. (Specifically *Ubuntu 18.04* if needed)
+We will walk you through installation with docker on *Linux*. (Specifically *Ubuntu 18.04*)
 
-There is only one bias for Docker before using it; *Run it on Linux*. Docker is native Linux, was created using a Linux technology; LXC (linux container) in the first place. Even though there were many attempts made to make it available to other platforms as it does on Linux, and it has definitely been on a progress, however, using Docker on Linux is the solidest way to deal with the technology. 
+There is only one bias for Docker before using it; *Run it on Linux*. Docker is native to Linux and was created using a Linux technology; LXC (linux container). Even though there were many attempts to make it available on other platforms as it is on Linux (and there has definitely been progress in this regard), using Docker on Linux is the most reliable way to deal with the technology. 
 
 :::
 
@@ -44,21 +44,21 @@ cd storefront-api
 ```bash
 cp config/default.json config/local.json
 ```
-Then edit `local.json` to your needs. 
+Then edit `local.json` to suit your needs. 
 
 :::tip TIP
-This step can be skipped if you are OK with values of `default.json` since it follows the [files load order](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-load-order) of [node-config](https://github.com/lorenwest/node-config)
+This step can be skipped if you are OK with the default values in `default.json` since it follows the [files load order](https://github.com/lorenwest/node-config/wiki/Configuration-Files#file-load-order) of [node-config](https://github.com/lorenwest/node-config)
 
 :::
 
 3. Run the following Docker command : 
 
-For using Storefront API with embedded the Elastic 7:
+To use Storefront API with embedded Elastic 7:
 ```bash
 docker-compose -f docker-compose.yml up -d
 ```
 
-Then, to restore the demo data set please run:
+Then, to restore the demo data set, please run:
 `docker exec -it sfa_app_1 yarn restore7`
 
 The result would look something like this : 
@@ -105,11 +105,11 @@ warning eslint > file-entry-cache > flat-cache > circular-json@0.3.3: CircularJS
 ```
 
 :::tip TIP
-`-f` flag allows you to use the following docker-compose file. Without this flag, it will use the default file that is `docker-compose.yml`
+The `-f` flag allows you to use the following docker-compose file. Without this flag, it will use the default file that is `docker-compose.yml`
 
-`-d` flag allows you to run the command in `detach mode` which means *running background*.
+The `-d` flag allows you to run the command in `detach mode` which means *running in the background*.
 :::
-3. In order to verify, run `docker ps` to show which containers are up
+3. In order to verify, run `docker ps` to show which containers are up:
 ```bash
 docker ps 
 ```
@@ -122,22 +122,22 @@ CONTAINER ID        IMAGE                     COMMAND                  CREATED  
 165ae945dbe5        sfa_es1      "/bin/bash bin/es-do…"   8 days ago          Up 30 seconds       0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   elasticsearch
 8dd144746cef        redis:4-alpine            "docker-entrypoint.s…"   11 days ago         Up 31 seconds       0.0.0.0:6379->6379/tcp                           sfa_redis_1
 ```
-The ports number will be used later in the frontend configuration. In fact, they are already set in as default values. 
+The ports number will be used later in the frontend configuration. In fact, they are already set as default values. 
 
-You will see 4 containers are running, which is :
+You will see four containers are running, which are:
 | Container              |          Port       |
 |------------------------|---------------------|
-| Storefront API app | :8080               |
+| Storefront API app     | :8080               |
 | Elasticsearch          | :9200               |
 | Redis                  | :6379               |
 
 
 ### 3. Peep into the kitchen (what happens internally) 
-We used `docker-compose` for setting up the entire environment of Storefront API. It was more than enough to launch the machines behind for running the shop.
+We used `docker-compose` to set up the entire environment of Storefront API. It was more than enough to launch the machines needed behind the scenes to run the shop.
 
-It was possible because `docker` encapsulated the whole bunch of infrastructure into a linear set of declarative description for the desired state. 
+It was possible because `docker` encapsulated the whole infrastructure into a linear set of declarative descriptions for the desired state. 
 
-The `docker-compose` had a `yml` file for input. This file describes its base requirement all but **Storefront API** itself; that is, **Elasticsearch** as data store, **Redis** for cache and **Kibana** for helping you grab your data visually (a pair of Elasticsearch).
+The `docker-compose` command took a `yml` file for input. This file describes its base requirements, but also **Storefront API** itself; that is, **Elasticsearch** as a data store, **Redis** for caching and **Kibana** for helping you grab your data visually (a partner to Elasticsearch).
 ```yaml
 version: '3.0'
 services:
@@ -206,36 +206,36 @@ volumes:
   esdat1:
 ```
 :::tip NOTE 
-Once a term explained, it will be ignored thereafter for consecutive occurrence.
+Once a term is explained, it will be ignored thereafter for consecutive occurrences.
 :::
 `version` denotes which version of `docker-compose` this file uses.  
 
-`services` describe containers. It codifies how they should run. In other words, it codifies option flags used with `docker run ...`
+`services` describe containers and codifies how they should run. In other words, it codifies option flags used with `docker run ...`
 
-`es1` contains information of data store *Elasticsearch* container.
-- `build` denotes build path of container.
-- `volumes` contains the mount path of volumes shared between host and container as *host:container*
-- `ports` connect ports between host and container as in *host:container*
-- `environment` allows you to add environment variables. `Xmx512m` means JVM will take up to maximum 512MB memory. `Xms512m` means minimum memory. Combining them, there will be no memory resize, it will just stick to 512MB from start to end throughout its life cycle. 
+`es1` contains information about the data store *Elasticsearch* container.
+- `build` denotes the build path of the container.
+- `volumes` contains the mount paths of volumes shared between host and container, defined as *host:container*
+- `ports` connects ports between the host and container, defines as *host:container*
+- `environment` allows you to add environment variables. `Xmx512m` means JVM will take up to a maximum of 512MB memory. `Xms512m` means minimum memory. Combining them, there will be no memory resize, it will just stick to 512MB from start to finsih throughout its life cycle. 
 
-`kibana` contains information of *Kibana* application container.
-- `depends_on` creates dependency for a container of other containers. So, this container is dependent on `es1` that's just described above. 
-- `volumes` mean volumes shared, `:ro` creates the volume in `read-only` mode for the container. 
+`kibana` contains information about the *Kibana* application container.
+- `depends_on` defines dependencies of a container on other containers. So, this container is dependent on `es1`  which was described above. 
+- `volumes` means volumes shared, `:ro` creates the volume in `read-only` mode for the container. 
 
-`redis` contains information of *Redis* cache application container. 
+`redis` contains information about the *Redis* cache application container. 
 
-- `image` node contains the name of image this container is based on. 
+- The `image` node contains the name of the image this container is based on. 
 
-`volumes` in top level can be used as a reference to be used across multiple services(containers). 
+`volumes` can be defined at the top level to as a reference to be used across multiple services (containers). 
 <br />
 <br />
 
-`app` contains information of *Storefront API* application. 
-- `build` is path for build information. If the value is string, it's a plain path. When it's object, you may have a few options to add. `context` is relative path or git repo url where `Dockerfile` is located. `dockerfile` node may change the path/name of `Dockerfile`. [more info](https://docs.docker.com/compose/compose-file/#build)
-- `depends_on` tells us this container is based on `es1` and `redis` containers we created above. 
-- `env_file` helps you add environment values from files. It's relative path from the `docker-compose` file that is in the process, in this case, it's `docker-compose.nodejs.yml`  
-- `environment` is to set `VS_ENV` as `dev` so that environment will be setup for developer mode. 
-- `tmpfs` denotes temporary volumes that are only available to host memory. Unlike `volumes`, this `tmpfs` will be gone once the container stops. This option is only available to *Linux*.
+`app` contains information about the *Storefront API* application. 
+- `build` is the path for build information. If the value is string, it's a plain path. When it's an object, you may have a few options to add. `context` is a relative path or git repo url where the `Dockerfile` is located. The `dockerfile` node may change the path/name of `Dockerfile`. [more info](https://docs.docker.com/compose/compose-file/#build)
+- `depends_on` tells us this container is based on the `es1` and `redis` containers we created above. 
+- `env_file` helps you add environment values from files. It's a relative path from the `docker-compose` file that is in the process. In this case, it's `docker-compose.nodejs.yml`  
+- `environment` is used to set `VS_ENV` as `dev` so that the environment will be set up for developer mode. 
+- `tmpfs` denotes temporary volumes that are only available to host memory. Unlike `volumes`, this `tmpfs` will be gone once the container stops. This option is only available on *Linux*.
 
 <br />
 <br />
