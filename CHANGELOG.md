@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - API and Platform comments for all the REST endpoints added with the links to the official docs - @pkarw
+- Added global logger which you can change the instance of to use every logger you want to use - @resubaka (#24)
+- Added better typescript annotation/new types - @resubaka (#24)
+- Added that graphql resolver are loaded with js or ts ending - @resubaka (#24)
+
+### Fixed
+
+- Fixed that you can now run the dist folder output and don't get errors with module can't be loaded - @resubaka (#24)
 
 ## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
@@ -19,7 +26,7 @@ We've restarted the version numbering as the product architecture and brand chan
 - New modular architecture introduced - [read more](https://sfa-docs.now.sh/guide/modules/introduction.html),
 - Default `vue-storefront-api` features moved to `default-vsf`, `default-catalog` and `default-img` modules,
 - GraphQL Schemas extended, typed, new query types added to `Product` and `Category` entities,
-- New documentation, 
+- New documentation,
 - The `vue-storefront-integration-sdk` merged in.
 
 
