@@ -1,6 +1,6 @@
 # Platform concept
 
-the default modules (`default-catalog`, `default-img`, `default-vsf`) implement the abstract platform concept. Here is how it works:
+Our default modules (`default-catalog`, `default-img`, `default-vsf`) implement the abstract platform concept. Here is how it works:
 
 ## Select platform in the configuration
 
