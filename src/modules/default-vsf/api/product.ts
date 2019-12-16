@@ -1,7 +1,7 @@
-import { apiStatus, sgnSrc, apiError } from 'src/lib/util';
+import { apiStatus, sgnSrc, apiError } from '../../../lib/util';
 import { Router } from 'express';
-import PlatformFactory from 'src/platform/factory';
-import AbstractProductProxy from 'src/platform/abstract/product';
+import PlatformFactory from '../../../platform/factory';
+import AbstractProductProxy from '../../../platform/abstract/product';
 
 import jwa from 'jwa';
 const hmac = jwa('HS256');

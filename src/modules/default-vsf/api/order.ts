@@ -149,4 +149,4 @@ export default ({ config, db }) => resource({
       })
     }
   }
-});
+})

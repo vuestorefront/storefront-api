@@ -1,5 +1,5 @@
-import { apiStatus } from '../../../lib/util'; import { Router } from 'express';
-import * as redis from '../../../lib/redis'
+import { apiStatus } from '../../../lib/util';
+import { Router } from 'express';
 
 export default ({ config, db }) => {
   let syncApi = Router();
