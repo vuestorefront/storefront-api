@@ -8,7 +8,7 @@ function invalidateCache (req, res) {
     if (req.query.tag && req.query.key) { // clear cache pages for specific query tag
       if (req.query.key !== config.server.invalidateCacheKey) {
         console.error('Invalid cache invalidation key')
-        apiStatus(res, 'Invalid cache invalidation key', 500)
+        apiStatus(res, 'Invalid cache invalidation key', 400)
         return
       }
       console.log(`Clear cache request for [${req.query.tag}]`)
@@ -49,7 +49,7 @@ function invalidateCache (req, res) {
         }
       }
     } else {
-      apiStatus(res, 'Invalid parameters for Clear cache request', 500)
+      apiStatus(res, 'Invalid parameters for Clear cache request', 400)
       console.error('Invalid parameters for Clear cache request')
     }
   } else {

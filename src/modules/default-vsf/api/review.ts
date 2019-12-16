@@ -1,12 +1,14 @@
-import { apiStatus, apiError } from '../../../lib/util'; import { Router } from 'express';
+import { apiStatus, apiError } from '../../../lib/util';
+import { Router } from 'express';
 import PlatformFactory from '../../../platform/factory'
+import AbstractReviewProxy from '../../../platform/abstract/review';
 
 const Ajv = require('ajv'); // json validator
 
 export default ({config, db}) => {
   const reviewApi = Router();
 
-  const _getProxy = (req) => {
+  const _getProxy = (req): AbstractReviewProxy => {
     const platform = config.platform
     const factory = new PlatformFactory(config, req)
     return factory.getAdapter(platform, 'review')
@@ -22,7 +24,7 @@ export default ({config, db}) => {
 
     if (!validate(req.body)) {
       console.dir(validate.errors);
-      apiStatus(res, validate.errors, 500);
+      apiStatus(res, validate.errors, 400);
       return;
     }
 

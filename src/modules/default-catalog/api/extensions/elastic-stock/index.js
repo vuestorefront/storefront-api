@@ -29,7 +29,7 @@ module.exports = ({
    */
   api.get('/check/:sku', (req, res) => {
     if (!req.params.sku) {
-      return apiStatus(res, 'sku parameter is required', 500);
+      return apiStatus(res, 'sku parameter is required', 400);
     }
 
     getStockList(getCurrentStoreCode(req), [req.params.sku]).then((result) => {
@@ -48,7 +48,7 @@ module.exports = ({
   */
   api.get('/check', (req, res) => {
     if (!req.query.sku) {
-      return apiStatus(res, 'sku parameter is required', 500);
+      return apiStatus(res, 'sku parameter is required', 400);
     }
     getStockList(getCurrentStoreCode(req), [req.query.sku]).then((result) => {
       if (result && result.length > 0) {
@@ -66,7 +66,7 @@ module.exports = ({
   */
   api.get('/list', (req, res) => {
     if (!req.query.skus) {
-      return apiStatus(res, 'skus parameter is required', 500);
+      return apiStatus(res, 'skus parameter is required', 400);
     }
     const skuArray = req.query.skus.split(',')
     getStockList(getCurrentStoreCode(req), skuArray).then((result) => {
