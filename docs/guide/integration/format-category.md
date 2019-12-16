@@ -1,27 +1,27 @@
 ## Category entity
 
-Please check the [sample-data/categories.json](https://github.com/DivanteLtd/storefront-api/blob/develop/integration-sdk/sample-data/categories.json) to make sure which fields are critical for Storefront API to work.
+Please check the [sample-data/categories.json](https://github.com/DivanteLtd/storefront-api/blob/develop/integration-sdk/sample-data/categories.json) to be sure which fields are critical for Storefront API to work.
 
-Remember - you can add any properties you like to the JSON objects to consume them on Storefront API level. Please make sure you added the new property names to [the proper `includeFields` list for queries](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L151).
+Remember - you can add any properties you like to the JSON objects to consume them on the Storefront API level. Please make sure you added the new property names to [the proper `includeFields` list for queries](https://github.com/DivanteLtd/vue-storefront/blob/bb6f8e70b5587ed73c457d382c7ac93bd14db413/config/default.json#L151).
 
 Here we present the core purpose of the product properties:
 
 ```json
     "id": 24,
 ```
-The type is undefined (it can be anything) - but must be unique. Category identifier used mostly for caching purposes (as a key)
+The type is undefined (it can be anything) - but must be unique. The category identifier is used mostly for caching purposes (as a key).
 
 ```json
     "parent_id": 21,
 ```
 
-If this is a child category, please set the parent category id in here. This field is being used for building up the Breadcrumbs.
+If this is a child category, please set the parent category id in here. This field is used for building up Breadcrumbs.
 
 ```json
     "path": "1/2/29",
 ```
 
-This is string, list of IDs of the parent categories. It's used to build the breadcrumbs more easily.
+This is a string, a list of IDs of the parent categories. It's used to build Breadcrumbs more easily.
 
 ```json
     "name": "Hoodies & Sweatshirts",
@@ -38,25 +38,25 @@ This is just a category name.
     "is_active": true,
 ```
 
-If it's false - the category won't be displayed.
+If it's false, the category won't be displayed.
 
 ```json
     "position": 2,
 ```
 
-Sorting position of the category on its level
+Sorting position of the category on its level.
 
 ```json
   "level": 4,
 ```
 
-The category level in the tree. By default Storefront API is displaying categories with `level: 2` in the main menu.
+The category level in the tree. By default, Storefront API displays categories with `level: 2` in the main menu.
 
 ```json
     "product_count": 182,
 ```
 
-If it's false - the category won't be displayed.
+If it's false, the category won't be displayed.
 
 ```json
     "children_data": [
@@ -71,4 +71,4 @@ If it's false - the category won't be displayed.
     ]
 ```
 
-Here is the children structure. It's being used for constructing the queries to get the child products.
+Here is the children structure. It's used for constructing queries to get the child products.
