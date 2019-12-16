@@ -11,7 +11,7 @@ const config = require('config')
 let queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
 
 let numCPUs = require('os').cpus().length;
-const processSingleOrder = require('src/platform/magento2/o2m').processSingleOrder
+const processSingleOrder = require('../../../platform/magento2/o2m').processSingleOrder
 
 // RUN
 program

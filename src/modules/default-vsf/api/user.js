@@ -1,6 +1,6 @@
-import { apiStatus, encryptToken, decryptToken, apiError } from 'src/lib/util';
+import { apiStatus, encryptToken, decryptToken, apiError } from '../../../lib/util';
 import { Router } from 'express';
-import PlatformFactory from 'src/platform/factory';
+import PlatformFactory from '../../../platform/factory';
 import jwt from 'jwt-simple';
 import { merge } from 'lodash';
 

@@ -86,7 +86,7 @@ export function getClient (config: IConfig): Client {
     node: `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`,
     requestTimeout: 5000
   }
-  if (config.get<string>('elasticsearch.user')) {
+  if (config.has('elasticsearch.user')) {
     esConfig.auth = {
       username: config.get<string>('elasticsearch.user'),
       password: config.get<string>('elasticsearch.password')

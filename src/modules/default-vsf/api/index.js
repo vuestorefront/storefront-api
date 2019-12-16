@@ -1,4 +1,4 @@
-import { version } from 'src/package.json';
+import { version } from '../../../package.json';
 import { Router } from 'express';
 import order from './order';
 import user from './user';

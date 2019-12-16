@@ -1,6 +1,6 @@
-import { StoreFrontResloverContext } from 'src/lib/module/types';
+import { StoreFrontResloverContext } from '../../../../lib/module/types';
 import { IResolvers } from 'apollo-server-express';
-import es from 'src/lib/elastic'
+import es from '../../../../lib/elastic'
 import bodybuilder from 'bodybuilder'
 
 const resolver: IResolvers<any, StoreFrontResloverContext> = {

@@ -1,6 +1,6 @@
 import ImageAction from '../abstract'
 import mime from 'mime-types'
-import { downloadImage, fit, identify, resize } from 'src/lib/image'
+import { downloadImage, fit, identify, resize } from '../../../../../lib/image'
 
 export default class LocalImageAction extends ImageAction {
   public imageOptions

@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "resolveJsonModule": false,
+    "resolveJsonModule": true,
     "outDir": "dist",
     "sourceMap": true,
     "baseUrl": ".",
@@ -19,9 +19,5 @@
     "src/**/*",
     "scripts/**/*",
     "migrations/**/*"
-  ],
-  "paths": {
-    "src/*": "./src/*",
-    "var/*": "./var/*"
-  }
+  ]
 }

@@ -1,5 +1,5 @@
-import { apiStatus, apiError } from 'src/lib/util'; import { Router } from 'express';
-import PlatformFactory from 'src/platform/factory'
+import { apiStatus, apiError } from '../../../lib/util'; import { Router } from 'express';
+import PlatformFactory from '../../../platform/factory'
 
 export default ({ config, db }) => {
   let api = Router();

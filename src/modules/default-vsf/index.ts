@@ -1,5 +1,5 @@
-import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
-import { StorefrontApiContext } from 'src/lib/module/types'
+import { StorefrontApiModule, registerExtensions } from '../../lib/module'
+import { StorefrontApiContext } from '../../lib/module/types'
 import { Router } from 'express';
 import order from './api/order';
 import user from './api/user';
@@ -9,9 +9,8 @@ import cart from './api/cart';
 import product from './api/product';
 import sync from './api/sync';
 import middleware from './middleware'
-
+import { version } from '../../../package.json';
 import path from 'path'
-const version = require('package.json').version
 
 export const DefaultVuestorefrontApiModule: StorefrontApiModule = new StorefrontApiModule({
   key: 'default-vsf',

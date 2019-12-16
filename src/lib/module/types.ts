@@ -2,7 +2,8 @@ import { IConfig } from 'config'
 import { Express } from 'express';
 import { RedisClient } from 'redis';
 import { Client } from '@elastic/elasticsearch'
-import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
+import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
+import {BaseLogger} from '../logger';
 
 export interface DbContext {
   getElasticClient(): Client,
@@ -12,7 +13,8 @@ export interface DbContext {
 export interface StorefrontApiContext {
   config?: IConfig,
   app: Express,
-  db: DbContext
+  db: DbContext,
+  logger: BaseLogger
 }
 
 export interface GraphqlConfiguration {
@@ -36,5 +38,6 @@ export interface StorefrontApiModuleConfig {
 
 export interface StoreFrontResloverContext extends ExpressContext {
   config?: IConfig,
-  db: DbContext
+  db: DbContext,
+  logger: BaseLogger
 }

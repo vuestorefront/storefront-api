@@ -1,5 +1,5 @@
-import PlatformFactory from 'src/platform/factory'
-import { sgnSrc } from 'src/lib/util'
+import PlatformFactory from '../../../platform/factory'
+import { sgnSrc } from '../../../lib/util'
 const jwa = require('jwa');
 const hmac = jwa('HS256');
 

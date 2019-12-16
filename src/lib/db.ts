@@ -1,7 +1,7 @@
 import config from 'config'
-import * as redis from 'src/lib/redis'
-import * as elastic from 'src/lib/elastic'
-import { DbContext } from 'src/lib/module/types';
+import * as redis from './redis'
+import * as elastic from './elastic'
+import { DbContext } from './module/types';
 
 export const dbContext: DbContext = {
   getRedisClient: () => redis.getClient(config),
