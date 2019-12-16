@@ -55,7 +55,7 @@ In [`vue-storefront-api/config/default.json`](https://github.com/DivanteLtd/stor
 ```
 - The `elasticsearch` element is used widely across the whole platform. Considering `elasticsearch` works as a data store (database), it's natural. 
 
-  - The `host`, `port`, `protocol` entries define `elasticsearch` connect information. 
+  - The `host`, `port`, `protocol` entries define `elasticsearch` connection information. 
 - `user`, `password` are the default credentials of `elasticsearch`. If you changed the credentials for `elasticsearch`, please change this accordingly. [more info](https://www.elastic.co/guide/en/x-pack/current/security-getting-started.html)
   - `min_score` sets a `min_score` when building a query for `elasticsearch`. [jump to code](https://github.com/DivanteLtd/vue-storefront-api/blob/develop/src/graphql/elasticsearch/queryBuilder.js#L172)
     :::tip TIP
