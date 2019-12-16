@@ -3,27 +3,27 @@
 This product manages to be platform-agnostic thanks to dedicated API connectors for eCommerce backend platforms. The data format in the `default-catalog` and `default-vsf` modules is always the same for any platform, which means no matter what eCommerce backend you use, your frontend remains the same without any change.
 
 The Storefront API Default catalog offers two basic ways of querying the data:
-- GraphQL for read access,
-- REST for read and write acces.
+- GraphQL for read access
+- REST for read and write access
 
-**Note:** This API specification is in reference to the `src/modules/default-vsf` module. You can create your own custom module with totally different APIs! Read more about [modules](../modules/introduction.md)
+**Note:** This API specification is in reference to the `src/modules/default-vsf` module. You can create your own custom module with totally different APIs! Read more about [modules](../modules/introduction.md).
 
 ## REST API specification 
 
-All methods accept and respond with `application/json` content type.
+All methods accept and respond with the `application/json` content type.
 
 ## Cart module
 
-The Cart module is in charge of creating eCommerce backend shopping carts and synchronizing the items users have added in the Storefront with the eCommerce backend. For example, it can synchronize the Storefront shopping cart with the Magento quotes.
+The Cart module is in charge of creating eCommerce backend shopping carts and synchronizing the items users have added in the Storefront with the eCommerce backend. For example, it can synchronize the Storefront shopping cart with Magento quotes.
 
 ### POST /api/cart/create
 
 #### WHEN:
 
-This method is called whenever a new Storefront shopping cart is created: upon first visit, page refresh, after user-authorization ... If the `token` GET parameter is provided, it's called as the logged-in user; if not, it's called as the guest-user. To illustrate the difference - let's keep to Magento example - for a guest user, vue-storefront-api operates on the `/guest-carts` API endpoints, and for authorized users on the `/carts/` endpoints).
+This method is called whenever a new Storefront shopping cart is created: upon first visit, page refresh, after user-authorization ... If the `token` GET parameter is provided, it's called as the logged-in user; if not, it's called as the guest-user. To illustrate the difference - let's use Magento as an example - for a guest user, vue-storefront-api operates on the `/guest-carts` API endpoints, and for authorized users on the `/carts/` endpoints.
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
 
 #### EXAMPLE CALL:
 
@@ -71,11 +71,12 @@ The `result` is a cart-id that should be used for all subsequent cart related op
 The method used to fetch the current server side shopping cart content, used mostly for synchronization purposes when `config.cart.synchronize=true`.
 
 #### WHEN:
-This method is called just after any Storefront cart modification to check if the server or client shopping cart items need to be updated. It gets the current list of the shopping cart items. The synchronization algorithm in VueStorefront determines if server or client items need to be updated and executes `api/cart/update` or `api/cart/delete` accordingly.
+This method is called just after any Storefront cart modification to check if the server or client shopping cart items need to be updated. It gets the current list of shopping cart items. The synchronization algorithm in VueStorefront determines if server or client items need to be updated and executes `api/cart/update` or `api/cart/delete` accordingly.
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 
 #### RESPONSE BODY:
@@ -137,14 +138,15 @@ This method is called just after any Storefront cart modification to check if th
 
 ### POST /api/cart/update
 
-The method used to add or update shopping cart items server side. As a request body, there should be JSON given representing the cart item. `sku` and `qty` are the two required options. If you want to update/edit the server cart items, you need to pass the `item_id` identifier as well (which can be obtainted from `api/cart/pull`)
+The method used to add or update shopping cart items server side. As a request body, there should be JSON given representing the cart item. `sku` and `qty` are the two required options. If you want to update/edit the server cart items, you need to pass the `item_id` identifier as well (which can be obtainted from `api/cart/pull`).
 
 #### WHEN:
 This method is called just after `api/cart/pull` as a consequence of the synchronization process.
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 #### REQUEST BODY:
 
@@ -204,14 +206,15 @@ curl 'https://your-domain.example.com/api/cart/update?token=xu8h02nd66yq0gaayj4x
 
 ### POST /api/cart/delete
 
-This method is used to remove the shopping cart item on the server side.
+This method is used to remove shopping cart items on the server side.
 
 #### WHEN: 
 This method is called just after `api/cart/pull` as a consequence of the synchronization process.
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 #### EXAMPLE CALL:
 
@@ -243,7 +246,7 @@ curl 'https://your-domain.example.com/api/cart/delete?token=xu8h02nd66yq0gaayj4x
 
 ### POST /api/cart/apply-coupon
 
-This method is used to apply the discount code to the current server side quote.
+This method is used to apply a discount code to the current server side quote.
 
 #### EXAMPLE CALL:
 
@@ -263,7 +266,7 @@ curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukx
 
 ### POST /api/cart/delete-coupon
 
-This method is used to delete the discount code to the current server side quote.
+This method is used to delete discount codes to the current server side quote.
 
 #### EXAMPLE CALL:
 
@@ -301,7 +304,7 @@ curl 'https://your-domain.example.com/api/cart/coupon?token=2q1w9oixh3bukxyj947t
 
 ### GET /api/cart/totals
 
-The method called just after any shopping cart modification when `config.synchronize_totals=true`. It's used to synchronize the Magento / other CMS totals after all promotion rules are processed with current Storefront state.
+The method called just after any shopping cart modification when `config.synchronize_totals=true`. It's used to synchronize the Magento / other CMS totals after all promotion rules are processed with the current Storefront state.
 
 #### EXAMPLE CALL:
 
@@ -310,8 +313,9 @@ curl 'https://your-domain.example.com/api/cart/totals?token=xu8h02nd66yq0gaayj4x
 ```
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 #### RESPONSE BODY:
 
@@ -406,8 +410,9 @@ curl 'https://your-domain.example.com/api/cart/payment-methods?token=xu8h02nd66y
 ```
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 
 #### RESPONSE BODY:
@@ -444,13 +449,14 @@ curl 'https://your-domain.example.com/api/cart/shipping-methods?token=xu8h02nd66
 ```
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 
 #### REQUEST BODY:
 
-If the shipping methods are dependent on the full address, we probably need to pass the whole address record with the same format as it's passed to `api/order/create` or `api/user/me`. The minimum required field is the `country_id`
+If the shipping methods are dependent on the full address, we probably need to pass the whole address record with the same format as it's passed to `api/order/create` or `api/user/me`. The minimum required field is the `country_id`.
 
 ```json
 {
@@ -486,7 +492,7 @@ If the shipping methods are dependent on the full address, we probably need to p
 
 ### POST /api/cart/shipping-information
 
-This method sets the shipping information on a specified quote, which is a required step before calling `api/cart/totals`
+This method sets the shipping information on a specified quote, which is a required step before calling `api/cart/totals`.
 
 #### EXAMPLE CALL:
 
@@ -495,8 +501,9 @@ curl 'https://your-domain.example.com/api/cart/shipping-information?token=xu8h02
 ```
 
 #### GET PARAMS:
-`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48)
-`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26)
+`token` - null OR user token obtained from [`/api/user/login`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/user.js#L48).
+
+`cartId` - numeric (integer) value for authorized user cart id or GUID (mixed string) for guest cart ID obtained from [`api/cart/create`](https://github.com/DivanteLtd/vue-storefront-api/blob/7d98771994b1009ad17d69c458f9e93686cfb145/src/api/cart.js#L26).
 
 
 #### REQUEST BODY:
@@ -713,7 +720,7 @@ or in case of error:
 }
 ```
 
-The result is an authorization token which should be passed via `?token=xu8h02nd66yq0gaayj4x3kpqwity02or` GET param to all subsequent API calls that require authorization.
+The result is an authorization token which should be passed via the `?token=xu8h02nd66yq0gaayj4x3kpqwity02or` GET param to all subsequent API calls that require authorization.
 
 #### RESPONSE CODES:
 
@@ -759,7 +766,7 @@ or in case of error:
 }
 ```
 
-The result is an authorization token which should be passed via `?token=xu8h02nd66yq0gaayj4x3kpqwity02or` GET param to all subsequent API calls that require authorization.
+The result is an authorization token which should be passed via the `?token=xu8h02nd66yq0gaayj4x3kpqwity02or` GET param to all subsequent API calls that require authorization.
 
 #### RESPONSE CODES:
 
@@ -796,11 +803,11 @@ curl 'https://your-domain.example.com/api/user/reset-password' -H 'content-type:
 
 ### POST /api/user/change-password
 
-This method is used to change password for the current user identified by `token` obtained from `api/user/login`
+This method is used to change password for the current user identified by `token` obtained from `api/user/login`.
 
 #### GET PARAMS:
 
-`token` - user token returned from `POST /api/user/login`
+`token` - user token returned from `POST /api/user/login`.
 
 #### REQUEST BODY:
 
@@ -827,7 +834,7 @@ Get the user order history from the server side.
 
 #### GET PARAMS:
 
-`token` - user token returned from `POST /api/user/login`
+`token` - user token returned from `POST /api/user/login`.
 
 #### RESPONSE BODY:
 
@@ -1091,7 +1098,7 @@ Gets the User profile for currently authorized user. It's called after a success
 
 #### GET PARAMS:
 
-`token` - user token returned from `POST /api/user/login`
+`token` - user token returned from `POST /api/user/login`.
 
 #### RESPONSE BODY:
 
@@ -1147,7 +1154,7 @@ Updates the user address and other data.
 
 #### GET PARAMS:
 
-`token` - user token returned from `POST /api/user/login`
+`token` - user token returned from `POST /api/user/login`.
 
 #### REQUEST BODY:
 
@@ -1344,7 +1351,7 @@ Queue the order into the order queue which will be asynchronously submitted to t
 #### REQUEST BODY:
 
 The `user_id` field is a numeric user id as returned in `api/user/me`.
-The `cart_id` is a guest or authorized user quote id (you can mix a guest cart with an authroized user as well)
+The `cart_id` is a guest or authorized user quote id (you can mix a guest cart with an authroized user as well).
 
 ```json
 {
@@ -1428,8 +1435,11 @@ Catalog endpoints are a proxy to Elastic Search 5.x and can be used to search th
 `/api/catalog/:index-name/:entity-name/_search?size=:pageSize&from=:offset&sort=`
 
 `index-name` is an Elastic Search index name - by default it is `vue_storefront_catalog` for most instalations.
+
 `entity-name` is an Elastic Search entity name - `product`, `attribute`, `taxrule`, `category` ...
+
 `pageSize` is a numeric value of the number of records to be returned.
+
 `offset` is a numeric value of the first record to be returned.
 
 #### EXAMPLE CALL
@@ -1440,7 +1450,7 @@ curl 'https://your-domain.example.com/api/catalog/vue_storefront_catalog/attribu
 
 #### REQUEST BODY
 
-The request body is a Elastic Search query. [Please read more on Elastic querying DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+The request body is an Elastic Search query. [Please read more on Elastic querying DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
 
 ```json
 {
@@ -1835,7 +1845,7 @@ Elastic Search data format:
 ### /api/product/list
 
 Magento specific methods to return the product details for specifed SKUs.
-The methods are mostly used for data synchronization with Magento2, and for some specific cases when overriding the platform prices inside the Storefront.
+These methods are mostly used for data synchronization with Magento2, and for some specific cases when overriding the platform prices inside the Storefront.
 
 #### GET PARAMS:
 `skus` - a comma separated list of SKUs to get.
@@ -2028,8 +2038,11 @@ for example:
 `https://your-domain.example.com/img/310/300/resize/w/p/wp07-black_main.jpg`
 
 `width` - a numeric value of the picure width - to be "resized", "cropped" ... regarding the `operation` parameter
+
 `height` - a numeric value of the picure height - to be "resized", "cropped" ... regarding the `operation` parameter
+
 `operation` - one of the operations supported by [Imageable](https://github.com/sdepold/node-imageable): crop, fit, resize, identify (to get the picture EXIF data)
+
 `relatveUrl` is the relative URL
 
 Other examples:
