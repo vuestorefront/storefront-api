@@ -1,6 +1,7 @@
-import { apiStatus, apiError } from 'src/lib/util'; import { Router } from 'express';
-import PlatformFactory from 'src/platform/factory'
-import AbstractStockProxy from 'src/platform/abstract/stock';
+import { apiStatus, apiError } from '../../../lib/util';
+import { Router } from 'express';
+import PlatformFactory from '../../../platform/factory'
+import AbstractStockProxy from '../../../platform/abstract/stock';
 
 export default ({ config, db }) => {
   let api = Router();

@@ -1,11 +1,13 @@
-const path = require('path')
-const _ = require('lodash')
-const fs = require('fs');
-const jsonFile = require('jsonfile')
-const es = require('@elastic/elasticsearch')
+import { Client, RequestParams, ClientOptions } from '@elastic/elasticsearch'
+import semver from 'semver';
+import _ from 'lodash'
+import path from 'path'
+import fs from 'fs'
+import jsonFile from 'jsonfile'
+import { IConfig } from 'config';
 
-function _updateQueryStringParameter (uri, key, value) {
-  var re = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
+function _updateQueryStringParameter (uri: string, key: string|number, value: string|number) {
+  let re = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
   if (uri.match(re)) {
     if (value) {
       return uri.replace(re, '$1' + key + '=' + value + '$2');
@@ -13,28 +15,30 @@ function _updateQueryStringParameter (uri, key, value) {
       return uri.replace(re, '$1' + '$2');
     }
   } else {
-    var hash = '';
+    let hash = '';
     if (uri.indexOf('#') !== -1) {
       hash = uri.replace(/.*#/, '#');
       uri = uri.replace(/#.*/, '');
     }
-    var separator = uri.indexOf('?') !== -1 ? '&' : '?';
+    let separator = uri.indexOf('?') !== -1 ? '&' : '?';
     return uri + separator + key + '=' + value + hash;
   }
 }
 
-function adjustIndexName (indexName, entityType, config) {
-  if (parseInt(config.elasticsearch.apiVersion) < 6) {
-    return indexName
+export function adjustIndexName (indexName: string|string[], entityType: string, config: IConfig) {
+  const realIndexName = Array.isArray(indexName) ? indexName[0] : indexName;
+
+  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) {
+    return realIndexName
   } else {
-    return `${indexName}_${entityType}`
+    return `${realIndexName}_${entityType}`
   }
 }
 
-function adjustBackendProxyUrl (req, indexName, entityType, config) {
+export function adjustBackendProxyUrl (req, indexName: string, entityType: string, config: IConfig) {
   let url
-  if (parseInt(config.elasticsearch.apiVersion) < 6) { // legacy for ES 5
-    url = config.elasticsearch.host + ':' + config.elasticsearch.port + (req.query.request ? _updateQueryStringParameter(req.url, 'request', null) : req.url)
+  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) { // legacy for ES 5
+    url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + (req.query.request ? _updateQueryStringParameter(req.url, 'request', null) : req.url)
   } else {
     const queryString = require('query-string');
     const parsedQuery = queryString.parseUrl(req.url).query
@@ -43,16 +47,16 @@ function adjustBackendProxyUrl (req, indexName, entityType, config) {
     delete parsedQuery._source_exclude
     delete parsedQuery._source_include
     delete parsedQuery.request
-    url = config.elasticsearch.host + ':' + config.elasticsearch.port + '/' + adjustIndexName(indexName, entityType, config) + '/_search?' + queryString.stringify(parsedQuery)
+    url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + '/' + adjustIndexName(indexName, entityType, config) + '/_search?' + queryString.stringify(parsedQuery)
   }
   if (!url.startsWith('http')) {
-    url = config.elasticsearch.protocol + '://' + url
+    url = config.get<string>('elasticsearch.protocol') + '://' + url
   }
   return url
 }
 
-function adjustQuery (esQuery, entityType, config) {
-  if (parseInt(config.elasticsearch.apiVersion) < 6) {
+export function adjustQuery (esQuery: RequestParams.Search, entityType: string, config: IConfig) {
+  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) {
     esQuery.type = entityType
   } else {
     delete esQuery.type
@@ -61,7 +65,7 @@ function adjustQuery (esQuery, entityType, config) {
   return esQuery
 }
 
-function getResponseObject (result) {
+export function getResponseObject (result) {
   if (result.body) { // differences between ES5 andd ES7
     return result.body
   } else {
@@ -69,7 +73,7 @@ function getResponseObject (result) {
   }
 }
 
-function getHits (result) {
+export function getHits (result) {
   if (result.body) { // differences between ES5 andd ES7
     return result.body.hits.hits
   } else {
@@ -77,21 +81,23 @@ function getHits (result) {
   }
 }
 
-function getClient (config) {
-  const esConfig = { // as we're runing tax calculation and other data, we need a ES indexer
-    node: `${config.elasticsearch.protocol}://${config.elasticsearch.host}:${config.elasticsearch.port}`,
-    apiVersion: config.elasticsearch.apiVersion,
+export function getClient (config: IConfig): Client {
+  const esConfig: ClientOptions = { // as we're runing tax calculation and other data, we need a ES indexer
+    node: `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`,
     requestTimeout: 5000
   }
-  if (config.elasticsearch.user) {
-    esConfig.auth = config.elasticsearch.user + ':' + config.elasticsearch.password
+  if (config.has('elasticsearch.user')) {
+    esConfig.auth = {
+      username: config.get<string>('elasticsearch.user'),
+      password: config.get<string>('elasticsearch.password')
+    }
   }
-  return new es.Client(esConfig)
+  return new Client(esConfig)
 }
 
-function putAlias (db, originalName, aliasName, next) {
+export function putAlias (db: Client, originalName: string, aliasName: string, next) {
   let step2 = () => {
-    db.indices.putAlias({ index: originalName, name: aliasName }).then(result => {
+    db.indices.putAlias({ index: originalName, name: aliasName }).then(_ => {
       console.log('Index alias created')
     }).then(next).catch(err => {
       console.log(err.message)
@@ -101,7 +107,7 @@ function putAlias (db, originalName, aliasName, next) {
   return db.indices.deleteAlias({
     index: aliasName,
     name: originalName
-  }).then((result) => {
+  }).then((_) => {
     console.log('Public index alias deleted')
     step2()
   }).catch((err) => {
@@ -110,20 +116,20 @@ function putAlias (db, originalName, aliasName, next) {
   })
 }
 
-function search (db, query) {
+export function search (db: Client, query: RequestParams.Search) {
   return db.search(query)
 }
 
-function deleteIndex (db, indexName, next) {
+export function deleteIndex (db: Client, indexName: string, next: () => void) {
   db.indices.delete({
     'index': indexName
-  }).then((res) => {
+  }).then((_) => {
     next()
-  }).catch(err => {
+  }).catch(_ => {
     return db.indices.deleteAlias({
       index: '*',
       name: indexName
-    }).then((result) => {
+    }).then((_) => {
       console.log('Public index alias deleted')
       next()
     }).catch((err) => {
@@ -133,10 +139,9 @@ function deleteIndex (db, indexName, next) {
   })
 }
 
-function reIndex (db, fromIndexName, toIndexName, next) {
+export function reIndex (db: Client, fromIndexName: string, toIndexName: string, next: (args?: Error) => void) {
   db.reindex({
     wait_for_completion: true,
-    waitForCompletion: true,
     body: {
       'source': {
         'index': fromIndexName
@@ -145,23 +150,23 @@ function reIndex (db, fromIndexName, toIndexName, next) {
         'index': toIndexName
       }
     }
-  }).then(res => {
+  }).then(_ => {
     next()
   }).catch(err => {
     next(err)
   })
 }
 
-function createIndex (db, indexName, indexSchema, next) {
+export function createIndex<T = any> (db: Client, indexName: string, indexSchema: T, next: (args?: Error) => void) {
   const step2 = () => {
     db.indices.delete({
       'index': indexName
-    }).then(res1 => {
+    }).then(_ => {
       db.indices.create(
         {
           'index': indexName,
           'body': indexSchema
-        }).then(res2 => {
+        }).then(_ => {
         next()
       }).catch(err => {
         console.error(err)
@@ -172,7 +177,7 @@ function createIndex (db, indexName, indexSchema, next) {
         {
           'index': indexName,
           'body': indexSchema
-        }).then(res2 => {
+        }).then(_ => {
         next()
       }).catch(err => {
         console.error(err)
@@ -184,7 +189,7 @@ function createIndex (db, indexName, indexSchema, next) {
   return db.indices.deleteAlias({
     index: '*',
     name: indexName
-  }).then((result) => {
+  }).then((_) => {
     console.log('Public index alias deleted')
     step2()
   }).catch((err) => {
@@ -195,9 +200,11 @@ function createIndex (db, indexName, indexSchema, next) {
 
 /**
  * Load the schema definition for particular entity type
+ * @param {String} rootPath
  * @param {String} entityType
+ * @param {String} apiVersion
  */
-function loadSchema (rootPath, entityType, apiVersion = '7.1') {
+export function loadSchema (rootPath: string, entityType: string, apiVersion: string = '7.1') {
   const rootSchemaPath = path.join(rootPath, 'elastic.schema.' + entityType + '.json')
   if (!fs.existsSync(rootSchemaPath)) {
     return null
@@ -213,7 +220,7 @@ function loadSchema (rootPath, entityType, apiVersion = '7.1') {
   return elasticSchema
 }
 
-module.exports = {
+export default {
   putAlias,
   createIndex,
   deleteIndex,

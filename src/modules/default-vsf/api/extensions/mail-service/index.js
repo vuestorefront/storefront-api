@@ -1,4 +1,4 @@
-import { apiStatus } from 'src/lib/util'
+import { apiStatus } from '../../../../../lib/util'
 import { Router } from 'express'
 import EmailCheck from 'email-check'
 import jwt from 'jwt-simple'

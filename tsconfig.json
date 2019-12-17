@@ -9,17 +9,15 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "resolveJsonModule": false,
+    "resolveJsonModule": true,
     "outDir": "dist",
     "sourceMap": true,
     "baseUrl": ".",
     "lib": ["es7"]
   },
   "include": [
-    "src/**/*"
-  ],
-  "paths": {
-    "src/*": "./src/*",
-    "var/*": "./var/*"
-  }
+    "src/**/*",
+    "scripts/**/*",
+    "migrations/**/*"
+  ]
 }

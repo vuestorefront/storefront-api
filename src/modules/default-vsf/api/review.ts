@@ -1,6 +1,7 @@
-import { apiStatus, apiError } from 'src/lib/util'; import { Router } from 'express';
-import PlatformFactory from 'src/platform/factory'
-import AbstractReviewProxy from 'src/platform/abstract/review';
+import { apiStatus, apiError } from '../../../lib/util';
+import { Router } from 'express';
+import PlatformFactory from '../../../platform/factory'
+import AbstractReviewProxy from '../../../platform/abstract/review';
 
 const Ajv = require('ajv'); // json validator
 

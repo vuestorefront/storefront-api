@@ -1,15 +1,20 @@
 import { IConfig } from 'config'
-import { Router, Express } from 'express';
-import { NextHandleFunction } from 'connect';
-import { DocumentNode } from 'graphql'
-import { ApolloServer } from 'apollo-server-express'
+import { Express } from 'express';
+import { RedisClient } from 'redis';
+import { Client } from '@elastic/elasticsearch'
+import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
+import {BaseLogger} from '../logger';
 
-export interface DbContext { getElasticClient: () => any, getRedisClient: () => any}
+export interface DbContext {
+  getElasticClient(): Client,
+  getRedisClient(): RedisClient
+}
 
 export interface StorefrontApiContext {
   config?: IConfig,
   app: Express,
-  db: DbContext
+  db: DbContext,
+  logger: BaseLogger
 }
 
 export interface GraphqlConfiguration {
@@ -29,4 +34,10 @@ export interface StorefrontApiModuleConfig {
   loadMappings?: (context: StorefrontApiContext) => ElasticSearchMappings,
   beforeRegistration?: (context: StorefrontApiContext) => void,
   afterRegistration?: (context: StorefrontApiContext) => void
+}
+
+export interface StoreFrontResloverContext extends ExpressContext {
+  config?: IConfig,
+  db: DbContext,
+  logger: BaseLogger
 }

@@ -1,25 +1,26 @@
 // @deprecated from 2.0
 import { StorefrontApiContext, StorefrontApiModuleConfig, GraphqlConfiguration, DbContext, ElasticSearchMappings } from './types'
 import { IConfig } from 'config'
-import { IRouter } from 'express'
+import {IRouter, Router} from 'express'
 import path from 'path'
 import merge from 'deepmerge'
+import {BaseLogger} from '../logger';
 
 const registeredModules: StorefrontApiModuleConfig[] = []
 const aggregatedGraphqlConfig: GraphqlConfiguration = { schema: [], resolvers: [], hasGraphqlSupport: false }
 const aggregatedElasticSearchSchema: ElasticSearchMappings = { schemas: {} }
 
-function registerModules (modules: StorefrontApiModule[], context): {
+function registerModules (modules: StorefrontApiModule[], context, logger: BaseLogger): {
   registeredModules: StorefrontApiModule[],
   aggregatedGraphqlConfig: GraphqlConfiguration,
   aggregatedElasticSearchSchema: ElasticSearchMappings
 } {
   modules.forEach(m => m.register(context))
-  console.log('API Modules registration finished.', {
+
+  logger.info('API Modules registration finished.', {
     succesfulyRegistered: registeredModules.length + ' / ' + modules.length,
     registrationOrder: registeredModules
-  }
-  )
+  })
 
   return {
     registeredModules: modules,
@@ -94,11 +95,19 @@ class StorefrontApiModule {
   }
 }
 
+export interface ExtensionAPIFunctionParameter {
+  config: IConfig,
+  db: DbContext
+}
+export interface ExtensionAPIFunction {
+  (arg0: ExtensionAPIFunctionParameter): Router
+}
+
 interface ExtensionContext { config: IConfig, app: IRouter, db: DbContext, registeredExtensions: string[], rootPath: string }
 function registerExtensions (context: ExtensionContext): void {
   /** Register the custom extensions */
   for (let ext of context.registeredExtensions as string[]) {
-    let entryPoint
+    let entryPoint: ExtensionAPIFunction
 
     try {
       entryPoint = require(path.join(context.rootPath, ext))

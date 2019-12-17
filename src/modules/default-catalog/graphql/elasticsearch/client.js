@@ -1,4 +1,4 @@
 import config from 'config';
-import es from 'src/lib/elastic'
+import es from '../../../../lib/elastic'
 
 export default es.getClient(config)

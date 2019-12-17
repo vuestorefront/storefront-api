@@ -1,12 +1,12 @@
-import config from 'config';
-import crypto from 'crypto';
-const algorithm = 'aes-256-ctr';
+import config from 'config'
+import crypto from 'crypto'
+const algorithm = 'aes-256-ctr'
 
 /**
  * Get current store code from parameter passed from the vue storefront frotnend app
  * @param {Express.Request} req
  */
-export function getCurrentStoreCode (req) {
+export function getCurrentStoreCode (req): string|null {
   if (req.headers['x-vs-store-code']) {
     return req.headers['x-vs-store-code']
   }
@@ -20,16 +20,18 @@ export function getCurrentStoreCode (req) {
  * Get the config.storeViews[storeCode]
  * @param {string} storeCode
  */
-export function getCurrentStoreView (storeCode = null) {
+export function getCurrentStoreView (storeCode: string = null) {
   let storeView = { // current, default store
-    tax: config.tax,
-    i18n: config.i18n,
-    elasticsearch: config.elasticsearch,
+    tax: config.get('tax'),
+    i18n: config.get('i18n'),
+    elasticsearch: config.get('elasticsearch'),
     storeCode: null,
-    storeId: config.defaultStoreCode && config.defaultStoreCode !== '' ? config.storeViews[config.defaultStoreCode].storeId : 1
+    storeId: config.get('defaultStoreCode') && config.get('defaultStoreCode') !== ''
+      ? config.get<Record<string, any>>('storeViews')[config.get<string>('defaultStoreCode')].storeId
+      : 1
   }
-  if (storeCode && config.storeViews[storeCode]) {
-    storeView = config.storeViews[storeCode]
+  if (storeCode && config.get<Record<string, any>>('storeViews')[storeCode]) {
+    storeView = config.get<Record<string, any>>('storeViews')[storeCode]
   }
   return storeView // main config is used as default storeview
 }
@@ -43,7 +45,7 @@ export function getCurrentStoreView (storeCode = null) {
  *      collection.find({}, toRes(res));
  *    }
  */
-export function toRes (res, status = 200) {
+export function toRes (res, status: number = 200) {
   return (err, thing) => {
     if (err) return res.status(500).send(err);
 
@@ -55,7 +57,7 @@ export function toRes (res, status = 200) {
 }
 
 export function sgnSrc (sgnObj, item) {
-  if (config.tax.alwaysSyncPlatformPricesOver) {
+  if (config.get('tax.alwaysSyncPlatformPricesOver')) {
     sgnObj.id = item.id
   } else {
     sgnObj.sku = item.sku
@@ -69,8 +71,8 @@ export function sgnSrc (sgnObj, item) {
  *  @param {number} [code=200]    Status code to send on success
  *  @param {json} [result='OK']    Text message or result information object
  */
-export function apiStatus (res, result = 'OK', code = 200, meta = null) {
-  let apiResult = { code: code, result: result };
+export function apiStatus (res, result: string|Record<any, any> = 'OK', code: number = 200, meta = null): string|Record<any, any> {
+  let apiResult: Record<string, any> = { code: code, result: result };
   if (meta !== null) {
     apiResult.meta = meta;
   }
@@ -83,18 +85,18 @@ export function apiStatus (res, result = 'OK', code = 200, meta = null) {
  *  @param {number} [code=200]    Status code to send on success
  *  @param {json} [result='OK']    Text message or result information object
  */
-export function apiError (res, errorObj, code = 500) {
-  return apiStatus(res, errorObj.errorMessage ? errorObj.errorMessage : errorObj, errorObj.code ? errorObj.code : 500)
+export function apiError (res, errorObj, code: number = 500): string|Record<any, any> {
+  return apiStatus(res, errorObj.errorMessage ? errorObj.errorMessage : errorObj, errorObj.code ? errorObj.code : code)
 }
 
-export function encryptToken (textToken, secret) {
+export function encryptToken (textToken, secret): string {
   const cipher = crypto.createCipher(algorithm, secret)
   let crypted = cipher.update(textToken, 'utf8', 'hex')
   crypted += cipher.final('hex');
   return crypted;
 }
 
-export function decryptToken (textToken, secret) {
+export function decryptToken (textToken, secret): string {
   const decipher = crypto.createDecipher(algorithm, secret)
   let dec = decipher.update(textToken, 'hex', 'utf8')
   dec += decipher.final('utf8');

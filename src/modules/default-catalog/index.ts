@@ -1,11 +1,11 @@
-import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
-import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from 'src/lib/module/types'
+import { StorefrontApiModule, registerExtensions } from '../../lib/module'
+import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from '../../lib/module/types'
 import invalidateCache from './api/invalidate'
 import catalog from './api/catalog';
 
 import resolvers from '../default-catalog/graphql/resolvers'
 import schema from '../default-catalog/graphql/schema'
-import { loadSchema } from 'src/lib/elastic'
+import { loadSchema } from '../../lib/elastic'
 import path from 'path'
 
 export const DefaultCatalogModule: StorefrontApiModule = new StorefrontApiModule({

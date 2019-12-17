@@ -1,5 +1,5 @@
-import { StorefrontApiModule } from 'src/lib/module'
-import { StorefrontApiContext } from 'src/lib/module/types'
+import { StorefrontApiModule } from '../../lib/module'
+import { StorefrontApiContext } from '../../lib/module/types'
 import img from './api/img'
 
 export const DefaultImgModule: StorefrontApiModule = new StorefrontApiModule({
@@ -10,5 +10,4 @@ export const DefaultImgModule: StorefrontApiModule = new StorefrontApiModule({
       console.log(req.params)
     });
   }
-
 })

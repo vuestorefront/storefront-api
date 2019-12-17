@@ -1,8 +1,8 @@
 import resource from 'resource-router-middleware';
-import { apiStatus, apiError } from 'src/lib/util';
+import { apiStatus, apiError } from '../../../lib/util';
 import { merge } from 'lodash';
-import PlatformFactory from 'src/platform/factory';
-import AbstractOrderProxy from 'src/platform/abstract/order';
+import PlatformFactory from '../../../platform/factory';
+import AbstractOrderProxy from '../../../platform/abstract/order';
 
 const Ajv = require('ajv'); // json validator
 const fs = require('fs');
@@ -149,4 +149,4 @@ export default ({ config, db }) => resource({
       })
     }
   }
-});
+})
