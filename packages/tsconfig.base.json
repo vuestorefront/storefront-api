@@ -3,7 +3,7 @@
     "target": "es2017",
     "declaration": true,
     "strict": false,
-    "allowJs": true,
+    "allowJs": false,
     "importHelpers": false,
     "module": "commonjs",
     "experimentalDecorators": true,
