@@ -6,8 +6,9 @@
   "main": "dist",
   "scripts": {
     "dev": "nodemon",
+    "predev": "rm -rf packages/**/*.{js,js.map,d.ts}",
     "dev:inspect": "nodemon --exec \"node --inspect -r ts-node/register src\"",
-    "predev": "rm -rf packages/**/*.{js,js.map,d.ts} ",
+    "predev:inspect": "rm -rf packages/**/*.{js,js.map,d.ts}",
     "build": "npm run -s build:packages && npm run -s build:code && npm run -s build:copy:graphql && npm run -s build:copy:schema",
     "build:code": "tsc --build",
     "build:packages": "tsc --build tsconfig.build.json",
