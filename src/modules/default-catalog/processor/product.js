@@ -1,5 +1,5 @@
 import PlatformFactory from '../../../platform/factory'
-import { sgnSrc } from '../../../lib/util'
+import { sgnSrc } from '@storefront-api/lib/util'
 const jwa = require('jwa');
 const hmac = jwa('HS256');
 

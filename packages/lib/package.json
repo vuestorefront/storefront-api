@@ -1,15 +1,13 @@
 {
-  "name": "storefront-api",
-  "version": "1.11.0-dev",
-  "private": true,
+  "name": "@storefront-api/lib",
+  "version": "0.1.0",
   "description": "Storefront GraphQL API",
-  "main": "dist",
+  "license" : "MIT",
   "scripts": {
     "dev": "nodemon",
     "dev:inspect": "nodemon --exec \"node --inspect -r ts-node/register src\"",
     "build": "npm run -s build:code && npm run -s build:copy:graphql && npm run -s build:copy:schema",
     "build:code": "tsc --build",
-    "build:packages": "tsc --build tsconfig.build.json",
     "build:copy:graphql": "cpx src/**/*.graphqls dist/src",
     "build:copy:schema": "cpx 'src/**/*.schema*.json' dist/src",
     "docs:dev": "vuepress dev docs --port 8090",
@@ -49,12 +47,10 @@
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
-  "license": "MIT",
   "dependencies": {
     "@2fd/graphdoc": "^2.4.0",
     "@elastic/elasticsearch": "^7.3.0",
     "@google-cloud/storage": "^3.0.3",
-    "@storefront-api/lib": "0.1.0",
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.4.0",
     "body-parser": "^1.18.2",
@@ -109,6 +105,7 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
+    "@types/sharp": "^0.23.1",
     "@types/cli-color": "^0.3.30",
     "@types/config": "^0.0.34",
     "@types/cors": "^2.8.6",
@@ -145,10 +142,5 @@
     "rest",
     "api",
     "nodejs"
-  ],
-  "workspaces": [
-    "src/api/extensions/*",
-    "src/platform/*",
-    "packages/*"
   ]
 }

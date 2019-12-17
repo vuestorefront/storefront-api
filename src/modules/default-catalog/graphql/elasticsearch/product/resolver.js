@@ -6,7 +6,7 @@ import esResultsProcessor from './processor'
 import { getIndexName } from '../mapping'
 import { getCurrentPlatformConfig } from '../../../../../platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
-import { adjustQuery, getResponseObject } from '../../../../../lib/elastic'
+import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
 const resolver = {
   Query: {

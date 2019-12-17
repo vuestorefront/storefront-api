@@ -1,5 +1,5 @@
 import bodybuilder from 'bodybuilder';
-import getBoosts from '../../../../lib/boost'
+import getBoosts from '@storefront-api/lib/boost'
 import map from 'lodash/map';
 import getMapping from './mapping'
 import config from 'config'

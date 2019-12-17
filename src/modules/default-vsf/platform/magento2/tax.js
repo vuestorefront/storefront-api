@@ -1,7 +1,7 @@
 import AbstractTaxProxy from '../abstract/tax'
-import { calculateProductTax, checkIfTaxWithUserGroupIsActive, getUserGroupIdToUse } from '../../../lib/taxcalc';
-import TierHelper from '../../../lib/helpers/priceTiers'
-import es from '../../../lib/elastic'
+import { calculateProductTax, checkIfTaxWithUserGroupIsActive, getUserGroupIdToUse } from '@storefront-api/lib/taxcalc';
+import TierHelper from '@storefront-api/lib/helpers/priceTiers'
+import es from '@storefront-api/lib/elastic'
 import bodybuilder from 'bodybuilder'
 
 class TaxProxy extends AbstractTaxProxy {

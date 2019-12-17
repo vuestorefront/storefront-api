@@ -2,16 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import initializeDb from './lib/db';
-import { loadAdditionalCertificates } from './lib/helpers/loadAdditionalCertificates'
+import initializeDb from '@storefront-api/lib/db';
+import { loadAdditionalCertificates } from '@storefront-api/lib/helpers/loadAdditionalCertificates'
 import config from 'config';
 import { ApolloServer } from 'apollo-server-express';
 import { join } from 'path'
 import enabledModules from './modules'
-import { registerModules } from './lib/module';
-import { StorefrontApiContext } from './lib/module/types';
+import { registerModules } from '@storefront-api/lib/module';
+import { StorefrontApiContext } from '@storefront-api/lib/module/types';
 import { mergeTypes } from 'merge-graphql-schemas';
-import Logger from './lib/logger'
+import Logger from '@storefront-api/lib/logger'
 
 const app = express();
 

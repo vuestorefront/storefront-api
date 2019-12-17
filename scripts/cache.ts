@@ -1,6 +1,6 @@
 import program from 'commander'
 import config from 'config'
-import cache from 'src/lib/cache-instance'
+import cache from 'packages/lib/cache-instance'
 
 program
   .command('clear')

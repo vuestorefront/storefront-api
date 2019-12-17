@@ -31,7 +31,7 @@ Receiving objects: 100% (309/309), 1.42 MiB | 882.00 KiB/s, done.
 Resolving deltas: 100% (35/35), done.
 Checking connectivity... done.
 pkarwatka$ cd storefront-api-example/
-pkarwatka$ 
+pkarwatka$
 ```
 
 Then let's install the dependencies:
@@ -44,14 +44,14 @@ yarn install v1.17.3
 [3/4] 🔗  Linking dependencies...
 [4/4] 🔨  Building fresh packages...
 ✨  Done in 16.57s.
-pkarwatka$ 
+pkarwatka$
 ```
 
 OK, now we can run the whole thing and import some sample data:
 
 ```bash
 pkarwatka$ docker-compose up
-Recreating elasticsearch ... 
+Recreating elasticsearch ...
 Recreating elasticsearch ... done
 Recreating sfa_app_1     ... done
 ... # a lot of random log messages ;)
@@ -141,15 +141,15 @@ Our goal is to add the custom GraphQL query to add two numbers and a REST API, w
 First, we need to edit the `src/modules/my-custom-module/index.ts` to apply the proper module name - we'll change the `key` that should be unique and change the `TemplateModule` object name to `CustomModule`. We'll also simplify the interface - we'll remove `loadMappings` as we don't plan to extend ElasticSearch mappings.
 
 ```js
-import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
-import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from 'src/lib/module/types'
+import { StorefrontApiModule, registerExtensions } from '@storefront-api/lib/module'
+import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from '@storefront-api/lib/module/types'
 import { Router } from 'express'
 import resolvers from './graphql/resolvers'
 import schema from './graphql/schema'
 
 import path from 'path'
 import version from './api/version'
-import { loadSchema } from 'src/lib/elastic'
+import { loadSchema } from '@storefront-api/lib/elastic'
 
 export const CustomModule: StorefrontApiModule = new StorefrontApiModule({
   key: 'custom-module',
@@ -175,7 +175,7 @@ export const CustomModule: StorefrontApiModule = new StorefrontApiModule({
 })
 ```
 
-Of course, you might want to define the API handlers in separate files and import them to use with `api.use` or `app.use`. 
+Of course, you might want to define the API handlers in separate files and import them to use with `api.use` or `app.use`.
 
 **Note:** The `registerExtensions` call is 100% optional. It provides you with a way to have dynamic extension points. All the handlers defined in a folder you've provided to this function call (in our example it will be: `src/modules/custom-api/api*` will be loaded and mounted to the `api` router section. [See example](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/default-catalog/api/extensions/elastic-stock/index.js))
 
@@ -210,7 +210,7 @@ app_1    | [nodemon] matched rule: /var/www/src/**/*
 app_1    | [nodemon] changes after filters (before/after): 1/1
 app_1    | [nodemon] restarting due to changes...
 app_1    | [nodemon] src/modules/my-custom-module/index.ts
-app_1    | 
+app_1    |
 app_1    | [nodemon] starting `yarn lint-gql && ts-node src`
 app_1    | [nodemon] spawning
 app_1    | [nodemon] child pid: 323
@@ -218,7 +218,7 @@ app_1    | $ graphql-schema-linter src/**/*.graphqls
 app_1    | /var/www/src/modules/my-custom-module/graphql/hello/schema.graphqls
 app_1    | 3:5 Field "Query.sayHello" can only be defined once.    invalid-graphql-schema
 app_1    | 8:5 Field "Query.testElastic" can only be defined once. invalid-graphql-schema
-app_1    | 
+app_1    |
 app_1    | ✖ 2 errors detected
 app_1    | error Command failed with exit code 1.
 app_1    | info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
@@ -235,7 +235,7 @@ app_1    | [nodemon] app crashed - waiting for file changes before starting...
 
 ```bash
 pkarwatka$ mv hello/
-resolver.js      schema.graphqls  
+resolver.js      schema.graphqls
 pkarwatka$ mv hello/ numbers; ls -l
 total 16
 drwxr-xr-x  4 pkarwatka  staff  128 Dec  5 14:33 numbers
@@ -275,10 +275,10 @@ After the changes applied in the Step 6 our API should gracefully compile and yo
 
 ```bash
 $ graphql-schema-linter src/**/*.graphqls
-app_1    | 
-app_1    | 
+app_1    |
+app_1    |
 app_1    | ✔ 0 errors detected
-app_1    | 
+app_1    |
 app_1    | failed reading file /var/www/config/certs/.gitkeep: Could not parse certificate
 app_1    | Extension mailchimp-subscribe registered under /ext/mailchimp-subscribe base URL
 app_1    | info: Winston logging library initialized.
@@ -311,7 +311,7 @@ Let's check the GraphQL first! Open http://localhost:8080/graphql to access the 
 
 ![GraphQL playground with the simple query](https://divante.com/github/storefront-api/tutorial/step_3_query_result.png)
 
-Looks awesome! Congratulations! 
+Looks awesome! Congratulations!
 
 Let's check if the API extension works as good as GraphQL features we added. As you might remember, we appended a GET request handler under `/custom/sayHello`. Let's try it out:
 

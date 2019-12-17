@@ -1,4 +1,4 @@
-import { apiStatus, apiError } from '../../../lib/util';
+import { apiStatus, apiError } from '@storefront-api/lib/util';
 import { Router } from 'express';
 import PlatformFactory from '../../../platform/factory'
 import AbstractStockProxy from '../../../platform/abstract/stock';
