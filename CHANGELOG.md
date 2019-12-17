@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added better typescript annotation/new types - @resubaka (#24)
 - Added that graphql resolver are loaded with js or ts ending - @resubaka (#24)
 - The lib folder is moved to a package - @resubaka (#30)
+- Added hooks implementation from vue-storefront as a package - @resubaka (#30)
 
 ### Fixed
 
