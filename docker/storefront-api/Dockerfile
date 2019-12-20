@@ -9,6 +9,7 @@ RUN apk add --no-cache curl git
 COPY package.json ./
 COPY yarn.lock ./
 
+RUN apk --no-cache --update upgrade musl
 RUN apk add --no-cache \
 			--repository http://dl-3.alpinelinux.org/alpine/edge/community \
 			--repository http://dl-3.alpinelinux.org/alpine/edge/main \
