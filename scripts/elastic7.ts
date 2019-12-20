@@ -3,7 +3,7 @@ import enabledModules from '../src/modules'
 const program = require('commander')
 const config = require('config')
 const spawnSync = require('child_process').spawnSync
-const { aggregateElasticSearchSchema } = require('../src/lib/module/index')
+const { aggregateElasticSearchSchema } = require('../packages/lib/module/index')
 const aggregatedSchema = aggregateElasticSearchSchema(enabledModules, { config })
 
 function stdOutErr (stdout, stderr) {

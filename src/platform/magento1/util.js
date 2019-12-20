@@ -1,5 +1,5 @@
 import config from 'config'
-import { getCurrentStoreCode } from '../../lib/util'
+import { getCurrentStoreCode } from '@storefront-api/lib/util'
 /**
  * Adjust the config provided to the current store selected via request params
  * @param Object config configuration

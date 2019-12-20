@@ -1,4 +1,4 @@
-import { apiStatus } from '../../../../../lib/util'
+import { apiStatus } from '@storefront-api/lib/util'
 import { Router } from 'express'
 import EmailCheck from 'email-check'
 import jwt from 'jwt-simple'

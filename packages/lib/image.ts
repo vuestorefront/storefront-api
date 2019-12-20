@@ -2,10 +2,11 @@ import sharp from 'sharp';
 import rp from 'request-promise-native';
 import config from 'config';
 
-sharp.cache(config.imageable.cache);
-sharp.concurrency(config.imageable.concurrency);
-sharp.counters(config.imageable.counters);
-sharp.simd(config.imageable.simd);
+sharp.cache(config.get('imageable.cache'));
+sharp.concurrency(config.get('imageable.concurrency'));
+// @ts-ignore
+sharp.counters(config.get('imageable.counters'));
+sharp.simd(config.get('imageable.simd'));
 
 export async function downloadImage (url) {
   const response = await rp.get(url, { encoding: null });
@@ -45,7 +46,7 @@ export async function fit (buffer, width, height) {
     const transformer = sharp(buffer);
 
     if (width || height) {
-      transformer.resize(width, height, { fit: sharp.fit.cover });
+      transformer.resize(width, height, { fit: 'cover'});
     }
 
     return transformer.toBuffer();

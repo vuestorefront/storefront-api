@@ -1,0 +1,12 @@
+{
+  "references": [
+    {
+      "path": "./packages/lib"
+    },
+    {
+      "path": "./packages/hooks"
+    }
+  ],
+  "files": [],
+  "include": []
+}

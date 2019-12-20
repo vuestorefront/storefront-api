@@ -1,7 +1,7 @@
-import { apiStatus } from '../../../lib/util'
+import { apiStatus } from '@storefront-api/lib/util'
 import { Router } from 'express'
 import { version } from '../../../../package.json'
-import { ExtensionAPIFunction, ExtensionAPIFunctionParameter } from '../../../lib/module';
+import { ExtensionAPIFunction, ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 /**
  * Here you can see an other way to export it

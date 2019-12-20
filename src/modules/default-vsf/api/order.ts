@@ -1,5 +1,5 @@
 import resource from 'resource-router-middleware';
-import { apiStatus, apiError } from '../../../lib/util';
+import { apiStatus, apiError } from '@storefront-api/lib/util';
 import { merge } from 'lodash';
 import PlatformFactory from '../../../platform/factory';
 import AbstractOrderProxy from '../../../platform/abstract/order';

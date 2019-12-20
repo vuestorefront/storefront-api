@@ -1,5 +1,5 @@
-import { StorefrontApiModule } from '../../lib/module'
-import { StorefrontApiContext } from '../../lib/module/types'
+import { StorefrontApiModule } from '@storefront-api/lib/module'
+import { StorefrontApiContext } from '@storefront-api/lib/module/types'
 import img from './api/img'
 
 export const DefaultImgModule: StorefrontApiModule = new StorefrontApiModule({

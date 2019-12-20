@@ -10,9 +10,12 @@
   },
   "scripts": {
     "dev": "nodemon",
+    "predev": "rm -rf packages/**/*.{js,js.map,d.ts}",
     "dev:inspect": "nodemon --exec \"node --inspect -r ts-node/register src\"",
-    "build": "npm run -s build:code && npm run -s build:copy:graphql && npm run -s build:copy:schema",
+    "predev:inspect": "rm -rf packages/**/*.{js,js.map,d.ts}",
+    "build": "npm run -s build:packages && npm run -s build:code && npm run -s build:copy:graphql && npm run -s build:copy:schema",
     "build:code": "tsc --build",
+    "build:packages": "tsc --build tsconfig.build.json",
     "build:copy:graphql": "cpx src/**/*.graphqls dist/src",
     "build:copy:schema": "cpx 'src/**/*.schema*.json' dist/src",
     "docs:dev": "vuepress dev docs --port 8090",
@@ -57,6 +60,7 @@
     "@2fd/graphdoc": "^2.4.0",
     "@elastic/elasticsearch": "^7.3.0",
     "@google-cloud/storage": "^3.0.3",
+    "@storefront-api/lib": "1.0.0-rc2",
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.4.0",
     "body-parser": "^1.18.2",
@@ -150,6 +154,7 @@
   ],
   "workspaces": [
     "src/api/extensions/*",
-    "src/platform/*"
+    "src/platform/*",
+    "packages/*"
   ]
 }

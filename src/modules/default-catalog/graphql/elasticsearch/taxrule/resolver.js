@@ -2,7 +2,7 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '../../../../../lib/elastic'
+import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
 async function taxrule ({ filter, context, rootValue }) {
   let query = buildQuery({ filter, pageSize: 150, type: 'taxrule' });
