@@ -204,7 +204,6 @@ export default ({config, db}) => {
     }
   });
 
-
   /**
    * POST reset-password
    *

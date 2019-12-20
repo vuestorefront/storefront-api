@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Taxcalc backport - special_prices (https://github.com/DivanteLtd/vue-storefront-api/pull/380) - @resubaka
+- Check message property instead of errorMessage in apiError function - @cdshotels-liborpansky (#378)
+- Replaced the old `crop` function call which has been removed from Sharp image processor - @grimasod (#381)
 - Fixed that you can now run the dist folder output and don't get errors with module can't be loaded - @resubaka (#24)
 
 ## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
