@@ -1,4 +1,4 @@
-import { apiStatus, encryptToken, decryptToken, apiError } from '../../../lib/util';
+import { apiStatus, encryptToken, decryptToken, apiError } from '@storefront-api/lib/util';
 import { Router } from 'express';
 import PlatformFactory from '../../../platform/factory';
 import jwt from 'jwt-simple';

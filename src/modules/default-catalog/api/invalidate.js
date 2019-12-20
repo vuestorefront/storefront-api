@@ -1,6 +1,6 @@
 import config from 'config'
-import { apiStatus } from '../../../lib/util'
-import cache from '../../../lib/cache-instance'
+import { apiStatus } from '@storefront-api/lib/util'
+import cache from '@storefront-api/lib/cache-instance'
 import request from 'request'
 
 function invalidateCache (req, res) {

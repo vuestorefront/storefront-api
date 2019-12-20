@@ -1,5 +1,5 @@
-import { apiStatus, getCurrentStoreView, getCurrentStoreCode } from '../../../../../lib/util';
-import { getClient as getElasticClient, adjustQuery, getResponseObject } from '../../../../../lib/elastic'
+import { apiStatus, getCurrentStoreView, getCurrentStoreCode } from '@storefront-api/lib/util';
+import { getClient as getElasticClient, adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 import { Router } from 'express';
 const bodybuilder = require('bodybuilder')
 

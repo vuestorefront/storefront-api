@@ -14,6 +14,6 @@ function mapCountryRegion (countryList, countryId, regionCode) {
   return { regionId: regionId, regionCode: '' }
 }
 
-module.exports = {
+export {
   mapCountryRegion
 }

@@ -3,7 +3,7 @@ import { DefaultCatalogModule } from './default-catalog'
 import { DefaultImgModule } from './default-img'
 import { SampleApiModule } from './sample-api'
 import { TemplateModule } from './template-module'
-import {StorefrontApiModule} from '../lib/module'
+import {StorefrontApiModule} from '@storefront-api/lib/module'
 
 export let modules: StorefrontApiModule[] = [
   DefaultVuestorefrontApiModule,
