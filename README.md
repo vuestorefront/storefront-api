@@ -37,9 +37,9 @@ Details:
 
 In case of any questions please contact our core team ([we are on Slack](https://slack.vuestorefront.io))
 
-- @resubaka - Jens Sadowski
-- @pkarw - Piotr Karwatka
-- @pandrzejewsky - Patryk Andrzejewski
+- `@resubaka` - Jens Sadowski
+- `@pkarw` - Piotr Karwatka
+- `@pandrzejewsky` - Patryk Andrzejewski
 
 ## Key features
 
