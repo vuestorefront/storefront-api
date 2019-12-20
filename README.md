@@ -33,6 +33,14 @@ Details:
 - [REST API](https://sfa-docs.now.sh/guide/default-modules/api.html)
 - [Configuration file explained](https://sfa-docs.now.sh/guide/general/config.html)
 
+## Core Team
+
+In case of any questions please contact our core team ([we are on Slack](https://slack.vuestorefront.io))
+
+- @resubaka - Jens Sadowski
+- @pkarw - Piotr Karwatka
+- @pandrzejewsky - Patryk Andrzejewski
+
 ## Key features
 
  - Fully functional and extendable eCommerce API Gateway,
