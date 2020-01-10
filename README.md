@@ -49,16 +49,17 @@ You can play with the GraphQL endpoint over https://storefrontapi.storefrontclou
 Example query you can enter:
 
 ```graphql
-{ products (filter:{
+{ 
+  products (filter:{
       type_id:{eq:"configurable"}
-}) {
-  items { 
-    name
-    price
-    description
-    configurable_children { name, price }
+  }) {
+    items { 
+      name
+      price
+      description
+      configurable_children { name, price }
+    }
   }
-}
 }
 ```
 
