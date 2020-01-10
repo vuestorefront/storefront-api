@@ -41,6 +41,27 @@ In case of any questions please contact our core team ([we are on Slack](https:/
 - `@pkarw` - Piotr Karwatka
 - `@pandrzejewsky` - Patryk Andrzejewski
 
+
+## Demo
+
+You can play with the GraphQL endpoint over https://storefrontapi.storefrontcloud.io/graphql/
+
+Example query you can enter:
+
+```graphql
+{ products (filter:{
+      type_id:{eq:"configurable"}
+}) {
+  items { 
+    name
+    price
+    description
+    configurable_children { name, price }
+  }
+}
+}
+```
+
 ## Key features
 
  - Fully functional and extendable eCommerce API Gateway,
