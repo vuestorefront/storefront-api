@@ -44,7 +44,7 @@ In case of any questions please contact our core team ([we are on Slack](https:/
 
 ## Demo
 
-You can play with the GraphQL endpoint over https://storefrontapi.storefrontcloud.io/graphql/
+You can play with the GraphQL endpoint over https://demo.storefrontapi.com/graphql/
 
 Example query you can enter:
 
