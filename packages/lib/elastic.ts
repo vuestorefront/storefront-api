@@ -5,6 +5,7 @@ import path from 'path'
 import fs from 'fs'
 import jsonFile from 'jsonfile'
 import { IConfig } from 'config';
+import Logger from '@storefront-api/lib/logger'
 
 function _updateQueryStringParameter (uri: string, key: string|number, value: string|number) {
   let re = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
@@ -98,9 +99,9 @@ export function getClient (config: IConfig): Client {
 export function putAlias (db: Client, originalName: string, aliasName: string, next) {
   let step2 = () => {
     db.indices.putAlias({ index: originalName, name: aliasName }).then(_ => {
-      console.log('Index alias created')
+      Logger.info('Index alias created')
     }).then(next).catch(err => {
-      console.log(err.message)
+      Logger.info(err.message)
       next()
     })
   }
@@ -108,10 +109,10 @@ export function putAlias (db: Client, originalName: string, aliasName: string, n
     index: aliasName,
     name: originalName
   }).then((_) => {
-    console.log('Public index alias deleted')
+    Logger.info('Public index alias deleted')
     step2()
   }).catch((err) => {
-    console.log('Public index alias does not exists', err.message)
+    Logger.info('Public index alias does not exists', err.message)
     step2()
   })
 }
@@ -130,10 +131,10 @@ export function deleteIndex (db: Client, indexName: string, next: () => void) {
       index: '*',
       name: indexName
     }).then((_) => {
-      console.log('Public index alias deleted')
+      Logger.info('Public index alias deleted')
       next()
     }).catch((err) => {
-      console.log('Public index alias does not exists', err.message)
+      Logger.info('Public index alias does not exists', err.message)
       next()
     })
   })
@@ -169,7 +170,7 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
         }).then(_ => {
         next()
       }).catch(err => {
-        console.error(err)
+        Logger.error(err)
         next(err)
       })
     }).catch(() => {
@@ -180,7 +181,7 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
         }).then(_ => {
         next()
       }).catch(err => {
-        console.error(err)
+        Logger.error(err)
         next(err)
       })
     })
@@ -190,10 +191,10 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
     index: '*',
     name: indexName
   }).then((_) => {
-    console.log('Public index alias deleted')
+    Logger.info('Public index alias deleted')
     step2()
   }).catch((err) => {
-    console.log('Public index alias does not exists', err.message)
+    Logger.info('Public index alias does not exists', err.message)
     step2()
   })
 }

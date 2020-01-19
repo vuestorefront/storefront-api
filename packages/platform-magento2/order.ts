@@ -1,4 +1,5 @@
 import AbstractOrderProxy from '@storefront-api/platform-abstract/order'
+import Logger from '@storefront-api/lib/logger'
 import { multiStoreConfig } from './util'
 import { processSingleOrder } from './o2m'
 
@@ -15,7 +16,7 @@ class OrderProxy extends AbstractOrderProxy {
     return new Promise((resolve, reject) => {
       try {
         processSingleOrder(orderData, inst._config, null, (error, result) => {
-          console.log(error)
+          Logger.error(error)
           if (error) reject(error)
           resolve(result)
         })

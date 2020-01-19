@@ -10,6 +10,7 @@
     "build": "npm run -s build:packages && npm run -s build:code && npm run -s build:copy:graphql && npm run -s build:copy:schema",
     "build:code": "tsc --build",
     "build:packages": "tsc --build tsconfig.build.json",
+    "prebuild:packages": "rimraf packages/*/dist",
     "build:copy:graphql": "cpx src/**/*.graphqls dist/src",
     "build:copy:schema": "cpx 'src/**/*.schema*.json' dist/src",
     "docs:dev": "vuepress dev docs --port 8090",

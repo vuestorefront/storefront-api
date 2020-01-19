@@ -1,5 +1,6 @@
 import { apiStatus } from '@storefront-api/lib/util'
 import { Router } from 'express'
+import Logger from '@storefront-api/lib/logger'
 const request = require('request')
 const md5 = require('md5')
 
@@ -22,7 +23,7 @@ module.exports = ({ config, db }) => {
       headers: { 'Authorization': 'apikey ' + config.extensions.mailchimp.apiKey }
     }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
-        console.error(error, body)
+        Logger.error(error, body)
         apiStatus(res, 'An error occured while accessing Mailchimp', 500)
       } else {
         apiStatus(res, body.status, 200)
@@ -47,7 +48,7 @@ module.exports = ({ config, db }) => {
       body: { members: [ { email_address: userData.email, status: config.extensions.mailchimp.userStatus } ], 'update_existing': true }
     }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
-        console.error(error, body)
+        Logger.error(error, body)
         apiStatus(res, 'An error occured while accessing Mailchimp', 500)
       } else {
         apiStatus(res, body.status, 200)
@@ -74,7 +75,7 @@ module.exports = ({ config, db }) => {
       body: { members: [ { email_address: userData.email, status: 'unsubscribed' } ], 'update_existing': true }
     }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
-        console.error(error, body)
+        Logger.error(error, body)
         apiStatus(res, 'An error occured while accessing Mailchimp', 500)
       } else {
         apiStatus(res, body.status, 200)

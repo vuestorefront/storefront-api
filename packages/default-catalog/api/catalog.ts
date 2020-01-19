@@ -4,6 +4,7 @@ import ProcessorFactory from '../processor/factory';
 import { adjustBackendProxyUrl } from '@storefront-api/lib/elastic'
 import cache from '@storefront-api/lib/cache-instance'
 import { sha3_224 } from 'js-sha3'
+import Logger from '@storefront-api/lib/logger'
 
 function _cacheStorageHandler (config, result, hash, tags) {
   if (config.server.useOutputCache && cache) {
@@ -12,7 +13,7 @@ function _cacheStorageHandler (config, result, hash, tags) {
       result,
       tags
     ).catch((err) => {
-      console.error(err)
+      Logger.error(err)
     })
   }
 }
@@ -110,7 +111,7 @@ export default ({config, db}) => function (req, res, body) {
             _cacheStorageHandler(config, _resBody, reqHash, tagsArray)
             res.json(_resBody);
           }).catch((err) => {
-            console.error(err)
+            Logger.error(err)
           })
         } else {
           resultProcessor.process(_resBody.hits.hits).then((result) => {
@@ -118,7 +119,7 @@ export default ({config, db}) => function (req, res, body) {
             _cacheStorageHandler(config, _resBody, reqHash, tagsArray)
             res.json(_resBody);
           }).catch((err) => {
-            console.error(err)
+            Logger.error(err)
           })
         }
       } else { // no cache storage if no results from Elastic
@@ -134,13 +135,13 @@ export default ({config, db}) => function (req, res, body) {
       if (output !== null) {
         res.setHeader('X-VS-Cache', 'Hit')
         res.json(output)
-        console.log(`cache hit [${req.url}], cached request: ${Date.now() - s}ms`)
+        Logger.info(`cache hit [${req.url}], cached request: ${Date.now() - s}ms`)
       } else {
         res.setHeader('X-VS-Cache', 'Miss')
-        console.log(`cache miss [${req.url}], request: ${Date.now() - s}ms`)
+        Logger.info(`cache miss [${req.url}], request: ${Date.now() - s}ms`)
         dynamicRequestHandler()
       }
-    }).catch(err => console.error(err))
+    }).catch(err => Logger.error(err))
   } else {
     dynamicRequestHandler()
   }

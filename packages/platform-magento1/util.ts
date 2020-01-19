@@ -1,5 +1,7 @@
 import config from 'config'
 import { getCurrentStoreCode } from '@storefront-api/lib/util'
+import Logger from '@storefront-api/lib/logger'
+
 /**
  * Adjust the config provided to the current store selected via request params
  * @param Object config configuration
@@ -20,7 +22,7 @@ export function multiStoreConfig (apiConfig, req) {
     }
   } else {
     if (storeCode) {
-      console.error('Unavailable store code', storeCode)
+      Logger.error('Unavailable store code', storeCode)
     }
   }
 

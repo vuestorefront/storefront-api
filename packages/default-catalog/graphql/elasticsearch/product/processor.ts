@@ -1,5 +1,6 @@
 import config from 'config'
 import ProcessorFactory from '../../../processor/factory'
+import Logger from '@storefront-api/lib/logger'
 
 export default function esResultsProcessor (response, esRequest, entityType, indexName) {
   return new Promise((resolve, reject) => {
@@ -15,7 +16,7 @@ export default function esResultsProcessor (response, esRequest, entityType, ind
         resolve(result)
       })
       .catch((err) => {
-        console.error(err)
+        Logger.error(err)
       })
   })
 }

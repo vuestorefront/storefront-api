@@ -5,6 +5,7 @@ import {IRouter, Router} from 'express'
 import path from 'path'
 import merge from 'deepmerge'
 import {BaseLogger} from '../logger';
+import Logger from '@storefront-api/lib/logger'
 
 const registeredModules: StorefrontApiModuleConfig[] = []
 const aggregatedGraphqlConfig: GraphqlConfiguration = { schema: [], resolvers: [], hasGraphqlSupport: false }
@@ -115,7 +116,7 @@ function registerExtensions (context: ExtensionContext): void {
       try {
         entryPoint = require(ext)
       } catch (err) {
-        console.error(err)
+        Logger.error(err)
       }
     }
 
@@ -123,7 +124,7 @@ function registerExtensions (context: ExtensionContext): void {
       const route = entryPoint({ config: context.config, db: context.db })
       context.app.use('/api/' + ext, route) // a way to override the default module api's by the extension
       context.app.use('/api/ext/' + ext, route) // backward comaptibility
-      console.log('Extension ' + ext + ' registered under /api/' + ext + ' base URL')
+      Logger.info('Extension ' + ext + ' registered under /api/' + ext + ' base URL')
     }
   }
 }

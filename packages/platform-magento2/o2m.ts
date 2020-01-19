@@ -1,3 +1,4 @@
+import Logger from '@storefront-api/lib/logger'
 
 const Magento2Client = require('magento2-rest-client').Magento2Client;
 
@@ -9,7 +10,7 @@ const Ajv = require('ajv'); // json validator
 const fs = require('fs');
 const ajv = new Ajv(); // validator
 const merge = require('lodash/merge')
-const orderSchema = require('../../models/order.schema.js.js')
+const orderSchema = require('@storefront-api/default-vsf/models/order.schema.js')
 let orderSchemaExtension = {}
 if (fs.existsSync('../../models/order.schema.extension.json')) {
   orderSchemaExtension = require('../../models/order.schema.extension.json')
@@ -49,7 +50,7 @@ function processSingleOrder (orderData, config, job, done, logger = console) {
   if (orderData.store_code) {
     if (config.availableStores.indexOf(orderData.store_code) >= 0) {
       apiConfig = Object.assign({}, apiConfig, { url: apiConfig.url + '/' + orderData.store_code })
-      console.log('> Store code', orderData.store_code)
+      Logger.info('> Store code', orderData.store_code)
     } else {
       logger.error('Invalid store code', orderData.store_code)
     }

@@ -1,8 +1,9 @@
 import resource from 'resource-router-middleware';
-import { apiStatus, apiError } from '@storefront-api/lib/dist/util';
+import { apiStatus, apiError } from '@storefront-api/lib/util';
 import { merge } from 'lodash';
 import PlatformFactory from '@storefront-api/platform/factory';
 import AbstractOrderProxy from '@storefront-api/platform-abstract/order';
+import Logger from '@storefront-api/lib/logger'
 
 const Ajv = require('ajv'); // json validator
 const fs = require('fs');
@@ -106,7 +107,7 @@ export default ({ config, db }) => resource({
       return;
     }
     const incomingOrder = { title: 'Incoming order received on ' + new Date() + ' / ' + req.ip, ip: req.ip, agent: req.headers['user-agent'], receivedAt: new Date(), order: req.body }/* parsed using bodyParser.json middleware */
-    console.log(JSON.stringify(incomingOrder))
+    Logger.info(JSON.stringify(incomingOrder))
 
     for (let product of req.body.products) {
       let key = config.tax.calculateServerSide ? { priceInclTax: product.priceInclTax, id: null, sku: null } : { price: product.price, id: null, sku: null }
@@ -115,11 +116,11 @@ export default ({ config, db }) => resource({
       } else {
         key.sku = product.sku
       }
-      // console.log(key)
+      // Logger.info(key)
 
       if (!config.tax.usePlatformTotals) {
         if (!hmac.verify(key, product.sgn, config.objHashSecret)) {
-          console.error('Invalid hash for ' + product.sku + ': ' + product.sgn)
+          Logger.error('Invalid hash for ' + product.sku + ': ' + product.sgn)
           apiStatus(res, 'Invalid signature validation of ' + product.sku, 200);
           return;
         }
@@ -131,7 +132,7 @@ export default ({ config, db }) => resource({
         let queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
         const job = queue.create('order', incomingOrder).save((err) => {
           if (err) {
-            console.error(err)
+            Logger.error(err)
             apiError(res, err);
           } else {
             apiStatus(res, job.id, 200);

@@ -1,4 +1,5 @@
 'use strict';
+import Logger from '@storefront-api/lib/logger'
 
 /**
  * Check if the module exists
@@ -27,7 +28,7 @@ export class ProcessorFactory {
       const moduleName = './' + entityType
 
       if (!module_exists(moduleName)) {
-        console.log('No additional data adapter for ' + entityType)
+        Logger.info('No additional data adapter for ' + entityType)
         return null
       }
 
@@ -35,7 +36,7 @@ export class ProcessorFactory {
     }
 
     if (!AdapterClass) {
-      console.log('No additional data adapter for ' + entityType)
+      Logger.info('No additional data adapter for ' + entityType)
       return null
     } else {
       let adapter_instance = new AdapterClass(this.config, entityType, indexName, req, res);

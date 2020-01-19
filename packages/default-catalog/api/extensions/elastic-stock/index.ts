@@ -1,6 +1,8 @@
 import { apiStatus, getCurrentStoreView, getCurrentStoreCode } from '@storefront-api/lib/util';
 import { getClient as getElasticClient, adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 import { Router } from 'express';
+import Logger from '@storefront-api/lib/logger'
+
 const bodybuilder = require('bodybuilder')
 
 module.exports = ({
@@ -20,7 +22,7 @@ module.exports = ({
     return getElasticClient(config).search(esQuery).then((products) => { // we're always trying to populate cache - when online
       return getResponseObject(products).hits.hits.map(el => { return el._source.stock })
     }).catch(err => {
-      console.error(err)
+      Logger.error(err)
     })
   }
 

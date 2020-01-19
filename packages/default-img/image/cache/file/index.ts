@@ -1,6 +1,7 @@
 import ImageCache from '../abstract'
 import fs from 'fs-extra'
 import { createHash } from 'crypto'
+import Logger from '@storefront-api/lib/logger'
 
 export default class FileImageCache extends ImageCache {
   public async getImageFromCache () {
@@ -26,7 +27,7 @@ export default class FileImageCache extends ImageCache {
   }
 
   public createKey (): string {
-    console.log(createHash('md5').update(this.req.url).digest('hex'))
+    Logger.info(createHash('md5').update(this.req.url).digest('hex'))
     return createHash('md5').update(this.req.url).digest('hex')
   }
 

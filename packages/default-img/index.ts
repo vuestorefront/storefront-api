@@ -7,13 +7,14 @@ import FileImageCache from './image/cache/file';
 import ActionFactory from './image/action/factory';
 import { Cache } from './image/cache/abstract';
 import { Action } from './image/action/abstract';
+import Logger from '@storefront-api/lib/logger'
 
 export const module: StorefrontApiModule = new StorefrontApiModule({
   key: 'default-img',
   initApi: ({ config, db, app }: StorefrontApiContext): void => {
     app.use('/img', img({ config, db }));
     app.use('/img/:width/:height/:action/:image', (req, res, next) => {
-      console.log(req.params)
+      Logger.info(req.params)
     });
   }
 })

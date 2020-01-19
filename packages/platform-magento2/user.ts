@@ -1,5 +1,6 @@
 import AbstractUserProxy from '@storefront-api/platform-abstract/user'
 import { multiStoreConfig } from './util'
+import Logger from '@storefront-api/lib/logger'
 
 class UserProxy extends AbstractUserProxy {
   public constructor (config, req) {
@@ -17,7 +18,7 @@ class UserProxy extends AbstractUserProxy {
   }
 
   public me (requestToken) {
-    console.log(this.api.customers.me(requestToken));
+    Logger.info(this.api.customers.me(requestToken));
 
     return this.api.customers.me(requestToken)
   }

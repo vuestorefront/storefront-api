@@ -1,6 +1,7 @@
 import sharp from 'sharp';
 import rp from 'request-promise-native';
 import config from 'config';
+import Logger from '@storefront-api/lib/logger'
 
 sharp.cache(config.get('imageable.cache'));
 sharp.concurrency(config.get('imageable.concurrency'));
@@ -19,7 +20,7 @@ export async function identify (buffer) {
 
     return transformer.metadata();
   } catch (err) {
-    console.log(err);
+    Logger.info(err);
   }
 }
 
@@ -37,7 +38,7 @@ export async function resize (buffer, width, height) {
 
     return transformer.toBuffer();
   } catch (err) {
-    console.log(err);
+    Logger.info(err);
   }
 }
 
@@ -51,7 +52,7 @@ export async function fit (buffer, width, height) {
 
     return transformer.toBuffer();
   } catch (err) {
-    console.log(err);
+    Logger.info(err);
   }
 }
 
@@ -65,6 +66,6 @@ export async function crop (buffer, width, height, x, y) {
 
     return transformer.toBuffer();
   } catch (err) {
-    console.log(err);
+    Logger.info(err);
   }
 }
