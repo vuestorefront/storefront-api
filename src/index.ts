@@ -38,7 +38,7 @@ loadAdditionalCertificates()
 // connect to db
 initializeDb(db => {
   const logger = new Logger()
-  logger.info('asdasd')
+
   const context: StorefrontApiContext = { app, config, db, logger }
   const { aggregatedGraphqlConfig } = registerModules(enabledModules, context, logger)
 

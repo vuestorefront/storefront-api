@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
     "@elastic/elasticsearch": "^7.3.0",
@@ -40,15 +43,6 @@
     "@types/node": "^11.13.4",
     "@types/redis": "^2.8.14",
     "@types/semver": "^6.2.0",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "eslint": "^5.0.0",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "eslint-plugin-vue-storefront": "^0.0.1",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2"
   },

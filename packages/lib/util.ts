@@ -20,7 +20,7 @@ export function getCurrentStoreCode (req): string|null {
  * Get the config.storeViews[storeCode]
  * @param {string} storeCode
  */
-export function getCurrentStoreView (storeCode: string = null) {
+export function getCurrentStoreView (storeCode: string = null): any {
   let storeView = { // current, default store
     tax: config.get('tax'),
     i18n: config.get('i18n'),

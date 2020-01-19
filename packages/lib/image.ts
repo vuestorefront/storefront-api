@@ -46,7 +46,7 @@ export async function fit (buffer, width, height) {
     const transformer = sharp(buffer);
 
     if (width || height) {
-      transformer.resize(width, height, { fit: 'cover'});
+      transformer.resize(width, height, { fit: 'cover' });
     }
 
     return transformer.toBuffer();

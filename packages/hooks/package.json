@@ -8,6 +8,9 @@
     "build": "tsc --build",
     "prepublishOnly": "tsc --build"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
