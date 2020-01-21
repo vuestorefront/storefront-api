@@ -157,7 +157,7 @@ You might have seen that our data formats are pretty much similar to Magento for
 
 ### Attribute entity
 
-Storefront API uses the attributes meta data dictionaries saved in the `attribute` entities. They're related to the `product`. The `attribute.attribute_code` represents the `product[attribute_code]` proeprty - when defined. When not, the `product[attribute_code]` is being used as a plain tetxt.
+Storefront API uses the attributes meta data dictionaries saved in the `attribute` entities. They're related to the `product`. The `attribute.attribute_code` represents the `product[attribute_code]` property - when defined. When not, the `product[attribute_code]` is being used as a plain text.
 
 [Read more on why Attributes are important](./format-attribute.md)
 
