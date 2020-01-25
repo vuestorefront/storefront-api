@@ -29,7 +29,7 @@ function _updateQueryStringParameter (uri: string, key: string|number, value: st
 export function adjustIndexName (indexName: string|string[], entityType: string, config: IConfig) {
   const realIndexName = Array.isArray(indexName) ? indexName[0] : indexName;
 
-  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) {
+  if (semver.major(semver.coerce(config.get<string>('elasticsearch.apiVersion'))) < 6) {
     return realIndexName
   } else {
     return `${realIndexName}_${entityType}`
@@ -38,7 +38,7 @@ export function adjustIndexName (indexName: string|string[], entityType: string,
 
 export function adjustBackendProxyUrl (req, indexName: string, entityType: string, config: IConfig) {
   let url
-  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) { // legacy for ES 5
+  if (semver.major(semver.coerce(config.get<string>('elasticsearch.apiVersion'))) < 6) { // legacy for ES 5
     url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + (req.query.request ? _updateQueryStringParameter(req.url, 'request', null) : req.url)
   } else {
     const queryString = require('query-string');
@@ -57,7 +57,7 @@ export function adjustBackendProxyUrl (req, indexName: string, entityType: strin
 }
 
 export function adjustQuery (esQuery: RequestParams.Search, entityType: string, config: IConfig) {
-  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) {
+  if (semver.major(semver.coerce(config.get<string>('elasticsearch.apiVersion'))) < 6) {
     esQuery.type = entityType
   } else {
     delete esQuery.type
