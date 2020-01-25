@@ -69,4 +69,4 @@ class ProductProcessor extends ProcessorAbstract {
   }
 }
 
-module.exports = ProductProcessor
+export default ProductProcessor

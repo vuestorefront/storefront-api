@@ -4,7 +4,7 @@ import invalidateCache from './api/invalidate'
 import catalog from './api/catalog';
 
 import defaultProcessor from './processor/default'
-import * as productProcessor from './processor/product'
+import productProcessor from './processor/product'
 
 import resolvers from './graphql/resolvers'
 import schema from './graphql/schema'
