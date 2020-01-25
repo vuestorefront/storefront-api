@@ -1,4 +1,4 @@
-import { apiStatus, sgnSrc, apiError } from '@storefront-api/lib/dist/util';
+import { apiStatus, sgnSrc, apiError } from '@storefront-api/lib/util';
 import { Router } from 'express';
 import PlatformFactory from '@storefront-api/platform/factory';
 import AbstractProductProxy from '@storefront-api/platform-abstract/product';

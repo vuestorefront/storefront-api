@@ -1,6 +1,6 @@
 import ImageAction from '../abstract'
 import mime from 'mime-types'
-import { downloadImage, fit, identify, resize } from '@storefront-api/lib/dist/image'
+import { downloadImage, fit, identify, resize } from '@storefront-api/lib/image'
 import { Metadata } from 'sharp'
 
 export default class LocalImageAction extends ImageAction {

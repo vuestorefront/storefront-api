@@ -1,4 +1,4 @@
-import { apiStatus } from '@storefront-api/lib/dist/util';
+import { apiStatus } from '@storefront-api/lib/util';
 import { Router } from 'express';
 
 export default ({ config, db }) => {

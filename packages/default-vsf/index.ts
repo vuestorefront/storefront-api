@@ -1,5 +1,5 @@
 import { StorefrontApiModule, registerExtensions } from '@storefront-api/lib/module/index'
-import { StorefrontApiContext } from '@storefront-api/lib/dist/module/types'
+import { StorefrontApiContext } from '@storefront-api/lib/module/types'
 import { Router } from 'express';
 import order from './api/order';
 import user from './api/user';
