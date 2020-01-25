@@ -38,6 +38,8 @@
     "test": "eslint src",
     "test:unit": "NODE_ENV=test jest -c test/unit/jest.conf.js",
     "test:unit:watch": "NODE_ENV=test jest -c test/unit/jest.conf.js --watch",
+    "test:integration": "NODE_ENV=test jest -c test/integration/jest.conf.js",
+    "test:integration:watch": "NODE_ENV=test jest -c test/integration/jest.conf.js --watch",
     "setup": "npm run restore7; npm run migrate",
     "lint": "eslint --ext .js,.ts packages src migrations scripts --fix",
     "lint-gql": "graphql-schema-linter {src,packages}/**/*.graphqls"
