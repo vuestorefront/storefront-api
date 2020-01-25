@@ -4,6 +4,7 @@ import stock from './stock'
 import review from './review'
 import cart from './cart'
 import product from './product'
+import tax from './tax'
 
 export default {
   order,
@@ -11,5 +12,6 @@ export default {
   stock,
   review,
   cart,
-  product
+  product,
+  tax
 }
