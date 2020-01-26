@@ -172,7 +172,7 @@
     "templateModule": {
       "registeredExtensions": [
       ]
-    }       
+    }
   },
   "extensions": {
     "mailchimp": {
