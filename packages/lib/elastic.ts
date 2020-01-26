@@ -82,6 +82,8 @@ export function getHits (result) {
   }
 }
 
+let esClint: Client
+
 export function getClient (config: IConfig): Client {
   const esConfig: ClientOptions = { // as we're runing tax calculation and other data, we need a ES indexer
     node: `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`,
@@ -93,7 +95,12 @@ export function getClient (config: IConfig): Client {
       password: config.get<string>('elasticsearch.password')
     }
   }
-  return new Client(esConfig)
+
+  if (!esClint) {
+    esClint = new Client(esConfig)
+  }
+
+  return esClint
 }
 
 export function putAlias (db: Client, originalName: string, aliasName: string, next) {

@@ -1,7 +1,21 @@
 import app from '../../server'
 import request from 'supertest';
+import { getClient } from '@storefront-api/lib/redis';
+import { getClient as esgetClient } from '@storefront-api/lib/elastic';
+import config from 'config'
 
 describe('GET /user', () => {
+  afterAll(() => {
+    const redis = getClient(config.get('redis'))
+    if (redis) {
+      redis.end()
+    }
+    const esClint = esgetClient(config)
+    if (esClint) {
+      esClint.close()
+    }
+  })
+
   it('Check that the default api endpoint responses', () => {
     return request(app)
       .get('/api')
