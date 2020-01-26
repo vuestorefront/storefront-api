@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added that graphql resolver are loaded with js or ts ending - @resubaka (#24)
 - The lib folder is moved to a package - @resubaka (#30)
 - Added hooks implementation from vue-storefront as a package - @resubaka (#30)
+- Added the integration tests - @resubaka (#35)
 
 ### Fixed
 
@@ -21,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Check message property instead of errorMessage in apiError function - @cdshotels-liborpansky (#378)
 - Replaced the old `crop` function call which has been removed from Sharp image processor - @grimasod (#381)
 - Fixed that you can now run the dist folder output and don't get errors with module can't be loaded - @resubaka (#24)
+- Changed that only one redis and elasticsearch client is created - @resubaka (#35)
+- Fixed the restore command restore command of elastic7.ts so it exits when it finished - @resubaka (#35)
+- Fixed the restore command restore command of elastic7.ts so it does not crash when it can't find the file it wants to upload - @resubaka (#35)
 
 ## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
