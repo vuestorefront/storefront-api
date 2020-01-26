@@ -86,7 +86,7 @@ export function apiStatus (res, result: string|Record<any, any> = 'OK', code: nu
  *  @param {json} [result='OK']    Text message or result information object
  */
 export function apiError (res, errorObj, code: number = 500): string|Record<any, any> {
-  return apiStatus(res, errorObj.errorMessage ? errorObj.errorMessage : errorObj, errorObj.code ? errorObj.code : code)
+  return apiStatus(res, errorObj.message ? errorObj.message : (errorObj.errorMessage ? errorObj.errorMessage : errorObj), errorObj.code ? errorObj.code : code)
 }
 
 export function encryptToken (textToken, secret): string {

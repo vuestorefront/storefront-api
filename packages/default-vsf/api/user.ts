@@ -225,45 +225,10 @@ export default ({config, db}) => {
       "result": "No such entity with email = pkarwatka992@divante.pl, websiteId = 1"
     }
   */
-  userApi.post('/resetPassword', (req, res) => {
-    const userProxy = _getProxy(req)
-
-    if (!req.body.email) {
-      return apiStatus(res, 'Invalid e-mail provided!', 400)
-    }
-
-    userProxy.resetPassword({ email: req.body.email, template: 'email_reset', websiteId: 1 }).then((result) => {
-      apiStatus(res, result, 200);
-    }).catch(err => {
-      apiError(res, err);
-    })
-  });
-
-  /**
-   * POST reset-password
-   *
-   * ```bash
-   * curl 'https://your-domain.example.com/vsbridge/user/resetPassword' -H 'content-type: application/json' -H 'accept: application/json, text/plain' --data-binary '{"email":"pkarwatka992@divante.pl"}'
-   * ```
-   *
-   * Request body:
-   * {
-   * "email": "pkarwatka992@divante.pl"
-   * }
-   *
-   * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#post-vsbridgeuserresetpassword
-   */
-  /*
-    #RESPONSE BODY:
-    {
-      "code": 500,
-      "result": "No such entity with email = pkarwatka992@divante.pl, websiteId = 1"
-    }
-  */
   userApi.post('/reset-password', (req, res) => {
     const userProxy = _getProxy(req)
-    const storeCode = req.query.storeCode
-    const websiteId = config.storeViews[storeCode].websiteId
+    const { storeCode } = req.query
+    const websiteId = storeCode ? config.storeViews[storeCode].websiteId : undefined
 
     if (!req.body.email) {
       return apiStatus(res, 'Invalid e-mail provided!', 400)
@@ -734,25 +699,6 @@ export default ({config, db}) => {
       apiStatus(res, err, 500)
     })
   })
-
-  /**
-   * POST for changing user's password
-   *
-   * Request body:
-   *
-   * {
-   *  "currentPassword":"OldPassword",
-   *  "newPassword":"NewPassword"
-   * }
-   */
-  userApi.post('/changePassword', (req, res) => {
-    const userProxy = _getProxy(req)
-    userProxy.changePassword({ token: req.query.token, body: req.body }).then((result) => {
-      apiStatus(res, result, 200)
-    }).catch(err => {
-      apiStatus(res, err, 500)
-    })
-  });
 
   /**
    * POST for changing user's password

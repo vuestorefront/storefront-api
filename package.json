@@ -4,6 +4,10 @@
   "private": true,
   "description": "Storefront GraphQL API",
   "main": "dist",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "dev": "nodemon",
     "dev:inspect": "nodemon --exec \"node --inspect -r ts-node/register src\"",
