@@ -145,7 +145,8 @@
     "eslint-plugin-vue-storefront": "^0.0.1",
     "jest": "^24.8.0",
     "nodemon": "^1.18.7",
-    "pre-commit": "^1.2.2",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.2",
     "ts-jest": "^24.0.2",
     "tslib": "^1.9.3"
   },
