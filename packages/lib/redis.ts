@@ -8,6 +8,10 @@ let redisClient: RedisClient|boolean = false;
  * @param {config} config
  */
 export function getClient (config): RedisClient {
+  if (redisClient instanceof RedisClient) {
+    return redisClient
+  }
+
   redisClient = Redis.createClient(config.redis); // redis client
 
   redisClient.on('error', (err) => { // workaround for https://github.com/NodeRedis/node_redis/issues/713
