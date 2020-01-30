@@ -16,10 +16,10 @@ extend type Query {
     currentPage: Int = 1 
 
     # Specifies which attribute we include in result.
-    _sourceInclude: [String] 
+    _sourceIncludes: [String] 
 
     # Specifies which attribute we exclude in result.
-    _sourceExclude: [String] 
+    _sourceExcludes: [String] 
     ): Reviews 
 }
 

@@ -45,10 +45,10 @@ extend type Query {
         sort: ProductSortInput 
 
         # Specifies which attribute we include in result.
-        _sourceInclude: [String] 
+        _sourceIncludes: [String] 
 
         # Specifies which attribute we exclude in result.
-        _sourceExclude: [String] 
+        _sourceExcludes: [String] 
         ): Products
     
     # List single product by sku, id or url_path
@@ -64,10 +64,10 @@ extend type Query {
         url_path: String 
 
         # Specifies which attribute we include in result.
-        _sourceInclude: [String] 
+        _sourceIncludes: [String] 
 
         # Specifies which attribute we exclude in result.        
-        _sourceExclude: [String] 
+        _sourceExcludes: [String] 
         ): Product 
 }
 
@@ -441,10 +441,10 @@ type Product  {
         currentPage: Int = 1 
 
         # Specifies which attribute we include in result.
-        _sourceInclude: [String] 
+        _sourceIncludes: [String] 
 
         # Specifies which attribute we exclude in result.
-        _sourceExclude: [String] 
+        _sourceExcludes: [String] 
         ): Reviews 
 }
 

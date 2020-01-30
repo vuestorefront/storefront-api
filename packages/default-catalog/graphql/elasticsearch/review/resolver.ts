@@ -4,14 +4,14 @@ import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
-export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude }) {
+export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceIncludes, _sourceExcludes }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
   const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
     body: query,
-    _source_include: _sourceInclude,
-    _source_exclude: _sourceExclude
+    _source_includes: _sourceIncludes,
+    _source_excludes: _sourceExcludes
   }, 'review', config)));
 
   // Process hits
@@ -49,8 +49,8 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
 
 const resolver = {
   Query: {
-    reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      list({ search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude })
+    reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceIncludes, _sourceExcludes }, context, rootValue) =>
+      list({ search, filter, currentPage, pageSize, sort, context, rootValue, _sourceIncludes, _sourceExcludes })
   }
 };
 

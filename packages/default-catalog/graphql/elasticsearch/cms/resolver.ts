@@ -29,12 +29,12 @@ function buildItems (response) {
 
 const resolver = {
   Query: {
-    cmsPages: (_, { filter, currentPage, pageSize, _sourceInclude, type = 'cms_page' }, context) =>
-      list({ filter, currentPage, pageSize, _source_include: _sourceInclude, type, context }),
-    cmsBlocks: (_, { filter, currentPage, pageSize, _sourceInclude, type = 'cms_block' }, context) =>
-      list({ filter, currentPage, pageSize, _source_include: _sourceInclude, type, context }),
-    cmsHierarchies: (_, { filter, currentPage, pageSize, _sourceInclude, type = 'cms_hierarchy' }, context) =>
-      list({ filter, currentPage, pageSize, _source_include: _sourceInclude, type, context })
+    cmsPages: (_, { filter, currentPage, pageSize, _sourceIncludes, type = 'cms_page' }, context) =>
+      list({ filter, currentPage, pageSize, _source_include: _sourceIncludes, type, context }),
+    cmsBlocks: (_, { filter, currentPage, pageSize, _sourceIncludes, type = 'cms_block' }, context) =>
+      list({ filter, currentPage, pageSize, _source_include: _sourceIncludes, type, context }),
+    cmsHierarchies: (_, { filter, currentPage, pageSize, _sourceIncludes, type = 'cms_hierarchy' }, context) =>
+      list({ filter, currentPage, pageSize, _source_include: _sourceIncludes, type, context })
   }
 };
 

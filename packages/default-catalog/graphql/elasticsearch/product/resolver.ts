@@ -11,10 +11,10 @@ import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
 const resolver = {
   Query: {
-    products: (_, { search, filter, sort, currentPage, pageSize, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      list({ filter, sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude }),
-    product: (_, { sku, id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      listSingleProduct({ sku, id, url_path, context, rootValue, _sourceInclude, _sourceExclude })
+    products: (_, { search, filter, sort, currentPage, pageSize, _sourceIncludes, _sourceExcludes }, context, rootValue) =>
+      list({ filter, sort, currentPage, pageSize, search, context, rootValue, _sourceIncludes, _sourceExcludes }),
+    product: (_, { sku, id, url_path, _sourceIncludes, _sourceExcludes }, context, rootValue) =>
+      listSingleProduct({ sku, id, url_path, context, rootValue, _sourceIncludes, _sourceExcludes })
   },
   Products: {
     items: async (_, { search }, context, rootValue) => { return _.items } // entry point for product extensions
@@ -24,8 +24,8 @@ const resolver = {
       listSingleProduct({ sku: _.sku, context, rootValue })
   },
   Product: {
-    reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
-      return listProductReviews({ search, filter: Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceInclude, _sourceExclude })
+    reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceIncludes, _sourceExcludes }, context, rootValue) => {
+      return listProductReviews({ search, filter: Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceIncludes, _sourceExcludes })
     },
     categories: listProductCategories,
     /* TODO: We can extend our resolvers to meet the Magento2 GraphQL data model easily
@@ -79,12 +79,12 @@ async function listProductCategories (_, { search }, context, rootValue) {
   })
 }
 
-export async function listSingleProduct ({ sku, id = null, url_path = null, context, rootValue, _sourceInclude = null, _sourceExclude = null }) {
+export async function listSingleProduct ({ sku, id = null, url_path = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
   const filter = {}
   if (sku) filter['sku'] = { eq: sku }
   if (id) filter['id'] = { eq: id }
   if (url_path) filter['url_path'] = { eq: url_path }
-  const productList = await list({ filter, pageSize: 1, context, rootValue, _sourceInclude, _sourceExclude })
+  const productList = await list({ filter, pageSize: 1, context, rootValue, _sourceIncludes, _sourceExcludes })
   if (productList && productList.items.length > 0) {
     return productList.items[0]
   } else {
@@ -92,11 +92,11 @@ export async function listSingleProduct ({ sku, id = null, url_path = null, cont
   }
 }
 
-export async function list ({ filter, sort = null, currentPage = null, pageSize, search = null, context, rootValue, _sourceInclude = null, _sourceExclude = null }) {
+export async function list ({ filter, sort = null, currentPage = null, pageSize, search = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
   let _req = {
     query: {
-      _source_exclude: _sourceExclude,
-      _source_include: _sourceInclude
+      _source_excludes: _sourceExcludes,
+      _source_includes: _sourceIncludes
     }
   }
 
@@ -115,8 +115,8 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
     index: esIndex,
     type: 'product',
     body: query,
-    _source_include: _sourceInclude,
-    _source_exclude: _sourceExclude
+    _source_includes: _sourceIncludes,
+    _source_excludes: _sourceExcludes
   }, 'product', config)));
   if (response && response.hits && response.hits.hits) {
     // process response result (caluclate taxes etc...)

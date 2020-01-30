@@ -5,14 +5,14 @@ import { getIndexName } from '../mapping'
 import { list as listProducts } from '../product/resolver'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
-async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceInclude, _sourceExclude = null }) {
+async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceIncludes, _sourceExcludes = null }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
 
   const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
     body: query,
-    _source_exclude: _sourceExclude,
-    _source_include: _sourceInclude
+    _source_excludes: _sourceExcludes,
+    _source_includes: _sourceIncludes
   }, 'category', config)));
 
   // Process hits
@@ -48,11 +48,11 @@ async function list ({ search, filter, currentPage, pageSize = 200, sort, contex
   return response;
 }
 
-export async function listSingleCategory ({ id, url_path, context, rootValue, _sourceInclude, _sourceExclude }) {
+export async function listSingleCategory ({ id, url_path, context, rootValue, _sourceIncludes, _sourceExcludes }) {
   const filter = {}
   if (id) filter['id'] = { eq: id }
   if (url_path) filter['url_path'] = { eq: url_path }
-  const categoryList = await list({ search: '', filter, currentPage: 0, pageSize: 1, sort: null, context, rootValue, _sourceInclude, _sourceExclude })
+  const categoryList = await list({ search: '', filter, currentPage: 0, pageSize: 1, sort: null, context, rootValue, _sourceIncludes, _sourceExcludes })
   if (categoryList && categoryList.items.length > 0) {
     return categoryList.items[0]
   } else {
@@ -62,14 +62,14 @@ export async function listSingleCategory ({ id, url_path, context, rootValue, _s
 
 const resolver = {
   Query: {
-    categories: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude }, context, rootValue) =>
-      list({ search, filter, currentPage, pageSize, sort, context, rootValue, _sourceInclude }),
-    category: (_, { id, url_path, _sourceInclude, _sourceExclude }, context, rootValue) =>
-      listSingleCategory({ id, url_path, context, rootValue, _sourceInclude, _sourceExclude })
+    categories: (_, { search, filter, currentPage, pageSize, sort, _sourceIncludes }, context, rootValue) =>
+      list({ search, filter, currentPage, pageSize, sort, context, rootValue, _sourceIncludes }),
+    category: (_, { id, url_path, _sourceIncludes, _sourceExcludes }, context, rootValue) =>
+      listSingleCategory({ id, url_path, context, rootValue, _sourceIncludes, _sourceExcludes })
   },
   Category: {
-    products: (_, { search, filter, currentPage, pageSize, sort, _sourceInclude, _sourceExclude }, context, rootValue) => {
-      return listProducts({ filter: Object.assign({}, filter, { category_ids: { in: _.id } }), sort, currentPage, pageSize, search, context, rootValue, _sourceInclude, _sourceExclude })
+    products: (_, { search, filter, currentPage, pageSize, sort, _sourceIncludes, _sourceExcludes }, context, rootValue) => {
+      return listProducts({ filter: Object.assign({}, filter, { category_ids: { in: _.id } }), sort, currentPage, pageSize, search, context, rootValue, _sourceIncludes, _sourceExcludes })
     },
     children: (_, { search }, context, rootValue) =>
       _.children_data

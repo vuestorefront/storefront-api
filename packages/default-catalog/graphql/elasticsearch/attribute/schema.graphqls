@@ -8,10 +8,10 @@ extend type Query {
         filter: AttributeInput 
 
         # Specifies which attribute we include in result.
-        _sourceInclude: [String] 
+        _sourceIncludes: [String] 
 
         # Specifies which attribute we exclude in result.
-        _sourceExclude: [String] 
+        _sourceExcludes: [String] 
     ): CustomAttributeMetadata 
     
     # List single attribute metadata by attribute_code or attribute_id

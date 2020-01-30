@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added hooks implementation from vue-storefront as a package - @resubaka (#30)
 - Added the integration tests - @resubaka (#35)
 
+### Changed / Improved
+
+- The `response_format` query parameter to the `/api/catalog` endpoint. Currently there is just one additional format supported: `response_format=compact`. When used, the response format got optimized by: a) remapping the results, removing the `_source` from the `hits.hits`; b) compressing the JSON fields names according to the `config.products.fieldsToCompact`; c) removing the JSON fields from the `product.configurable_children` when their values === parent product values; overall response size reduced over -70% - @pkarw
+- The support for `SearchQuery` instead of the ElasticSearch DSL as for the input to `/api/catalog` - using `storefront-query-builder` package - @pkarw - https://github.com/DivanteLtd/vue-storefront/issues/2167
+
 ### Fixed
 
 - Taxcalc backport - special_prices (https://github.com/DivanteLtd/vue-storefront-api/pull/380) - @resubaka
@@ -23,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced the old `crop` function call which has been removed from Sharp image processor - @grimasod (#381)
 - Fixed that you can now run the dist folder output and don't get errors with module can't be loaded - @resubaka (#24)
 - Changed that only one redis and elasticsearch client is created - @resubaka (#35)
+- Send /reset-password with undefined websiteId as default - @gibkigonzo (#382)
 - Fixed the restore command restore command of elastic7.ts so it exits when it finished - @resubaka (#35)
 - Fixed the restore command restore command of elastic7.ts so it does not crash when it can't find the file it wants to upload - @resubaka (#35)
 

@@ -5,6 +5,16 @@ import { ProcessorAbstract } from './default';
 const jwa = require('jwa');
 const hmac = jwa('HS256');
 
+function compactItem (item, fieldsToCompact) {
+  for (let [key, value] of Object.entries(fieldsToCompact)) {
+    if (typeof item[key] !== 'undefined') {
+      item[value as string] = item[key]
+      delete item[key]
+    }
+  }
+  return item
+}
+
 class ProductProcessor extends ProcessorAbstract {
   public process (items, groupId = null) {
     const processorChain = []
@@ -37,6 +47,29 @@ class ProductProcessor extends ProcessorAbstract {
       if (!resultSet || resultSet.length === 0) {
         throw Error('error with resultset for processor chaining')
       }
+
+      // compact price fields
+      if (this._req.query.response_format === 'compact') {
+        resultSet[0] = resultSet[0].map((item) => {
+          const fieldsToCompress = this._config.get('products.fieldsToCompress')
+          const fieldsToCompact = this._config.get('products.fieldsToCompact')
+          if (!item._source) { return item }
+          if (item._source.configurable_children) {
+            item._source.configurable_children = item._source.configurable_children.map((subItem) => {
+              if (subItem) {
+                (fieldsToCompress as []).forEach(field => {
+                  if (item._source[field] === subItem[field]) {
+                    delete subItem[field] // remove fields that are non distinct
+                  }
+                })
+              }
+              return compactItem(subItem, fieldsToCompact)
+            })
+          }
+          item._source = compactItem(item._source, fieldsToCompact)
+          return compactItem(item, fieldsToCompact)
+        })
+      }      
 
       if (this._req.query._source_exclude && this._req.query._source_exclude.indexOf('sgn') < 0) {
         const rs = resultSet[0].map((item) => {
