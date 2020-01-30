@@ -682,7 +682,10 @@ input StockFilterInput  {
 input CategoryBindingFilterInput  {
 
     # Category id
-    category_id: FilterTypeInput 
+    category_id: FilterTypeInput
+    
+    # Category name
+    name: FilterTypeInput
 }
 
 # ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.

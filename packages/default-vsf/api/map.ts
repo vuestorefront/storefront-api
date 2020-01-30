@@ -78,7 +78,6 @@ export default function ({ config }) {
         console.log(_err)
         return apiStatus(res, new Error('ES search error'), 500);
       }
-      console.log(_resBody)
       const responseRecord = _resBody.hits.hits[0]
       if (responseRecord && checkFieldValueEquality({ config, response: responseRecord, value: req.body.url })) {
         return res.json(responseRecord)

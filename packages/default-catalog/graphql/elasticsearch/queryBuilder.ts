@@ -19,7 +19,5 @@ export function buildQuery ({
   if (search) {
     builtQuery['min_score'] = config.get('elasticsearch.min_score')
   }
-
-  console.dir(JSON.stringify(builtQuery));
   return builtQuery;
 }

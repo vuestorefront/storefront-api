@@ -13,6 +13,7 @@ import { StorefrontApiContext } from '@storefront-api/lib/module/types';
 import { mergeTypes } from 'merge-graphql-schemas';
 import Logger from '@storefront-api/lib/logger'
 
+const isProd = process.env.NODE_ENV === 'production'
 const app = express();
 
 //  middleware start
@@ -21,7 +22,7 @@ app.use(cors({
 }) as express.RequestHandler)
 
 // logger
-app.use(morgan('dev'));
+app.use(morgan(!isProd ? 'dev' : ''));
 
 app.use('/media', express.static(join(__dirname, config.get(`${config.get('platform')}.assetPath`))))
 
@@ -48,6 +49,10 @@ initializeDb(db => {
       resolvers: aggregatedGraphqlConfig.resolvers,
       rootValue: global,
       playground: true,
+      formatError: (err) => { 
+        if (!isProd) logger.error(err)
+        return err
+      },
       context: (integrationContext) => ({
         ...integrationContext,
         config,
