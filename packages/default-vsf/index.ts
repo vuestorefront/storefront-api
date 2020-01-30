@@ -51,7 +51,7 @@ export const DefaultVuestorefrontApiModule = (options: DefaultVuestorefrontApiOp
       api.use('/sync', sync({ config, db }))
 
       // mount the url resource
-      api.use('/url', url({ config, db }))      
+      api.use('/url', url({ config, db }))
 
       // perhaps expose some API metadata at the root
       api.get('/', (req, res) => {
