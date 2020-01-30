@@ -9,6 +9,7 @@ import cart from './api/cart';
 import product from './api/product';
 import sync from './api/sync';
 import middleware from './middleware'
+import url from './api/url'
 import { version } from './package.json';
 import path from 'path'
 import PlatformFactory, { Platform } from '@storefront-api/platform/factory';
@@ -48,6 +49,9 @@ export const DefaultVuestorefrontApiModule = (options: DefaultVuestorefrontApiOp
 
       // mount the sync resource
       api.use('/sync', sync({ config, db }))
+
+      // mount the url resource
+      api.use('/url', url({ config, db }))      
 
       // perhaps expose some API metadata at the root
       api.get('/', (req, res) => {

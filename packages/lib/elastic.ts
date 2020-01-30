@@ -26,6 +26,17 @@ function _updateQueryStringParameter (uri: string, key: string|number, value: st
   }
 }
 
+/**
+ * similar to `adjustBackendProxyUrl`, builds multi-entity query url
+ */
+export function buildMultiEntityUrl ({ config, includeFields = [], excludeFields = [] }: { config: IConfig, includeFields: string[], excludeFields: string[] }) {
+  let url = `${config.get('elasticsearch.host')}:${config.get('elasticsearch.port')}/_search?_source_includes=${includeFields.join(',')}&_source_excludes=${excludeFields.join(',')}`
+  if (!url.startsWith('http')) {
+    url = config.get('elasticsearch.protocol') + '://' + url
+  }
+  return url
+}
+
 export function adjustIndexName (indexName: string|string[], entityType: string, config: IConfig) {
   const realIndexName = Array.isArray(indexName) ? indexName[0] : indexName;
 
@@ -246,5 +257,6 @@ export default {
   getHits,
   getResponseObject,
   adjustIndexName,
-  loadSchema
+  loadSchema,
+  buildMultiEntityUrl
 }
