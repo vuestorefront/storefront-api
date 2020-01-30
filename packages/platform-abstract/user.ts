@@ -532,6 +532,7 @@ class AbstractUserProxy {
   */
   public update (userData): Promise<any> { throw new Error('AbstractUserProxy::update must be implemented for specific platform') }
   public changePassword (passwordData): Promise<any> { throw new Error('AbstractUserProxy::changePassword must be implemented for specific platform') }
+  public resetPasswordUsingResetToken (resetData): Promise<any> { throw new Error('AbstractUserProxy::resetPasswordUsingResetToken must be implemented for specific platform') }
 }
 
 export default AbstractUserProxy
