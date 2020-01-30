@@ -6,7 +6,7 @@ Storefront API Default catalog offers two basic ways of querying the data:
 - GraphQL for read access,
 - REST for read and write acces.
 
-**Note:** This API specification is related to the `src/modules/default-vsf` module. You can create your own custom module with totally different APIs! Read more on [modules](../modules/introduction.md)
+**Note:** This API specification is related to the `packages/default-vsf` module. You can create your own custom module with totally different APIs! Read more on [modules](../modules/introduction.md)
 
 ## REST API specification 
 

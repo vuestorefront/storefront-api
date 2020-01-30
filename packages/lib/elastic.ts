@@ -5,6 +5,7 @@ import path from 'path'
 import fs from 'fs'
 import jsonFile from 'jsonfile'
 import { IConfig } from 'config';
+import Logger from '@storefront-api/lib/logger'
 
 function _updateQueryStringParameter (uri: string, key: string|number, value: string|number) {
   let re = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
@@ -25,10 +26,21 @@ function _updateQueryStringParameter (uri: string, key: string|number, value: st
   }
 }
 
+/**
+ * similar to `adjustBackendProxyUrl`, builds multi-entity query url
+ */
+export function buildMultiEntityUrl ({ config, includeFields = [], excludeFields = [] }: { config: IConfig, includeFields: string[], excludeFields: string[] }) {
+  let url = `${config.get('elasticsearch.host')}:${config.get('elasticsearch.port')}/_search?_source_includes=${includeFields.join(',')}&_source_excludes=${excludeFields.join(',')}`
+  if (!url.startsWith('http')) {
+    url = config.get('elasticsearch.protocol') + '://' + url
+  }
+  return url
+}
+
 export function adjustIndexName (indexName: string|string[], entityType: string, config: IConfig) {
   const realIndexName = Array.isArray(indexName) ? indexName[0] : indexName;
 
-  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) {
+  if (semver.major(semver.coerce(config.get<string>('elasticsearch.apiVersion'))) < 6) {
     return realIndexName
   } else {
     return `${realIndexName}_${entityType}`
@@ -37,16 +49,22 @@ export function adjustIndexName (indexName: string|string[], entityType: string,
 
 export function adjustBackendProxyUrl (req, indexName: string, entityType: string, config: IConfig) {
   let url
-  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) { // legacy for ES 5
-    url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + (req.query.request ? _updateQueryStringParameter(req.url, 'request', null) : req.url)
+  const queryString = require('query-string');
+  const parsedQuery = queryString.parseUrl(req.url).query
+
+  if (semver.major(semver.coerce(config.get<string>('elasticsearch.apiVersion'))) < 6) { // legacy for ES 5
+    delete parsedQuery.request
+    delete parsedQuery.request_format
+    delete parsedQuery.response_format
+    url = config.get<string>('elasticsearch.host') + ':' + config.get<string>('elasticsearch.port') + '/' + indexName + '/' + entityType + '/_search?' + queryString.stringify(parsedQuery)
   } else {
-    const queryString = require('query-string');
-    const parsedQuery = queryString.parseUrl(req.url).query
     parsedQuery._source_includes = parsedQuery._source_include
     parsedQuery._source_excludes = parsedQuery._source_exclude
     delete parsedQuery._source_exclude
     delete parsedQuery._source_include
     delete parsedQuery.request
+    delete parsedQuery.request_format
+    delete parsedQuery.response_format
     url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + '/' + adjustIndexName(indexName, entityType, config) + '/_search?' + queryString.stringify(parsedQuery)
   }
   if (!url.startsWith('http')) {
@@ -56,7 +74,7 @@ export function adjustBackendProxyUrl (req, indexName: string, entityType: strin
 }
 
 export function adjustQuery (esQuery: RequestParams.Search, entityType: string, config: IConfig) {
-  if (semver.major(config.get<string>('elasticsearch.apiVersion')) < 6) {
+  if (semver.major(semver.coerce(config.get<string>('elasticsearch.apiVersion'))) < 6) {
     esQuery.type = entityType
   } else {
     delete esQuery.type
@@ -82,25 +100,25 @@ export function getHits (result) {
 }
 
 export function getClient (config: IConfig): Client {
-  const esConfig: ClientOptions = { // as we're runing tax calculation and other data, we need a ES indexer
-    node: `${config.get<string>('elasticsearch.protocol')}://${config.get<string>('elasticsearch.host')}:${config.get<number>('elasticsearch.port')}`,
-    requestTimeout: 5000
-  }
+  let { host, port, protocol, requestTimeout } = config.get('elasticsearch')
+  const node = `${protocol}://${host}:${port}`
+
+  let auth
+
   if (config.has('elasticsearch.user')) {
-    esConfig.auth = {
-      username: config.get<string>('elasticsearch.user'),
-      password: config.get<string>('elasticsearch.password')
-    }
+    const { user, password } = config.get('elasticsearch')
+    auth = { username: user, password }
   }
-  return new Client(esConfig)
+
+  return new Client({ node, auth, requestTimeout })
 }
 
 export function putAlias (db: Client, originalName: string, aliasName: string, next) {
   let step2 = () => {
     db.indices.putAlias({ index: originalName, name: aliasName }).then(_ => {
-      console.log('Index alias created')
+      Logger.info('Index alias created')
     }).then(next).catch(err => {
-      console.log(err.message)
+      Logger.info(err.message)
       next()
     })
   }
@@ -108,10 +126,10 @@ export function putAlias (db: Client, originalName: string, aliasName: string, n
     index: aliasName,
     name: originalName
   }).then((_) => {
-    console.log('Public index alias deleted')
+    Logger.info('Public index alias deleted')
     step2()
   }).catch((err) => {
-    console.log('Public index alias does not exists', err.message)
+    Logger.info('Public index alias does not exists', err.message)
     step2()
   })
 }
@@ -130,10 +148,10 @@ export function deleteIndex (db: Client, indexName: string, next: () => void) {
       index: '*',
       name: indexName
     }).then((_) => {
-      console.log('Public index alias deleted')
+      Logger.info('Public index alias deleted')
       next()
     }).catch((err) => {
-      console.log('Public index alias does not exists', err.message)
+      Logger.info('Public index alias does not exists', err.message)
       next()
     })
   })
@@ -169,7 +187,7 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
         }).then(_ => {
         next()
       }).catch(err => {
-        console.error(err)
+        Logger.error(err)
         next(err)
       })
     }).catch(() => {
@@ -180,7 +198,7 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
         }).then(_ => {
         next()
       }).catch(err => {
-        console.error(err)
+        Logger.error(err)
         next(err)
       })
     })
@@ -190,10 +208,10 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
     index: '*',
     name: indexName
   }).then((_) => {
-    console.log('Public index alias deleted')
+    Logger.info('Public index alias deleted')
     step2()
   }).catch((err) => {
-    console.log('Public index alias does not exists', err.message)
+    Logger.info('Public index alias does not exists', err.message)
     step2()
   })
 }
@@ -232,5 +250,6 @@ export default {
   getHits,
   getResponseObject,
   adjustIndexName,
-  loadSchema
+  loadSchema,
+  buildMultiEntityUrl
 }

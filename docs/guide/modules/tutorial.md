@@ -13,7 +13,7 @@ Then you need to name your repository properly:
 ![Prepare your repository](https://divante.com//github/storefront-api/tutorial/step_2_prepare_repo.png)
 
 
-You can find [my demo repository here](https://github.com/pkarw/storefront-api-example).
+You can find [my demo repository here](https://github.com/pkarw/storefront-api-example). **Note:** It's been based on SFAPI 1.0RC1. Within SFAPI 1.0RC2 we've introduced the `packages/` monorepo containing some of the core modules previously being available in the `src/modules`.
 
 
 ## 2. Setup Storefront API
@@ -118,15 +118,12 @@ The easiest way to extend Storefront API is to use the `template-module`
 pkarwatka$ cd src/modules/
 pkarwatka$ ls -l
 total 8
-drwxr-xr-x  7 pkarwatka  staff  224 Dec  5 14:24 default-catalog
-drwxr-xr-x  5 pkarwatka  staff  160 Dec  5 14:24 default-img
-drwxr-xr-x  8 pkarwatka  staff  256 Dec  5 14:24 default-vsf
 -rw-r--r--  1 pkarwatka  staff  399 Dec  5 14:24 index.ts
 drwxr-xr-x  4 pkarwatka  staff  128 Dec  5 14:24 sample-api
 drwxr-xr-x  6 pkarwatka  staff  192 Dec  5 14:24 template-module
 ```
 
-We'll use the template by simply coping it out:
+We'll use the template by simply copying it out:
 
 ```bash
 pkarwatka$ cp -R template-module/ my-custom-module

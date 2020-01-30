@@ -1,0 +1,118 @@
+extend type Query {
+    # List attribute meta data based on search full text query or structure filter
+    customAttributeMetadata(
+        # Please use `filter` instead
+        attributes: AttributeInput 
+
+        # Filter object
+        filter: AttributeInput 
+
+        # Specifies which attribute we include in result.
+        _sourceIncludes: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExcludes: [String] 
+    ): CustomAttributeMetadata 
+    
+    # List single attribute metadata by attribute_code or attribute_id
+    attribute(
+        
+        # Search the attribute by its code
+        attribute_code: String 
+
+        # Search the attribute by its id
+        attribute_id: String 
+    ): Attribute 
+}
+
+# CustomAttributeMetadata defines an array of attribute_codes and entity_types
+type CustomAttributeMetadata implements ESResponseInterface { 
+    
+    # An array of attributes
+    items: [Attribute]
+    
+    # The number of categories returned
+    total_count: Int 
+    
+    # Document returned by this search query hits 
+    hits: JSON 
+    
+    # Search suggest feature
+    suggest: JSON 
+    
+    # Aggregations returned when filter have been applied 
+    aggregations: JSON 
+}
+
+# Attribute contains the attribute_type of the specified attribute_code and entity_type
+type Attribute {
+    
+    # The unique identifier for an attribute code. This value should be in lowercase letters without spaces.
+    attribute_code: String 
+    
+    # The type of entity that defines the attribute
+    entity_type: String
+
+    # The data type of the attribute
+    attribute_type: String 
+    
+    # Product types this attribute applies to
+    apply_to: [String] 
+    
+    # Attribute sorting priority
+    position: Int 
+    
+    # Is this attribute available for search    
+    is_searchable: Boolean 
+    
+    # Is this attribute comparable    
+    is_comparable: Boolean 
+    
+    # Is this attribute user defined    
+    is_user_defined: Boolean 
+    
+    # Is this attribute visible on PDP   
+    is_visible: Boolean 
+    
+    # Is this attribute available for search    
+    is_filterable: Boolean 
+    
+    # Is this attribute available for search    
+    is_filterable_in_search: Boolean 
+    
+    # Frontend input type    
+    frontend_input: String 
+    
+    # Default frontend label    
+    default_frontend_label: String 
+    
+    # Available attribute option values
+    options: [AttributeOption] 
+
+}
+
+# Attribute option specifies single attribute option to be selected by the user
+type AttributeOption {
+
+    # Value
+    value: String 
+
+    # Label
+    label: String 
+}
+
+# AttributeInput specifies the attribute_code and entity_type to search
+input AttributeInput {
+    
+    # The unique identifier for an attribute code. This value should be in lowercase letters without spaces.
+    attribute_code: FilterTypeInput 
+    
+    # The type of entity that defines the attribute
+    entity_type: String 
+    
+    # The id of attribute. This value should be in lowercase letters without spaces.
+    attribute_id: FilterTypeInput 
+    
+    # THe attribute is user defined parameter.
+    is_user_defined: FilterTypeInput 
+}
