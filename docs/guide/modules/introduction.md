@@ -10,7 +10,7 @@ We designed the Storefront API (`SFAPI`) upon fully modular architecture. We com
 
 ## Default modules
 
-The default API implementation - `src/modules/default-vsf` is compatible with Vue Storefront. You might want to implement the API in with totally different formats creating a [new module](../modules/tutorial.md) based on one of the default modules or the boilerplates: [`template-module`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module) and [`sample-api`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/sample-api)
+The default API implementation - `packages/default-vsf` is compatible with Vue Storefront. You might want to implement the API in with totally different formats creating a [new module](../modules/tutorial.md) based on one of the default modules or the boilerplates: [`template-module`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module) and [`sample-api`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/sample-api)
 
 ### default-catalog module
 
