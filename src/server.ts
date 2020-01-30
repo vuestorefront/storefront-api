@@ -49,7 +49,7 @@ initializeDb(db => {
       resolvers: aggregatedGraphqlConfig.resolvers,
       rootValue: global,
       playground: true,
-      formatError: (err) => { 
+      formatError: (err) => {
         if (!isProd) logger.error(err)
         return err
       },
