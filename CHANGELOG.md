@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added hooks implementation from vue-storefront as a package - @resubaka (#30)
 - Added the integration tests - @resubaka (#35)
 - Add url module - @gibkigonzo (#3942)
+- Add fallback for `sourcePriceInclTax` and `finalPriceInclTax` in `magento1` platform - @cewald (#398)
 
 ### Changed / Improved
 
