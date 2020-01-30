@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add ElasticSearch client support for HTTP authentication - @cewald (#397)
+- Support for `save_in_addressbook` added - @lucasqm (#394)
 - Magento2 / Create password endpoint - @fifciu (#366)
 - API and Platform comments for all the REST endpoints added with the links to the official docs - @pkarw
 - Added global logger which you can change the instance of to use every logger you want to use - @resubaka (#24)

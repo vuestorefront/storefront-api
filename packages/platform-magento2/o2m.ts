@@ -160,7 +160,8 @@ function processSingleOrder (orderData, config, job, done, logger = console) {
               'regionCode': mappedBillingRegion.regionCode,
               'regionId': mappedBillingRegion.regionId,
               'company': billingAddr.company,
-              'vatId': billingAddr.vat_id
+              'vatId': billingAddr.vat_id,
+              'save_in_address_book': billingAddr.save_address
             }
           }
 
@@ -179,7 +180,8 @@ function processSingleOrder (orderData, config, job, done, logger = console) {
                 'regionCode': mappedBillingRegion.regionCode,
                 'region': billingAddr.region,
                 'company': billingAddr.company,
-                'vatId': billingAddr.vat_id
+                'vatId': billingAddr.vat_id,
+                'save_in_address_book': billingAddr.save_address
               },
               'shippingMethodCode': orderData.addressInformation.shipping_method_code,
               'shippingCarrierCode': orderData.addressInformation.shipping_carrier_code,
@@ -200,7 +202,8 @@ function processSingleOrder (orderData, config, job, done, logger = console) {
               'regionId': mappedShippingRegion.regionId,
               'regionCode': mappedShippingRegion.regionCode,
               'region': shippingAddr.region,
-              'company': shippingAddr.company
+              'company': shippingAddr.company,
+              'save_in_address_book': shippingAddr.save_address
             }
           } else {
             shippingAddressInfo['addressInformation']['shippingAddress'] = shippingAddressInfo['addressInformation']['billingAddress']
