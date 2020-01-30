@@ -10,7 +10,7 @@ type Products implements ESResponseInterface  {
     page_info: SearchResultPageInfo 
 
     # The number of products returned
-    total_count: Int 
+    total_count: TotalCountInfo 
 
     # Layered navigation filters array as aggregations
     aggregations: JSON 
@@ -69,6 +69,16 @@ extend type Query {
         # Specifies which attribute we exclude in result.        
         _sourceExcludes: [String] 
         ): Product 
+}
+
+# Elastic7 inspired total count info
+type TotalCountInfo {
+    
+    # Total count value
+    value: Int
+
+    # Relatiopn - eq, gt, lt
+    relation: String
 }
 
 # SearchResultPageInfo provides navigation for the query response 
