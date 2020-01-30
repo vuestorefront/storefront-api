@@ -69,7 +69,7 @@ class ProductProcessor extends ProcessorAbstract {
           item._source = compactItem(item._source, fieldsToCompact)
           return compactItem(item, fieldsToCompact)
         })
-      }      
+      }
 
       if (this._req.query._source_exclude && this._req.query._source_exclude.indexOf('sgn') < 0) {
         const rs = resultSet[0].map((item) => {

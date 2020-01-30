@@ -53,7 +53,7 @@ export function adjustBackendProxyUrl (req, indexName: string, entityType: strin
     delete parsedQuery._source_include
     delete parsedQuery.request
     delete parsedQuery.request_format
-    delete parsedQuery.response_format    
+    delete parsedQuery.response_format
     url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + '/' + adjustIndexName(indexName, entityType, config) + '/_search?' + queryString.stringify(parsedQuery)
   }
   if (!url.startsWith('http')) {
