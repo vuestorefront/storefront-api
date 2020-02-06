@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Send /reset-password with undefined websiteId as default - @gibkigonzo (#382)
 - Fixed the restore command restore command of elastic7.ts so it exits when it finished - @resubaka (#35)
 - Fixed the restore command restore command of elastic7.ts so it does not crash when it can't find the file it wants to upload - @resubaka (#35)
+- Fix misplaced parenthesis for `taxClasses.find` - @resubaka (#39)
 
 ## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
