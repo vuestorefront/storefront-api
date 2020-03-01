@@ -94,6 +94,7 @@
     "lodash": "^4.17.10",
     "mage2vuestorefront": "git+https://github.com/DivanteLtd/mage2vuestorefront.git",
     "migrate": "^1.6.2",
+    "fs-extra": "^8.1.0",
     "mime-types": "^2.1.18",
     "module-alias": "^2.2.2",
     "nodemailer": "^4.6.8",
