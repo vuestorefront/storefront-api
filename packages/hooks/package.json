@@ -9,7 +9,10 @@
     "prepublishOnly": "tsc --build"
   },
   "files": [
-    "dist"
+    "**/*.d.ts",
+    "*.d.ts",
+    "**/*.js",
+    "*.js"
   ],
   "repository": {
     "type": "git",

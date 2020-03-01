@@ -6,6 +6,15 @@ import cart from './cart'
 import product from './product'
 import tax from './tax'
 
+export {
+  order,
+  user,
+  stock,
+  review,
+  cart,
+  product,
+  tax
+}
 export default {
   order,
   user,
