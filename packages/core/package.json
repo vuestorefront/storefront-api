@@ -1,0 +1,47 @@
+{
+  "name": "@storefront-api/core",
+  "version": "1.0.0-rc2",
+  "description": "Storefront API core",
+  "license" : "MIT",
+  "scripts": {
+    "dev": "tsc --build -w",
+    "build": "tsc --build",
+    "prepublishOnly": "tsc --build"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/storefront-api.git"
+  },
+  "author": "Piotr Karwatka <pkarwatka@divante.pl>",
+  "dependencies": {
+    "express": "^4.17.1",
+    "cors": "^2.8.5",
+    "config": "^1.30.0",
+    "body-parser": "^1.18.2",
+    "@storefront-api/lib": "1.0.0-rc2",
+    "apollo-server-express": "^2.9.12",
+    "merge-graphql-schemas": "^1.7.3",
+    "lodash": "^4.17.15",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.149",
+    "@types/body-parser": "^1.17.0",
+    "@types/cors": "^2.8.6",
+    "@types/config": "^0.0.34"
+  },
+  "bugs": {
+    "url": "https://github.com/DivanteLtd/storefront-api/issues"
+  },
+  "homepage": "https://github.com/DivanteLtd/storefront-api/",
+  "keywords": [
+    "storefront",
+    "rest",
+    "api",
+    "nodejs"
+  ]
+}

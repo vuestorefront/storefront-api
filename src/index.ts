@@ -1,14 +1,11 @@
 import config from 'config';
-import Logger from '@storefront-api/lib/logger'
-import app, { hasGraphqlSupport } from './server';
+import { Server } from '@storefront-api/core'
+import modules from './modules';
 
-const port = process.env.PORT || config.get<string>('server.port')
-const host = process.env.HOST || config.get<string>('server.host')
-app.listen(parseInt(port), host, () => {
-  Logger.info(`Storefront REST API started at http://${host}:${port}`);
-  if (hasGraphqlSupport) {
-    Logger.info(`Storefront GraphQL API started at http://${host}:${port}/graphql`);
-  }
-});
+const server = new Server({
+  modules
+})
 
-export default app;
+server.start();
+
+export default server;
