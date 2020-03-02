@@ -16,7 +16,10 @@
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
   "files": [
-    "dist"
+    "**/*.d.ts",
+    "*.d.ts",
+    "**/*.js",
+    "*.js"
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {

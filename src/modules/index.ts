@@ -4,7 +4,7 @@ import { DefaultImgModule } from '@storefront-api/default-img'
 import { SampleApiModule } from './sample-api'
 import { TemplateModule } from './template-module'
 import {StorefrontApiModule} from '@storefront-api/lib/module'
-import magento2 from '@storefront-api/platform-magento2'
+import * as magento2 from '@storefront-api/platform-magento2'
 
 export let modules: StorefrontApiModule[] = [
   DefaultVuestorefrontApiModule({

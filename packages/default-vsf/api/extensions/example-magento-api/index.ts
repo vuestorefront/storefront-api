@@ -15,7 +15,7 @@ module.exports = ({ config, db }) => {
   mcApi.get('/cmsBlock', (req, res) => {
     const client = Magento2Client(config.magento2.api);
     client.addMethods('cmsBlock', (restClient) => {
-      var module = {};
+      var module: Record<string, Function> = {};
 
       module.search = function () {
         return restClient.get('/cmsPage/search');

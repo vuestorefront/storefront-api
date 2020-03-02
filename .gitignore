@@ -19,4 +19,4 @@ var/*
 !/docker/elasticsearch/data/.gitkeep
 /docker/elasticsearch7/data/
 !/docker/elasticsearch7/data/.gitkeep
-packages/*/dist
+yarn-error.log

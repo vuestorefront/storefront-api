@@ -16,10 +16,14 @@
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
   "files": [
-    "dist"
+    "**/*.d.ts",
+    "*.d.ts",
+    "**/*.js",
+    "*.js"
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
+    "magento1-vsbridge-client": "github:DivanteLtd/magento1-vsbridge-client",
     "@storefront-api/lib": "1.0.0-rc2",
     "@storefront-api/platform-abstract": "1.0.0-rc2",
     "bodybuilder": "2.2.13",

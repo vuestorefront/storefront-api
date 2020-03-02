@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the integration tests - @resubaka (#35)
 - Add url module - @gibkigonzo (#3942)
 - Add fallback for `sourcePriceInclTax` and `finalPriceInclTax` in `magento1` platform - @cewald (#398)
+- moved server logic into packages/core @resubaka (#47)
 
 ### Changed / Improved
 
@@ -38,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed the restore command restore command of elastic7.ts so it does not crash when it can't find the file it wants to upload - @resubaka (#35)
 - Fix misplaced parenthesis for `taxClasses.find` - @resubaka (#39)
 - Added missing build decencies for native decencies @alexshchur (#43)
+- now all packages work when you install them from a registry @resubaka (#47)
 
 ## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
