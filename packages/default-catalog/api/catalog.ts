@@ -7,6 +7,7 @@ import { sha3_224 } from 'js-sha3'
 import Logger from '@storefront-api/lib/logger'
 import bodybuilder from 'bodybuilder'
 import { elasticsearch, SearchQuery } from 'storefront-query-builder'
+import AttributeService from './attribute/service'
 
 function _cacheStorageHandler (config, result, hash, tags) {
   if (config.server.useOutputCache && cache) {
@@ -128,10 +129,16 @@ export default ({config, db}) => async function (req, res, body) {
         if (!resultProcessor) { resultProcessor = factory.getAdapter('default', indexName, req, res) } // get the default processor
 
         if (entityType === 'product') {
-          resultProcessor.process(_resBody.hits.hits, groupId).then((result) => {
+          resultProcessor.process(_resBody.hits.hits, groupId).then(async (result) => {
             _resBody.hits.hits = result
             _resBody = _outputFormatter(_resBody, responseFormat)
             _cacheStorageHandler(config, _resBody, reqHash, tagsArray)
+            if (_resBody.aggregations && config.entities.attribute.loadByAttributeMetadata) {
+              const attributeListParam = AttributeService.transformAggsToAttributeListParam(_resBody.aggregations)
+              // find attribute list
+              const attributeList = await AttributeService.list(attributeListParam, config, indexName)
+              _resBody.attribute_metadata = attributeList.map(AttributeService.transformToMetadata)
+            }
             res.json(_resBody);
           }).catch((err) => {
             Logger.error(err)

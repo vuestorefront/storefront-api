@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Create attribute service that allows to fetch attributes with specific options - used for products aggregates - @gibkigonzo (https://github.com/DivanteLtd/vue-storefront/pull/4001, https://github.com/DivanteLtd/mage2vuestorefront/pull/99)
 - Add ElasticSearch client support for HTTP authentication - @cewald (#397)
 - Support for `save_in_addressbook` added - @lucasqm (#394)
 - Magento2 / Create password endpoint - @fifciu (#366)
