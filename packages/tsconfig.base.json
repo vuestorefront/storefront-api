@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "noLib": false,
     "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "lib": ["es7"]
   },
   "include": [],

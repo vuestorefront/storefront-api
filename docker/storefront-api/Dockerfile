@@ -4,7 +4,7 @@ ENV VS_ENV prod
 
 WORKDIR /var/www
 
-RUN apk add --no-cache curl git
+RUN apk add --no-cache curl git python make g++
 
 COPY package.json ./
 COPY yarn.lock ./

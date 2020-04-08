@@ -8,7 +8,7 @@ Storefront API
 <a href="http://slack.vuestorefront.io">![Join Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)</a>
 
 Storefront GraphQL API. Easy to use. Extendable. Blazingly fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
-Works great with: Magento1, Magento2, Spree, OpenCart, and Pimcore - out of the box. [Easy to integrate with custom backends](https://sfa-docs.now.sh/guide/integration/integration.html#two-steps-for-the-integration).
+Works great with: Magento1, Magento2, Spree, OpenCart, and Pimcore - out of the box. [Easy to integrate with custom backends](https://docs.storefrontapi.com/guide/integration/integration.html#two-steps-for-the-integration).
 
 You can use the **Storefront GraphQL API** to integrate **all your backend systems** with your eCommerce frontend under a single GraphQL/REST API.
 By default, all catalog information is stored in ElasticSearch, and all the write operations are forwarded to the **platform driver** (Magento1, Magento2, Spree, and others available).
@@ -27,11 +27,11 @@ Restore the demo data set:
 After successful installation, you can start playing with GraphQL queries using your local GraphQL Playground, which is exposed under: [http://localhost:8080/graphql](http://localhost:8080/graphql)
 
 Details: 
-- [Installation tutorial](https://sfa-docs.now.sh/guide/general/installation.html)
-- [How to create a first module - tutorial](https://sfa-docs.now.sh/guide/modules/tutorial.html)
-- [GraphQL schema](https://sfa-docs.now.sh/guide/default-modules/graphql.html)
-- [REST API](https://sfa-docs.now.sh/guide/default-modules/api.html)
-- [Configuration file explained](https://sfa-docs.now.sh/guide/general/config.html)
+- [Installation tutorial](https://docs.storefrontapi.com/guide/general/installation.html)
+- [How to create a first module - tutorial](https://docs.storefrontapi.com/guide/modules/tutorial.html)
+- [GraphQL schema](https://docs.storefrontapi.com/guide/default-modules/graphql.html)
+- [REST API](https://docs.storefrontapi.com/guide/default-modules/api.html)
+- [Configuration file explained](https://docs.storefrontapi.com/guide/general/config.html)
 
 ## Key features
 
@@ -48,19 +48,19 @@ Details:
  - Dynamic tax calculation engine,
  - Extendable via custom extensions (including GraphQL schema and resolver extensions),
  - ElasticSearch maintenance tools - dump/restore/schema maintenance/migrations,
- - Custom eCommerce Backend integrations via [an integration SDK](https://sfa-docs.now.sh/guide/integration/integration.html#two-steps-for-the-integration).
+ - Custom eCommerce Backend integrations via [an integration SDK](ocs.storefrontapi.com/guide/integration/integration.html#two-steps-for-the-integration).
 
 ## Modules
 
-Storefront API does provide all the features, GraphQL schemas, ElasticSearch resolvers and API handlers via [Modules](https://sfa-docs.now.sh/guide/modules/introduction.html). That's it. The default schema and the features described in the further parts of the documentation have been implemented by the `default-catalog`, `default-img` and `default-vsf` modules. You can customize them, clone or disable.
+Storefront API does provide all the features, GraphQL schemas, ElasticSearch resolvers and API handlers via [Modules](https://docs.storefrontapi.com/guide/modules/introduction.html). That's it. The default schema and the features described in the further parts of the documentation have been implemented by the `default-catalog`, `default-img` and `default-vsf` modules. You can customize them, clone or disable.
 
 Each module provides it's own:
 - GraphQL schema and resolvers,
 - ElasticSearch mappings,
 - API methods - via express.js handlers and middlewares.
 
-[Read more on Storefront API modules](https://sfa-docs.now.sh/guide/modules/introduction.html)
-[Read more on The Default modules](https://sfa-docs.now.sh/guide/modules/default-modules/introduction.html)
+[Read more on Storefront API modules](https://docs.storefrontapi.com/guide/modules/introduction.html)
+[Read more on The Default modules](https://docs.storefrontapi.com/guide/modules/default-modules/introduction.html)
 
 <img src="https://divante.com//github/storefront-api/storefront-api-architecture.png" alt="Storefront API architecture" />
 
@@ -70,7 +70,7 @@ Storefront API originated from the [`vue-storefront-api`](https://github.com/Div
 
 ## Documentation
 
-Please check our [**Official documentation**](https://sfa-docs.now.sh/). You will find there some integration and customization tutorials, and the API specification.
+Please check our [**Official documentation**](https://docs.storefrontapi.com/). You will find there some integration and customization tutorials, and the API specification.
 
 ## Example use cases
 
@@ -100,7 +100,7 @@ The data formats can be easily modified to suit your needs by modifying the `src
 Check our [GraphQL Schema documentation](https://divanteltd.github.io/storefront-graphql-api-schema/) for the details regarding data formats.
 
 ## Adding custom modules with their dependencies (Yarn only)
-When adding custom modules(https://sfa-docs.now.sh/guide/modules/introduction.html), you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/), dependencies defined inside your custom module will be installed when you execute `yarn` at the project root level, so it's way easier and faster than installing all modules dependencies separately.
+When adding custom modules(https://docs.storefrontapi.com/guide/modules/introduction.html), you might want to define some dependencies inside them. Thanks to [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/), dependencies defined inside your custom module will be installed when you execute `yarn` at the project root level, so it's way easier and faster than installing all modules dependencies separately.
 
 To do this, define the `package.json` with your dependencies in your custom module:
 - `src/modules/{your-custom-extension}/package.json` 

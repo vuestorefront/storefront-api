@@ -10,7 +10,7 @@ const Ajv = require('ajv'); // json validator
 const fs = require('fs');
 const ajv = new Ajv(); // validator
 const merge = require('lodash/merge')
-const orderSchema = require('@storefront-api/default-vsf/models/order.schema.js')
+const orderSchema = require('@storefront-api/default-vsf/models/order.schema')
 let orderSchemaExtension = {}
 if (fs.existsSync('../../models/order.schema.extension.json')) {
   orderSchemaExtension = require('../../models/order.schema.extension.json')
