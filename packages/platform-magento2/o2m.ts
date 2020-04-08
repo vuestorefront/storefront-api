@@ -21,7 +21,7 @@ function isNumeric (val) {
   return Number(parseFloat(val)).toString() === val;
 }
 
-  /**
+/**
    * Internal function to compose Error object using messages about other errors.
    *
    * 'Error' constructor should contain one message object only.
@@ -31,23 +31,22 @@ function isNumeric (val) {
    * @param {string|array|object} errors Additional error message or error object or array of array objects.
    * @return {Error}
    */
-  function composeError (message, errors) {
-    if (typeof errors === 'string') {
-      message = message + ' ' + errors;
-    } else if (Array.isArray(errors)) {
-      // case with array of validation errors (ajv.ErrorObject - node_modules/ajv/lib/ajv.d.ts)
-      errors.forEach((item) => {
-        const part = (typeof item === 'string') ? item : (item.message || '');
-        message = (message + ' ' + part).trim();
-      });
-    } else if (errors && (errors.message || errors.errorMessage)) {
-      // I don't know possible structure of an 'errors' in this case, so I take 'apiError()' from 'src/lib/util.js'
-      // we should use debugger to inspect this case in more details and modify code.
-      message = message + ' ' + (errors.message || errors.errorMessage);
-    }
-    return new Error(message.trim());
+function composeError (message, errors) {
+  if (typeof errors === 'string') {
+    message = message + ' ' + errors;
+  } else if (Array.isArray(errors)) {
+    // case with array of validation errors (ajv.ErrorObject - node_modules/ajv/lib/ajv.d.ts)
+    errors.forEach((item) => {
+      const part = (typeof item === 'string') ? item : (item.message || '');
+      message = (message + ' ' + part).trim();
+    });
+  } else if (errors && (errors.message || errors.errorMessage)) {
+    // I don't know possible structure of an 'errors' in this case, so I take 'apiError()' from 'src/lib/util.js'
+    // we should use debugger to inspect this case in more details and modify code.
+    message = message + ' ' + (errors.message || errors.errorMessage);
   }
-
+  return new Error(message.trim());
+}
 
 /**
  * Send single order to Magento Instance
@@ -280,7 +279,7 @@ function processSingleOrder (orderData, config, job, done, logger = console) {
                 logger.error('Error placing an order', err, typeof err)
                 if (job) job.attempts(6).backoff({delay: 30 * 1000, type: 'fixed'}).save()
                 // @ts-ignore
-                return done(composeError('Error placing an order.', err));                
+                return done(composeError('Error placing an order.', err));
               })
             }).catch((errors) => {
               logger.error('Error while adding shipping address', errors)
