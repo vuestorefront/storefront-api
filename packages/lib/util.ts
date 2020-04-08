@@ -33,6 +33,7 @@ export function getCurrentStoreView (storeCode: string = null): any {
   if (storeCode && config.get<Record<string, any>>('storeViews')[storeCode]) {
     storeView = config.get<Record<string, any>>('storeViews')[storeCode]
   }
+  console.log(storeView)
   return storeView // main config is used as default storeview
 }
 
