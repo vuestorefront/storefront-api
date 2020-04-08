@@ -25,7 +25,7 @@ async function list ({ search, filter, currentPage, pageSize = 200, sort, contex
     response.items.push(item)
   });
 
-  response = aggregationsToAttributes(response, config, esIndex)
+  response = await aggregationsToAttributes(response, config, esIndex)
   response.total_count = response.hits.total
 
   // Process sort

@@ -132,7 +132,7 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
     response.items.push(item)
   });
 
-  response = aggregationsToAttributes(response, config, esIndex)
+  response = await aggregationsToAttributes(response, config, esIndex)
   response.total_count = response.hits.total
 
   // Process sort

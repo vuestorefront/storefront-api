@@ -15,6 +15,9 @@ type Products implements ESResponseInterface  {
     # Layered navigation filters array as aggregations
     aggregations: JSON 
 
+    # Transformed aggregations into attributes - you need to allow 'config.entities.attribute.loadByAttributeMetadata'
+    attribute_metadata: [Attribute]
+
     # An object that includes the default sort field and all available sort fields
     sort_fields: SortFields 
 
