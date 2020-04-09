@@ -87,7 +87,7 @@ export function apiStatus (res, result: string|Record<any, any> = 'OK', code: nu
  *  @param {object|string} error    Error object or error message
  *  @return {json} [result='OK']    Text message or result information object
  */
-export function apiError (res, error) {
+export function apiError (res, error: Record<any, any>): string|Record<any, any> {
   let errorCode = error.code || error.status || 500;
   let errorMessage = error.errorMessage || error;
   if (error instanceof Error) {
