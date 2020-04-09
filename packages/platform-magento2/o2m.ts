@@ -31,7 +31,7 @@ function isNumeric (val) {
    * @param {string|array|object} errors Additional error message or error object or array of array objects.
    * @return {Error}
    */
-function composeError (message, errors) {
+function composeError (message: string, errors: string|any[]|Record<string, any>): Error {
   if (typeof errors === 'string') {
     message = message + ' ' + errors;
   } else if (Array.isArray(errors)) {
