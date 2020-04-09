@@ -7,7 +7,7 @@ import get from 'lodash/get';
 const adjustQueryForOldES = ({ config }) => {
   const searchedEntities = get(config, 'urlModule.map.searchedEntities', [])
     .map((entity) => ({ type: { value: entity } }))
-  if (parseInt(config.elasticsearch.apiVersion) < 6) {
+  if (semver.major(semver.coerce(config.elasticsearch.apiVersion)) < 6) {
     return {
       filter: {
         bool: {
