@@ -62,6 +62,7 @@
     "@2fd/graphdoc": "^2.4.0",
     "@elastic/elasticsearch": "^7.3.0",
     "@google-cloud/storage": "^3.0.3",
+    "@storefront-api/core": "1.0.0-rc2",
     "@storefront-api/default-catalog": "1.0.0-rc2",
     "@storefront-api/default-img": "1.0.0-rc2",
     "@storefront-api/default-vsf": "1.0.0-rc2",
@@ -70,7 +71,6 @@
     "@storefront-api/platform-abstract": "1.0.0-rc2",
     "@storefront-api/platform-magento1": "1.0.0-rc2",
     "@storefront-api/platform-magento2": "1.0.0-rc2",
-    "@storefront-api/core": "1.0.0-rc2",
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.4.0",
     "bodybuilder": "^2.2.21",
@@ -82,6 +82,7 @@
     "deepmerge": "^4.2.2",
     "elasticdump": "^6.9.1",
     "email-check": "^1.1.0",
+    "fs-extra": "^8.1.0",
     "graphql": "^14.5.8",
     "graphql-schema-linter": "^0.2.2",
     "graphql-tools": "^4.0.6",
@@ -95,7 +96,6 @@
     "mage2vuestorefront": "git+https://github.com/DivanteLtd/mage2vuestorefront.git",
     "magento2-rest-client": "github:DivanteLtd/magento2-rest-client",
     "migrate": "^1.6.2",
-    "fs-extra": "^8.1.0",
     "mime-types": "^2.1.18",
     "module-alias": "^2.2.2",
     "nodemailer": "^4.6.8",
@@ -108,14 +108,14 @@
     "semver": "^6.3.0",
     "sharp": "^0.23.4",
     "soap": "^0.25.0",
+    "storefront-query-builder": "^1.0.0",
     "supertest": "^4.0.2",
     "syswide-cas": "latest",
     "ts-node": "^8.1.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "3.7.*",
     "vuepress": "^1.2.0",
-    "winston": "^3.2.0",
-    "storefront-query-builder": "^1.0.0"
+    "winston": "^3.2.0"
   },
   "devDependencies": {
     "@types/cli-color": "^0.3.30",
@@ -136,12 +136,13 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue-storefront": "^0.0.1",
-    "jest": "^24.8.0",
-    "nodemon": "^1.18.7",
     "husky": "^4.2.1",
+    "jest": "^24.8.0",
     "lint-staged": "^10.0.2",
+    "nodemon": "^1.18.7",
     "ts-jest": "^24.0.2",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "pre-commit": "^1.2.2"
   },
   "bugs": {
     "url": "https://github.com/DivanteLtd/storefront-api/issues"

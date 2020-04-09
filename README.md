@@ -7,6 +7,10 @@ Storefront API
 ![Branch Develop](https://img.shields.io/badge/dev%20branch-develop-blue.svg)
 <a href="http://slack.vuestorefront.io">![Join Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)</a>
 
+### 🔨 Current status: Release Candidate 2 (rc2)
+
+Most of the work has been done already. However, we are still developing and enhancing it. Storefront API 1.0rc2 is compatible with Vue Storefront 1.11+. The stable release (1.0) is planned for **2020Q4**. Only then, it will replace the `vue-storefront-api` middleware for Vue Storefront (release 1.13). Till then it's not recommended for production applications.
+
 Storefront GraphQL API. Easy to use. Extendable. Blazingly fast. ElasticSearch included. [BFF (Backend for frontend)](https://samnewman.io/patterns/architectural/bff/) driven.
 Works great with: Magento1, Magento2, Spree, OpenCart, and Pimcore - out of the box. [Easy to integrate with custom backends](https://docs.storefrontapi.com/guide/integration/integration.html#two-steps-for-the-integration).
 
@@ -137,7 +141,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
       <td align="center" valign="middle">
         <a href="https://divante.com/">
           <img
-            src="https://divante.co/about us/LOGO.png"
+            src="https://divante.com/github/shopware-pwa/Divante_logo_1.png"
             alt="Divante"
             width="150"
           >
@@ -184,7 +188,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
       <td align="center" valign="middle">
         <a href="http://macopedia.com/pl">
           <img
-            src="docs/.vuepress/public/partners/macopedia.svg"
+            src="https://blog.vuestorefront.io/wp-content/uploads/2020/02/macopedia_blue_logo.png"
             alt="Macopedia"
             width="150"
           >
@@ -206,7 +210,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
             alt="Phoenix Media"
             width="150"
           >
-        </a> 
+        </a>
       </td>
       <td align="center" valign="middle">
        <a href="https://www.absolutewebservices.com">
@@ -215,7 +219,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
             alt="Absolute Web Services"
             height="50"
           >
-        </a> 
+        </a>
       </td>
       <td align="center" valign="middle">
    <a href="https://www.dnd.fr/">
@@ -240,7 +244,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
        <td align="center" valign="middle">
     <a href="https://www.wagento.com">
           <img
-            src="https://www.wagento.com/media/wysiwyg/logo-color-tagline_4x.png"
+            src="https://www.wagento.com/hubfs/logo-standard-color@4x%20(1).png"
             alt="Wagento"
             width="150"
           >
@@ -443,7 +447,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
 <a href="https://www.guapa.nl/">
           <img
             src="https://divante.co/partners/Vue-Storefront/Guapa-color.png"
@@ -462,7 +466,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
         </a></td>
     </tr>
          <tr>
-     <td align="center" valign="middle"> 
+     <td align="center" valign="middle">
 <a href="https://webisoft.com/">
           <img
             src="https://divante.co/partners/Vue-Storefront/webisoft.png"
@@ -471,7 +475,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
 <a href="http://madepeople.se">
           <img
             src="https://divante.co/partners/Vue-Storefront/MadePeople.png"
@@ -480,7 +484,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-     <td align="center" valign="middle"> 
+     <td align="center" valign="middle">
   <a href="https://www.optiweb.com/">
           <img
             src="https://user-images.githubusercontent.com/18116406/37145626-9d48077c-22c1-11e8-82fd-dda1268d05e9.png"
@@ -489,7 +493,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
 <a href="https://www.vaimo.com/">
           <img
             src="https://divante.co/partners/Vue-Storefront/vaimo-logo.png"
@@ -498,7 +502,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
 <a href="https://www.makingwaves.com/">
           <img
             src="https://divante.co/partners/Vue-Storefront/making-waves.png"
@@ -509,7 +513,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
 </td>
     </tr>
 <tr>
-      <td align="center" valign="middle"> 
+      <td align="center" valign="middle">
 <a href="https://www.bluebirdday.nl/">
           <img
             src="https://divante.co/partners/Vue-Storefront/Blue-Bird.png"
@@ -518,16 +522,16 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
-<a href="https://kodbruket.se/">
+  <td align="center" valign="middle">
+<a href="https://lightcom.io/">
           <img
-            src="https://divante.co/partners/Vue-Storefront/kodbruket.png"
-            alt="Kodbrucket"
+            src="https://blog.vuestorefront.io/wp-content/uploads/2020/03/lightcom_logo.png"
+            alt="Lightcom"
             height="25"
           >
         </a>
 </td>
-      <td align="center" valign="middle"> 
+      <td align="center" valign="middle">
 <a href="https://portaltech.reply.com/portaltech/en/">
           <img
             src="https://divante.co/partners/Vue-Storefront/Portaltech-Reply-LOGO-RGB.png"
@@ -536,7 +540,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-    <td align="center" valign="middle"> 
+    <td align="center" valign="middle">
 <a href="www.interactivated.nl">
           <img
             src="https://divante.co/partners/Vue-Storefront/interactivated-logo.png"
@@ -545,7 +549,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-   <td align="center" valign="middle"> 
+   <td align="center" valign="middle">
 <a href="https://www.sutunam.com/">
           <img
             src="https://divante.co/partners/Vue-Storefront/Sutunam_H_Logo_LightBg.png"
@@ -556,7 +560,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
 </td>
     </tr>
     <tr>
-      <td align="center" valign="middle"> 
+      <td align="center" valign="middle">
     <a href="http://www.acidgreen.com.au/">
           <img
             src="https://cdn.dribbble.com/users/469310/screenshots/3865916/acidgreen_logo.jpg"
@@ -565,7 +569,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
 <a href="https://www.bergwerk.ag/">
           <img
             src="https://divante.co/partners/Vue-Storefront/BERGWERK_Logo.png"
@@ -574,7 +578,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-      <td align="center" valign="middle"> 
+      <td align="center" valign="middle">
 <a href="https://zero1.co.uk/">
           <img
             src="https://divante.co/partners/Vue-Storefront/zero-1_logo.png"
@@ -583,7 +587,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-    <td align="center" valign="middle"> 
+    <td align="center" valign="middle">
 <a href="https://www.novusweb.com/">
           <img
             src="https://divante.co/partners/Vue-Storefront/blue_novusweb.png"
@@ -592,7 +596,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-   <td align="center" valign="middle"> 
+   <td align="center" valign="middle">
 <a href="www.trellis.co">
           <img
             src="https://divante.co/partners/Vue-Storefront/trellis.png"
@@ -603,7 +607,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
 </td>
     </tr>
       <tr>
-      <td align="center" valign="middle"> 
+      <td align="center" valign="middle">
 <a href="https://ittweb.net/it?utm_source=referral&utm_medium=vsf&utm_campaign=partners">
           <img
             src="https://divante.co/partners/Vue-Storefront/ITTweb.png"
@@ -612,7 +616,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
 <a href="https://www.yireo.com/">
           <img
             src="https://divante.co/partners/Vue-Storefront/yireo-logo-trans-520x520.png"
@@ -621,7 +625,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-     <td align="center" valign="middle"> 
+     <td align="center" valign="middle">
 <a href="https://www.tam-tam.co.jp">
           <img
             src="https://divante.co/partners/Vue-Storefront/tam%20logo.png"
@@ -630,7 +634,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-    <td align="center" valign="middle"> 
+    <td align="center" valign="middle">
 <a href="https://www.ambientia.ee/">
           <img
             src="https://divante.co/partners/Vue-Storefront/Ambientia%20logo%20RED%20RGB.png"
@@ -639,7 +643,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-   <td align="center" valign="middle"> 
+   <td align="center" valign="middle">
 <a href="https://performance-academy.pl/">
           <img
             src="https://divante.co/partners/Vue-Storefront/Perfomance_Academy_logo_large.png"
@@ -650,7 +654,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
 </td>
     </tr>
      <tr>
-      <td align="center" valign="middle"> 
+      <td align="center" valign="middle">
 <a href="https://sparksolutions.co/">
           <img
             src="https://divante.co/partners/Vue-Storefront/logo%20spark%20kolor.png"
@@ -659,7 +663,147 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-  <td align="center" valign="middle"> 
+  <td align="center" valign="middle">
+<a href="https://www.caupo.se/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/Caupo_logo_2019.svg"
+            alt="Caupo"
+            height="40"
+          >
+        </a>
+</td>
+     <td align="center" valign="middle">
+<a href="https://netformic.de/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/NF_Logo_2019_RGB@4x.png"
+            alt="Netformic"
+            height="40"
+          >
+        </a>
+</td>
+    <td align="center" valign="middle">
+<a href="http://www.highdigital.de/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/highdigital.png"
+            alt="Highdigital"
+            height="40"
+          >
+        </a>
+</td>
+   <td align="center" valign="middle">
+<a href="https://kiwicommerce.co.uk/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/KiwiCommerce%20Logo.png"
+            alt="KiwiCommerce"
+            height="40"
+          >
+        </a>
+</td>
+    </tr>
+    <tr>
+      <td align="center" valign="middle">
+<a href="https://www.helloevery1.com/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/every1-logo.png"
+            alt="every1"
+            height="40"
+          >
+        </a>
+</td>
+  <td align="center" valign="middle">
+<a href="https://www.solveda.com/">
+          <img
+            src="https://blog.vuestorefront.io/wp-content/uploads/2020/02/SOLVEDA_logo.png"
+            alt="Solveda"
+            height="40"
+          >
+        </a>
+</td>
+     <td align="center" valign="middle">
+<a href="https://www.devlineagency.com/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/devline.png"
+            alt="Devline"
+            height="40"
+          >
+        </a>
+</td>
+    <td align="center" valign="middle">
+<a href="https://appeal.digital/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/appeal-digital%20(1).png"
+            alt="Appeal Digital"
+            height="40"
+          >
+        </a>
+</td>
+   <td align="center" valign="middle">
+<a href="https://www.rvsmedia.co.uk/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/rvsmedia_logo.png"
+            alt="RVS Media"
+            height="40"
+          >
+        </a>
+</td>
+    </tr>
+        <tr>
+      <td align="center" valign="middle">
+<a href="https://www.hotwax.co/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/HotWax.png"
+            alt="HotWax"
+            height="40"
+          >
+        </a>
+</td>
+  <td align="center" valign="middle">
+<a href="https://www.sitewards.com/">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/sitewards-logo.png"
+            alt="Sitewards"
+            height="40"
+          >
+        </a>
+</td>
+     <td align="center" valign="middle">
+<a href="https://codecoda.com/en">
+          <img
+            src="https://divante.com/partners/Vue-Storefront/codecoda-logo.png"
+            alt="CodeCoda"
+            height="40"
+          >
+        </a>
+</td>
+    <td align="center" valign="middle">
+         <a href="https://bitbag.io/services/pwa-progressive-web-app/">
+          <img
+            src="https://blog.vuestorefront.io/wp-content/uploads/2020/02/BitBag_logo.png"
+            alt="BitBag"
+            height="40" >
+        </a>
+</td>
+   <td align="center" valign="middle">
+<a href="https://www.ohmybrand.es/">
+          <img
+            src="https://blog.vuestorefront.io/wp-content/uploads/2020/02/ohmybrand_logo_blue.png"
+            alt="Oh My Brand"
+            height="40"
+          >
+        </a>
+</td>
+    </tr>
+            <tr>
+      <td align="center" valign="middle">
+<a href="https://www.2hatslogic.com/">
+          <img
+            src="https://blog.vuestorefront.io/wp-content/uploads/2020/03/2hatslogic-logo.png"
+            alt="2hatslogic"
+            height="40"
+          >
+        </a>
+</td>
+  <td align="center" valign="middle">
 <a href="">
           <img
             src=""
@@ -668,7 +812,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-     <td align="center" valign="middle"> 
+     <td align="center" valign="middle">
 <a href="">
           <img
             src=""
@@ -677,8 +821,8 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-    <td align="center" valign="middle"> 
-<a href="">
+    <td align="center" valign="middle">
+    <a href="">
           <img
             src=""
             alt=""
@@ -686,7 +830,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
           >
         </a>
 </td>
-   <td align="center" valign="middle"> 
+   <td align="center" valign="middle">
 <a href="">
           <img
             src=""
@@ -697,7 +841,7 @@ Storefront API is a Community effort brought to you by our great **Vue Storefron
 </td>
     </tr>
   </tbody>
-</table> 
+</table>
 
 Partners are encouraged to support the project in various ways - mostly by contributing to the source code, performing marketing activities, evangelizing and, of course, implementing production projects. We support our partners via dedicated contact channels, workshops, and by sharing leads from merchants interested in implementations.
 
