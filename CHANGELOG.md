@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add url module - @gibkigonzo (#3942)
 - Add fallback for `sourcePriceInclTax` and `finalPriceInclTax` in `magento1` platform - @cewald (#398)
 - moved server logic into packages/core @resubaka (#47)
+- Update to `storefront-query-builder` version `1.0.0` - @cewald (#51)
 
 ### Changed / Improved
 
