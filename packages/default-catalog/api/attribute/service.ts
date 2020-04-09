@@ -1,4 +1,3 @@
-import TagCache from 'redis-tag-cache'
 import get from 'lodash/get';
 import cache from '@storefront-api/lib/cache-instance'
 import { adjustQuery, getClient as getElasticClient } from '@storefront-api/lib/elastic'
