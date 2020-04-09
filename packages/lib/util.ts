@@ -84,7 +84,7 @@ export function apiStatus (res, result: string|Record<any, any> = 'OK', code: nu
  *  Creates an error for API status of Express Response object.
  *
  *  @param {express.Response} res   Express HTTP Response
- *  @param {object|string} error    Error object or error message
+ *  @param {object} error    Error object or error message
  *  @return {json} [result='OK']    Text message or result information object
  */
 export function apiError (res, error: Record<any, any>): string|Record<any, any> {
