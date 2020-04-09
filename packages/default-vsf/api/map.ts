@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import semver from 'semver'
 import { apiStatus, getCurrentStoreView, getCurrentStoreCode } from '@storefront-api/lib/util';
 import ProcessorFactory from '@storefront-api/default-catalog/processor/factory';
 import { getClient as getElasticClient } from '@storefront-api/lib/elastic'
