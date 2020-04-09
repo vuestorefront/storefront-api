@@ -9,7 +9,7 @@ import bodybuilder from 'bodybuilder'
 import { elasticsearch, SearchQuery } from 'storefront-query-builder'
 import AttributeService from './attribute/service'
 import loadCustomFilters from '../helper/loadCustomFilters'
-import { apiError } from '../../lib/util';
+import { apiError } from '@storefront-api/lib/util'
 
 function _cacheStorageHandler (config, result, hash, tags) {
   if (config.server.useOutputCache && cache) {
