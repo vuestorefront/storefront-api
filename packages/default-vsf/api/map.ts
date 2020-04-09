@@ -50,7 +50,7 @@ const buildIndex = ({ indexName, config }) => {
 }
 
 const adjustResultType = ({ result, config, indexName }) => {
-  if (parseInt(config.elasticsearch.apiVersion) < 6) return result
+  if (semver.major(semver.coerce(config.elasticsearch.apiVersion)) < 6) return result
 
   // extract type from index for es 7
   const type = result._index.replace(new RegExp(`^(${indexName}_)|(_[^_]*)$`, 'g'), '')
