@@ -8,6 +8,7 @@ import Logger from '@storefront-api/lib/logger'
 import bodybuilder from 'bodybuilder'
 import { elasticsearch, SearchQuery } from 'storefront-query-builder'
 import AttributeService from './attribute/service'
+import loadCustomFilters from '../helper/loadCustomFilters'
 
 function _cacheStorageHandler (config, result, hash, tags) {
   if (config.server.useOutputCache && cache) {
@@ -55,7 +56,8 @@ export default ({config, db}) => async function (req, res, body) {
   }
 
   if (req.query.request_format === 'search-query') { // search query and not Elastic DSL - we need to translate it
-    requestBody = await elasticsearch.buildQueryBodyFromSearchQuery({ config, queryChain: bodybuilder(), searchQuery: new SearchQuery(requestBody) })
+    const customFilters = await loadCustomFilters(config)
+    requestBody = await elasticsearch.buildQueryBodyFromSearchQuery({ config, queryChain: bodybuilder(), searchQuery: new SearchQuery(requestBody), customFilters })
   }
   if (req.query.response_format) responseFormat = req.query.response_format
 
