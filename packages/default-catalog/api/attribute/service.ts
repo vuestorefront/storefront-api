@@ -41,7 +41,7 @@ function transformAggsToAttributeListParam (aggregations): AttributeListParam {
 async function getAttributeFromCache (attributeCode: string, config) {
   if (config.server.useOutputCache && cache) {
     try {
-      const res = await (cache as TagCache).get(
+      const res = await cache.get(
         'api:attribute-list' + attributeCode
       )
       return res
