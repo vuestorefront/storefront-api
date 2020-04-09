@@ -27,7 +27,7 @@
     "@storefront-api/lib": "1.0.0-rc2",
     "@storefront-api/platform": "1.0.0-rc2",
     "resource-router-middleware": "^0.6.0",
-    "bodybuilder": "2.2.13",
+    "bodybuilder": "^2.2.21",
     "jwa": "^1.1.5",
     "config": "^1.30.0",
     "kue": "^0.11.6",
