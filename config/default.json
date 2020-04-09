@@ -28,6 +28,7 @@
       "vue_storefront_catalog_de",
       "vue_storefront_catalog_it"
     ],
+    "index": "vue_storefront_catalog",
     "apiVersion": "7.2",
 
     "searchScoring": {
@@ -128,6 +129,23 @@
     "enabled": false,
     "defaultStockId": 1
   },
+  "i18n": {
+    "defaultCountry": "US",
+    "defaultLanguage": "EN",
+    "availableLocale": ["en-US"],
+    "defaultLocale": "en-US",
+    "currencyCode": "USD",
+    "currencySign": "$",
+    "currencyDecimal": "",
+    "currencyGroup": "",
+    "fractionDigits": 2,
+    "priceFormat": "{sign}{amount}",
+    "dateFormat": "HH:mm D/M/YYYY",
+    "fullCountryName": "United States",
+    "fullLanguageName": "English",
+    "bundleAllStoreviewLanguages": false
+  },
+  "defaultStoreCode": "",
   "storeViews": {
     "multistore": true,
     "mapStoreUrlsFor": [
@@ -353,7 +371,8 @@
         "includeFields": [ "children_data", "id", "children_count", "sku", "name", "is_active", "parent_id", "level", "url_key" ]
       },
       "attribute": {
-        "includeFields": [ "attribute_code", "id", "entity_type_id", "options", "default_value", "is_user_defined", "frontend_label", "attribute_id", "default_frontend_label", "is_visible_on_front", "is_visible", "is_comparable" ]
+        "includeFields": [ "attribute_code", "id", "entity_type_id", "options", "default_value", "is_user_defined", "frontend_label", "attribute_id", "default_frontend_label", "is_visible_on_front", "is_visible", "is_comparable" ],
+        "loadByAttributeMetadata": true
       },
       "productList": {
         "sort": "",

@@ -8,6 +8,7 @@ import { getIndexName } from '../mapping'
 import { getCurrentPlatformConfig } from '../../../../platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { aggregationsToAttributes } from '../attribute/aggregations'
 
 const resolver = {
   Query: {
@@ -131,6 +132,7 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
     response.items.push(item)
   });
 
+  response = await aggregationsToAttributes(response, config, esIndex)
   response.total_count = response.hits.total
 
   // Process sort

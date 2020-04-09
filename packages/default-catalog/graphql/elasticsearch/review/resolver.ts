@@ -3,12 +3,14 @@ import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { aggregationsToAttributes } from '../attribute/aggregations'
 
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceIncludes, _sourceExcludes }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
-  const response = getResponseObject(await client.search(adjustQuery({
-    index: getIndexName(context.req.url),
+  const esIndex = getIndexName(context.req.url)
+  let response = getResponseObject(await client.search(adjustQuery({
+    index: esIndex,
     body: query,
     _source_includes: _sourceIncludes,
     _source_excludes: _sourceExcludes
@@ -22,6 +24,7 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
     response.items.push(item)
   });
 
+  response = await aggregationsToAttributes(response, config, esIndex)
   response.total_count = response.hits.total
 
   // Process sort
