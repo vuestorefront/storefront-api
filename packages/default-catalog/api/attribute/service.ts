@@ -59,7 +59,7 @@ async function setAttributeInCache (attributeList, config) {
   if (config.server.useOutputCache && cache) {
     try {
       await Promise.all(
-        attributeList.map(attribute => (cache as TagCache).set(
+        attributeList.map(attribute => cache.set(
           'api:attribute-list' + attribute.attribute_code,
           attribute
         ))
