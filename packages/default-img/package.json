@@ -24,7 +24,7 @@
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
     "@storefront-api/lib": "1.0.0-rc2",
-    "bodybuilder": "2.2.13",
+    "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
     "graphql": "^14.5.8",
     "js-sha3": "^0.8.0",

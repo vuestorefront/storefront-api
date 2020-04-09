@@ -25,7 +25,7 @@
   "dependencies": {
     "@storefront-api/lib": "1.0.0-rc2",
     "@storefront-api/platform-abstract": "1.0.0-rc2",
-    "bodybuilder": "2.2.13",
+    "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
     "typescript": "3.7.*",
     "magento2-rest-client": "github:DivanteLtd/magento2-rest-client"

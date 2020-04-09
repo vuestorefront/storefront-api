@@ -73,7 +73,7 @@
     "@storefront-api/core": "1.0.0-rc2",
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.4.0",
-    "bodybuilder": "2.2.13",
+    "bodybuilder": "^2.2.21",
     "cli-color": "^2.0.0",
     "commander": "^2.19.0",
     "compression": "^1.7.2",
@@ -115,7 +115,7 @@
     "typescript": "3.7.*",
     "vuepress": "^1.2.0",
     "winston": "^3.2.0",
-    "storefront-query-builder": "^0.0.9"
+    "storefront-query-builder": "^1.0.0"
   },
   "devDependencies": {
     "@types/cli-color": "^0.3.30",
