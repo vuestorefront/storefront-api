@@ -43,7 +43,7 @@ const buildQuery = ({ value, config }) => {
 }
 
 const buildIndex = ({ indexName, config }) => {
-  return parseInt(config.elasticsearch.apiVersion) < 6
+  return semver.major(semver.coerce(config.elasticsearch.apiVersion)) < 6
     ? indexName
     : get(config, 'urlModule.map.searchedEntities', [])
       .map(entity => `${indexName}_${entity}`)
