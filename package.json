@@ -1,7 +1,7 @@
 {
   "name": "storefront-api",
   "version": "1.0.0-rc.2",
-  "private": false,
+  "private": true,
   "description": "Storefront GraphQL API",
   "main": "dist",
   "engineStrict": true,
