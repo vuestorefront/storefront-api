@@ -14,7 +14,7 @@ export interface Action {
   getImageURL(): string,
   whitelistDomain: string[],
   validateMIMEType(): void,
-  prossesImage(): void,
+  processImage(): void,
   isImageSourceHostAllowed(),
   _isUrlWhitelisted(url: string, whitelistType: string, defaultValue: any, whitelist: string[]),
   isValidFor?(string): boolean
