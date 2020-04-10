@@ -115,7 +115,7 @@ There is no required module structure, however typically the modules consist the
 
 All the infrastructure is there. You might want to check how [default-catalog](https://github.com/DivanteLtd/storefront-api/blob/a66222768bf7fb5f54acf268b6a0bb4e0f94a4cf/src/modules/default-catalog/graphql/elasticsearch/product/resolver.js#L94) is querying the data. However, this example is pretty much complicated as it's using the special Query adapters for advanced filtering.
 
-The simplest example was presented in the [`template-module`](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/template-module/graphql/hello/resolver.js):
+The simplest example was presented in the [`template-module`](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/template-module/graphql/hello/resolver.ts):
 
 ```js
     testElastic: async (_, { sku }, context, rootValue) => {
