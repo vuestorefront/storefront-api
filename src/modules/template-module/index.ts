@@ -1,12 +1,11 @@
-import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
-import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from 'src/lib/module/types'
+import { StorefrontApiModule, registerExtensions } from '@storefront-api/lib/module'
+import { StorefrontApiContext, GraphqlConfiguration, ElasticSearchMappings } from '@storefront-api/lib/module/types'
 import { Router } from 'express'
 import resolvers from './graphql/resolvers'
 import schema from './graphql/schema'
-
 import path from 'path'
 import version from './api/version'
-import { loadSchema } from 'src/lib/elastic'
+import { loadSchema } from '@storefront-api/lib/elastic'
 
 export const TemplateModule: StorefrontApiModule = new StorefrontApiModule({
   key: 'template-module',

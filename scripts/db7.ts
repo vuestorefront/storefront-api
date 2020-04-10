@@ -2,8 +2,8 @@ import enabledModules from '../src/modules'
 const program = require('commander')
 const config = require('config')
 const common = require('../migrations/.common')
-const es = require('../src/lib/elastic')
-const { aggregateElasticSearchSchema } = require('../src/lib/module/index')
+const es = require('../packages/lib/elastic')
+const { aggregateElasticSearchSchema } = require('../packages/lib/module/index')
 const aggregatedSchema = aggregateElasticSearchSchema(enabledModules, { config })
 
 program

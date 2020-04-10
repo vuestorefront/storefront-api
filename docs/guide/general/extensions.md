@@ -12,7 +12,7 @@ To add an API extension to `storefront-api`:
 2. Then add the `index.js` file and put the API method code inside. We're using Express.js. Here is a boilerplate/example for the extension code:
 
 ```js
-import { apiStatus } from 'src/lib/util';
+import { apiStatus } from '@storefront-api/lib/util';
 import { Router } from 'express';
 
 module.exports = ({ config, db }) => {
@@ -24,7 +24,7 @@ module.exports = ({ config, db }) => {
   mcApi.post('/subscribe', (req, res) => {
     let userData = req.body;
     if (!userData.email) {
-      apiStatus(res, 'Invalid e-mail provided!', 500);
+      apiStatus(res, 'Invalid e-mail provided!', 400);
       return;
     }
 
@@ -59,7 +59,7 @@ module.exports = ({ config, db }) => {
   mcApi.delete('/subscribe', (req, res) => {
     let userData = req.body;
     if (!userData.email) {
-      apiStatus(res, 'Invalid e-mail provided!', 500);
+      apiStatus(res, 'Invalid e-mail provided!', 400);
       return;
     }
 

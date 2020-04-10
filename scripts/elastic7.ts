@@ -3,8 +3,9 @@ import enabledModules from '../src/modules'
 const program = require('commander')
 const config = require('config')
 const spawnSync = require('child_process').spawnSync
-const { aggregateElasticSearchSchema } = require('../src/lib/module/index')
+const { aggregateElasticSearchSchema } = require('../packages/lib/module/index')
 const aggregatedSchema = aggregateElasticSearchSchema(enabledModules, { config })
+const fs = require('fs')
 
 function stdOutErr (stdout, stderr) {
   if (stdout.length > 0) { console.log(stdout.toString('utf8')) }
@@ -47,6 +48,11 @@ program
 
       const output = `http://${config.elasticsearch.host}:${config.elasticsearch.port}/${outputIndex}`
 
+      if (!fs.existsSync(inputFile)) {
+        console.log(`inputFile does not exists; ${inputFile}`)
+        continue;
+      }
+
       const child = spawnSync('node', [
         'node_modules/elasticdump/bin/elasticdump',
         `--input=${inputFile}`,
@@ -54,6 +60,8 @@ program
       ])
       stdOutErr(child.stdout, child.stderr)
     }
+    console.log('Finished restore.')
+    process.exit(0)
   })
 
 program

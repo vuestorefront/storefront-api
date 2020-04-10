@@ -26,6 +26,26 @@ jobs:
       - name: yarn build
         run: |
           yarn build
+          yarn prebuild:packages
         env:
           CI: true
-
+      - name: yarn unit test
+        run: |
+          yarn test:unit
+        env:
+          CI: true
+      - name: Start Elasticsearch and Redis
+        run: |
+          docker-compose up -d redis es7
+        env:
+          CI: true
+      - name: Restore main Index for testing
+        run: |
+          yarn restore7
+        env:
+          CI: true
+      - name: yarn integration test
+        run: |
+          yarn test:integration
+        env:
+          CI: true

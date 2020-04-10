@@ -1,0 +1,244 @@
+ # DateTime - string representation of the date time
+scalar DateTime
+
+extend type Query {
+
+  # List categories based on search full text query or structure filter 
+  categories (
+    # Full text search phrase
+    search: String
+    
+    # An array of categories that match the specified search criteria
+    filter: CategoryFilterInput
+    
+    # Specifies the maximum number of results to return at once. This attribute is optional.
+    pageSize: Int = 20
+    
+    # Specifies which page of results to return. The default value is 1.
+    currentPage: Int = 1
+
+    # Specifies which attribute to sort on, and whether to return the results in ascending or descending order.
+    sort: CategorySortInput 
+
+    # Specifies which attribute we include in result.
+    _sourceIncludes: [String] 
+
+    # Specifies which attribute we exclude in result.
+    _sourceExcludes: [String] 
+    ): Categories 
+
+    # Find single category by id ir url_path
+    category (
+        
+        # Get Single category by it's SKU
+        id: ID 
+
+        # Get Single category by it's url_path
+        url_path: String 
+
+        # Specifies which attribute we include in result.
+        _sourceIncludes: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExcludes: [String] 
+        ): Category 
+}
+
+# The Categories object is the top-level object returned in a category search
+type Categories implements ESResponseInterface {
+
+    # An array of categories that match the specified search criteria
+    items: [Category] 
+
+    # An object that includes the page_info and currentPage values specified in the query
+    page_info: SearchResultPageInfo 
+
+    # The number of categories returned
+    total_count: Int 
+
+    # Document returned by this search query hits
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+
+    # Aggregations returned when filter have been applied
+    aggregations: JSON 
+}
+
+# Category object - categories group products and can contain children categories  as well
+type Category {
+
+    # An ID that uniquely identifies the category
+    id: ID 
+
+    # An ID that uniquely identifies the parent category
+    parent_id: ID
+
+    # An optional description of the category
+    description: String 
+
+    # The display name of the category
+    name: String 
+
+    # Is active category
+    is_active: Boolean 
+
+    # Category Path
+    path: String 
+
+    # Category path in store
+    path_in_store: String 
+
+    # The url key assigned to the category
+    url_key: String 
+
+    # The url path assigned to the category
+    url_path: String 
+
+    # The position of the category relative to other categories at the same level in tree
+    position: Int 
+
+    # Indicates the depth of the category within the tree
+    level: Int 
+
+    # Timestamp indicating when the category was created
+    created_at: DateTime
+
+    # Timestamp indicating when the category was updated 
+    updated_at: DateTime
+
+    # The number of products in the category
+    product_count: Int
+
+    # The attribute to use for sorting
+    default_sort_by: String 
+
+    # Children category data
+    children_data: [Category] 
+
+    # Children category data
+    children: [Category]
+
+    # Category children count 
+    children_count: Int 
+
+    # Available sorting option for category
+    available_sort_by: [String] 
+
+    # Include category to navigation menu
+    include_in_menu: Boolean
+
+    # Category display mode
+    display_mode: String 
+
+    # Is filter avalaible in category
+    is_anchor: Boolean 
+
+    # Category page layout
+    page_layout: String 
+
+    # Get the products assigned to this category
+    products (
+        # Identifies which product attributes to search for and return.
+        filter: ProductFilterInput 
+
+        # Performs a full-text search using the specified key words.
+        search: String 
+
+        # Specifies the maximum number of results to return at once. This attribute is optional.
+        pageSize: Int = 20 
+
+        # Specifies which page of results to return. The default value is 1.
+        currentPage: Int = 1 
+
+        # Specifies which attribute to sort on, and whether to return the results in ascending or descending order.
+        sort: ProductSortInput 
+
+        # Specifies which attribute we include in result.
+        _sourceIncludes: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExcludes: [String] 
+        ): Products 
+}
+
+# ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input CategoryFilterInput  {
+
+    # An ID that uniquely identifies the category
+    id: FilterTypeInput 
+
+     # An ID that uniquely identifies the parent category
+    parent_id: FilterTypeInput
+
+    # Is active category
+    is_active: FilterTypeInput 
+
+    # The url key assigned to the category
+    url_key: FilterTypeInput 
+
+    # The url path assigned to the category
+    url_path: FilterTypeInput 
+
+    # The position of the category relative to other categories at the same level in tree
+    position: FilterTypeInput 
+
+    # Indicates the depth of the category within the tree
+    level: FilterTypeInput 
+
+    # Timestamp indicating when the category was created
+    created_at: FilterTypeInput 
+
+    # Timestamp indicating when the category was updated
+    updated_at: FilterTypeInput 
+
+    # The number of products in the category
+    product_count: FilterTypeInput 
+    
+    # Children category data
+    children_data: CategoryFilterInput 
+
+    # Category children count
+    children_count: FilterTypeInput 
+
+    # Include category to navigation menu
+    include_in_menu: FilterTypeInput 
+}
+
+# Defines the sort order for the categories listing
+input CategorySortInput {
+
+    # An ID that uniquely identifies the category
+    id: SortEnum 
+
+    # An ID that uniquely identifies the parent category
+    parent_id: SortEnum 
+
+    # Is active category
+    is_active: SortEnum 
+
+    # The url key assigned to the category
+    url_key: SortEnum 
+
+    # The url path assigned to the category
+    url_path: SortEnum 
+
+    # The position of the category relative to other categories at the same level in tree
+    position: SortEnum 
+
+    # Indicates the depth of the category within the tree
+    level: SortEnum 
+
+    # Timestamp indicating when the category was created
+    created_at: SortEnum 
+
+    # Timestamp indicating when the category was updated
+    updated_at: SortEnum 
+
+    # The number of products in the category
+    product_count: SortEnum 
+
+    # Include category to navigation menu
+    include_in_menu: SortEnum 
+}

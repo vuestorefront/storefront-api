@@ -2,7 +2,7 @@
   "verbose": true,
   "debug": false,
   "exec": "yarn lint-gql && ts-node src",
-  "watch": ["./src"],
+  "watch": ["./src", "./packages"],
   "ext": "ts, js, graphqls",
   "inspect": true
 }

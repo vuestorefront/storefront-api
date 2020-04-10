@@ -1,0 +1,883 @@
+scalar JSON
+
+# The Products object is the top-level object returned in a product search
+type Products implements ESResponseInterface  {
+    
+    # An array of products that match the specified search criteria
+    items: [Product] 
+
+    # An object that includes the page_info and currentPage values specified in the query
+    page_info: SearchResultPageInfo 
+
+    # The number of products returned
+    total_count: TotalCountInfo 
+
+    # Layered navigation filters array as aggregations
+    aggregations: JSON 
+
+    # Transformed aggregations into attributes - you need to allow 'config.entities.attribute.loadByAttributeMetadata'
+    attribute_metadata: [Attribute]
+
+    # An object that includes the default sort field and all available sort fields
+    sort_fields: SortFields 
+
+    # Document returned by this search query hits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+}
+
+extend type Query {
+    # List products based on search full text query or structure filter
+    products (
+
+        # Performs a full-text search using the specified key words.,
+        search: String 
+        
+        # Identifies which product attributes to search for and return.,
+        filter: ProductFilterInput 
+
+        # Specifies the maximum number of results to return at once. This attribute is optional.,
+        pageSize: Int = 20
+
+        # Specifies which page of results to return. The default value is 1.,
+        currentPage: Int = 1 
+
+        # Specifies which attribute to sort on, and whether to return the results in ascending or descending order.,
+        sort: ProductSortInput 
+
+        # Specifies which attribute we include in result.
+        _sourceIncludes: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExcludes: [String] 
+        ): Products
+    
+    # List single product by sku, id or url_path
+    product ( 
+        
+        # Get Single product by it's SKU
+        sku: String 
+
+        # Get Single product by it's ID
+        id: ID 
+
+        # Get Single product by it's url_path
+        url_path: String 
+
+        # Specifies which attribute we include in result.
+        _sourceIncludes: [String] 
+
+        # Specifies which attribute we exclude in result.        
+        _sourceExcludes: [String] 
+        ): Product 
+}
+
+# Elastic7 inspired total count info
+type TotalCountInfo {
+    
+    # Total count value
+    value: Int
+
+    # Relatiopn - eq, gt, lt
+    relation: String
+}
+
+# SearchResultPageInfo provides navigation for the query response 
+type SearchResultPageInfo {
+    
+    # Specifies the maximum number of items to return
+    page_size: Int 
+
+     # Specifies which page of results to return
+    current_page: Int
+}
+
+# FilterTypeInput specifies which action will be performed in a query
+input FilterTypeInput {
+
+    # Equals
+    eq: JSON 
+
+    # Find in set. The value can contain a set of comma-separated values
+    finset: [String] 
+
+    # From. Must be used with 'to'
+    from: String 
+
+    # Greater than
+    gt: String 
+
+    # Greater than or equal to
+    gte: String 
+
+    # Greater than or equal to
+    gteq: String 
+
+    # In. The value can contain a set of comma-separated values
+    in: [JSON] 
+
+     # Like. The specified value can contain % (percent signs) to allow matching of 0 or more characters
+    like: String
+
+    # Less than
+    lt: String 
+
+    # Less than or equal to
+    lte: String 
+
+    # Less than or equal to
+    lteq: String 
+
+    # More than or equal to
+    moreq: String 
+
+    # Not equal to
+    neq: JSON 
+
+    # Not null
+    notnull: String 
+
+    # Is null
+    null: String 
+
+    # To. Must be used with 'from'
+    to: String
+
+    # Not in. The value can contain a set of comma-separated values
+    nin: [String] 
+
+    # describe the filter scope (default | catalog)
+    scope: [String] 
+}
+
+# Indicates the sort direction for the product listings
+input ProductSortInput {
+
+    # The product name. Customers use this name to identify the product.
+    name: SortEnum 
+
+    # A number or code assigned to a product to identify the product, options, price, and manufacturer
+    sku: SortEnum 
+
+    # Detailed information about the product. The value can include simple HTML tags.
+    description: SortEnum 
+
+    # A short description of the product. Its use depends on the theme.
+    short_description: SortEnum 
+
+    # The price of the item
+    price: SortEnum 
+    
+    # The price of the item
+    final_price: SortEnum 
+
+    # The discounted price of the product
+    special_price: SortEnum 
+
+    # The beginning date that a product has a special price
+    special_from_date: SortEnum 
+
+    # The end date that a product has a special price
+    special_to_date: SortEnum 
+
+    # The weight of the item, in units defined by the store
+    weight: SortEnum 
+
+    # A number representing the product's manufacturer
+    manufacturer: SortEnum 
+
+    # A string that is displayed in the title bar and tab of the browser and in search results lists
+    meta_title: SortEnum 
+
+    # A comma-separated list of keywords that are visible only to search engines
+    meta_keyword: SortEnum 
+
+    # A brief overview of the product for search results listings, maximum 255 characters
+    meta_description: SortEnum 
+
+    # The relative path to the main image on the product page
+    image: SortEnum 
+
+    # The relative path to the small image, which is used on catalog pages
+    small_image: SortEnum 
+
+    # The relative path to the product's thumbnail image
+    thumbnail: SortEnum 
+
+    # The price when tier pricing is in effect and the items purchased threshold has been reached
+    tier_price: SortEnum 
+
+    # The beginning date for new product listings, and determines if the product is featured as a new product
+    news_from_date: SortEnum 
+
+    # The end date for new product listings
+    news_to_date: SortEnum 
+
+    # XML code that is applied as a layout update to the product page
+    custom_layout_update: SortEnum 
+
+    # If the product has multiple options, determines where they appear on the product page
+    options_container: SortEnum 
+
+    # Indicates whether the product has required options
+    required_options: SortEnum
+
+    # Indicates whether additional attributes have been created for the product
+    has_options: SortEnum 
+
+    # The label assigned to a product image
+    image_label: SortEnum 
+
+    # The label assigned to a product's small image
+    small_image_label: SortEnum 
+
+    # The label assigned to a product's thumbnail image
+    thumbnail_label: SortEnum 
+
+    # Timestamp indicating when the product was created
+    created_at: SortEnum 
+
+    # Timestamp indicating when the product was updated
+    updated_at: SortEnum 
+
+    # The product's country of origin
+    country_of_manufacture: SortEnum 
+
+    # The name of a custom layout
+    custom_layout: SortEnum 
+
+    # Indicates whether a gift message is available
+    gift_message_available: SortEnum 
+}
+
+# The Product entity
+type Product  {
+
+    # The product id
+    id: Int 
+
+    # The product type - simple, configurable, virtual, downloadable, grouped    
+    type_id: String 
+
+    # The product visibility. Customers use this visibility to identify the product.
+    visibility: Int 
+
+    # The product status. Customers use this status to identify the product.
+    status: Int  
+
+    # The product name. Customers use this name to identify the product.
+    name: String
+
+    # A number or code assigned to a product to identify the product, options, price, and manufacturer 
+    sku: String 
+     
+     # Detailed information about the product. The value can include simple HTML tags.
+    description: String
+
+    # A short description of the product. Its use depends on the theme.   
+    short_description: String 
+
+    # The price of an item
+    price: Float
+
+    # The price of an item
+    price_incl_tax: Float 
+
+    # The price of an item
+    price_tax: Float 
+
+    # The final price of an item
+    final_price: Float 
+
+    # The price of an item
+    final_price_incl_tax: Float 
+
+    # The price of an item
+    final_price_tax: Float 
+
+    # The price of an item
+    original_price: Float 
+
+    # The price of an item
+    original_price_incl_tax: Float 
+
+    # The price of an item
+    original_price_tax: Float 
+
+    # The numeric minimal price of the product. Do not include the currency code.
+    min_price: Float 
+
+    # The numeric maximal price of the product. Do not include the currency code.
+    max_price: Float 
+
+    # The discounted price of the product
+    special_price: Float 
+
+    # The discounted price of the product
+    special_price_incl_tax: Float 
+
+    # The discounted price of the product
+    special_price_tax: Float 
+
+    # The beginning date that a product has a special price
+    special_from_date: String 
+
+    # The end date that a product has a special price
+    special_to_date: String 
+
+    # The weight of the item, in units defined by the store
+    weight: Float 
+
+    # A number representing the product's manufacturer
+    manufacturer: String
+
+    # A string that is displayed in the title bar and tab of the browser and in search results lists 
+    meta_title: String 
+
+    # A comma-separated list of keywords that are visible only to search engines
+    meta_keyword: String 
+
+    # A brief overview of the product for search results listings, maximum 255 characters
+    meta_description: String 
+
+    # The relative path to the main image on the product page
+    image: String 
+
+    # The relative path to the small image, which is used on catalog pages
+    small_image: String 
+
+     # The relative path to the product's thumbnail image
+    thumbnail: String
+
+    # The price when tier pricing is in effect and the items purchased threshold has been reached
+    tier_price: Float 
+
+    # Product tier prices
+    tier_prices: [ProductTierPrice] 
+
+    # The beginning date for new product listings, and determines if the product is featured as a new product
+    news_from_date: String 
+
+     # The end date for new product listings
+    news_to_date: String
+
+    # Indicates whether the product has required options
+    required_options: Boolean 
+
+    # Indicates whether additional attributes have been created for the product
+    has_options: Boolean
+
+    # The label assigned to a product image 
+    image_label: String 
+
+    # The label assigned to a product's small image
+    small_image_label: String 
+
+    # The label assigned to a product's thumbnail image
+    thumbnail_label: String 
+
+    # The product's country of origin
+    country_of_manufacture: String 
+
+    # Indicates whether a gift message is available
+    gift_message_available: Boolean 
+
+    # Timestamp indicating when the product was created
+    created_at: String 
+
+    # Timestamp indicating when the product was updated
+    updated_at: String 
+
+    # The product size. Customers use this size to identify the product.
+    size: String 
+
+    # The product sizes for all configurable_children variants. Customers use this size to identify the product.
+    size_options: [String] 
+
+     # The product color. Customers use this color to identify the product.
+    color: String
+
+    # The product colors for all configurable_children variants. Customers use this color to identify the product.
+    color_options: [String] 
+
+    # Category ID the product belongs to    
+    category_ids: [String] 
+
+    # The product categories. It executes additional query to fetch full category objects
+    categories: [Category] 
+    
+    # The product categories. This is just a simplified object with no structure
+    category: [CategoryBinding] 
+
+    # Configurable product childrens
+    configurable_children: [Product] 
+    
+    # The product stock. Customers use this stock to identify the product.
+    stock: StockItem 
+
+    # Is product in stock
+    is_in_stock: Boolean 
+
+    # keyword filter input
+    keyword: String 
+
+    # Media items assigned to this specific product
+    media_gallery: [MediaGalleryItem] 
+
+    # Configurable attributes for this product
+    configurable_options: [ConfigurableOption] 
+
+    # Custom options for this product
+    custom_options: [CustomOption] 
+
+    # Bundle options for this product
+    bundle_options: [BundleOption] 
+
+    # TODO: Product links (related, crosselss, upsells)
+    #links: [ProductLinks] 
+
+    # Get the product reviews
+    reviews (
+
+        # Performs a full-text search using the specified key words.,
+        search: String 
+
+        # An array of categories that match the specified search criteria,
+        filter: ReviewFilterInput 
+
+        # Specifies the maximum number of results to return at once. This attribute is optional.,
+        pageSize: Int = 20 
+
+        # Specifies which page of results to return. The default value is 1.,
+        currentPage: Int = 1 
+
+        # Specifies which attribute we include in result.
+        _sourceIncludes: [String] 
+
+        # Specifies which attribute we exclude in result.
+        _sourceExcludes: [String] 
+        ): Reviews 
+}
+
+# One single option value for specific custom option
+type CustomOptionValue 
+{
+    # Price for this custom option
+    price: Float 
+
+    # Price modifier: fixed means it changes the whole product price, percent - is a percentage change from the base price
+    price_type: String 
+
+    # Option type
+    option_type_id: ID 
+
+    # Option title
+    title: String 
+
+    # Sorting order
+    sort_order: Int 
+}
+
+# A single product custom option that can be configured before putting the product into the cart 
+type CustomOption {
+    
+    # If the custom option is an image - this is the width
+    image_size_x: Int 
+
+    # If the custom option is an image - this is the height
+    image_size_y: Int 
+
+    # Maximum length if the custom option is a text
+    max_characters: Int 
+
+    # Available values for this custom option
+    values: [CustomOptionValue] 
+
+    # Option identifier
+    option_id: ID 
+
+    # Is this option required
+    is_require: Boolean 
+
+    # Option title
+    title: String
+
+    # Option type - text, drop_down, field, checkbox, radio 
+    type: String 
+}
+
+# A single option defined for bundle products
+type BundleOption  {
+    
+    # Option identifier
+    option_id: Int 
+
+    # Option position
+    position: Int 
+
+    # Option name
+    title: String
+
+    # Option type - radio, text ... 
+    type: String
+
+    # Product assigned with this option 
+    sku: String 
+    
+    # If this option is required
+    required: Boolean 
+
+    # Link to the simple products assigned with this option
+    product_links: [BundleOptionLink] 
+}
+
+ # Link to the product
+type BundleOptionLink {
+
+    # Price of this sub-product
+    price: Float 
+
+    # The default quantity of this product in the bundle
+    qty: Float 
+
+    # If user may change the quantity
+    can_change_quantity: Boolean
+
+    # Option identifier to which this link is related to
+    option_id: Int
+
+    # Unique product link identifier
+    id: Int 
+
+    # Product assigned with this option
+    sku: String 
+
+    # Product related to this bundle link
+    product: Product 
+
+    # Product position
+    position: Int 
+}
+
+# One single option available for given cofigurable option
+type ConfigurableOptionValue  {
+
+    # Incremental value index
+    value_index: Int 
+
+    # Option label
+    label: String 
+}
+
+# Product configurable option used for the cofnigurable products
+type ConfigurableOption  {
+
+    # Configurable option id
+    id: ID 
+
+    # Attribute id from the attribute collection
+    attribute_id: ID 
+
+    # Attribute code from the attribute collection
+    attribute_code: String 
+
+    # Configurable option name - Size, Color ...
+    label: String 
+
+    # Configurable option position on the product page
+    position: Int 
+
+    # Available configurable options
+    values: [ConfigurableOptionValue] 
+
+    # Product Id this option is assigned to
+    product_id: ID 
+}
+
+ # The ProductTierPrice object defines a tier price, which is a quantity discount offered to a specific customer group.
+type ProductTierPrice {
+    
+    # The ID of the customer group.
+    customer_group_id: String 
+
+    # The number of items that must be purchased to qualify for tier pricing.
+    qty: Float
+
+    # The price of the fixed price item.
+    value: Float 
+
+    # The percentage discount of the item.
+    percentage_value: Float
+
+    # The ID assigned to the website.
+    website_id: Float 
+}
+
+
+# Contains basic information about a product image or video.
+type MediaGalleryItem {
+
+    # The relative URL of the product image or video.
+    image: String 
+
+    # Position in the gallery
+    pos: Int 
+
+    # Media type @deprecated(reason: "Use `type` instead
+    typ: String 
+
+    # Media type
+    type: String
+
+    # The URL of the product image or video. 
+    url: String 
+
+    # Media label @deprecated(reason: "Use `label` instead
+    lab: String 
+
+    # The label of the product image or video.
+    label: String 
+
+    # The Video data. @deprecated(reason: "Use `video` instead
+    vid: JSON 
+
+     # The Video data.
+    video: JSON
+}
+
+# Stock item assigned to the product
+type StockItem {
+
+    # Stock item id
+    item_id: ID 
+
+    # Product identifier
+    product_id: ID 
+
+    # Stock id
+    stock_id: ID 
+
+     # Stock quantity
+    qty: Float
+    
+    # Is item on stock
+    is_in_stock: Boolean 
+
+    # Is quantity decimal
+    is_qty_decimal: Boolean 
+
+    # Min sale quantity
+    min_qty: Float 
+
+    # Max sale quantity
+    max_sale_qty: Float 
+
+    # Does this item support backorders
+    backorders: Int 
+
+    # How quantity increments
+    qty_increments: Float 
+}
+
+# StockFilterInput defines the filters to be used in the search for a product. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input StockFilterInput  {
+
+    # Is product in stock
+    is_in_stock: FilterTypeInput 
+
+    # Product quantity
+    qty: FilterTypeInput 
+}
+
+# CategoryBindingFilterInput defines the filters to be used in the search for a product. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input CategoryBindingFilterInput  {
+
+    # Category id
+    category_id: FilterTypeInput
+    
+    # Category name
+    name: FilterTypeInput
+}
+
+# ProductFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input ProductFilterInput  {
+
+    # The id - an unique product identifier
+    id: FilterTypeInput 
+
+    # The product name. Customers use this name to identify the product.
+    name: FilterTypeInput
+
+    # A number or code assigned to a product to identify the product, options, price, and manufacturer. 
+    sku: FilterTypeInput 
+    
+    # Detailed information about the product. The value can include simple HTML tags.
+    description: FilterTypeInput 
+
+    # A short description of the product. Its use depends on the theme.
+    short_description: FilterTypeInput 
+
+     # The price of an item.
+    price: FilterTypeInput
+
+    # The discounted price of the product. Do not include the currency code.
+    special_price: FilterTypeInput 
+
+    # The beginning date that a product has a special price.
+    special_from_date: FilterTypeInput 
+
+    # The end date that a product has a special price.
+    special_to_date: FilterTypeInput 
+
+    # The weight of the item, in units defined by the store.
+    weight: FilterTypeInput 
+
+    # The category this product belongs to
+    category: CategoryBindingFilterInput 
+
+    # A number representing the product's manufacturer.
+    manufacturer: FilterTypeInput 
+
+    # A string that is displayed in the title bar and tab of the browser and in search results lists.
+    meta_title: FilterTypeInput 
+
+    # A comma-separated list of keywords that are visible only to search engines.
+    meta_keyword: FilterTypeInput 
+
+     # A brief overview of the product for search results listings, maximum 255 characters.
+    meta_description: FilterTypeInput
+
+    # The relative path to the main image on the product page.
+    image: FilterTypeInput 
+
+    # The relative path to the small image, which is used on catalog pages.
+    small_image: FilterTypeInput 
+
+    # The relative path to the product's thumbnail image.
+    thumbnail: FilterTypeInput 
+
+    # The price when tier pricing is in effect and the items purchased threshold has been reached.
+    tier_price: FilterTypeInput 
+
+    # The beginning date for new product listings, and determines if the product is featured as a new product.
+    news_from_date: FilterTypeInput 
+
+    # The end date for new product listings.
+    news_to_date: FilterTypeInput 
+
+    # XML code that is applied as a layout update to the product page.
+    custom_layout_update: FilterTypeInput 
+
+    # The numeric minimal price of the product. Do not include the currency code.
+    min_price: FilterTypeInput 
+    
+    # The numeric maximal price of the product. Do not include the currency code.
+    max_price: FilterTypeInput 
+
+    # Category ID the product belongs to.
+    category_ids: FilterTypeInput
+
+    # If the product has multiple options, determines where they appear on the product page.
+    options_container: FilterTypeInput
+
+    # Indicates whether the product has required options. 
+    required_options: FilterTypeInput 
+
+    # Indicates whether additional attributes have been created for the product.
+    has_options: FilterTypeInput 
+
+    # The label assigned to a product image.
+    image_label: FilterTypeInput 
+
+    # The label assigned to a product's small image.
+    small_image_label: FilterTypeInput 
+
+    # The label assigned to a product's thumbnail image.
+    thumbnail_label: FilterTypeInput 
+
+    # Timestamp indicating when the product was created.
+    created_at: FilterTypeInput 
+
+    # Timestamp indicating when the product was updated.
+    updated_at: FilterTypeInput 
+    
+    # The product's country of origin.
+    country_of_manufacture: FilterTypeInput 
+
+    # The name of a custom layout.
+    custom_layout: FilterTypeInput 
+
+    # Indicates whether a gift message is available.
+    gift_message_available: FilterTypeInput 
+
+    # The product visibility. Customers use this visibility to identify the product.
+    visibility: FilterTypeInput 
+
+    # The product type - simple, configurable, virtual, downloadable, grouped
+    type_id: FilterTypeInput
+
+    # Is product in stock
+    is_in_stock: FilterTypeInput 
+
+    # Product stock information
+    stock: StockFilterInput 
+
+    # Product status information
+    status: FilterTypeInput 
+
+    # The product size. Customers use this size to identify the product.
+    size: FilterTypeInput 
+
+    # The product sizes for all configurable_children variants. Customers use this size to identify the product.
+    size_options: FilterTypeInput 
+
+    # The product color. Customers use this color to identify the product.
+    color: FilterTypeInput 
+
+    # The product colors for all configurable_children variants. Customers use this color to identify the product.    
+    color_options: FilterTypeInput 
+
+    # The keyword required to perform a logical OR comparison.
+    or: ProductFilterInput 
+}
+
+# CategoryBinding defines the category anchor which product is bound to
+type CategoryBinding  {
+    # Category identifier
+    category_id: ID 
+
+    # Category name
+    name: String 
+
+    # Category unique slug
+    slug: ID 
+
+    # Category url path
+    path: ID 
+}
+
+# A field on which we can sort the items
+type SortField {
+    # Attribute code of sort field
+    value: String 
+
+    # Label of sort field
+    label: String 
+}
+
+# SortFields contains a default value for sort fields and all available sort fields
+type SortFields {
+    
+    # Default value of sort fields
+    default: String 
+
+     # Available sort fields
+    options: [SortField]
+}
+
+enum SortEnum {
+    ASC
+    DESC
+}

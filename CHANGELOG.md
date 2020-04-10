@@ -4,7 +4,55 @@ All notable changes to this project will be documented in this file.
 The format base on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0] -  The New Beginning as Storefront API
+## [1.0-rc.2] -  2020.04.10
+
+### Added
+
+- Create attribute service that allows to fetch attributes with specific options - used for products aggregates - @gibkigonzo (https://github.com/DivanteLtd/vue-storefront/pull/4001, https://github.com/DivanteLtd/mage2vuestorefront/pull/99)
+- Add `resetPasswordUsingResetToken` to `magento1` platform - @cewald (#415)
+- Fix MSI default stock id value - @Inicorena (#417)
+- Add product processor to new URL mapper endpoint #401 - @cewald (#401, #403)
+- Add ElasticSearch client support for HTTP authentication - @cewald (#397)
+- Support for `save_in_addressbook` added - @lucasqm (#394)
+- Magento2 / Create password endpoint - @fifciu (#366)
+- API and Platform comments for all the REST endpoints added with the links to the official docs - @pkarw
+- Added global logger which you can change the instance of to use every logger you want to use - @resubaka (#24)
+- Added better typescript annotation/new types - @resubaka (#24)
+- Added that graphql resolver are loaded with js or ts ending - @resubaka (#24)
+- The lib folder is moved to a package - @resubaka (#30)
+- Added hooks implementation from vue-storefront as a package - @resubaka (#30)
+- Added the integration tests - @resubaka (#35)
+- Add url module - @gibkigonzo (#3942)
+- Add fallback for `sourcePriceInclTax` and `finalPriceInclTax` in `magento1` platform - @cewald (#398)
+- moved server logic into packages/core @resubaka (#47)
+- Update to `storefront-query-builder` version `1.0.0` - @cewald (#51, #52, #53)
+- Add error handling for catalog and add header 'X-VS-Cache-Tags' to response - @gibkigonzo
+
+### Changed / Improved
+
+- The `response_format` query parameter to the `/api/catalog` endpoint. Currently there is just one additional format supported: `response_format=compact`. When used, the response format got optimized by: a) remapping the results, removing the `_source` from the `hits.hits`; b) compressing the JSON fields names according to the `config.products.fieldsToCompact`; c) removing the JSON fields from the `product.configurable_children` when their values === parent product values; overall response size reduced over -70% - @pkarw
+- The support for `SearchQuery` instead of the ElasticSearch DSL as for the input to `/api/catalog` - using `storefront-query-builder` package - @pkarw - https://github.com/DivanteLtd/vue-storefront/issues/2167
+- updated yarn.lock to remove a lot possible vulnerabilities - @resubaka - https://github.com/DivanteLtd/storefront-api/pull/55
+
+### Fixed
+
+- Taxcalc backport - special_prices (https://github.com/DivanteLtd/vue-storefront-api/pull/380) - @resubaka
+- Check message property instead of errorMessage in apiError function - @cdshotels-liborpansky (#378)
+- Replaced the old `crop` function call which has been removed from Sharp image processor - @grimasod (#381)
+- Fixed that you can now run the dist folder output and don't get errors with module can't be loaded - @resubaka (#24)
+- Changed that only one redis and elasticsearch client is created - @resubaka (#35)
+- Send /reset-password with undefined websiteId as default - @gibkigonzo (#382)
+- Fixed the restore command restore command of elastic7.ts so it exits when it finished - @resubaka (#35)
+- Fixed the restore command restore command of elastic7.ts so it does not crash when it can't find the file it wants to upload - @resubaka (#35)
+- Fix misplaced parenthesis for `taxClasses.find` - @resubaka (#39)
+- Added missing build decencies for native decencies @alexshchur (#43)
+- now all packages work when you install them from a registry @resubaka (#47)
+
+### Docs
+
+- added basic example how to use the npm packages @resubaka (#56)
+
+## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
 We've restarted the version numbering as the product architecture and brand changed.
 
@@ -13,7 +61,7 @@ We've restarted the version numbering as the product architecture and brand chan
 - New modular architecture introduced - [read more](https://sfa-docs.now.sh/guide/modules/introduction.html),
 - Default `vue-storefront-api` features moved to `default-vsf`, `default-catalog` and `default-img` modules,
 - GraphQL Schemas extended, typed, new query types added to `Product` and `Category` entities,
-- New documentation, 
+- New documentation,
 - The `vue-storefront-integration-sdk` merged in.
 
 

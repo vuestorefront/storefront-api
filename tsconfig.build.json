@@ -1,0 +1,36 @@
+{
+  "references": [
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/lib"
+    },
+    {
+      "path": "./packages/hooks"
+    },
+    {
+      "path": "./packages/default-catalog"
+    },
+    {
+      "path": "./packages/default-img"
+    },
+    {
+      "path": "./packages/default-vsf"
+    },
+    {
+      "path": "./packages/platform"
+    },
+    {
+      "path": "./packages/platform-abstract"
+    },
+    {
+      "path": "./packages/platform-magento1"
+    },
+    {
+      "path": "./packages/platform-magento2"
+    }
+  ],
+  "files": [],
+  "include": []
+}

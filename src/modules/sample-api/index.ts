@@ -1,5 +1,5 @@
-import { StorefrontApiModule, registerExtensions } from 'src/lib/module'
-import { StorefrontApiContext } from 'src/lib/module/types'
+import { StorefrontApiModule, registerExtensions } from '@storefront-api/lib/module'
+import { StorefrontApiContext } from '@storefront-api/lib/module/types'
 import { Router } from 'express';
 import order from './api/order';
 import user from './api/user';
@@ -7,9 +7,8 @@ import stock from './api/stock';
 import cart from './api/cart';
 import catalog from './api/catalog'
 import img from './api/img'
-
+import { version } from '../../../package.json';
 import path from 'path'
-const version = require('package.json').version
 
 export const SampleApiModule: StorefrontApiModule = new StorefrontApiModule({
   key: 'sample-api',

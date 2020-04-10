@@ -205,7 +205,7 @@ To read more on how tax rates are processed when `config.tax.calculateServerSide
 
 Storefront API doesn't store any user data, order or payment information. Whenever a product is added to the cart, or user authorization is performed, there is an API request executed.
 
-The default API implementation - `src/modules/default-vsf` is compatible with Vue Storefront. You might want to implement the API in with totally different formats creating a [new module](../modules/introduction.md). However, if you'd like to change the internal data format and stay compatible with [Vue Storefront](https://vuestorefront.io) you can achieve it in two different ways.
+The default API implementation - `packages/default-vsf` is compatible with Vue Storefront. You might want to implement the API in with totally different formats creating a [new module](../modules/introduction.md). However, if you'd like to change the internal data format and stay compatible with [Vue Storefront](https://vuestorefront.io) you can achieve it in two different ways.
 
 ### Use the `default-vsf` and modify the Platform Driver
 If you'd like to rather use the default API implementation. It's still extendable by switching the `src/platfrom` drivers. You might want to implement a custom driver, put it into `src/platform/custom-plaform` which is compatible (implementing) the `src/platform/abstract/*` interfaces. Then you can switch the current platform by modifying the `local.json` configuration file:
@@ -215,7 +215,7 @@ If you'd like to rather use the default API implementation. It's still extendabl
 ```
 
 ### Use the `sample-api` as a boilerplate
-The other way to go is to create your own, custom API based on the provided boilerplate. Take a look at the `src/modules/sample-api` for a custom API boilerplate to provide REST endpoints compatible with our default `src/modules/default-vsf` implementation.
+The other way to go is to create your own, custom API based on the provided boilerplate. Take a look at the `src/modules/sample-api` for a custom API boilerplate to provide REST endpoints compatible with our default `packages/default-vsf` implementation.
 
 
 

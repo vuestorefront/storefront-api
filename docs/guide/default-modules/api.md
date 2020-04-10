@@ -6,9 +6,10 @@ The Storefront API Default catalog offers two basic ways of querying the data:
 - GraphQL for read access
 - REST for read and write access
 
-**Note:** This API specification is in reference to the `src/modules/default-vsf` module. You can create your own custom module with totally different APIs! Read more about [modules](../modules/introduction.md).
 
-## REST API specification 
+**Note:** This API specification is related to the `packages/default-vsf` module. You can create your own custom module with totally different APIs! Read more on [modules](../modules/introduction.md)
+
+## REST API specification
 
 All methods accept and respond with the `application/json` content type.
 
@@ -208,7 +209,7 @@ curl 'https://your-domain.example.com/api/cart/update?token=xu8h02nd66yq0gaayj4x
 
 This method is used to remove shopping cart items on the server side.
 
-#### WHEN: 
+#### WHEN:
 This method is called just after `api/cart/pull` as a consequence of the synchronization process.
 
 #### GET PARAMS:
@@ -251,7 +252,7 @@ This method is used to apply a discount code to the current server side quote.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANI' -X POST -H 'content-type: application/json' -H 'accept: */*' 
+curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANI' -X POST -H 'content-type: application/json' -H 'accept: */*'
 ```
 
 #### RESPONSE BODY:
@@ -271,7 +272,7 @@ This method is used to delete discount codes to the current server side quote.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/delete-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -X POST -H 'content-type: application/json' -H 'accept: */*' 
+curl 'https://your-domain.example.com/api/cart/delete-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -X POST -H 'content-type: application/json' -H 'accept: */*'
 ```
 
 #### RESPONSE BODY:
@@ -290,7 +291,7 @@ This method is used to get the currently applied coupon code.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -H 'content-type: application/json' -H 'accept: */*' 
+curl 'https://your-domain.example.com/api/cart/coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -H 'content-type: application/json' -H 'accept: */*'
 ```
 
 #### RESPONSE BODY:
@@ -626,7 +627,7 @@ curl 'https://your-domain.example.com/api/cart/shipping-information?token=xu8h02
 
 ### POST /api/user/create
 
-Registers a new user to the eCommerce backend user database. 
+Registers a new user to the eCommerce backend user database.
 
 #### EXAMPLE CALL:
 
@@ -1338,7 +1339,7 @@ This method is used to check multiple stock items for specified product SKUs. Re
         "stock_status_changed_auto": 0
     }
   ]
-  
+
 }
 ```
 
@@ -1428,7 +1429,7 @@ In case of a JSON validation error, validation errors will be returned inside th
 
 Catalog endpoints are a proxy to Elastic Search 5.x and can be used to search the store catalog (synchronized with Magento2 or another platform).
 
-**Note:** This endpoint is not required as it's possible to configure `vue-storefront` to connect directly to Elastic Search. Please just set the proper Elastic URL in the `config/local.json:elasticsearch` 
+**Note:** This endpoint is not required as it's possible to configure `vue-storefront` to connect directly to Elastic Search. Please just set the proper Elastic URL in the `config/local.json:elasticsearch`
 
 #### GET PARAMETERS
 
@@ -2029,7 +2030,7 @@ This simple API module is used just to resize images using the [Sharp](https://g
 
 `/img/{width}/{height}/{operation}/{relativeUrl}`
 
-or 
+or
 
 `/img/{width}/{height}/{operation}?absoluteUrl={absoluteUrl}`
 

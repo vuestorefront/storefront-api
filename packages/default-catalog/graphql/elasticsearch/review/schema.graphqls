@@ -1,0 +1,84 @@
+extend type Query {
+
+  # List reviews based on search full text query or structure filter
+  reviews (
+
+    # Performs a full-text search using the specified key words.
+    search: String 
+
+    # An array of categories that match the specified search criteria
+    filter: ReviewFilterInput 
+
+    # Specifies the maximum number of results to return at once. This attribute is optional.
+    pageSize: Int = 20 
+
+    # Specifies which page of results to return. The default value is 1.
+    currentPage: Int = 1 
+
+    # Specifies which attribute we include in result.
+    _sourceIncludes: [String] 
+
+    # Specifies which attribute we exclude in result.
+    _sourceExcludes: [String] 
+    ): Reviews 
+}
+
+# Product reviews - collection; revierws related to specific products
+type Reviews implements ESResponseInterface {
+
+    # An object that includes the page_info and currentPage values specified in the query
+    page_info: SearchResultPageInfo 
+
+    # The number of reviews returned
+    total_count: Int
+
+    # An array of reviews that match the specified search criteria 
+    items: [Review] 
+
+    # Document returned by this search query hits 
+    hits: JSON 
+
+    # Search suggest feature
+    suggest: JSON 
+
+    # Aggregations returned when filter have been applied
+    aggregations: JSON 
+}
+
+# Product review - related product review
+type Review {
+
+  # Review id
+  id: ID 
+
+  # Review title
+  title: String 
+
+  # Review content
+  detail: String 
+
+  # Review author nickname
+  nickname: String 
+
+  # Review entity type - product, order ...  
+  review_entity: String 
+
+  # Review type
+  review_type: Int 
+
+  # Review status
+  review_status: Int 
+
+   # Review date of creation
+  created_at: DateTime
+}
+
+# ReviewFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.
+input ReviewFilterInput  {
+
+    # Review satus
+    review_status: FilterTypeInput 
+
+    # An ID that uniquely identifies the parent product
+    product_id: FilterTypeInput 
+}

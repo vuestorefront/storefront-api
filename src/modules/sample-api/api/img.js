@@ -1,5 +1,4 @@
-// @ts-check
-import { downloadImage, fit, identify, resize } from 'src/lib/image';
+import { downloadImage, fit, identify, resize } from '@storefront-api/lib/image';
 import mime from 'mime-types';
 import URL from 'url';
 
