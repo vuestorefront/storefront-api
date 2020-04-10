@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/platform",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront GraphQL API",
   "license": "MIT",
   "scripts": {

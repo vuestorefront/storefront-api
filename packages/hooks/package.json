@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/hooks",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront API hooks implementation",
   "license": "MIT",
   "scripts": {
