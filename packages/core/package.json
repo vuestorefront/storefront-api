@@ -8,6 +8,9 @@
     "build": "tsc --build",
     "prepublishOnly": "tsc --build"
   },
+  "publishConfig": {
+    "access": "public"
+  },  
   "files": [
     "*.d.ts",
     "*.js"
@@ -43,5 +46,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }

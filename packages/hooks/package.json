@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },  
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "bugs": {
     "url": "https://github.com/DivanteLtd/storefront-api/issues"
@@ -28,5 +31,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }
