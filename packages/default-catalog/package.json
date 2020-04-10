@@ -2,7 +2,7 @@
   "name": "@storefront-api/default-catalog",
   "version": "1.0.0-rc2",
   "description": "Storefront GraphQL API",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -25,15 +25,15 @@
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "@storefront-api/lib": "1.0.0-rc2",
+    "@storefront-api/lib": "^1.0.0-rc2",
     "bodybuilder": "^2.2.21",
-    "storefront-query-builder": "^1.0.0",
     "config": "^1.30.0",
     "graphql": "^14.5.8",
     "js-sha3": "^0.8.0",
     "jwt-simple": "^0.5.1",
     "lodash": "^4.17.10",
     "request": "^2.85.0",
+    "storefront-query-builder": "^1.0.0",
     "typescript": "3.7.*"
   },
   "devDependencies": {

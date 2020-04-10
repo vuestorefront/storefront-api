@@ -2,7 +2,7 @@
   "name": "@storefront-api/platform-magento1",
   "version": "1.0.0-rc2",
   "description": "Storefront GraphQL API",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -23,11 +23,11 @@
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "magento1-vsbridge-client": "github:DivanteLtd/magento1-vsbridge-client",
-    "@storefront-api/lib": "1.0.0-rc2",
-    "@storefront-api/platform-abstract": "1.0.0-rc2",
+    "@storefront-api/lib": "^1.0.0-rc2",
+    "@storefront-api/platform-abstract": "^1.0.0-rc2",
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
+    "magento1-vsbridge-client": "github:DivanteLtd/magento1-vsbridge-client",
     "typescript": "3.7.*"
   },
   "devDependencies": {
