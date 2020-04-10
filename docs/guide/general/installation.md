@@ -242,7 +242,7 @@ Once a term is explained, it will be ignored thereafter for consecutive occurren
 1. Install all needed packages **@storefront-api/core**, **@storefront-api/default-vsf**, **@storefront-api/default-catalog**, **@storefront-api/default-img**, **@storefront-api/platform-magento2**.
 
 ```shell
-yarn add @storefront-api/core @storefront-api/default-vsf @storefront-api/default-catalog @storefront-api/default-img @storefront-api/platform-magento2
+yarn add @storefront-api/core@1.0.0-rc2 @storefront-api/default-vsf@1.0.0-rc2 @storefront-api/default-catalog@1.0.0-rc2 @storefront-api/default-img@1.0.0-rc2 @storefront-api/platform-magento2@1.0.0-rc2
 ```
 
 2.  After that is done you only need to create an config folder and put all the contend of [storefront-api/tree/master/config](https://github.com/DivanteLtd/storefront-api/tree/master/config) in there. When that is done you just need to copy the contend of code example into your index.js.
