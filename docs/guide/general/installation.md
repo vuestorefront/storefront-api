@@ -237,5 +237,43 @@ Once a term explained, it will be ignored thereafter for consecutive occurrence.
 - `environment` is to set `VS_ENV` as `dev` so that environment will be setup for developer mode. 
 - `tmpfs` denotes temporary volumes that are only available to host memory. Unlike `volumes`, this `tmpfs` will be gone once the container stops. This option is only available to *Linux*.
 
+## 2. Install with npm packages
+
+1. Install all needed packages **@storefront-api/core**, **@storefront-api/default-vsf**, **@storefront-api/default-catalog**, **@storefront-api/default-img**, **@storefront-api/platform-magento2**.
+
+```shell
+yarn add @storefront-api/core @storefront-api/default-vsf @storefront-api/default-catalog @storefront-api/default-img @storefront-api/platform-magento2
+```
+
+2.  After that is done you only need to create an config folder and put all the contend of [storefront-api/tree/master/config](https://github.com/DivanteLtd/storefront-api/tree/master/config) in there. When that is done you just need to copy the contend of code example into your index.js.
+
+```js
+// index.js
+const { Server } = require('@storefront-api/core')
+const { DefaultVuestorefrontApiModule } = require('@storefront-api/default-vsf')
+const { DefaultCatalogModule } = require('@storefront-api/default-catalog')
+const { DefaultImgModule } = require('@storefront-api/default-img')
+const magento2 = require('@storefront-api/platform-magento2')
+
+ let modules = [
+    DefaultVuestorefrontApiModule({
+        platform: {
+            name: 'magento2',
+            platformImplementation: magento2
+        }
+    }),
+    DefaultCatalogModule(),
+    DefaultImgModule(),
+]
+
+const server = new Server({
+    modules
+})
+
+server.start();
+```
+
+3.  Now you only need to run `node index.js`
+
 <br />
 <br />
