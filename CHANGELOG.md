@@ -41,6 +41,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added missing build decencies for native decencies @alexshchur (#43)
 - now all packages work when you install them from a registry @resubaka (#47)
 
+### Docs
+
+- added basic example how to use the npm packages @resubaka (#56)
+
 ## [1.0-rc.1] -  The New Beginning as Storefront API - 2019.12.06
 
 We've restarted the version numbering as the product architecture and brand changed.
