@@ -35,11 +35,17 @@ Modules are located in [`src/modules`](https://github.com/DivanteLtd/storefront-
 The interfaces must be referenced prior to use in the [`src/modules/index.ts`](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/index.ts) entrypoint:
 
 ```js
-import { DefaultVuestorefrontApiModule } from './default-vsf'
-import { DefaultCatalogModule } from './default-catalog'
+import { DefaultVuestorefrontApiModule } from '@storefront-api/default-vsf'
+import { DefaultCatalogModule } from '@storefront-api/default-catalog'
+import * as magento2 from '@storefront-api/platform-magento2'
 
 export default [
-  DefaultVuestorefrontApiModule,
+  DefaultVuestorefrontApiModule({
+    platform: {
+      name: 'magento2',
+      platformImplementation: magento2
+    }
+  }),
   DefaultCatalogModule,
   ...
 ]
