@@ -17,7 +17,7 @@ module.exports = ({ config, db }) => {
       return
     }
     return request({
-      url: config.extensions.mailchimp.apiUrl + '/lists/' + config.extensions.mailchimp.listId + '/members/' + md5(email.toLowerCase()),
+      url: config.extensions.mailchimp.apiUrl + '/lists/' + config.extensions.mailchimp.listId + '/members/' + md5((email as string).toLowerCase()),
       method: 'GET',
       json: true,
       headers: { 'Authorization': 'apikey ' + config.extensions.mailchimp.apiKey }
