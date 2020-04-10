@@ -71,7 +71,7 @@ class ProductProcessor extends ProcessorAbstract {
         })
       }
 
-      if (this._req.query._source_exclude && this._req.query._source_exclude.indexOf('sgn') < 0) {
+      if (this._req.query._source_exclude && (this._req.query._source_exclude as string).indexOf('sgn') < 0) {
         const rs = resultSet[0].map((item) => {
           if (!item._source) { return item }
 

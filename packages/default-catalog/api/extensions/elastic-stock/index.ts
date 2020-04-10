@@ -70,7 +70,7 @@ module.exports = ({
     if (!req.query.skus) {
       return apiStatus(res, 'skus parameter is required', 400);
     }
-    const skuArray = req.query.skus.split(',')
+    const skuArray = (req.query.skus as string).split(',')
     getStockList(getCurrentStoreCode(req), skuArray).then((result) => {
       if (result && result.length > 0) {
         apiStatus(res, result, 200);
