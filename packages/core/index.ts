@@ -16,6 +16,7 @@ import {
 import { ApolloServer } from 'apollo-server-express';
 import { mergeTypes } from 'merge-graphql-schemas';
 import initializeDb from '@storefront-api/lib/db';
+import { catchInvalidRequests } from '@storefront-api/lib/error';
 
 interface ServerConfigParams {
   modules: StorefrontApiModule[],
@@ -88,6 +89,8 @@ export class Server {
         logger.info('No GraphQL Support enabled. Please provide at least one module supporting graphQL schema.')
       }
     });
+
+    this.express.use(catchInvalidRequests);
   }
 
   public registerDefaultMiddlewares (): void {
