@@ -1,8 +1,8 @@
 {
   "name": "@storefront-api/platform",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront GraphQL API",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -21,6 +21,9 @@
     "**/*.js",
     "*.js"
   ],
+  "publishConfig": {
+    "access": "public"
+  },  
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
     "config": "^1.30.0",
@@ -47,5 +50,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }

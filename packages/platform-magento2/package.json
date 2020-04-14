@@ -1,8 +1,8 @@
 {
   "name": "@storefront-api/platform-magento2",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront GraphQL API",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },  
   "files": [
     "**/*.d.ts",
     "*.d.ts",
@@ -23,12 +26,12 @@
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "@storefront-api/lib": "1.0.0-rc2",
-    "@storefront-api/platform-abstract": "1.0.0-rc2",
+    "@storefront-api/lib": "^1.0.0-rc.2",
+    "@storefront-api/platform-abstract": "^1.0.0-rc.2",
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
-    "typescript": "3.7.*",
-    "magento2-rest-client": "github:DivanteLtd/magento2-rest-client"
+    "magento2-rest-client": "github:DivanteLtd/magento2-rest-client",
+    "typescript": "3.7.*"
   },
   "devDependencies": {
     "@types/config": "^0.0.34",
@@ -51,5 +54,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }

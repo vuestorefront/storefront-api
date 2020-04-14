@@ -1,8 +1,8 @@
 {
   "name": "@storefront-api/lib",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront GraphQL API",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -21,6 +21,9 @@
     "**/*.js",
     "*.js"
   ],
+  "publishConfig": {
+    "access": "public"
+  },  
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
     "@elastic/elasticsearch": "^7.3.0",
@@ -28,18 +31,17 @@
     "config": "^1.30.0",
     "jsonfile": "^4.0.0",
     "lodash": "^4.17.10",
-    "redis": "^3.0.2",
     "query-string": "^6.8.3",
-    "syswide-cas": "^5.3.0",
+    "redis": "^3.0.2",
     "redis-tag-cache": "^1.2.1",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5",
     "semver": "^6.3.0",
     "sharp": "^0.23.4",
+    "syswide-cas": "^5.3.0",
     "typescript": "3.7.*"
   },
   "devDependencies": {
-    "@types/sharp": "^0.23.1",
     "@types/cli-color": "^0.3.30",
     "@types/config": "^0.0.34",
     "@types/express": "^4.16.1",
@@ -49,6 +51,7 @@
     "@types/node": "^11.13.4",
     "@types/redis": "^2.8.14",
     "@types/semver": "^6.2.0",
+    "@types/sharp": "^0.23.1",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2"
   },
@@ -61,5 +64,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }

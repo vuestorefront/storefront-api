@@ -1,8 +1,8 @@
 {
   "name": "@storefront-api/hooks",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront API hooks implementation",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -18,9 +18,10 @@
     "type": "git",
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },  
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
-  "dependencies": {},
-  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/DivanteLtd/storefront-api/issues"
   },
@@ -30,5 +31,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }

@@ -14,7 +14,7 @@ export interface Action {
   getImageURL(): string,
   whitelistDomain: string[],
   validateMIMEType(): void,
-  prossesImage(): void,
+  processImage(): void,
   isImageSourceHostAllowed(),
   _isUrlWhitelisted(url: string, whitelistType: string, defaultValue: any, whitelist: string[]),
   isValidFor?(string): boolean
@@ -51,7 +51,7 @@ export default abstract class ImageAction implements Action {
 
   abstract validateMIMEType(): void
 
-  abstract prossesImage(): void
+  abstract processImage(): void
 
   public isImageSourceHostAllowed () {
     if (!this._isUrlWhitelisted(this.getImageURL(), 'allowedHosts', true, this.whitelistDomain)) {

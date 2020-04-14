@@ -2,14 +2,14 @@
 
 **Note:** You can extend Storefront API by adding new [modules](../modules/introduction.md). The modules themselves additionally offer the extensions mechanism described in this chapter. Extensions extend the modules. Modules extend Storefront API.
 
-Some extensions need to have additional API methods to get some data directly from Magento/other CMS or just from custom Elasticsearch data collections.
+Some extensions need to have additional API methods to get some data directly from Magento/other CMS platofrms or just from custom Elasticsearch data collections.
 
-You may extend the [`storefront-api`](https://github.com/DivanteLtd/storefront-api) to add your custom API methods. Please take a look at: [mailchimp-subscribe](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/extensions/mailchimp-subscribe/index.js) for reference.
+You may extend the [`storefront-api`](https://github.com/DivanteLtd/storefront-api) to add your own custom API methods. Please take a look at: [mailchimp-subscribe](https://github.com/DivanteLtd/storefront-api/blob/develop/src/api/extensions/mailchimp-subscribe/index.js) for reference.
 
-To add the API extension to `storefront-api`:
+To add an API extension to `storefront-api`:
 
-1. Create the folder within `src/api/extensions` for example `custom_extension`.
-2. Then add the `index.js` file and put the API methods code inside. We're using Express.js. Here is a boilerplate/example for the extension code:
+1. Create a folder within `src/api/extensions`, for example `custom_extension`.
+2. Then add the `index.js` file and put the API method code inside. We're using Express.js. Here is a boilerplate/example for the extension code:
 
 ```js
 import { apiStatus } from '@storefront-api/lib/util';
@@ -99,5 +99,5 @@ module.exports = ({ config, db }) => {
    "registeredExtensions": ["mailchimp-subscribe"],
 ```
 
-4. Restart the `storefront-api`
-5. Your new API method is available on `localhost:8080/api/ext/<extension_name>/<extension_method>` for example: `localhost:8080/api/ext/mailchimp-subscribe/subscribe`
+4. Restart `storefront-api`
+5. Your new API method is available at `localhost:8080/api/ext/<extension_name>/<extension_method>`, for example: `localhost:8080/api/ext/mailchimp-subscribe/subscribe`
