@@ -19,7 +19,6 @@ RUN apk add --no-cache \
         g++ \
         ca-certificates \
         wget \
-        vips-dev \
     && yarn install --no-cache \
     && apk del .build-deps
 
