@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/core",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc.2",
   "description": "Storefront API core",
   "license" : "MIT",
   "scripts": {
@@ -22,7 +22,7 @@
     "cors": "^2.8.5",
     "config": "^1.30.0",
     "body-parser": "^1.18.2",
-    "@storefront-api/lib": "1.0.0-rc2",
+    "@storefront-api/lib": "1.0.0-rc.2",
     "apollo-server-express": "^2.9.12",
     "merge-graphql-schemas": "^1.7.3",
     "lodash": "^4.17.15",
