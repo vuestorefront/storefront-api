@@ -48,6 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added missing build decencies for native decencies @alexshchur (#43)
 - now all packages work when you install them from a registry @resubaka (#47)
 - disable showing stack for invalid requests - @gibkigonzo https://github.com/DivanteLtd/vue-storefront-api/pull/431
+- update alpine version in node image (#64)
+- fix semver for packages, add uniq names for docker containers, remove vips partial install in Dockerfile - @gibkigonzo (#65)
 
 ### Docs
 
