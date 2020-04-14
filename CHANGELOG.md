@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix misplaced parenthesis for `taxClasses.find` - @resubaka (#39)
 - Added missing build decencies for native decencies @alexshchur (#43)
 - now all packages work when you install them from a registry @resubaka (#47)
+- disable showing stack for invalid requests - @gibkigonzo https://github.com/DivanteLtd/vue-storefront-api/pull/431
 
 ### Docs
 
