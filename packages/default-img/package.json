@@ -2,7 +2,7 @@
   "name": "@storefront-api/default-img",
   "version": "1.0.0-rc.2",
   "description": "Storefront GraphQL API",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "tsc --build -w",
     "build": "tsc --build",
@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/DivanteLtd/storefront-api.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },  
   "files": [
     "**/*.d.ts",
     "*.d.ts",
@@ -23,13 +26,13 @@
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "@storefront-api/lib": "1.0.0-rc.2",
+    "@storefront-api/lib": "^1.0.0-rc.2",
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
+    "fs-extra": "^8.1.0",
     "graphql": "^14.5.8",
     "js-sha3": "^0.8.0",
     "jwt-simple": "^0.5.1",
-    "fs-extra": "^8.1.0",
     "lodash": "^4.17.10",
     "request": "^2.85.0",
     "typescript": "3.7.*"
@@ -55,5 +58,6 @@
     "rest",
     "api",
     "nodejs"
-  ]
+  ],
+  "gitHead": "1466d94a04a47f4125267d0fb8fc4c1204ad2951"
 }

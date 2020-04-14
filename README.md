@@ -37,6 +37,36 @@ Details:
 - [REST API](https://docs.storefrontapi.com/guide/default-modules/api.html)
 - [Configuration file explained](https://docs.storefrontapi.com/guide/general/config.html)
 
+## Core Team
+
+In case of any questions please contact our core team ([we are on Slack](https://slack.vuestorefront.io))
+
+- `@resubaka` - Jens Sadowski
+- `@pkarw` - Piotr Karwatka
+- `@pandrzejewsky` - Patryk Andrzejewski
+
+
+## Demo
+
+You can play with the GraphQL endpoint over https://demo.storefrontapi.com/graphql/
+
+Example query you can enter:
+
+```graphql
+{ 
+  products (filter:{
+      type_id:{eq:"configurable"}
+  }) {
+    items { 
+      name
+      price
+      description
+      configurable_children { name, price }
+    }
+  }
+}
+```
+
 ## Key features
 
  - Fully functional and extendable eCommerce API Gateway,

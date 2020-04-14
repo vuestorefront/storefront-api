@@ -83,7 +83,7 @@ export default class LocalImageAction extends ImageAction {
     this.mimeType = mimeType
   }
 
-  public async prossesImage () {
+  public async processImage () {
     const { imgUrl } = this.imageOptions
 
     try {
