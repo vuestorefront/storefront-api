@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:10-alpine3.11
 
 ENV VS_ENV prod
 
@@ -11,8 +11,8 @@ COPY yarn.lock ./
 
 RUN apk --no-cache --update upgrade musl
 RUN apk add --no-cache \
-			--repository http://dl-3.alpinelinux.org/alpine/edge/community \
-			--repository http://dl-3.alpinelinux.org/alpine/edge/main \
+			--repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+			--repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
 			--virtual .build-deps \
         python \
         make \
