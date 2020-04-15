@@ -1,6 +1,6 @@
 import config from 'config'
 
-export function catchInvalidRequests (err, req, res) {
+export function catchInvalidRequests (err, req, res, next) {
   const { statusCode, message = '', stack = '' } = err;
   const stackTrace = stack
     .split(/\r?\n/)
