@@ -4,9 +4,8 @@ import { buildQuery } from '../queryBuilder'
 import { getIndexName } from '../mapping'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 import { aggregationsToAttributes } from '../attribute/aggregations'
-import bodybuilder from 'bodybuilder'
 
-export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceIncludes, _sourceExcludes = null }) {
+export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue = null, _sourceIncludes, _sourceExcludes = null }) {
   let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
 
   const esIndex = getIndexName(context.req.url)
@@ -63,14 +62,26 @@ export async function listSingleCategory ({ id, url_path, context, rootValue, _s
   }
 }
 
-export async function listCategoriesById ({ ids, context }) {
-  const catQuery = {
-    index: getIndexName(context.req.url),
-    type: 'category',
-    body: bodybuilder().filter('terms', 'id', ids).build()
+export async function listBreadcrumbs ({ category, context, addCurrentCategory = false }) {
+  const ids = (category.parent_ids || (category.path && category.path.split('/')) || [])
+    .filter((id) => String(id) !== String(category.id))
+  const _sourceIncludes = ['id', 'name', 'slug', 'path', 'level']
+  const filter = {
+    id: { in: ids }
   }
-  const response = getResponseObject(await client.search(adjustQuery(catQuery, 'category', config)))
-  return response.hits.hits.map(el => {
-    return el._source
+  const response = await list({
+    search: '',
+    filter,
+    currentPage: 0,
+    pageSize: 200,
+    sort: null,
+    context,
+    _sourceIncludes
   })
+  const validResponse = (response && response.items) || []
+  const categoryList = (addCurrentCategory ? [...validResponse, category] : validResponse)
+    .sort((a, b) => a.level - b.level)
+    .map(({ id, level, ...rest }) => ({category_id: id, ...rest}))
+
+  return categoryList
 }

@@ -2,7 +2,7 @@
 import { getCurrentPlatformConfig } from '@storefront-api/platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
 import { list, listSingleProduct } from './service'
-import { listCategoriesById } from '../category/service';
+import { list as listCategories, listBreadcrumbs } from '../category/service';
 
 const resolver = {
   Query: {
@@ -22,9 +22,44 @@ const resolver = {
     reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceIncludes, _sourceExcludes }, context, rootValue) => {
       return listProductReviews({ search, filter: Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceIncludes, _sourceExcludes })
     },
-    categories: (_, { search }, context, rootValue) => {
-      const ids = _.category.map(item => item.category_id)
-      return listCategoriesById({ ids, context })
+    categories: async (_, { pageSize }, context) => {
+      const filter = {
+        id: { in: _.category_ids }
+      }
+      const response = await listCategories({
+        search: '',
+        filter,
+        currentPage: 0,
+        pageSize,
+        sort: null,
+        context,
+        _sourceIncludes: null
+      })
+      const categoryList = (response && response.items) || []
+
+      return categoryList
+    },
+    breadcrumbs: async (_, { search }, context) => {
+      const filter = {
+        id: { in: _.category_ids }
+      }
+      const response = await listCategories({
+        search: '',
+        filter,
+        currentPage: 0,
+        sort: null,
+        context,
+        _sourceIncludes: ['id', 'path', 'level', 'parent_ids', 'name', 'slug']
+      })
+      const categoryList = (response && response.items) || []
+      const breadcrumbCategory = categoryList.sort((a, b) => b.level - a.level)[0] // sort starting by deepest level
+      const breadcrumbs = await listBreadcrumbs({
+        category: breadcrumbCategory,
+        context,
+        addCurrentCategory: true
+      })
+
+      return breadcrumbs
     },
     /*
     price_range: (_, { search }, context, rootValue) => {
