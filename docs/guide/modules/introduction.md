@@ -1,36 +1,36 @@
 # Storefront API Modules
 
-We designed the Storefront API (`SFAPI`) upon fully modular architecture. We composed the modules engine with the Inversion of Control principle. In this particular case it means that each module has full control over core `SFAPI` features, including:
+We designed Storefront API (`SFAPI`) using a fully modular architecture. We composed the modules engine using the Inversion of Control principle. In this particular case it means that each module has full control over core `SFAPI` features, including:
 
-- GraphQL schema,
-- GraphQL middlewares,
-- ElasticSearch schema,
-- REST API Endpoints,
-- REST API Middlewares.
+- GraphQL schema
+- GraphQL middlewares
+- ElasticSearch schema
+- REST API Endpoints
+- REST API Middlewares
 
 ## Default modules
 
-The default API implementation - `packages/default-vsf` is compatible with Vue Storefront. You might want to implement the API in with totally different formats creating a [new module](../modules/tutorial.md) based on one of the default modules or the boilerplates: [`template-module`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module) and [`sample-api`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/sample-api)
+The default API implementation - `packages/default-vsf` - is compatible with Vue Storefront. You might want to implement the API using totally different formats by creating a [new module](../modules/tutorial.md) based on one of the default modules or the boilerplates: [`template-module`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module) and [`sample-api`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/sample-api)
 
 ### default-catalog module
 
-This module is in charge of providing the standard [GraphQL Schema]() and ElasticSearch entities. This module is for providing the Vue Storefront compatibility - including integrations with Magento1, Magento2, Spree and other platforms. You might want to use this module to implement [custom backend integration](../integration/integration.md). If your backend platform uses different data formats, it might be easier to  comment out the default module from [modules entry point](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/index.ts) and create a new one.
+This module is in charge of providing the standard [GraphQL Schema]() and ElasticSearch entities, and for providing Vue Storefront compatibility - including integrations with Magento1, Magento2, Spree and other platforms. You might want to use this module to implement your own [custom backend integration](../integration/integration.md). If your backend platform uses different data formats, it might be easier to comment out the default module from [modules entry point](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/index.ts) and create a new one.
 
 ### default-vsf module
 
-This module implements a REST API covering most of the operations eCommerce can have - including `user`, `cart`, `order`, `review` and other modules. The cool part is that it's compatible with Vue Storefront and most of the existing integrations we have for it. If you'd like to integrate this API with your custom backend, you might want to follow the [custom backend integration tutorial](../integration/integration.md). This module uses a [`platform`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/platform) drivers. You may want to implement your custom driver. The other way around is to disable `default-vsf` module and create a new API from scratch, using the [`simple-api`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/sample-api).
+This module implements a REST API covering most of the operations an eCommerce platform can have - including `user`, `cart`, `order`, `review` and other modules. The cool part is that it's compatible with Vue Storefront and most of the existing integrations we have for it. If you'd like to integrate this API with your own custom backend, you might want to follow the [custom backend integration tutorial](../integration/integration.md). This module uses [`platform`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/platform) drivers. You may want to implement your own custom driver. The other way around this is to disable the `default-vsf` module and create a new API from scratch, using the [`simple-api`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/sample-api).
 
 ## default-img module
 
-The image resizer which is compatible with Vue Storefront and `default-catalog` module and the [platform concept](../default-modules/platforms.md). It takes the `baseUrl` from the `config[config.platform]` section by default and based on that generates the thumbnail or crops the picture.
+This module is an image resizer which is compatible with Vue Storefront, the `default-catalog` module and the [platform concept](../default-modules/platforms.md). It takes the `baseUrl` from the `config[config.platform]` section by default and, based on that, generates the thumbnail or crops the picture.
 
 
 ## Where can I find my modules?
 
-Modules are located in [`src/modules`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules) however, you can easily load `npm` based modules just by [referencing them in modules entry point](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/index.ts). The same way you can disable the default e-Commerce modules that are provided within the `default-catalog`, `default-vsf` and `default-img` folders.
+Modules are located in [`src/modules`](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules). However, you can easily load `npm` based modules just by [referencing them in the modules entry point](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/index.ts). In the same way, you can disable the default e-Commerce modules that are provided within the `default-catalog`, `default-vsf` and `default-img` folders.
 
 
-## How module interface looks like?
+## What does the module interface look like?
 
 The interfaces must be referenced prior to use in the [`src/modules/index.ts`](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/index.ts) entrypoint:
 
@@ -51,7 +51,7 @@ export default [
 ]
 ```
 
-Each module file is returning the [`StorefrontApiModule`](https://github.com/DivanteLtd/storefront-api/blob/a66222768bf7fb5f54acf268b6a0bb4e0f94a4cf/src/lib/module/types.ts#L24) structure:
+Each module file returns the [`StorefrontApiModule`](https://github.com/DivanteLtd/storefront-api/blob/a66222768bf7fb5f54acf268b6a0bb4e0f94a4cf/src/lib/module/types.ts#L24) structure:
 
 
 ```js
@@ -90,11 +90,11 @@ export const TemplateModule: StorefrontApiModule = new StorefrontApiModule({
 
 ```
 
-**Please note:** You don't have to implement all the methods. If your module is adding some graphql entities - please feel free to implement `initGraphql` and leave the other functions un-implemented.
+**Please note:** You don't have to implement all the methods. If your module adds some graphql entities, please feel free to implement `initGraphql` and leave the other functions un-implemented.
 
-## How the default module structure looks like?
+## What does the default module structure look like?
 
-There is no required module structure, however typically the modules consist the following folder structure ([example](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module)):
+There is no required module structure. However, modules typically contain the following folder structure ([example](https://github.com/DivanteLtd/storefront-api/tree/develop/src/modules/template-module)):
 
 ```bash
 |____graphql                        # graphql resolvers and schema
@@ -111,9 +111,9 @@ There is no required module structure, however typically the modules consist the
 | |____elastic.schema.custom.json
 ```
 
-## How can I query the ElasticSearch?
+## How can I query ElasticSearch?
 
-All the infrastructure is there. You might want to check how [default-catalog](https://github.com/DivanteLtd/storefront-api/blob/a66222768bf7fb5f54acf268b6a0bb4e0f94a4cf/src/modules/default-catalog/graphql/elasticsearch/product/resolver.js#L94) is querying the data. However, this example is pretty much complicated as it's using the special Query adapters for advanced filtering.
+All the infrastructure is there. You might want to check how [default-catalog](https://github.com/DivanteLtd/storefront-api/blob/a66222768bf7fb5f54acf268b6a0bb4e0f94a4cf/src/modules/default-catalog/graphql/elasticsearch/product/resolver.js#L94) queries the data. However, this example is pretty complicated as it uses special Query adapters for advanced filtering.
 
 The simplest example was presented in the [`template-module`](https://github.com/DivanteLtd/storefront-api/blob/develop/src/modules/template-module/graphql/hello/resolver.ts):
 
@@ -130,7 +130,7 @@ The simplest example was presented in the [`template-module`](https://github.com
     }
 ```
 
-As you can see - there is [`bodybuilder`](http://bodybuilder.js.org/) included and the elastic client - ready for your commands!
+As you can see, [`bodybuilder`](http://bodybuilder.js.org/) is included along with the elastic client - ready for your commands!
 
 ## How do I create a new module?
 
@@ -138,5 +138,5 @@ Please read the [tutorial.md](./tutorial.md). The simplest way is to just copy t
 
 ## Is there a way to extend the default modules?
 
-There is no explicit way to extend the existing module other than just creating a new module and using the composition (importing the elements you'd like to reuse) from the base/fallback module.
+There is no explicit way to extend the existing modules other than just creating a new module and using composition (importing the elements you'd like to reuse from the base/fallback module).
 
