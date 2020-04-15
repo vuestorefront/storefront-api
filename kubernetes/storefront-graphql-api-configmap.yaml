@@ -4,9 +4,9 @@ metadata:
   name: storefront-api-config
 data:
   BIND_HOST: 0.0.0.0
-  ELASTICSEARCH_HOST: elasticsearch
+  ELASTICSEARCH_HOST: sfa_elasticsearch
   ELASTICSEARCH_PORT: "9200"
-  REDIS_HOST: redis
+  REDIS_HOST: sfa_redis
   REDIS_PORT: "6379"
   REDIS_DB: "0"
   VS_ENV: dev
