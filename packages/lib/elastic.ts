@@ -113,107 +113,88 @@ export function getClient (config: IConfig): Client {
   return new Client({ node, auth, requestTimeout })
 }
 
-export function putAlias (db: Client, originalName: string, aliasName: string, next) {
-  let step2 = () => {
-    db.indices.putAlias({ index: originalName, name: aliasName }).then(_ => {
-      Logger.info('Index alias created')
-    }).then(next).catch(err => {
-      Logger.info(err.message)
-      next()
+export async function putAlias (db: Client, originalName: string, aliasName: string) {
+  try {
+    await db.indices.deleteAlias({
+      index: aliasName,
+      name: originalName
     })
-  }
-  return db.indices.deleteAlias({
-    index: aliasName,
-    name: originalName
-  }).then((_) => {
     Logger.info('Public index alias deleted')
-    step2()
-  }).catch((err) => {
+  } catch (err) {
     Logger.info('Public index alias does not exists', err.message)
-    step2()
-  })
+  } finally {
+    try {
+      await db.indices.putAlias({ index: originalName, name: aliasName })
+      Logger.info('Index alias created')
+    } catch (err) {
+      Logger.info(err.message)
+    }
+  }
 }
 
 export function search (db: Client, query: RequestParams.Search) {
   return db.search(query)
 }
 
-export function deleteIndex (db: Client, indexName: string, next: () => void) {
-  db.indices.delete({
-    'index': indexName
-  }).then((_) => {
-    next()
-  }).catch(_ => {
-    return db.indices.deleteAlias({
+export async function deleteIndex (db: Client, indexName: string) {
+  try {
+    await db.indices.delete({ 'index': indexName })
+    Logger.info('Public index deleted')
+  } catch (err) {
+    Logger.info('Public index does not exists', err.message)
+    try {
+      await db.indices.deleteAlias({
+        index: '*',
+        name: indexName
+      })
+      Logger.info('Public index alias deleted')
+    } catch (err) {
+      Logger.info('Public index alias does not exists', err.message)
+    }
+  }
+}
+
+export async function reIndex (db: Client, fromIndexName: string, toIndexName: string) {
+  try {
+    db.reindex({
+      wait_for_completion: true,
+      body: {
+        'source': {
+          'index': fromIndexName
+        },
+        'dest': {
+          'index': toIndexName
+        }
+      }
+    })
+  } catch (err) {
+    Logger.info('Reindex failed with message', err.message)
+  }
+}
+
+export async function createIndex<T = any> (db: Client, indexName: string, indexSchema: T) {
+  try {
+    await db.indices.deleteAlias({
       index: '*',
       name: indexName
-    }).then((_) => {
-      Logger.info('Public index alias deleted')
-      next()
-    }).catch((err) => {
-      Logger.info('Public index alias does not exists', err.message)
-      next()
     })
-  })
-}
-
-export function reIndex (db: Client, fromIndexName: string, toIndexName: string, next: (args?: Error) => void) {
-  db.reindex({
-    wait_for_completion: true,
-    body: {
-      'source': {
-        'index': fromIndexName
-      },
-      'dest': {
-        'index': toIndexName
-      }
-    }
-  }).then(_ => {
-    next()
-  }).catch(err => {
-    next(err)
-  })
-}
-
-export function createIndex<T = any> (db: Client, indexName: string, indexSchema: T, next: (args?: Error) => void) {
-  const step2 = () => {
-    db.indices.delete({
-      'index': indexName
-    }).then(_ => {
-      db.indices.create(
-        {
-          'index': indexName,
-          'body': indexSchema
-        }).then(_ => {
-        next()
-      }).catch(err => {
-        Logger.error(err)
-        next(err)
-      })
-    }).catch(() => {
-      db.indices.create(
-        {
-          'index': indexName,
-          'body': indexSchema
-        }).then(_ => {
-        next()
-      }).catch(err => {
-        Logger.error(err)
-        next(err)
-      })
-    })
-  }
-
-  return db.indices.deleteAlias({
-    index: '*',
-    name: indexName
-  }).then((_) => {
     Logger.info('Public index alias deleted')
-    step2()
-  }).catch((err) => {
+  } catch (err) {
     Logger.info('Public index alias does not exists', err.message)
-    step2()
-  })
+  } finally {
+    try {
+      await db.indices.delete({ 'index': indexName })
+      Logger.info('Public index deleted')
+    } catch (err) {
+      Logger.info('Public index does not exists', err.message)
+    } finally {
+      await db.indices.create({
+        'index': indexName,
+        'body': indexSchema
+      })
+      Logger.info(`Public index has been created`)
+    }
+  }
 }
 
 /**
