@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - moved server logic into packages/core @resubaka (#47)
 - Update to `storefront-query-builder` version `1.0.0` - @cewald (#51, #52, #53)
 - Add error handling for catalog and add header 'X-VS-Cache-Tags' to response - @gibkigonzo
+- Add `Product.breadcrumbs`and `Category.breadcrumbs` - @gibkigonzo (#7)
 
 ### Changed / Improved
 

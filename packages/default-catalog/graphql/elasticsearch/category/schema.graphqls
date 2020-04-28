@@ -138,6 +138,9 @@ type Category {
     # Category page layout
     page_layout: String 
 
+    # The product breadcrumbs. It executes additional query to fetch simplified object with no structure
+    breadcrumbs: [CategoryBinding] 
+
     # Get the products assigned to this category
     products (
         # Identifies which product attributes to search for and return.
