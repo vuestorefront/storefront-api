@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/platform-abstract",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Storefront GraphQL API",
   "license": "MIT",
   "scripts": {
@@ -23,7 +23,7 @@
   ],
   "publishConfig": {
     "access": "public"
-  },  
+  },
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
     "config": "^1.30.0",

@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/default-vsf",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Storefront GraphQL API",
   "license": "MIT",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "publishConfig": {
     "access": "public"
-  },  
+  },
   "files": [
     "**/*.d.ts",
     "*.d.ts",
@@ -27,8 +27,8 @@
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "@storefront-api/lib": "^1.0.0-rc.2",
-    "@storefront-api/platform": "^1.0.0-rc.2",
+    "@storefront-api/lib": "^1.0.0-rc.3",
+    "@storefront-api/platform": "^1.0.0-rc.3",
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
     "email-check": "^1.1.0",
