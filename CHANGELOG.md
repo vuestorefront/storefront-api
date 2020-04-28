@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0-rc.3] -  2020.04.10
+
+### Added
+
+- Add `Product.breadcrumbs`and `Category.breadcrumbs` - @gibkigonzo (#71)
+
 ### Fixed
+
+- fix semver for packages, add uniq names for docker containers, remove vips partial install in Dockerfile - @gibkigonzo (#65)
+- added missing parramenter to error handler for invalid requests - @gibkigonzo (#66)
 - added "useWorkspaces" to the lerna config - @resubaka (#73)
 
 ## [1.0-rc.2] -  2020.04.10
@@ -32,7 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - moved server logic into packages/core @resubaka (#47)
 - Update to `storefront-query-builder` version `1.0.0` - @cewald (#51, #52, #53)
 - Add error handling for catalog and add header 'X-VS-Cache-Tags' to response - @gibkigonzo
-- Add `Product.breadcrumbs`and `Category.breadcrumbs` - @gibkigonzo (#7)
 
 ### Changed / Improved
 
@@ -55,7 +63,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - now all packages work when you install them from a registry @resubaka (#47)
 - disable showing stack for invalid requests - @gibkigonzo https://github.com/DivanteLtd/vue-storefront-api/pull/431
 - update alpine version in node image (#64)
-- fix semver for packages, add uniq names for docker containers, remove vips partial install in Dockerfile - @gibkigonzo (#65)
 
 ### Docs
 
