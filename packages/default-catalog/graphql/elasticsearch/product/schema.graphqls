@@ -407,6 +407,9 @@ type Product  {
 
     # The product categories. It executes additional query to fetch full category objects
     categories: [Category] 
+
+    # The product breadcrumbs. It executes additional query to fetch simplified object with no structure
+    breadcrumbs: [CategoryBinding] 
     
     # The product categories. This is just a simplified object with no structure
     category: [CategoryBinding] 

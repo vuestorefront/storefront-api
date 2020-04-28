@@ -1,14 +1,8 @@
-import config from 'config';
-import client from '../client';
-import { buildQuery } from '../queryBuilder';
-import bodybuilder from 'bodybuilder'
-import esResultsProcessor from './processor'
-import { getIndexName } from '../mapping'
 // @ts-ignore
-import { getCurrentPlatformConfig } from '../../../../platform/helpers'
+import { getCurrentPlatformConfig } from '@storefront-api/platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
-import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
-import { aggregationsToAttributes } from '../attribute/aggregations'
+import { list, listSingleProduct } from './service'
+import { list as listCategories, listBreadcrumbs } from '../category/service';
 
 const resolver = {
   Query: {
@@ -28,11 +22,46 @@ const resolver = {
     reviews: (_, { search, filter, currentPage, pageSize, sort, _sourceIncludes, _sourceExcludes }, context, rootValue) => {
       return listProductReviews({ search, filter: Object.assign({}, filter, { product_id: { in: _.id } }), currentPage, pageSize, sort, context, rootValue, _sourceIncludes, _sourceExcludes })
     },
-    categories: listProductCategories,
-    /* TODO: We can extend our resolvers to meet the Magento2 GraphQL data model easily
-    breadcrumbs: (_, { search }, context, rootValue) => {
-      return _.category
+    categories: async (_, { pageSize }, context) => {
+      const filter = {
+        id: { in: _.category_ids }
+      }
+      const response = await listCategories({
+        search: '',
+        filter,
+        currentPage: 0,
+        pageSize,
+        sort: null,
+        context,
+        _sourceIncludes: null
+      })
+      const categoryList = (response && response.items) || []
+
+      return categoryList
     },
+    breadcrumbs: async (_, { search }, context) => {
+      const filter = {
+        id: { in: _.category_ids }
+      }
+      const response = await listCategories({
+        search: '',
+        filter,
+        currentPage: 0,
+        sort: null,
+        context,
+        _sourceIncludes: ['id', 'path', 'level', 'parent_ids', 'name', 'slug']
+      })
+      const categoryList = (response && response.items) || []
+      const breadcrumbCategory = categoryList.sort((a, b) => b.level - a.level)[0] // sort starting by deepest level
+      const breadcrumbs = await listBreadcrumbs({
+        category: breadcrumbCategory,
+        context,
+        addCurrentCategory: true
+      })
+
+      return breadcrumbs
+    },
+    /*
     price_range: (_, { search }, context, rootValue) => {
       return {
         minimum_price: {
@@ -66,96 +95,5 @@ const resolver = {
     } // entry point for product extensions
   }
 };
-
-async function listProductCategories (_, { search }, context, rootValue) {
-  const categoryIds = _.category.map(item => item.category_id)
-  const catQuery = {
-    index: getIndexName(context.req.url),
-    type: 'category',
-    body: bodybuilder().filter('terms', 'id', categoryIds).build()
-  }
-  const response = getResponseObject(await client.search(adjustQuery(catQuery, 'category', config)))
-  return response.hits.hits.map(el => {
-    return el._source
-  })
-}
-
-export async function listSingleProduct ({ sku, id = null, url_path = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
-  const filter = {}
-  if (sku) filter['sku'] = { eq: sku }
-  if (id) filter['id'] = { eq: id }
-  if (url_path) filter['url_path'] = { eq: url_path }
-  const productList = await list({ filter, pageSize: 1, context, rootValue, _sourceIncludes, _sourceExcludes })
-  if (productList && productList.items.length > 0) {
-    return productList.items[0]
-  } else {
-    return null
-  }
-}
-
-export async function list ({ filter, sort = null, currentPage = null, pageSize, search = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
-  let _req = {
-    query: {
-      _source_excludes: _sourceExcludes,
-      _source_includes: _sourceIncludes
-    }
-  }
-
-  let query = buildQuery({
-    filter: filter,
-    sort: sort,
-    currentPage: currentPage,
-    pageSize: pageSize,
-    search: search,
-    type: 'product'
-  });
-
-  let esIndex = getIndexName(context.req.url)
-
-  let response = getResponseObject(await client.search(adjustQuery({
-    index: esIndex,
-    type: 'product',
-    body: query,
-    _source_includes: _sourceIncludes,
-    _source_excludes: _sourceExcludes
-  }, 'product', config)));
-  if (response && response.hits && response.hits.hits) {
-    // process response result (caluclate taxes etc...)
-    response.hits.hits = await esResultsProcessor(response, _req, 'product', esIndex);
-  }
-
-  // Process hits
-  response.items = []
-  response.hits.hits.forEach(hit => {
-    let item = hit._source
-    item._score = hit._score
-    response.items.push(item)
-  });
-
-  response = await aggregationsToAttributes(response, config, esIndex)
-  response.total_count = response.hits.total
-
-  // Process sort
-  let sortOptions = []
-  for (var sortAttribute in sort) {
-    sortOptions.push(
-      {
-        label: sortAttribute,
-        value: sortAttribute
-      }
-    )
-  }
-  response.sort_fields = {}
-  if (sortOptions.length > 0) {
-    response.sort_fields.options = sortOptions
-  }
-
-  response.page_info = {
-    page_size: pageSize,
-    current_page: currentPage
-  }
-
-  return response;
-}
 
 export default resolver;

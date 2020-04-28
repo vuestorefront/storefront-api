@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   es7:
-    container_name: elasticsearch
+    container_name: sfa_elasticsearch
     build: docker/elasticsearch7/
     ulimits:
       memlock:
@@ -19,6 +19,7 @@ services:
       - "ES_JAVA_OPTS=-Xmx512m -Xms512m"
 
   redis:
+    container_name: sfa_redis
     image: 'redis:4-alpine'
     ports:
       - '6379:6379'
