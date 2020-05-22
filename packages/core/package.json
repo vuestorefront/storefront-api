@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/core",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Storefront API core",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "publishConfig": {
     "access": "public"
-  },  
+  },
   "files": [
     "*.d.ts",
     "*.js"
@@ -21,7 +21,7 @@
   },
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "@storefront-api/lib": "^1.0.0-rc.2",
+    "@storefront-api/lib": "^1.0.0-rc.3",
     "apollo-server-express": "^2.9.12",
     "body-parser": "^1.18.2",
     "config": "^1.30.0",

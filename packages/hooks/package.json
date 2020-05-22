@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/hooks",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Storefront API hooks implementation",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "publishConfig": {
     "access": "public"
-  },  
+  },
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "bugs": {
     "url": "https://github.com/DivanteLtd/storefront-api/issues"
