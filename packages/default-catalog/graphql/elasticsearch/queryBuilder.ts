@@ -15,9 +15,9 @@ export function buildQuery ({
   queryChain = elasticsearch.applySort({ sort, queryChain });
   queryChain = queryChain.from((currentPage > 0 ? (currentPage - 1) : 0) * pageSize).size(pageSize);
 
-  let builtQuery = queryChain.build()
+  const builtQuery: Record<any, any> = queryChain.build()
   if (search) {
-    builtQuery['min_score'] = config.get('elasticsearch.min_score')
+    builtQuery.min_score = config.get('elasticsearch.min_score')
   }
   return builtQuery;
 }

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 module.exports = () => {
-  let exampleApi = Router()
+  const exampleApi = Router()
 
   return exampleApi
 }

@@ -1,4 +1,3 @@
-// @ts-ignore
 import { getCurrentPlatformConfig } from '@storefront-api/platform/helpers'
 import { list as listProductReviews } from '../review/resolver'
 import { list, listSingleProduct } from './service'

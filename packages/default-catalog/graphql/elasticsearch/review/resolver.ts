@@ -6,7 +6,7 @@ import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 import { aggregationsToAttributes } from '../attribute/aggregations'
 
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue, _sourceIncludes, _sourceExcludes }) {
-  let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
+  const query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'review' });
 
   const esIndex = getIndexName(context.req.url)
   let response = getResponseObject(await client.search(adjustQuery({
@@ -19,7 +19,7 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
   // Process hits
   response.items = []
   response.hits.hits.forEach(hit => {
-    let item = hit._source
+    const item = hit._source
     item._score = hit._score
     response.items.push(item)
   });
@@ -28,8 +28,8 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
   response.total_count = response.hits.total
 
   // Process sort
-  let sortOptions = []
-  for (var sortAttribute in sort) {
+  const sortOptions = []
+  for (const sortAttribute in sort) {
     sortOptions.push(
       {
         label: sortAttribute,

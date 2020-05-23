@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 export default ({ config, db }) => {
-  let api = Router();
+  const api = Router();
 
   /**
    * GET get stock item

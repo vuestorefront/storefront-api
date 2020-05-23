@@ -31,7 +31,7 @@
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
     "magento2-rest-client": "github:DivanteLtd/magento2-rest-client",
-    "typescript": "3.7.*"
+    "typescript": "3.9.*"
   },
   "devDependencies": {
     "@types/config": "^0.0.34",

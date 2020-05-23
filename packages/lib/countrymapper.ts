@@ -1,9 +1,9 @@
 function mapCountryRegion (countryList, countryId, regionCode) {
-  let regionId = 0
-  for (let country of countryList) {
+  const regionId = 0
+  for (const country of countryList) {
     if (country.id === countryId) {
       if (country.available_regions && country.available_regions.length > 0) {
-        for (let region of country.available_regions) {
+        for (const region of country.available_regions) {
           if (region.code === regionCode) {
             return { regionId: region.id, regionCode: region.code }
           }

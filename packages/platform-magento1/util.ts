@@ -9,7 +9,7 @@ import Logger from '@storefront-api/lib/logger'
  */
 export function multiStoreConfig (apiConfig, req) {
   let confCopy = Object.assign({}, apiConfig)
-  let storeCode = getCurrentStoreCode(req)
+  const storeCode = getCurrentStoreCode(req)
   const availableStores = config.get<string[]>('availableStores')
   const magento1Config = config.get<Record<string, any>>('magento1')
   if (storeCode && availableStores.indexOf(storeCode) >= 0) {

@@ -7,7 +7,7 @@ const filter: FilterInterface = {
     // Do you custom filter logic like: queryChain.filter('terms', attribute, value)
     return queryChain
   },
-  mutator: (value) => typeof value !== 'object' ? { 'in': [value] } : value
+  mutator: (value) => typeof value !== 'object' ? { in: [value] } : value
 }
 
 export default filter

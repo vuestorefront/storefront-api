@@ -2,7 +2,7 @@ import { apiStatus } from '@storefront-api/lib/util';
 import { Router } from 'express';
 
 export default ({ config, db }) => {
-  let syncApi = Router();
+  const syncApi = Router();
 
   /**
    * GET get stock item

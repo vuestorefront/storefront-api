@@ -2,26 +2,26 @@
  * CLI tool
  * Queue worker in charge of syncing the Sales order to Magento2 via REST API *
  */
+import Logger from '@storefront-api/lib/logger';
 
 const program = require('commander');
 const kue = require('kue');
-const logger = require('./log');
 
 const config = require('config')
-let queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
+const queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
 
-let numCPUs = require('os').cpus().length;
-const processSingleOrder = require('../../platform-magento2/o2m').processSingleOrder
+const numCPUs = require('os').cpus().length;
+const processSingleOrder = require('@storefront-api/platform-magento2/o2m').processSingleOrder
 
 // RUN
 program
   .command('start')
   .option('--partitions <partitions>', 'number of partitions', numCPUs)
   .action((cmd) => { // default command is to run the service worker
-    let partition_count = parseInt(cmd.partitions);
-    logger.info(`Starting KUE worker for "order" message [${partition_count}]...`);
-    queue.process('order', partition_count, (job, done) => {
-      logger.info('Processing order: ' + job.data.title);
+    const partitionCount = parseInt(cmd.partitions);
+    Logger.info(`Starting KUE worker for "order" message [${partitionCount}]...`);
+    queue.process('order', partitionCount, (job, done) => {
+      Logger.info('Processing order: ' + job.data.title);
       return processSingleOrder(job.data.order, config, job, done);
     });
   });
@@ -29,13 +29,13 @@ program
 program
   .command('testAuth')
   .action(() => {
-    processSingleOrder(require('var/testOrderAuth.json'), config, null, (err, result) => {});
+    processSingleOrder(require('var/testOrderAuth.json'), config, null);
   });
 
 program
   .command('testAnon')
   .action(() => {
-    processSingleOrder(require('var/testOrderAnon.json'), config, null, (err, result) => {});
+    processSingleOrder(require('var/testOrderAnon.json'), config, null);
   });
 
 program

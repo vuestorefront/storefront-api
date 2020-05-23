@@ -54,7 +54,7 @@ module.exports = ({ config }) => {
       })
       .then(response => {
         if (response) {
-          let transporter = NodeMailer.createTransport({
+          const transporter = NodeMailer.createTransport({
             host,
             port,
             secure,

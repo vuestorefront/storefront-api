@@ -28,7 +28,7 @@ interface ServerConfigParams {
 export class Server {
   public express: Express
   public isProd: boolean
-  public hasGraphqlSupport: boolean = false
+  public hasGraphqlSupport = false
   private readonly port: number
   private readonly host: string
   private readonly modules: StorefrontApiModule[]

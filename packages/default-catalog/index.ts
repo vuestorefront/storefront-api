@@ -17,13 +17,14 @@ const catalogModule: StorefrontApiModule = new StorefrontApiModule({
   loadMappings: ({ config, db, app }: StorefrontApiContext): ElasticSearchMappings => {
     return {
       schemas: {
-        'product': loadSchema(path.join(__dirname, 'elasticsearch'), 'product', config.get('elasticsearch.apiVersion')),
-        'attribute': loadSchema(path.join(__dirname, 'elasticsearch'), 'attribute', config.get('elasticsearch.apiVersion')),
-        'category': loadSchema(path.join(__dirname, 'elasticsearch'), 'category', config.get('elasticsearch.apiVersion')),
-        'cms_block': loadSchema(path.join(__dirname, 'elasticsearch'), 'cms_block', config.get('elasticsearch.apiVersion')),
-        'cms_page': loadSchema(path.join(__dirname, 'elasticsearch'), 'cms_page', config.get('elasticsearch.apiVersion')),
-        'taxrule': loadSchema(path.join(__dirname, 'elasticsearch'), 'cms_block', config.get('elasticsearch.apiVersion'))
-      }}
+        product: loadSchema(path.join(__dirname, 'elasticsearch'), 'product', config.get('elasticsearch.apiVersion')),
+        attribute: loadSchema(path.join(__dirname, 'elasticsearch'), 'attribute', config.get('elasticsearch.apiVersion')),
+        category: loadSchema(path.join(__dirname, 'elasticsearch'), 'category', config.get('elasticsearch.apiVersion')),
+        cms_block: loadSchema(path.join(__dirname, 'elasticsearch'), 'cms_block', config.get('elasticsearch.apiVersion')),
+        cms_page: loadSchema(path.join(__dirname, 'elasticsearch'), 'cms_page', config.get('elasticsearch.apiVersion')),
+        taxrule: loadSchema(path.join(__dirname, 'elasticsearch'), 'cms_block', config.get('elasticsearch.apiVersion'))
+      }
+    }
   },
   initGraphql: ({ config, db, app }: StorefrontApiContext): GraphqlConfiguration => {
     return {

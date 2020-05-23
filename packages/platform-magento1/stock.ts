@@ -7,6 +7,7 @@ class StockProxy extends AbstractStockProxy {
     super(config, req)
     this.api = Magento1Client(multiStoreConfig(config.magento1.api, req));
   }
+
   public check (data) {
     return this.api.stock.check(data.sku);
   }

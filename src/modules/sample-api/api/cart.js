@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 export default ({ config, db }) => {
-  let cartApi = Router();
+  const cartApi = Router();
 
   /**
    * POST create a cart

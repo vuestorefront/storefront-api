@@ -27,7 +27,7 @@ function _updateQueryStringParameter (uri, key, value) {
  */
 export default ({ config, db }) =>
   function (req, res, body) {
-    let groupId = null;
+    const groupId = null;
 
     // Request method handling: exit if not GET or POST
     // Other metods - like PUT, DELETE etc. should be available only for authorized users or not available at all)

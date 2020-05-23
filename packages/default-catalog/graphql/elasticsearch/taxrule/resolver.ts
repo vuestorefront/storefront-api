@@ -5,7 +5,7 @@ import { getIndexName } from '../mapping'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
 async function taxrule ({ filter, context, rootValue }) {
-  let query = buildQuery({ filter, pageSize: 150, type: 'taxrule' });
+  const query = buildQuery({ filter, pageSize: 150, type: 'taxrule' });
 
   const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
@@ -15,7 +15,7 @@ async function taxrule ({ filter, context, rootValue }) {
   // Process hits
   response.items = []
   response.hits.hits.forEach(hit => {
-    let item = hit._source
+    const item = hit._source
     item._score = hit._score
     response.items.push(item)
   });

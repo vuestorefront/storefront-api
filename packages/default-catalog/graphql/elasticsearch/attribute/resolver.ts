@@ -5,7 +5,7 @@ import { getIndexName } from '../mapping'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
 async function listAttributes ({ attributes = null, filter = null, context, rootValue, _sourceIncludes, _sourceExcludes }) {
-  let query = buildQuery({ filter: filter || attributes, pageSize: 150, type: 'attribute' });
+  const query = buildQuery({ filter: filter || attributes, pageSize: 150, type: 'attribute' });
 
   const esQuery = {
     index: getIndexName(context.req.url),
@@ -19,7 +19,7 @@ async function listAttributes ({ attributes = null, filter = null, context, root
   response.items = []
   response.total_count = response.hits.total
   response.hits.hits.forEach(hit => {
-    let item = hit._source
+    const item = hit._source
     item._score = hit._score
     response.items.push(item)
   });
@@ -27,9 +27,12 @@ async function listAttributes ({ attributes = null, filter = null, context, root
 }
 
 export async function listSingleAttribute ({ attribute_id, attribute_code, context, rootValue, _sourceIncludes, _sourceExcludes }) {
-  const filter = {}
-  if (attribute_id) filter['attribute_id'] = { eq: attribute_id }
-  if (attribute_code) filter['attribute_code'] = { eq: attribute_code }
+  const filter = {
+    attribute_id: undefined,
+    attribute_code: undefined
+  }
+  if (attribute_id) filter.attribute_id = { eq: attribute_id }
+  if (attribute_code) filter.attribute_code = { eq: attribute_code }
   const attrList = await listAttributes({ filter, context, rootValue, _sourceIncludes, _sourceExcludes })
   if (attrList && attrList.items.length > 0) {
     return attrList.items[0]

@@ -52,7 +52,7 @@ program
     Logger.info('** Hello! I am going to create NEW ES index')
     const indexName = cmd.indexName
 
-    for (let collectionName in aggregatedSchema.schemas) {
+    for (const collectionName in aggregatedSchema.schemas) {
       await es.createIndex(common.db, indexName + '_' + collectionName, aggregatedSchema.schemas[collectionName])
     }
     process.exit(0)

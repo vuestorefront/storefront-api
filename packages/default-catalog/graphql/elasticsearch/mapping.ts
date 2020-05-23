@@ -2,7 +2,7 @@ import config from 'config'
 
 export function getIndexName (url) {
   const parseURL = url.replace(/^\/+|\/+$/g, '');
-  let urlParts = parseURL.split('/');
+  const urlParts = parseURL.split('/');
   let esIndex = config.get('elasticsearch.indices')[0]
 
   if (urlParts.length >= 1 && urlParts[0] !== '' && urlParts[0] !== '?') {

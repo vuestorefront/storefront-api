@@ -1,5 +1,4 @@
-import Redis from 'redis'
-import { RedisClient } from 'redis';
+import Redis, { RedisClient } from 'redis'
 
 let redisClient: RedisClient|boolean = false;
 

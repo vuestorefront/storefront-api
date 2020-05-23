@@ -22,9 +22,11 @@ class UserProxy extends AbstractUserProxy {
 
     return this.api.customers.me(requestToken)
   }
+
   public orderHistory (requestToken, pageSize = 20, currentPage = 1) {
     return this.api.customers.orderHistory(requestToken, pageSize, currentPage)
   }
+
   public resetPassword (emailData) {
     return this.api.customers.resetPassword(emailData)
   }

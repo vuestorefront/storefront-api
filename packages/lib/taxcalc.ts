@@ -38,7 +38,7 @@ function toCamelCase (obj = {}) {
  * @param rateFactor - tax % in decimal
  * @param isPriceInclTax - determines if price already include tax
  */
-function createSinglePrice (price: number = 0, rateFactor: number = 0, isPriceInclTax: boolean) {
+function createSinglePrice (price = 0, rateFactor = 0, isPriceInclTax: boolean) {
   const _price = isPriceInclTax ? price / (1 + rateFactor) : price
   const tax = _price * rateFactor
 
@@ -68,9 +68,9 @@ function assignPrice ({ product, target, price = 0, tax = 0, deprecatedPriceFiel
 export function updateProductPrices ({ product, rate, sourcePriceInclTax = false, deprecatedPriceFieldsSupport = false, finalPriceInclTax = true }) {
   const rate_factor = parseFloat(rate.rate) / 100
   const hasOriginalPrices = (
-    product.hasOwnProperty('original_price') &&
-    product.hasOwnProperty('original_final_price') &&
-    product.hasOwnProperty('original_special_price')
+    Object.prototype.hasOwnProperty.call(product, 'original_price') &&
+    Object.prototype.hasOwnProperty.call(product, 'original_final_price') &&
+    Object.prototype.hasOwnProperty.call(product, 'original_special_price')
   )
 
   // build objects with original price and tax
@@ -81,7 +81,7 @@ export function updateProductPrices ({ product, rate, sourcePriceInclTax = false
 
   // save original prices
   if (!hasOriginalPrices) {
-    assignPrice({product, target: 'original_price', ...priceWithTax, deprecatedPriceFieldsSupport})
+    assignPrice({ product, target: 'original_price', ...priceWithTax, deprecatedPriceFieldsSupport })
     if (specialPriceWithTax.price) {
       product.original_special_price = specialPriceWithTax.price
     }
@@ -91,22 +91,22 @@ export function updateProductPrices ({ product, rate, sourcePriceInclTax = false
   }
 
   // reset previous calculation
-  assignPrice({product, target: 'price', ...priceWithTax, deprecatedPriceFieldsSupport})
+  assignPrice({ product, target: 'price', ...priceWithTax, deprecatedPriceFieldsSupport })
   if (specialPriceWithTax.price) {
-    assignPrice({product, target: 'special_price', ...specialPriceWithTax, deprecatedPriceFieldsSupport})
+    assignPrice({ product, target: 'special_price', ...specialPriceWithTax, deprecatedPriceFieldsSupport })
   }
   if (finalPriceWithTax.price) {
-    assignPrice({product, target: 'final_price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
+    assignPrice({ product, target: 'final_price', ...finalPriceWithTax, deprecatedPriceFieldsSupport })
   }
 
   if (product.final_price) {
     if (product.final_price < product.price) { // compare the prices with the product final price if provided; final prices is used in case of active catalog promo rules for example
-      assignPrice({product, target: 'price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
+      assignPrice({ product, target: 'price', ...finalPriceWithTax, deprecatedPriceFieldsSupport })
       if (product.special_price && product.final_price < product.special_price) { // for VS - special_price is any price lowered than regular price (`price`); in Magento there is a separate mechanism for setting the `special_prices`
-        assignPrice({product, target: 'price', ...specialPriceWithTax, deprecatedPriceFieldsSupport}) // if the `final_price` is lower than the original `special_price` - it means some catalog rules were applied over it
-        assignPrice({product, target: 'special_price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
+        assignPrice({ product, target: 'price', ...specialPriceWithTax, deprecatedPriceFieldsSupport }) // if the `final_price` is lower than the original `special_price` - it means some catalog rules were applied over it
+        assignPrice({ product, target: 'special_price', ...finalPriceWithTax, deprecatedPriceFieldsSupport })
       } else {
-        assignPrice({product, target: 'price', ...finalPriceWithTax, deprecatedPriceFieldsSupport})
+        assignPrice({ product, target: 'price', ...finalPriceWithTax, deprecatedPriceFieldsSupport })
       }
     }
   }
@@ -114,19 +114,19 @@ export function updateProductPrices ({ product, rate, sourcePriceInclTax = false
   if (product.special_price && (product.special_price < product.original_price)) {
     if (!isSpecialPriceActive(product.special_from_date, product.special_to_date)) {
       // out of the dates period
-      assignPrice({product, target: 'special_price', price: 0, tax: 0, deprecatedPriceFieldsSupport})
+      assignPrice({ product, target: 'special_price', price: 0, tax: 0, deprecatedPriceFieldsSupport })
     } else {
-      assignPrice({product, target: 'price', ...specialPriceWithTax, deprecatedPriceFieldsSupport})
+      assignPrice({ product, target: 'price', ...specialPriceWithTax, deprecatedPriceFieldsSupport })
     }
   } else {
     // the same price as original; it's not a promotion
-    assignPrice({product, target: 'special_price', price: 0, tax: 0, deprecatedPriceFieldsSupport})
+    assignPrice({ product, target: 'special_price', price: 0, tax: 0, deprecatedPriceFieldsSupport })
   }
 
   if (product.configurable_children) {
-    for (let configurableChild of product.configurable_children) {
+    for (const configurableChild of product.configurable_children) {
       if (configurableChild.custom_attributes) {
-        for (let opt of configurableChild.custom_attributes) {
+        for (const opt of configurableChild.custom_attributes) {
           configurableChild[opt.attribute_code] = opt.value
         }
       }
@@ -169,7 +169,7 @@ export function calculateProductTax ({ product, taxClasses, taxCountry = 'PL', t
     }
 
     if (taxClass) {
-      for (let rate of taxClass.rates) { // TODO: add check for zip code ranges (!)
+      for (const rate of taxClass.rates) { // TODO: add check for zip code ranges (!)
         if (rate.tax_country_id === taxCountry && (rate.region_name === taxRegion || rate.tax_region_id === 0 || !rate.region_name)) {
           updateProductPrices({ product, rate, sourcePriceInclTax, deprecatedPriceFieldsSupport, finalPriceInclTax })
           rateFound = true
@@ -179,7 +179,7 @@ export function calculateProductTax ({ product, taxClasses, taxCountry = 'PL', t
     }
   }
   if (!rateFound) {
-    updateProductPrices({ product, rate: {rate: 0}, sourcePriceInclTax, deprecatedPriceFieldsSupport, finalPriceInclTax })
+    updateProductPrices({ product, rate: { rate: 0 }, sourcePriceInclTax, deprecatedPriceFieldsSupport, finalPriceInclTax })
 
     product.price_incl_tax = product.price
     product.price_tax = 0
@@ -196,7 +196,7 @@ export function calculateProductTax ({ product, taxClasses, taxCountry = 'PL', t
     }
 
     if (product.configurable_children) {
-      for (let configurableChildren of product.configurable_children) {
+      for (const configurableChildren of product.configurable_children) {
         configurableChildren.price_incl_tax = configurableChildren.price
         configurableChildren.price_tax = 0
         configurableChildren.special_price_incl_tax = 0

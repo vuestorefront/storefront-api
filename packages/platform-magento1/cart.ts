@@ -1,5 +1,5 @@
 import AbstractCartProxy from '@storefront-api/platform-abstract/cart';
-import {multiStoreConfig} from './util';
+import { multiStoreConfig } from './util';
 
 class CartProxy extends AbstractCartProxy {
   public constructor (config, req) {

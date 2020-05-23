@@ -5,7 +5,7 @@ const request = require('request')
 const md5 = require('md5')
 
 module.exports = ({ config, db }) => {
-  let mcApi = Router();
+  const mcApi = Router();
 
   /**
    * Retrieve user subscription status
@@ -20,7 +20,7 @@ module.exports = ({ config, db }) => {
       url: config.extensions.mailchimp.apiUrl + '/lists/' + config.extensions.mailchimp.listId + '/members/' + md5((email as string).toLowerCase()),
       method: 'GET',
       json: true,
-      headers: { 'Authorization': 'apikey ' + config.extensions.mailchimp.apiKey }
+      headers: { Authorization: 'apikey ' + config.extensions.mailchimp.apiKey }
     }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
         Logger.error(error, body)
@@ -35,7 +35,7 @@ module.exports = ({ config, db }) => {
    * POST subscribe a user
    */
   mcApi.post('/subscribe', (req, res) => {
-    let userData = req.body
+    const userData = req.body
     if (!userData.email) {
       apiStatus(res, 'Invalid e-mail provided!', 400)
       return
@@ -43,9 +43,9 @@ module.exports = ({ config, db }) => {
     request({
       url: config.extensions.mailchimp.apiUrl + '/lists/' + config.extensions.mailchimp.listId,
       method: 'POST',
-      headers: { 'Authorization': 'apikey ' + config.extensions.mailchimp.apiKey },
+      headers: { Authorization: 'apikey ' + config.extensions.mailchimp.apiKey },
       json: true,
-      body: { members: [ { email_address: userData.email, status: config.extensions.mailchimp.userStatus } ], 'update_existing': true }
+      body: { members: [{ email_address: userData.email, status: config.extensions.mailchimp.userStatus }], update_existing: true }
     }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
         Logger.error(error, body)
@@ -60,19 +60,19 @@ module.exports = ({ config, db }) => {
    * DELETE unsubscribe a user
    */
   mcApi.delete('/subscribe', (req, res) => {
-    let userData = req.body
+    const userData = req.body
     if (!userData.email) {
       apiStatus(res, 'Invalid e-mail provided!', 400)
       return
     }
 
-    let request = require('request');
+    const request = require('request');
     request({
       url: config.extensions.mailchimp.apiUrl + '/lists/' + config.extensions.mailchimp.listId,
       method: 'POST',
-      headers: { 'Authorization': 'apikey ' + config.extensions.mailchimp.apiKey },
+      headers: { Authorization: 'apikey ' + config.extensions.mailchimp.apiKey },
       json: true,
-      body: { members: [ { email_address: userData.email, status: 'unsubscribed' } ], 'update_existing': true }
+      body: { members: [{ email_address: userData.email, status: 'unsubscribed' }], update_existing: true }
     }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
         Logger.error(error, body)

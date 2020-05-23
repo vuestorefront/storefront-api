@@ -1,11 +1,11 @@
 import path from 'path'
 
-export default async function loadModuleCustomFilters (config: Record<string, any>, type: string = 'catalog'): Promise<any> {
-  let filters: any = {}
-  let filterPromises: Promise<any>[] = []
+export default async function loadModuleCustomFilters (config: Record<string, any>, type = 'catalog'): Promise<any> {
+  const filters: any = {}
+  const filterPromises: Promise<any>[] = []
 
   for (const mod of config.modules.defaultCatalog.registeredExtensions) {
-    if (config.extensions.hasOwnProperty(mod) && config.extensions[mod].hasOwnProperty(type + 'Filter') && Array.isArray(config.extensions[mod][type + 'Filter'])) {
+    if (Object.prototype.hasOwnProperty.call(config.extensions, mod) && Object.prototype.hasOwnProperty.call(config.extensions, type + 'Filter') && Array.isArray(config.extensions[mod][type + 'Filter'])) {
       const moduleFilter = config.extensions[mod][type + 'Filter']
       const dirPath = [__dirname, '../api/extensions/' + mod + '/filter/', type]
       for (const filterName of moduleFilter) {
