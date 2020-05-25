@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added missing parramenter to error handler for invalid requests - @gibkigonzo (#66)
 - added "useWorkspaces" to the lerna config - @resubaka (#73)
 - Bugfix for wrong JSON scheme url's and hostname resolution for `magento1` platform - @cewald (#443)
+- check if headers has been already sent in image middleware - @gibkigonzo (#434)
 
 ## [1.0-rc.2] -  2020.04.10
 
