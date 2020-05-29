@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed / Improved
+- updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
+
 ## [1.0-rc.3] -  2020.04.28
 
 ### Added
