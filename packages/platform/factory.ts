@@ -13,10 +13,10 @@ class PlatformFactory {
   private readonly config: IConfig
 
   private static platform: Record<string, any> = {}
-  private static platformName: string = ''
+  private static platformName = ''
 
-  public constructor (app_config: IConfig, req: Request|null = null) {
-    this.config = app_config;
+  public constructor (appConfig: IConfig, req: Request|null = null) {
+    this.config = appConfig;
     this.request = req
   }
 
@@ -26,13 +26,13 @@ class PlatformFactory {
   }
 
   public getAdapter (platform: string, type: string, ...constructorParams): any {
-    let AdapterClass = PlatformFactory.platform[type];
+    const AdapterClass = PlatformFactory.platform[type];
     if (!AdapterClass) {
       throw new Error(`Invalid adapter ${PlatformFactory.platformName} / ${type}`);
     } else {
-      let adapter_instance = new AdapterClass(this.config, this.request, ...constructorParams);
-      if ((typeof adapter_instance.isValidFor === 'function') && !adapter_instance.isValidFor(type)) { throw new Error(`Not valid adapter class or adapter is not valid for ${type}`); }
-      return adapter_instance;
+      const adapterInstance = new AdapterClass(this.config, this.request, ...constructorParams);
+      if ((typeof adapterInstance.isValidFor === 'function') && !adapterInstance.isValidFor(type)) { throw new Error(`Not valid adapter class or adapter is not valid for ${type}`); }
+      return adapterInstance;
     }
   }
 }

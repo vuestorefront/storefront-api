@@ -39,7 +39,7 @@ function _outputFormatter (responseBody, format = 'standard') {
   return responseBody
 }
 
-export default ({config, db}) => async function (req, res, body) {
+export default ({ config, db }) => async function (req, res, body) {
   let groupId = null
 
   // Request method handling: exit if not GET or POST

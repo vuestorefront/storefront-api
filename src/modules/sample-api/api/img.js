@@ -52,7 +52,7 @@ export default ({ config, db }) =>
       height = parseInt(req.query.height);
       action = req.query.action;
     } else {
-      let urlParts = req.url.split('/');
+      const urlParts = req.url.split('/');
       width = parseInt(urlParts[1]);
       height = parseInt(urlParts[2]);
       action = urlParts[3];
@@ -92,7 +92,7 @@ export default ({ config, db }) =>
     if (!isImageSourceHostAllowed(imgUrl, config.imageable.whitelist)) {
       return res.status(400).send({
         code: 400,
-        result: `Host is not allowed`
+        result: 'Host is not allowed'
       });
     }
 
@@ -142,8 +142,8 @@ export default ({ config, db }) =>
 function _isUrlWhitelisted (url, whitelistType, defaultValue, whitelist) {
   if (arguments.length !== 4) throw new Error('params are not optional!');
 
-  if (whitelist && whitelist.hasOwnProperty(whitelistType)) {
-    const requestedHost = URL.parse(url).host;
+  if (whitelist && Object.prototype.hasOwnProperty.call(whitelist, whitelistType)) {
+    const requestedHost = new URL(url).host;
     const matches = whitelist[whitelistType].map(allowedHost => {
       allowedHost =
         allowedHost instanceof RegExp ? allowedHost : new RegExp(allowedHost);

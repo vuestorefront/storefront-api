@@ -27,7 +27,7 @@ export const DefaultVuestorefrontApiModule = (options: DefaultVuestorefrontApiOp
       app.use(middleware({ config, db }));
     },
     initApi: ({ config, db, app }: StorefrontApiContext): void => {
-      let api = Router();
+      const api = Router();
 
       // mount the order resource
       api.use('/order', order({ config, db }));

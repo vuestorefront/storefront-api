@@ -5,7 +5,7 @@ import { getIndexName } from '../mapping'
 import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 
 async function list ({ filter, currentPage, pageSize = 200, context, _source_include, type }) {
-  let query = buildQuery({ filter, currentPage, pageSize, type });
+  const query = buildQuery({ filter, currentPage, pageSize, type });
 
   const response = getResponseObject(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
@@ -19,7 +19,7 @@ async function list ({ filter, currentPage, pageSize = 200, context, _source_inc
 function buildItems (response) {
   response.items = []
   response.hits.hits.forEach(hit => {
-    let item = hit._source
+    const item = hit._source
     item._score = hit._score
     response.items.push(item)
   });

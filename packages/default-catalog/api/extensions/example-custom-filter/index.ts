@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 module.exports = () => {
-  let exampleFilter = Router()
+  const exampleFilter = Router()
 
   return exampleFilter
 }

@@ -21,12 +21,13 @@ export const TemplateModule: StorefrontApiModule = new StorefrontApiModule({
   loadMappings: ({ config, db, app }: StorefrontApiContext): ElasticSearchMappings => {
     return {
       schemas: {
-        'custom': loadSchema(path.join(__dirname, 'elasticsearch'), 'custom', config.get('elasticsearch.apiVersion'))
-      }}
+        custom: loadSchema(path.join(__dirname, 'elasticsearch'), 'custom', config.get('elasticsearch.apiVersion'))
+      }
+    }
   },
 
   initApi: ({ config, db, app }: StorefrontApiContext): void => {
-    let api = Router();
+    const api = Router();
 
     // mount the order resource
     api.use('/version', version({ config, db }));

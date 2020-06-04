@@ -31,7 +31,7 @@ export default class LocalImageAction extends ImageAction {
       height = parseInt((this.req.query.height as string))
       action = (this.req.query.action as string)
     } else {
-      let urlParts = this.req.url.split('/')
+      const urlParts = this.req.url.split('/')
       width = parseInt(urlParts[1])
       height = parseInt(urlParts[2])
       action = urlParts[3]

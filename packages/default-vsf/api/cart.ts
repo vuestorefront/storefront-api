@@ -4,7 +4,7 @@ import PlatformFactory from '@storefront-api/platform/factory';
 import AbstractCartProxy from '@storefront-api/platform-abstract/cart'
 
 export default ({ config, db }) => {
-  let cartApi = Router();
+  const cartApi = Router();
 
   const _getProxy = (req): AbstractCartProxy => {
     const platform = config.platform

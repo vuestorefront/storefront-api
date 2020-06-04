@@ -8,7 +8,7 @@ class StockProxy extends AbstractUserProxy {
     this.api = Magento2Client(multiStoreConfig(config.magento2.api, req));
   }
 
-  public check ({sku, stockId = 0}) {
+  public check ({ sku, stockId = 0 }) {
     return this.api.stockItems.list(sku).then((result) => {
       if (this._config.get('msi.enabled')) {
         return this.api.stockItems.getSalableQty(sku, stockId).then((salableQty) => {

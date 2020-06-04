@@ -22,8 +22,8 @@ function addUserGroupToken (config, result) {
   result.groupToken = jwt.encode(data, config.authHashSecret ? config.authHashSecret : config.objHashSecret)
 }
 
-export default ({config, db}) => {
-  let userApi = Router();
+export default ({ config, db }) => {
+  const userApi = Router();
 
   const _getProxy = (req): AbstractUserProxy => {
     const platform = config.platform
@@ -145,7 +145,7 @@ export default ({config, db}) => {
       /**
       * Second request for more user info
       */
-      apiStatus(res, result, 200, {refreshToken: encryptToken(jwt.encode(req.body, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret)});
+      apiStatus(res, result, 200, { refreshToken: encryptToken(jwt.encode(req.body, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret) });
     }).catch(err => {
       apiError(res, err);
     })
@@ -196,7 +196,7 @@ export default ({config, db}) => {
       }
 
       userProxy.login(decodedToken).then((result) => {
-        apiStatus(res, result, 200, {refreshToken: encryptToken(jwt.encode(decodedToken, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret)});
+        apiStatus(res, result, 200, { refreshToken: encryptToken(jwt.encode(decodedToken, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret) });
       }).catch(err => {
         apiError(res, err);
       })
@@ -693,7 +693,7 @@ export default ({config, db}) => {
     }
 
     const userProxy = _getProxy(req)
-    userProxy.update({token: req.query.token, body: req.body}).then((result) => {
+    userProxy.update({ token: req.query.token, body: req.body }).then((result) => {
       addUserGroupToken(config, result)
       apiStatus(res, result, 200)
     }).catch(err => {
@@ -713,7 +713,7 @@ export default ({config, db}) => {
    */
   userApi.post('/change-password', (req, res) => {
     const userProxy = _getProxy(req)
-    userProxy.changePassword({token: req.query.token, body: req.body}).then((result) => {
+    userProxy.changePassword({ token: req.query.token, body: req.body }).then((result) => {
       apiStatus(res, result, 200)
     }).catch(err => {
       apiStatus(res, err, 500)

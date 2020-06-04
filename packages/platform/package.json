@@ -27,7 +27,7 @@
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
     "config": "^1.30.0",
-    "typescript": "3.7.*"
+    "typescript": "3.9.*"
   },
   "devDependencies": {
     "@types/config": "^0.0.34",

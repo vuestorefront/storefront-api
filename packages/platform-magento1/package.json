@@ -31,7 +31,7 @@
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
     "magento1-vsbridge-client": "github:DivanteLtd/magento1-vsbridge-client",
-    "typescript": "3.7.*"
+    "typescript": "3.9.*"
   },
   "devDependencies": {
     "@types/config": "^0.0.34",

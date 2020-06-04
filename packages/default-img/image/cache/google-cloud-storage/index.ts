@@ -22,7 +22,7 @@ export default class GoogleCloudStorageImageCache extends ImageCache {
   }
 
   public get moduleConfig (): any {
-    return this.config.imageable.caching[`google-cloud-storage`]
+    return this.config.imageable.caching['google-cloud-storage']
   }
 
   public async getImageFromCache () {

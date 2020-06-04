@@ -1,5 +1,5 @@
 import AbstractAddressProxy from '@storefront-api/platform-abstract/address'
-import {multiStoreConfig} from './util';
+import { multiStoreConfig } from './util';
 
 class AddressProxy extends AbstractAddressProxy {
   public constructor (config, req) {

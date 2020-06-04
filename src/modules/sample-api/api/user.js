@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 export default ({ config, db }) => {
-  let userApi = Router();
+  const userApi = Router();
   /**
    * POST create an user
    *

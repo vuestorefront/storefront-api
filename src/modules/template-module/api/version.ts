@@ -17,7 +17,7 @@ import { ExtensionAPIFunction, ExtensionAPIFunctionParameter } from '@storefront
  */
 
 export default ({ config, db }: ExtensionAPIFunctionParameter) => {
-  let cartApi = Router();
+  const cartApi = Router();
   cartApi.get('/version', (req, res) => {
     apiStatus(res, { version }, 200);
   });

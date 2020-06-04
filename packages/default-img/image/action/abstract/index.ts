@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import URL from 'url'
 
 export interface Action {
   SUPPORTED_ACTIONS: string[],
@@ -57,7 +56,7 @@ export default abstract class ImageAction implements Action {
     if (!this._isUrlWhitelisted(this.getImageURL(), 'allowedHosts', true, this.whitelistDomain)) {
       return this.res.status(400).send({
         code: 400,
-        result: `Host is not allowed`
+        result: 'Host is not allowed'
       })
     }
   }
@@ -65,8 +64,8 @@ export default abstract class ImageAction implements Action {
   public _isUrlWhitelisted (url, whitelistType, defaultValue, whitelist) {
     if (arguments.length !== 4) throw new Error('params are not optional!')
 
-    if (whitelist && whitelist.hasOwnProperty(whitelistType)) {
-      const requestedHost = URL.parse(url).host
+    if (whitelist && Object.prototype.hasOwnProperty.call(whitelist, whitelistType)) {
+      const requestedHost = new URL(url).host
 
       const matches = whitelist[whitelistType].map(allowedHost => {
         allowedHost = allowedHost instanceof RegExp ? allowedHost : new RegExp(allowedHost)

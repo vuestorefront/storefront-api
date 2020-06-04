@@ -8,12 +8,12 @@ import { IConfig } from 'config';
 import Logger from '@storefront-api/lib/logger'
 
 function _updateQueryStringParameter (uri: string, key: string|number, value: string|number) {
-  let re = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
-  if (uri.match(re)) {
+  const regExp = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
+  if (uri.match(regExp)) {
     if (value) {
-      return uri.replace(re, '$1' + key + '=' + value + '$2');
+      return uri.replace(regExp, '$1' + key + '=' + value + '$2');
     } else {
-      return uri.replace(re, '$1' + '$2');
+      return uri.replace(regExp, '$1' + '$2');
     }
   } else {
     let hash = '';
@@ -21,7 +21,7 @@ function _updateQueryStringParameter (uri: string, key: string|number, value: st
       hash = uri.replace(/.*#/, '#');
       uri = uri.replace(/#.*/, '');
     }
-    let separator = uri.indexOf('?') !== -1 ? '&' : '?';
+    const separator = uri.indexOf('?') !== -1 ? '&' : '?';
     return uri + separator + key + '=' + value + hash;
   }
 }
@@ -100,7 +100,7 @@ export function getHits (result) {
 }
 
 export function getClient (config: IConfig): Client {
-  let { host, port, protocol, requestTimeout } = config.get('elasticsearch')
+  const { host, port, protocol, requestTimeout } = config.get('elasticsearch')
   const node = `${protocol}://${host}:${port}`
 
   let auth
@@ -138,7 +138,7 @@ export function search (db: Client, query: RequestParams.Search) {
 
 export async function deleteIndex (db: Client, indexName: string) {
   try {
-    await db.indices.delete({ 'index': indexName })
+    await db.indices.delete({ index: indexName })
     Logger.info('Public index deleted')
   } catch (err) {
     Logger.info('Public index does not exists', err.message)
@@ -159,11 +159,11 @@ export async function reIndex (db: Client, fromIndexName: string, toIndexName: s
     db.reindex({
       wait_for_completion: true,
       body: {
-        'source': {
-          'index': fromIndexName
+        source: {
+          index: fromIndexName
         },
-        'dest': {
-          'index': toIndexName
+        dest: {
+          index: toIndexName
         }
       }
     })
@@ -183,16 +183,16 @@ export async function createIndex<T = any> (db: Client, indexName: string, index
     Logger.info('Public index alias does not exists', err.message)
   } finally {
     try {
-      await db.indices.delete({ 'index': indexName })
+      await db.indices.delete({ index: indexName })
       Logger.info('Public index deleted')
     } catch (err) {
       Logger.info('Public index does not exists', err.message)
     } finally {
       await db.indices.create({
-        'index': indexName,
-        'body': indexSchema
+        index: indexName,
+        body: indexSchema
       })
-      Logger.info(`Public index has been created`)
+      Logger.info('Public index has been created')
     }
   }
 }
@@ -203,7 +203,7 @@ export async function createIndex<T = any> (db: Client, indexName: string, index
  * @param {String} entityType
  * @param {String} apiVersion
  */
-export function loadSchema (rootPath: string, entityType: string, apiVersion: string = '7.1') {
+export function loadSchema (rootPath: string, entityType: string, apiVersion = '7.1') {
   const rootSchemaPath = path.join(rootPath, 'elastic.schema.' + entityType + '.json')
   if (!fs.existsSync(rootSchemaPath)) {
     return null
@@ -213,7 +213,7 @@ export function loadSchema (rootPath: string, entityType: string, apiVersion: st
   const extensionsPath = path.join(__dirname, 'elastic.schema.' + entityType + '.extension.json');
   if (fs.existsSync(extensionsPath)) {
     schemaContent = jsonFile.readFileSync(extensionsPath)
-    let elasticSchemaExtensions = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
+    const elasticSchemaExtensions = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
     elasticSchema = _.merge(elasticSchema, elasticSchemaExtensions) // user extensions
   }
   return elasticSchema

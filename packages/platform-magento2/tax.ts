@@ -20,7 +20,7 @@ class TaxProxy extends AbstractTaxProxy {
     this._storeConfigTax = this._config.get('tax')
 
     if (this._config.get('storeViews') && this._config.get('storeViews.multistore')) {
-      for (let storeCode in this._config.get<Record<string, any>>('storeViews')) {
+      for (const storeCode in this._config.get<Record<string, any>>('storeViews')) {
         const store = this._config.get('storeViews')[storeCode]
         if (typeof store === 'object') {
           if (store.elasticsearch && store.elasticsearch.index) { // workaround to map stores
@@ -73,16 +73,15 @@ class TaxProxy extends AbstractTaxProxy {
 
   public applyTierPrices (productList, groupId) {
     if (this._config.get('usePriceTiers')) {
-      for (let item of productList) {
+      for (const item of productList) {
         TierHelper(item._source, groupId)
       }
     }
   }
 
   public process (productList, groupId = null) {
-    const inst = this
     return new Promise((resolve, reject) => {
-      inst.applyTierPrices(productList, groupId)
+      this.applyTierPrices(productList, groupId)
 
       if (this._storeConfigTax.calculateServerSide) {
         const client = es.getClient(this._config)
@@ -91,16 +90,16 @@ class TaxProxy extends AbstractTaxProxy {
           body: bodybuilder()
         }, 'taxrule', this._config)
         client.search(esQuery).then((body) => { // we're always trying to populate cache - when online
-          inst._taxClasses = es.getHits(body).map(el => { return el._source })
-          for (let item of productList) {
-            const isActive = checkIfTaxWithUserGroupIsActive(inst._storeConfigTax)
+          this._taxClasses = es.getHits(body).map(el => { return el._source })
+          for (const item of productList) {
+            const isActive = checkIfTaxWithUserGroupIsActive(this._storeConfigTax)
             if (isActive) {
-              groupId = getUserGroupIdToUse(inst._userGroupId, inst._storeConfigTax)
+              groupId = getUserGroupIdToUse(this._userGroupId, this._storeConfigTax)
             } else {
               groupId = null
             }
 
-            inst.taxFor(item._source, groupId)
+            this.taxFor(item._source, groupId)
           }
 
           resolve(productList)
