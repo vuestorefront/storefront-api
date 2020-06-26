@@ -88,14 +88,14 @@ export function apiStatus (res, result: string|Record<any, any> = 'OK', code = 2
  *  @return {json} [result='OK']    Text message or result information object
  */
 export function apiError (res, error: Record<any, any>): string|Record<any, any> {
-  let errorCode = error.code || error.status || 500;
+  let errorCode = error.code || error.status;
   let errorMessage = error.errorMessage || error;
   if (error instanceof Error) {
     // Class 'Error' is not serializable with JSON.stringify, extract data explicitly.
     errorCode = (error as any).code || errorCode;
     errorMessage = error.message;
   }
-  return apiStatus(res, errorMessage, errorCode);
+  return apiStatus(res, errorMessage, Number(errorCode) || 500);
 }
 
 export function encryptToken (textToken, secret): string {

@@ -44,10 +44,10 @@ class TaxProxy extends AbstractTaxProxy {
         taxCountry = this._config.get('tax.defaultCountry')
       }
     }
-    if (sourcePriceInclTax === null) {
+    if (sourcePriceInclTax == null) {
       sourcePriceInclTax = this._config.get('tax.sourcePriceIncludesTax')
     }
-    if (finalPriceInclTax === null) {
+    if (finalPriceInclTax == null) {
       finalPriceInclTax = this._config.get('tax.finalPriceIncludesTax')
     }
     this._deprecatedPriceFieldsSupport = this._config.get('tax.deprecatedPriceFieldsSupport')

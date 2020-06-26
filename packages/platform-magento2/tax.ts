@@ -43,10 +43,10 @@ class TaxProxy extends AbstractTaxProxy {
         taxCountry = this._storeConfigTax.defaultCountry
       }
     }
-    if (sourcePriceInclTax === null) {
+    if (sourcePriceInclTax == null) {
       sourcePriceInclTax = this._storeConfigTax.sourcePriceIncludesTax
     }
-    if (finalPriceInclTax === null) {
+    if (finalPriceInclTax == null) {
       finalPriceInclTax = this._storeConfigTax.finalPriceIncludesTax
     }
     this._deprecatedPriceFieldsSupport = this._storeConfigTax.deprecatedPriceFieldsSupport
