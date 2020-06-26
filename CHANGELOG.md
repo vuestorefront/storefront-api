@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `Product.breadcrumbs`and `Category.breadcrumbs` - @gibkigonzo (#71)
+- Add changes from vsf-api hotfix 1.12.1 - @gibkigonzo (https://github.com/DivanteLtd/vue-storefront-api/pull/475)
 
 ### Fixed
 
