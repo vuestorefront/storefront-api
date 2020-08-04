@@ -1,19 +1,17 @@
 import winston from 'winston'
 
-winston['emitErrs'] = true;
-
 if (!global['logger']) {
-  // @ts-ignore
-  global['logger'] = new winston.Logger({
+  global['logger'] = winston.createLogger({
     transports: [
       new winston.transports.Console({
         level: 'info',
-        handleExceptions: false,
-        // @ts-ignore
-        json: false,
-        prettyPrint: true,
-        colorize: true,
-        timestamp: true
+        format: winston.format.combine(
+          winston.format.colorize(),
+          winston.format.json(),
+          winston.format.timestamp(),
+          winston.format.prettyPrint()
+        ),
+        handleExceptions: false
       })
     ],
     exitOnError: false
