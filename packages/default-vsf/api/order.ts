@@ -94,7 +94,7 @@ export default ({ config, db }) => resource({
     const ajv = new Ajv();
     require('ajv-keywords')(ajv, 'regexp');
 
-    const orderSchema = require('../models/order.schema.js')
+    const orderSchema = require('../models/order.schema')
     let orderSchemaExtension = {}
     if (fs.existsSync('../models/order.schema.extension.json')) {
       orderSchemaExtension = require('../models/order.schema.extension.json')
