@@ -111,3 +111,9 @@ export function decryptToken (textToken, secret): string {
   dec += decipher.final('utf8');
   return dec;
 }
+
+export function getToken (req) {
+  return config.get('users.tokenInHeader')
+    ? (req.headers.authorization || '').replace('Bearer ', '')
+    : req.query.token
+}

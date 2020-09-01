@@ -74,7 +74,7 @@ async function setAttributeInCache (attributeList, config) {
  * @param attribute - attribute object
  * @param optionsIds - list of only needed options ids
  */
-function clearAttributeOpitons (attribute, optionsIds: number[]) {
+function clearAttributeOptions (attribute, optionsIds: number[]) {
   const stringOptionsIds = optionsIds.map(String)
   return {
     ...attribute,
@@ -100,7 +100,7 @@ async function list (attributesParam: AttributeListParam, config, indexName: str
         attributeCodes.splice(index, 1)
 
         // clear unused options
-        return clearAttributeOpitons(cachedAttribute, attributeOptionsIds)
+        return clearAttributeOptions(cachedAttribute, attributeOptionsIds)
       }
     })
     // remove empty results from cache.get
@@ -132,7 +132,7 @@ async function list (attributesParam: AttributeListParam, config, indexName: str
         const attributeOptionsIds = attributesParam[fetchedAttribute.attribute_code]
 
         // clear unused options
-        return clearAttributeOpitons(fetchedAttribute, attributeOptionsIds)
+        return clearAttributeOptions(fetchedAttribute, attributeOptionsIds)
       })
     ]
 

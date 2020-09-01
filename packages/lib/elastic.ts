@@ -6,24 +6,39 @@ import fs from 'fs'
 import jsonFile from 'jsonfile'
 import { IConfig } from 'config';
 import Logger from '@storefront-api/lib/logger'
+import querystring from 'querystring'
 
-function _updateQueryStringParameter (uri: string, key: string|number, value: string|number) {
-  const regExp = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
-  if (uri.match(regExp)) {
-    if (value) {
-      return uri.replace(regExp, '$1' + key + '=' + value + '$2');
-    } else {
-      return uri.replace(regExp, '$1' + '$2');
+function decorateBackendUrl (entityType, url, req, config) {
+  if (config.elasticsearch.useRequestFilter && typeof config.entities[entityType] === 'object') {
+    const urlParts = url.split('?')
+    const { includeFields, excludeFields } = config.entities[entityType]
+
+    const filteredParams = Object.keys(req.query)
+      .filter(key => !config.elasticsearch.requestParamsBlacklist.includes(key))
+      .reduce((object, key) => {
+        object[key] = req.query[key]
+        return object
+      }, {})
+
+    let _source_include = includeFields || []
+    let _source_exclude = excludeFields || []
+
+    if (!config.elasticsearch.overwriteRequestSourceParams) {
+      const requestSourceInclude = req.query._source_include || []
+      const requestSourceExclude = req.query._source_exclude || []
+      _source_include = [...includeFields, ...requestSourceInclude]
+      _source_exclude = [...excludeFields, ...requestSourceExclude]
     }
-  } else {
-    let hash = '';
-    if (uri.indexOf('#') !== -1) {
-      hash = uri.replace(/.*#/, '#');
-      uri = uri.replace(/#.*/, '');
+
+    const urlParams = {
+      ...filteredParams,
+      _source_include,
+      _source_exclude
     }
-    const separator = uri.indexOf('?') !== -1 ? '&' : '?';
-    return uri + separator + key + '=' + value + hash;
+    url = `${urlParts[0]}?${querystring.stringify(urlParams)}`
   }
+
+  return url
 }
 
 /**
@@ -73,7 +88,7 @@ export function adjustBackendProxyUrl (req, indexName: string, entityType: strin
   if (!url.startsWith('http')) {
     url = config.get<string>('elasticsearch.protocol') + '://' + url
   }
-  return url
+  return decorateBackendUrl(entityType, url, req, config)
 }
 
 export function adjustQuery (esQuery: RequestParams.Search, entityType: string, config: IConfig) {

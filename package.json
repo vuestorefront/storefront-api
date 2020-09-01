@@ -115,6 +115,7 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "3.9.*",
     "vuepress": "^1.2.0",
+    "vsf-utilities": "^1.0.2",
     "winston": "^3.2.0"
   },
   "devDependencies": {

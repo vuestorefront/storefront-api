@@ -1,5 +1,5 @@
 import AbstractTaxProxy from '@storefront-api/platform-abstract/tax'
-import { calculateProductTax, checkIfTaxWithUserGroupIsActive, getUserGroupIdToUse } from '@storefront-api/lib/taxcalc'
+import { calculateProductTax, checkIfTaxWithUserGroupIsActive, getUserGroupIdToUse } from 'vsf-utilities'
 import TierHelper from '@storefront-api/lib/helpers/priceTiers'
 import bodybuilder from 'bodybuilder'
 import es from '@storefront-api/lib/elastic'
