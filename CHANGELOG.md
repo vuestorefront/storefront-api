@@ -6,15 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed / Improved
-- updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
-
 ## [1.0-rc.3] -  2020.04.28
 
 ### Added
 
 - Add `Product.breadcrumbs`and `Category.breadcrumbs` - @gibkigonzo (#71)
 - Add changes from vsf-api hotfix 1.12.1 - @gibkigonzo (https://github.com/DivanteLtd/vue-storefront-api/pull/475)
+- Add changes from vsf-api hotfix 1.12.2 and 1.12.3 - @gibkigonzo (https://github.com/DivanteLtd/vue-storefront-api/pull/492 https://github.com/DivanteLtd/vue-storefront-api/pull/495)
+
+### Changed / Improved
+- updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
 
 ### Fixed
 
