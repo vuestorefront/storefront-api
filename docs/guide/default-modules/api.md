@@ -55,8 +55,8 @@ The `result` is a guest-cart id that should be used for all subsequent cart rela
 For an authorized user:
 ```
 {
-    "code":200,
-    "result":"81668"
+    "code": 200,
+    "result": "81668"
 }
 ```
 The `result` is a cart-id that should be used for all subsequent cart related operations as `?cartId=81668`
@@ -153,30 +153,30 @@ This method is called just after `api/cart/pull` as a consequence of the synchro
 
 ```json
 {  
-   "cartItem":{  
-      "sku":"WS12-XS-Orange",
-      "qty":1,
-      "product_option":{  
-         "extension_attributes":{  
-            "custom_options":[  
+   "cartItem": {
+      "sku": "WS12-XS-Orange",
+      "qty": 1,
+      "product_option": {
+         "extension_attributes": {
+            "custom_options": [
 
             ],
-            "configurable_item_options":[  
-               {  
-                  "option_id":"93",
-                  "option_value":"56"
+            "configurable_item_options": [
+               {
+                  "option_id": "93",
+                  "option_value": "56"
                },
-               {  
-                  "option_id":"142",
-                  "option_value":"167"
+               {
+                  "option_id": "142",
+                  "option_value": "167"
                }
             ],
-            "bundle_options":[  
+            "bundle_options": [
 
             ]
          }
       },
-      "quoteId":"0a8109552020cc80c99c54ad13ef5d5a"
+      "quoteId": "0a8109552020cc80c99c54ad13ef5d5a"
    }
 }
 ```
@@ -191,16 +191,15 @@ curl 'https://your-domain.example.com/api/cart/update?token=xu8h02nd66yq0gaayj4x
 
 ```json
 {
-    "code":200,
-    "result":
-    {
-        "item_id":5853,
-        "sku":"MS10-XS-Black",
-        "qty":2,
-        "name":"Logan  HeatTec&reg; Tee-XS-Black",
-        "price":24,
-        "product_type":"simple",
-        "quote_id":"81668"
+    "code": 200,
+    "result": {
+        "item_id": 5853,
+        "sku": "MS10-XS-Black",
+        "qty": 2,
+        "name": "Logan  HeatTec&reg; Tee-XS-Black",
+        "price": 24,
+        "product_type": "simple",
+        "quote_id": "81668"
     }
 }
 ```
@@ -227,11 +226,10 @@ curl 'https://your-domain.example.com/api/cart/delete?token=xu8h02nd66yq0gaayj4x
 
 ```json
 {
-    "cartItem":
-    {
-        "sku":"MS10-XS-Black",
-        "item_id":5853,
-        "quoteId":"81668"
+    "cartItem": {
+        "sku": "MS10-XS-Black",
+        "item_id": 5853,
+        "quoteId": "81668"
     }
 }
 ```
@@ -240,8 +238,8 @@ curl 'https://your-domain.example.com/api/cart/delete?token=xu8h02nd66yq0gaayj4x
 
 ```json
 {
-    "code":200,
-    "result":true
+    "code": 200,
+    "result": true
 }
 ```
 
@@ -259,8 +257,8 @@ curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukx
 
 ```json
 {
-    "code":200,
-    "result":true
+    "code": 200,
+    "result": true
 }
 ```
 
@@ -279,8 +277,8 @@ curl 'https://your-domain.example.com/api/cart/delete-coupon?token=2q1w9oixh3buk
 
 ```json
 {
-    "code":200,
-    "result":true
+    "code": 200,
+    "result": true
 }
 ```
 
@@ -298,8 +296,8 @@ curl 'https://your-domain.example.com/api/cart/coupon?token=2q1w9oixh3bukxyj947t
 
 ```json
 {
-    "code":200,
-    "result":"ARMANI"
+    "code": 200,
+    "result": "ARMANI"
 }
 ```
 
@@ -324,79 +322,75 @@ You have total data for the current, synchronized quote returned:
 
 ```json
 {
-    "code":200,
-    "result":
-        {
-            "grand_total":0,
-            "base_currency_code":"USD",
-            "quote_currency_code":"USD",
-            "items_qty":1,
-            "items":
-                [
-                    {
-                        "item_id":5853,
-                        "price":0,
-                        "qty":1,
-                        "row_total":0,
-                        "row_total_with_discount":0,
-                        "tax_amount":0,
-                        "tax_percent":0,
-                        "discount_amount":0,
-                        "base_discount_amount":0,
-                        "discount_percent":0,
-                        "name":"Logan  HeatTec&reg; Tee-XS-Black",
-                        "options": "[{ \"label\": \"Color\", \"value\": \"red\" }, { \"label\": \"Size\", \"value\": \"XL\" }]",
-                        "product_option":{  
-                           "extension_attributes":{  
-                              "custom_options":[  
+    "code": 200,
+    "result": {
+        "grand_total": 0,
+        "base_currency_code": "USD",
+        "quote_currency_code": "USD",
+        "items_qty": 1,
+        "items": [
+            {
+                "item_id": 5853,
+                "price": 0,
+                "qty": 1,
+                "row_total": 0,
+                "row_total_with_discount": 0,
+                "tax_amount": 0,
+                "tax_percent": 0,
+                "discount_amount": 0,
+                "base_discount_amount": 0,
+                "discount_percent": 0,
+                "name": "Logan  HeatTec&reg; Tee-XS-Black",
+                "options": "[{ \"label\": \"Color\", \"value\": \"red\" }, { \"label\": \"Size\", \"value\": \"XL\" }]",
+                "product_option": {  
+                    "extension_attributes": {  
+                        "custom_options": [  
 
-                              ],
-                              "configurable_item_options":[  
-                                 {  
-                                    "option_id":"93",
-                                    "option_value":"56"
-                                 },
-                                 {  
-                                    "option_id":"142",
-                                    "option_value":"167"
-                                 }
-                              ],
-                              "bundle_options":[  
-
-                              ]
-                           }    
-                        }
-                    }
-                ],
-            "total_segments":
-                [
-                    {
-                        "code":"subtotal",
-                        "title":"Subtotal",
-                        "value":0
-                    },
-                    {
-                        "code":"shipping",
-                        "title":"Shipping & Handling",
-                        "value":null
-                    },
-                    {
-                        "code":"tax",
-                        "title":"Tax",
-                        "value":0,
-                        "extension_attributes":
-                            {
-                                "tax_grandtotal_details":[]
+                        ],
+                        "configurable_item_options": [  
+                            {  
+                                "option_id": "93",
+                                "option_value": "56"
+                            },
+                            {  
+                                "option_id": "142",
+                                "option_value": "167"
                             }
-                    },
-                    {
-                        "code":"grand_total",
-                        "title":"Grand Total",
-                        "value":null,
-                        "area":"footer"
-                    }
-                ]
-        }
+                        ],
+                        "bundle_options": [  
+
+                        ]
+                    }    
+                }
+            }
+        ],
+        "total_segments": [
+            {
+                "code": "subtotal",
+                "title": "Subtotal",
+                "value": 0
+            },
+            {
+                "code": "shipping",
+                "title": "Shipping & Handling",
+                "value": null
+            },
+            {
+                "code": "tax",
+                "title": "Tax",
+                "value": 0,
+                "extension_attributes": {
+                    "tax_grandtotal_details": []
+                }
+            },
+            {
+                "code": "grand_total",
+                "title": "Grand Total",
+                "value": null,
+                "area": "footer"
+            }
+        ]
+    }
 }
 ```
 
@@ -420,22 +414,21 @@ curl 'https://your-domain.example.com/api/cart/payment-methods?token=xu8h02nd66y
 
 ```json
 {
-    "code":200,
-    "result":
-        [
-            {
-                "code":"cashondelivery",
-                "title":"Cash On Delivery"
-            },
-            {
-                "code":"checkmo","title":
-                "Check / Money order"
-            },
-            {
-                "code":"free",
-                "title":"No Payment Information Required"
-            }
-        ]
+    "code": 200,
+    "result": [
+        {
+            "code": "cashondelivery",
+            "title": "Cash On Delivery"
+        },
+        {
+            "code": "checkmo","title":
+            "Check / Money order"
+        },
+        {
+            "code": "free",
+            "title": "No Payment Information Required"
+        }
+    ]
 }
 ```
 
@@ -461,9 +454,8 @@ If the shipping methods are dependent on the full address, we probably need to p
 
 ```json
 {
-    "address":
-    {
-        "country_id":"PL"
+    "address": {
+        "country_id": "PL"
     }
 }
 ```
@@ -472,20 +464,19 @@ If the shipping methods are dependent on the full address, we probably need to p
 
 ```json
 {
-    "code":200,
-    "result":
-    [
+    "code": 200,
+    "result": [
         {
-            "carrier_code":"flatrate",
-            "method_code":"flatrate",
-            "carrier_title":"Flat Rate",
-            "method_title":"Fixed",
-            "amount":5,
-            "base_amount":5
-            ,"available":true,
-            "error_message":"",
-            "price_excl_tax":5,
-            "price_incl_tax":5
+            "carrier_code": "flatrate",
+            "method_code": "flatrate",
+            "carrier_title": "Flat Rate",
+            "method_title": "Fixed",
+            "amount": 5,
+            "base_amount": 5
+            ,"available": true,
+            "error_message": "",
+            "price_excl_tax": 5,
+            "price_incl_tax": 5
         }
     ]
 }
@@ -511,14 +502,12 @@ curl 'https://your-domain.example.com/api/cart/shipping-information?token=xu8h02
 
 ```json
 {
-    "addressInformation":
-    {
-        "shipping_address":
-        {
-            "country_id":"PL"
+    "addressInformation": {
+        "shipping_address": {
+            "country_id": "PL"
         },
-        "shipping_method_code":"flatrate",
-        "shipping_carrier_code":"flatrate"
+        "shipping_method_code": "flatrate",
+        "shipping_carrier_code": "flatrate"
     }
 }
 ```
@@ -696,8 +685,9 @@ null
 
 ```json
 {
-    "username":"pkarwatka102@divante.pl",
-    "password":"TopSecretPassword"}
+    "username": "pkarwatka102@divante.pl",
+    "password": "TopSecretPassword"
+}
 ```
 
 #### RESPONSE BODY:
@@ -706,9 +696,11 @@ null
 
 ```json
 {
-    "code":200,
-    "result":"xu8h02nd66yq0gaayj4x3kpqwity02or",
-    "meta": { "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM" }
+    "code": 200,
+    "result": "xu8h02nd66yq0gaayj4x3kpqwity02or",
+    "meta": { 
+        "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM" 
+    }
 }
 ```
 
@@ -716,8 +708,8 @@ or in case of error:
 
 ```json
 {
-    "code":500,
-    "result":"You did not sign in correctly or your account is temporarily disabled."
+    "code": 500,
+    "result": "You did not sign in correctly or your account is temporarily disabled."
 }
 ```
 
@@ -753,8 +745,8 @@ null
 
 ```json
 {
-    "code":200,
-    "result":"xu8h02nd66yq0gaayj4x3kpqwity02or"
+    "code": 200,
+    "result": "xu8h02nd66yq0gaayj4x3kpqwity02or"
 }
 ```
 
@@ -762,8 +754,8 @@ or in case of error:
 
 ```json
 {
-    "code":500,
-    "result":"You did not sign in correctly or your account is temporarily disabled."
+    "code": 500,
+    "result": "You did not sign in correctly or your account is temporarily disabled."
 }
 ```
 
@@ -814,8 +806,8 @@ This method is used to change password for the current user identified by `token
 
 ```json
 {
-    "currentPassword":"OldPassword",
-    "newPassword":"NewPassword"
+    "currentPassword": "OldPassword",
+    "newPassword": "NewPassword"
 }
 ```
 
@@ -824,8 +816,8 @@ This method is used to change password for the current user identified by `token
 
 ```json
 {
-    "code":500,
-    "result":"The password doesn't match this account."
+    "code": 500,
+    "result": "The password doesn't match this account."
 }
 ```
 
@@ -1105,41 +1097,44 @@ Gets the User profile for currently authorized user. It's called after a success
 
 ```json
 {
-    "code":200,
-    "result":
-        {
-            "id":158,
-            "group_id":1,
-            "default_shipping":"67",
-            "created_at":"2018-02-28 12:05:39",
-            "updated_at":"2018-03-29 10:46:03",
-            "created_in":"Default Store View",
-            "email":"pkarwatka102@divante.pl",
-            "firstname":"Piotr",
-            "lastname":"Karwatka",
-            "store_id":1,
-            "website_id":1,
-            "addresses":[
-                    {
-                        "id":67,
-                        "customer_id":158,
-                        "region":
-                            {
-                                "region_code":null,
-                                "region":null,
-                                "region_id":0
-                            },
-                        "region_id":0,
-                        "country_id":"PL",
-                        "street": ["Street name","13"],
-                        "telephone":"",
-                        "postcode":"41-157",
-                        "city":"Wrocław",
-                        "firstname":"John","lastname":"Murphy",
-                        "default_shipping":true
-                    }],
-            "disable_auto_group_change":0
-        }
+    "code": 200,
+    "result": {
+        "id": 158,
+        "group_id": 1,
+        "default_shipping": "67",
+        "created_at": "2018-02-28 12:05:39",
+        "updated_at": "2018-03-29 10:46:03",
+        "created_in": "Default Store View",
+        "email": "pkarwatka102@divante.pl",
+        "firstname": "Piotr",
+        "lastname": "Karwatka",
+        "store_id": 1,
+        "website_id": 1,
+        "addresses": [
+            {
+                "id": 67,
+                "customer_id": 158,
+                "region": {
+                    "region_code": null,
+                    "region": null,
+                    "region_id": 0
+                },
+                "region_id": 0,
+                "country_id": "PL",
+                "street": [
+                    "Street name",
+                    "13"
+                ],
+                "telephone": "",
+                "postcode": "41-157",
+                "city": "Wrocław",
+                "firstname": "John",
+                "lastname": "Murphy",
+                "default_shipping": true
+            }
+        ],
+        "disable_auto_group_change": 0
+    }
 }
 ```
 #### RESPONSE CODES:
@@ -1416,8 +1411,8 @@ The `cart_id` is a guest or authorized user quote id (you can mix a guest cart w
 
 ```json
 {
-    "code":200,
-    "result":"OK"
+    "code": 200,
+    "result": "OK"
 }
 ```
 
