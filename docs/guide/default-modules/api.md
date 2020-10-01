@@ -727,13 +727,17 @@ null
 }
 ```
 
-#### RESPONSE BODY:
+#### EXAMPLE CALL:
 
-`curl 'https://your-domain.example.com/api/user/login' \
+```bash
+curl 'https://your-domain.example.com/api/user/login' \
   -X POST \
   -H 'content-type: application/json' \
   -H 'accept: application/json' \
-  --data-binary '{"username":"pkarwatka102@divante.pl","password":"TopSecretPassword"}'`
+  --data-binary '{"username":"pkarwatka102@divante.pl","password":"TopSecretPassword"}'
+```
+
+#### RESPONSE BODY:
 
 ```json
 {
@@ -779,16 +783,17 @@ null
     "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM"
 }
 ```
-
-#### RESPONSE BODY:
+#### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/user/login' \
+curl 'https://your-domain.example.com/api/user/refresh' \
   -X POST \
   -H 'content-type: application/json' \
   -H 'accept: application/json' \
   --data-binary '{"refreshToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM"}'
 ```
+
+#### RESPONSE BODY:
 
 ```json
 {
