@@ -43,7 +43,7 @@ curl 'https://your-domain.example.com/api/cart/create?token=xu8h02nd66yq0gaayj4x
 
 For a guest user:
 
-```
+```json
 {
     "code": 200,
     "result": "a17b9b5fb9f56652b8280bb94c52cd93"
@@ -53,7 +53,7 @@ For a guest user:
 The `result` is a guest-cart id that should be used for all subsequent cart related operations as `?cartId=a17b9b5fb9f56652b8280bb94c52cd93`
 
 For an authorized user:
-```
+```json
 {
     "code": 200,
     "result": "81668"
@@ -184,7 +184,12 @@ This method is called just after `api/cart/pull` as a consequence of the synchro
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/update?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' -H 'accept: */*' --data-binary '{"cartItem":{"sku":"MS10-XS-Black","item_id":5853,"quoteId":"81668"}}' --compressed
+curl 'https://your-domain.example.com/api/cart/update?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' \
+  -X POST
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  --data-binary '{"cartItem":{"sku":"MS10-XS-Black","item_id":5853,"quoteId":"81668"}}' \
+  --compressed
 ```
 
 #### RESPONSE BODY:
@@ -219,7 +224,12 @@ This method is called just after `api/cart/pull` as a consequence of the synchro
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/delete?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' -H 'accept: */*' --data-binary '{"cartItem":{"sku":"MS10-XS-Black","item_id":5853,"quoteId":"81668"}}' --compressed
+curl 'https://your-domain.example.com/api/cart/delete?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' \
+  -X POST
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  --data-binary '{"cartItem":{"sku":"MS10-XS-Black","item_id":5853,"quoteId":"81668"}}' \
+  --compressed
 ```
 
 #### REQUEST BODY:
@@ -250,7 +260,10 @@ This method is used to apply a discount code to the current server side quote.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANI' -X POST -H 'content-type: application/json' -H 'accept: */*'
+curl 'https://your-domain.example.com/api/cart/apply-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc&coupon=ARMANI' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: */*'
 ```
 
 #### RESPONSE BODY:
@@ -270,7 +283,10 @@ This method is used to delete discount codes to the current server side quote.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/delete-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -X POST -H 'content-type: application/json' -H 'accept: */*'
+curl 'https://your-domain.example.com/api/cart/delete-coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: */*'
 ```
 
 #### RESPONSE BODY:
@@ -289,7 +305,10 @@ This method is used to get the currently applied coupon code.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' -H 'content-type: application/json' -H 'accept: */*'
+curl 'https://your-domain.example.com/api/cart/coupon?token=2q1w9oixh3bukxyj947tiordnehai4td&cartId=5effb906a97ebecd6ae96e3958d04edc' \
+  -X GET \
+  -H 'content-type: application/json' \
+  -H 'accept: */*'
 ```
 
 #### RESPONSE BODY:
@@ -308,7 +327,10 @@ The method called just after any shopping cart modification when `config.synchro
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/totals?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' -H 'accept: */*'
+curl 'https://your-domain.example.com/api/cart/totals?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' \
+  -X GET \
+  -H 'content-type: application/json' \
+  -H 'accept: */*'
 ```
 
 #### GET PARAMS:
@@ -401,7 +423,10 @@ This method is used as a step in the cart synchronization process to get all the
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/payment-methods?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' -H 'accept: */*'
+curl 'https://your-domain.example.com/api/cart/payment-methods?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' \
+  -X GET \
+  -H 'content-type: application/json' \
+  -H 'accept: */*'
 ```
 
 #### GET PARAMS:
@@ -439,7 +464,11 @@ This method is used as a step in the cart synchronization process to get all the
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/shipping-methods?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' -H 'accept: */*' --data-binary '{"address":{"country_id":"PL"}}'
+curl 'https://your-domain.example.com/api/cart/shipping-methods?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  --data-binary '{"address":{"country_id":"PL"}}'
 ```
 
 #### GET PARAMS:
@@ -489,7 +518,11 @@ This method sets the shipping information on a specified quote, which is a requi
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/cart/shipping-information?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' -H 'content-type: application/json' -H 'accept: */*' --data-binary '{"addressInformation":{"shipping_address":{"country_id":"PL"},"shipping_method_code":"flatrate","shipping_carrier_code":"flatrate"}}'
+curl 'https://your-domain.example.com/api/cart/shipping-information?token=xu8h02nd66yq0gaayj4x3kpqwity02or&cartId=81668' \
+  -X POST
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  --data-binary '{"addressInformation":{"shipping_address":{"country_id":"PL"},"shipping_method_code":"flatrate","shipping_carrier_code":"flatrate"}}'
 ```
 
 #### GET PARAMS:
@@ -621,7 +654,11 @@ Registers a new user to the eCommerce backend user database.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/user/create' -H 'content-type: application/json' -H 'accept: application/json, text/plain, */*'--data-binary '{"customer":{"email":"pkarwatka9998@divante.pl","firstname":"Joe","lastname":"Black"},"password":"SecretPassword!@#123"}'
+curl 'https://your-domain.example.com/api/user/create' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: application/json, text/plain, */*' \
+  --data-binary '{"customer":{"email":"pkarwatka9998@divante.pl","firstname":"Joe","lastname":"Black"},"password":"SecretPassword!@#123"}'
 ```
 
 #### REQUEST BODY:
@@ -692,7 +729,11 @@ null
 
 #### RESPONSE BODY:
 
-`curl 'https://your-domain.example.com/api/user/login' -H 'content-type: application/json' -H 'accept: application/json' --data-binary '"username":"pkarwatka102@divante.pl","password":"TopSecretPassword}'`
+`curl 'https://your-domain.example.com/api/user/login' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: application/json' \
+  --data-binary '{"username":"pkarwatka102@divante.pl","password":"TopSecretPassword"}'`
 
 ```json
 {
@@ -741,7 +782,13 @@ null
 
 #### RESPONSE BODY:
 
-`curl 'https://your-domain.example.com/api/user/login' -H 'content-type: application/json' -H 'accept: application/json' --data-binary '"refreshToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM"}'`
+```bash
+curl 'https://your-domain.example.com/api/user/login' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: application/json' \
+  --data-binary '{"refreshToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzOSJ9.a4HQc2HODmOj5SRMiv-EzWuMZbyIz0CLuVRhPw_MrOM"}'
+```
 
 ```json
 {
@@ -773,7 +820,11 @@ Sends the password reset link for the specified user.
 #### EXAMPLE CALL:
 
 ```bash
-curl 'https://your-domain.example.com/api/user/reset-password' -H 'content-type: application/json' -H 'accept: application/json, text/plain, */*' --data-binary '{"email":"pkarwatka992@divante.pl"}'
+curl 'https://your-domain.example.com/api/user/reset-password' \
+  -X POST \
+  -H 'content-type: application/json' \
+  -H 'accept: application/json, text/plain, */*' \
+  --data-binary '{"email":"pkarwatka992@divante.pl"}'
 ```
 
 #### REQUEST BODY:
@@ -1441,7 +1492,10 @@ Catalog endpoints are a proxy to Elastic Search 5.x and can be used to search th
 #### EXAMPLE CALL
 
 ```bash
-curl 'https://your-domain.example.com/api/catalog/vue_storefront_catalog/attribute/_search?size=50&from=0&sort=' -H 'content-type: application/json' -H 'accept: */*' --data-binary '{"query":{"bool":{"filter":{"bool":{"should":[{"term":{"attribute_code":"color"}},{"term":{"attribute_code":"size"}},{"term":{"attribute_code":"price"}}]}}}}}'
+curl 'https://your-domain.example.com/api/catalog/vue_storefront_catalog/attribute/_search?size=50&from=0&sort=' \
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  --data-binary '{"query":{"bool":{"filter":{"bool":{"should":[{"term":{"attribute_code":"color"}},{"term":{"attribute_code":"size"}},{"term":{"attribute_code":"price"}}]}}}}}'
 ```
 
 #### REQUEST BODY
