@@ -2082,11 +2082,9 @@ This simple API module is used just to resize images using the [Sharp](https://g
 
 #### GET PARAMS
 
-`/img/{width}/{height}/{operation}/{relativeUrl}`
-
-or
-
-`/img/{width}/{height}/{operation}?absoluteUrl={absoluteUrl}`
+- `/img/{width}/{height}/{operation}/{relativeUrl}`
+- `/img/{width}/{height}/{operation}?absoluteUrl={absoluteUrl}`
+- `/img/?width={width}&height{height}&action={operation}&url={relativeUrl}`
 
 for example:
 
@@ -2104,3 +2102,4 @@ Other examples:
 
 - https://your-domain.example.com/img/310/300/identify/w/p/wp07-black_main.jpg - to get the JSON encoded EXIF information.
 - https://your-domain.example.com/img/310/300/crop/w/p/wp07-black_main.jpg?crop=500x500%2B200%2B400 - to crop image (the crop parameter format = '{width}x{height}+{left}+{top}').
+- https://your-domain.example.com/img?width=310&height300&action=fit&url=wp07-black_main.jpg
