@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Docs
 
-- Correct formatting of json elements @EdwinBetanc0urt (#91)
+- Correct formatting of json/bash elements and others fixes - @EdwinBetanc0urt (#91)
 
 ## [1.0-rc.3] -  2020.04.28
 
