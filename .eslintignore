@@ -1,2 +1,4 @@
 dist/
 node_modules
+src/modules/sample-api
+src/modules/template-module

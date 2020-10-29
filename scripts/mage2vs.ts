@@ -47,7 +47,7 @@ function getMagentoDefaultConfig (storeCode) {
 
 function exec (cmd, args, opts) {
   return new Promise((resolve, reject) => {
-    let child = spawn(cmd, args, opts)
+    const child = spawn(cmd, args, opts)
     child.stdout.on('data', (data) => {
       console.log(data.toString('utf8'));
     });
@@ -77,7 +77,7 @@ program
   .option('--skus <skus>', 'comma delimited list of SKUs to fetch fresh informations from', '')
   .option('--removeNonExistent <removeNonExistent>', 'remove non existent products', false)
   .action((cmd) => {
-    let magentoConfig: any = getMagentoDefaultConfig(cmd.storeCode)
+    const magentoConfig: any = getMagentoDefaultConfig(cmd.storeCode)
     magentoConfig.MAGENTO_STORE_ID = 1
     magentoConfig.INDEX_META_PATH = '.lastIndex.json'
 
@@ -110,9 +110,7 @@ program
       '--initQueue=' + cmd.initQueue,
       '--skus=' + cmd.skus,
       '--removeNonExistent=' + cmd.removeNonExistent
-    ], { env: env, shell: true }).then((_) => {
-
-    })
+    ], { env: env, shell: true }).then()
   })
 
 program
@@ -128,7 +126,7 @@ program
   .option('--skip-blocks <skipBlocks>', 'skip import of cms blocks', false)
   .option('--generate-unique-url-keys <generateUniqueUrlKeys>', 'generate unique url keys for categories', true)
   .action((cmd) => {
-    let magentoConfig: any = getMagentoDefaultConfig(cmd.storeCode)
+    const magentoConfig: any = getMagentoDefaultConfig(cmd.storeCode)
 
     if (cmd.storeCode) {
       const storeView = config.get('storeViews')[cmd.storeCode]
@@ -174,7 +172,7 @@ program
     const env = Object.assign({}, magentoConfig, process.env) // use process env as well
     console.log('=== The mage2vuestorefront full reindex is about to start. Using the following Magento2 config ===', magentoConfig)
 
-    let createDbPromise = function () {
+    const createDbPromise = function () {
       console.log(' == CREATING NEW DATABASE ==')
       return exec('node', [
         'scripts/db.js',
@@ -183,7 +181,7 @@ program
       ], { env: env, shell: true })
     }
 
-    let importReviewsPromise = function () {
+    const importReviewsPromise = function () {
       if (magentoConfig.SKIP_REVIEWS) {
         return Promise.resolve();
       } else {
@@ -192,11 +190,11 @@ program
           '--harmony',
           'node_modules/mage2vuestorefront/src/cli.js',
           'reviews'
-        ], {env: env, shell: true})
+        ], { env: env, shell: true })
       }
     }
 
-    let importCategoriesPromise = function () {
+    const importCategoriesPromise = function () {
       if (magentoConfig.SKIP_CATEGORIES) {
         return Promise.resolve();
       } else {
@@ -212,7 +210,7 @@ program
       }
     }
 
-    let importProductcategoriesPromise = function () {
+    const importProductcategoriesPromise = function () {
       if (magentoConfig.SKIP_PRODUCTCATEGORIES) {
         return Promise.resolve();
       } else {
@@ -225,7 +223,7 @@ program
       }
     }
 
-    let importAttributesPromise = function () {
+    const importAttributesPromise = function () {
       if (magentoConfig.SKIP_ATTRIBUTES) {
         return Promise.resolve();
       } else {
@@ -239,7 +237,7 @@ program
       }
     }
 
-    let importTaxrulePromise = function () {
+    const importTaxrulePromise = function () {
       if (magentoConfig.SKIP_TAXRULE) {
         return Promise.resolve();
       } else {
@@ -253,7 +251,7 @@ program
       }
     }
 
-    let importProductsPromise = function () {
+    const importProductsPromise = function () {
       if (magentoConfig.SKIP_PRODUCTS) {
         return Promise.resolve();
       } else {
@@ -268,16 +266,16 @@ program
       }
     }
 
-    let reindexPromise = function () {
+    const reindexPromise = function () {
       console.log(' == REINDEXING DATABASE ==')
       return exec('node', [
         'scripts/db.js',
         'rebuild',
         `--indexName=${env.INDEX_NAME}`
-      ], {env: env, shell: true})
+      ], { env: env, shell: true })
     }
 
-    let importCmsPagesPromise = function () {
+    const importCmsPagesPromise = function () {
       if (magentoConfig.SKIP_PAGES) {
         return Promise.resolve();
       } else {
@@ -288,7 +286,7 @@ program
             '--harmony',
             'node_modules/mage2vuestorefront/src/cli.js',
             'pages'
-          ], {env: env, shell: true})
+          ], { env: env, shell: true })
         } catch (error) {
           console.log('ERROR: cms pages not fetched because: ' + error);
           return Promise.resolve();
@@ -296,7 +294,7 @@ program
       }
     }
 
-    let importCmsBlocksPromise = function () {
+    const importCmsBlocksPromise = function () {
       if (magentoConfig.SKIP_BLOCKS) {
         return Promise.resolve();
       } else {
@@ -307,7 +305,7 @@ program
             '--harmony',
             'node_modules/mage2vuestorefront/src/cli.js',
             'blocks'
-          ], {env: env, shell: true})
+          ], { env: env, shell: true })
         } catch (error) {
           console.log('ERROR: cms blocks not fetched because: ' + error);
           return Promise.resolve();

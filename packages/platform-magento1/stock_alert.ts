@@ -7,6 +7,7 @@ class StockAlertProxy extends AbstractStockAlertProxy {
     super(config, req)
     this.api = Magento1Client(multiStoreConfig(config.magento1.api, req));
   }
+
   public subscribe (customerToken, productId, emailAddress) {
     return this.api.stockAlert.subscribe(customerToken, productId, emailAddress);
   }

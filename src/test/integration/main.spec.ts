@@ -7,10 +7,10 @@ import config from 'config'
 import { DefaultVuestorefrontApiModule } from '@storefront-api/default-vsf'
 import { DefaultCatalogModule } from '@storefront-api/default-catalog'
 import { DefaultImgModule } from '@storefront-api/default-img'
-import {StorefrontApiModule} from '@storefront-api/lib/module'
+import { StorefrontApiModule } from '@storefront-api/lib/module'
 import magento2 from '@storefront-api/platform-magento2'
 
-export let modules: StorefrontApiModule[] = [
+export const modules: StorefrontApiModule[] = [
   DefaultVuestorefrontApiModule({
     platform: {
       name: 'magento2',

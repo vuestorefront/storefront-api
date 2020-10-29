@@ -20,7 +20,7 @@ class TaxProxy extends AbstractTaxProxy {
     this._storeConfigTax = this._config.get('tax')
     const storeViews = this._config.get<Record<string, any>>('storeViews')
     if (storeViews && storeViews.multistore) {
-      for (let storeCode in storeViews) {
+      for (const storeCode in storeViews) {
         const store = storeViews[storeCode]
 
         if (typeof store === 'object') {
@@ -44,10 +44,10 @@ class TaxProxy extends AbstractTaxProxy {
         taxCountry = this._config.get('tax.defaultCountry')
       }
     }
-    if (sourcePriceInclTax === null) {
+    if (sourcePriceInclTax == null) {
       sourcePriceInclTax = this._config.get('tax.sourcePriceIncludesTax')
     }
-    if (finalPriceInclTax === null) {
+    if (finalPriceInclTax == null) {
       finalPriceInclTax = this._config.get('tax.finalPriceIncludesTax')
     }
     this._deprecatedPriceFieldsSupport = this._config.get('tax.deprecatedPriceFieldsSupport')
@@ -74,16 +74,15 @@ class TaxProxy extends AbstractTaxProxy {
 
   public applyTierPrices (productList, groupId) {
     if (this._config.get('usePriceTiers')) {
-      for (let item of productList) {
+      for (const item of productList) {
         TierHelper(item._source, groupId)
       }
     }
   }
 
   public process (productList, groupId = null) {
-    const inst = this
     return new Promise((resolve, reject) => {
-      inst.applyTierPrices(productList, groupId)
+      this.applyTierPrices(productList, groupId)
 
       if (this._config.get('tax.calculateServerSide')) {
         const client = es.getClient(this._config)
@@ -93,16 +92,16 @@ class TaxProxy extends AbstractTaxProxy {
         }, 'taxrule', this._config)
 
         client.search(esQuery).then((result) => { // we're always trying to populate cache - when online
-          inst._taxClasses = es.getHits(result).map(el => { return el._source })
-          for (let item of productList) {
-            const isActive = checkIfTaxWithUserGroupIsActive(inst._storeConfigTax)
+          this._taxClasses = es.getHits(result).map(el => { return el._source })
+          for (const item of productList) {
+            const isActive = checkIfTaxWithUserGroupIsActive(this._storeConfigTax)
             if (isActive) {
-              groupId = getUserGroupIdToUse(inst._userGroupId, inst._storeConfigTax)
+              groupId = getUserGroupIdToUse(this._userGroupId, this._storeConfigTax)
             } else {
               groupId = null
             }
 
-            inst.taxFor(item._source, groupId)
+            this.taxFor(item._source, groupId)
           }
 
           resolve(productList)

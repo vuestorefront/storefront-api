@@ -1,5 +1,5 @@
-import {Request, Response} from 'express';
-import {IConfig} from 'config';
+import { Request, Response } from 'express';
+import { IConfig } from 'config';
 
 const jwa = require('jwa');
 const hmac = jwa('HS256');

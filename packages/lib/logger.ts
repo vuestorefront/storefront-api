@@ -27,7 +27,7 @@ export class Logger implements BaseLogger {
   protected context?: string
   private readonly isTimestampEnabled
 
-  public constructor (isTimestampEnabled: boolean = false, context?: string) {
+  public constructor (isTimestampEnabled = false, context?: string) {
     this.isTimestampEnabled = isTimestampEnabled
     this.context = context
   }

@@ -20,9 +20,9 @@ program
     if (!cmd.outputFile.indexOf('.json')) {
       console.error('Please provide the file name ending with .json ext.')
     }
-    for (var collectionName in aggregatedSchema.schemas) {
-      var inputIndex = `${cmd.inputIndex}_${collectionName}`
-      var outputFile = cmd.outputFile.replace('.json', `_${collectionName}.json`)
+    for (const collectionName in aggregatedSchema.schemas) {
+      const inputIndex = `${cmd.inputIndex}_${collectionName}`
+      const outputFile = cmd.outputFile.replace('.json', `_${collectionName}.json`)
       const input = `http://${config.elasticsearch.host}:${config.elasticsearch.port}/${inputIndex}`
 
       const child = spawnSync('node', [
@@ -42,9 +42,9 @@ program
     if (!cmd.inputFile.indexOf('.json')) {
       console.error('Please provide the file name ending with .json ext.')
     }
-    for (var collectionName in aggregatedSchema.schemas) {
-      var outputIndex = `${cmd.outputIndex}_${collectionName}`
-      var inputFile = cmd.inputFile.replace('.json', `_${collectionName}.json`)
+    for (const collectionName in aggregatedSchema.schemas) {
+      const outputIndex = `${cmd.outputIndex}_${collectionName}`
+      const inputFile = cmd.inputFile.replace('.json', `_${collectionName}.json`)
 
       const output = `http://${config.elasticsearch.host}:${config.elasticsearch.port}/${outputIndex}`
 

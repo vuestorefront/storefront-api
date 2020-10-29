@@ -1,10 +1,10 @@
 // @deprecated from 2.0
 import { StorefrontApiContext, StorefrontApiModuleConfig, GraphqlConfiguration, DbContext, ElasticSearchMappings } from './types'
 import { IConfig } from 'config'
-import {IRouter, Router} from 'express'
+import { IRouter, Router } from 'express'
 import path from 'path'
 import merge from 'deepmerge'
-import {BaseLogger} from '../logger';
+import { BaseLogger } from '../logger';
 import Logger from '@storefront-api/lib/logger'
 
 const registeredModules: StorefrontApiModuleConfig[] = []
@@ -62,6 +62,7 @@ class StorefrontApiModule {
       }
     }
   }
+
   public aggreagateGraphqlSchema (context: StorefrontApiContext): void {
     if (this._c.initGraphql) {
       const gqlModuleConfig = this._c.initGraphql(context)
@@ -72,6 +73,7 @@ class StorefrontApiModule {
       }
     }
   }
+
   public register (context: StorefrontApiContext): StorefrontApiModuleConfig | void {
     if (!this._isRegistered) {
       if (this._c.beforeRegistration) {
@@ -107,7 +109,7 @@ export interface ExtensionAPIFunction {
 interface ExtensionContext { config: IConfig, app: IRouter, db: DbContext, registeredExtensions: string[], rootPath: string }
 function registerExtensions (context: ExtensionContext): void {
   /** Register the custom extensions */
-  for (let ext of context.registeredExtensions as string[]) {
+  for (const ext of context.registeredExtensions as string[]) {
     let entryPoint: ExtensionAPIFunction
 
     try {

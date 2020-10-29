@@ -5,6 +5,7 @@ import Logger from '@storefront-api/lib/logger'
 
 sharp.cache(config.get('imageable.cache'));
 sharp.concurrency(config.get('imageable.concurrency'));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 sharp.counters(config.get('imageable.counters'));
 sharp.simd(config.get('imageable.simd'));

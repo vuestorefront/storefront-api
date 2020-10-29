@@ -4,7 +4,7 @@ import { IConfig } from 'config';
 class AbstractProductProxy {
   protected _request: Request
   protected _config: IConfig
-  public api: Record<string, Record<string, Function>>
+  public api: Record<string, Record<string, (...args: any[]) => any>>
 
   protected constructor (config, req) {
     this._config = config
@@ -179,6 +179,7 @@ class AbstractProductProxy {
   public list (skus): Promise<any> {
     throw new Error('ProductProxy::list must be implemented for specific platform')
   }
+
   public renderList (skus, currencyCode, storeId = 1): Promise<any> {
     throw new Error('ProductProxy::renderList must be implemented for specific platform')
   }

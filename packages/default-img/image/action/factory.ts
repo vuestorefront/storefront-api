@@ -32,7 +32,7 @@ export default class ActionFactory {
     if (!AdapterClass) {
       throw new Error(`Invalid adapter ${type}`);
     } else {
-      let adapter_instance = new AdapterClass(this.request, this.response, this.next, this.config);
+      const adapter_instance = new AdapterClass(this.request, this.response, this.next, this.config);
       if ((typeof adapter_instance.isValidFor === 'function') && !adapter_instance.isValidFor(type)) { throw new Error(`Not valid adapter class or adapter is not valid for ${type}`); }
       return adapter_instance;
     }

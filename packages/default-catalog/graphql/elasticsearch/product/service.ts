@@ -7,14 +7,14 @@ import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 import { aggregationsToAttributes } from '../attribute/aggregations'
 
 export async function list ({ filter, sort = null, currentPage = null, pageSize, search = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
-  let _req = {
+  const _req = {
     query: {
       _source_excludes: _sourceExcludes,
       _source_includes: _sourceIncludes
     }
   }
 
-  let query = buildQuery({
+  const query = buildQuery({
     filter: filter,
     sort: sort,
     currentPage: currentPage,
@@ -23,7 +23,7 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
     type: 'product'
   });
 
-  let esIndex = getIndexName(context.req.url)
+  const esIndex = getIndexName(context.req.url)
 
   let response = getResponseObject(await client.search(adjustQuery({
     index: esIndex,
@@ -40,7 +40,7 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
   // Process hits
   response.items = []
   response.hits.hits.forEach(hit => {
-    let item = hit._source
+    const item = hit._source
     item._score = hit._score
     response.items.push(item)
   });
@@ -49,8 +49,8 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
   response.total_count = response.hits.total
 
   // Process sort
-  let sortOptions = []
-  for (var sortAttribute in sort) {
+  const sortOptions = []
+  for (const sortAttribute in sort) {
     sortOptions.push(
       {
         label: sortAttribute,
@@ -72,10 +72,14 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
 }
 
 export async function listSingleProduct ({ sku, id = null, url_path = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
-  const filter = {}
-  if (sku) filter['sku'] = { eq: sku }
-  if (id) filter['id'] = { eq: id }
-  if (url_path) filter['url_path'] = { eq: url_path }
+  const filter = {
+    sku: undefined,
+    id: undefined,
+    url_path: undefined
+  }
+  if (sku) filter.sku = { eq: sku }
+  if (id) filter.id = { eq: id }
+  if (url_path) filter.url_path = { eq: url_path }
   const productList = await list({ filter, pageSize: 1, context, rootValue, _sourceIncludes, _sourceExcludes })
   if (productList && productList.items.length > 0) {
     return productList.items[0]

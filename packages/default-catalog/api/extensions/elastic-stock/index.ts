@@ -9,10 +9,10 @@ module.exports = ({
   config,
   db
 }) => {
-  let api = Router();
+  const api = Router();
 
   const getStockList = (storeCode, skus) => {
-    let storeView = getCurrentStoreView(storeCode)
+    const storeView = getCurrentStoreView(storeCode)
     const esQuery = adjustQuery({
       index: storeView.elasticsearch.index, // current index name
       type: 'product',

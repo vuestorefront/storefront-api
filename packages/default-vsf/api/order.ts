@@ -10,6 +10,7 @@ const fs = require('fs');
 const kue = require('kue');
 const jwa = require('jwa');
 const hmac = jwa('HS256');
+const path = require('path');
 
 const _getProxy = (req, config): AbstractOrderProxy => {
   const platform = config.platform
@@ -94,9 +95,9 @@ export default ({ config, db }) => resource({
     const ajv = new Ajv();
     require('ajv-keywords')(ajv, 'regexp');
 
-    const orderSchema = require('../models/order.schema.js')
+    const orderSchema = require('../models/order.schema')
     let orderSchemaExtension = {}
-    if (fs.existsSync('../models/order.schema.extension.json')) {
+    if (fs.existsSync(path.resolve(__dirname, '../models/order.schema.extension.json'))) {
       orderSchemaExtension = require('../models/order.schema.extension.json')
     }
     const validate = ajv.compile(merge(orderSchema, orderSchemaExtension));
@@ -109,8 +110,8 @@ export default ({ config, db }) => resource({
     const incomingOrder = { title: 'Incoming order received on ' + new Date() + ' / ' + req.ip, ip: req.ip, agent: req.headers['user-agent'], receivedAt: new Date(), order: req.body }/* parsed using bodyParser.json middleware */
     Logger.info(JSON.stringify(incomingOrder))
 
-    for (let product of req.body.products) {
-      let key = config.tax.calculateServerSide ? { priceInclTax: product.priceInclTax, id: null, sku: null } : { price: product.price, id: null, sku: null }
+    for (const product of req.body.products) {
+      const key = config.tax.calculateServerSide ? { priceInclTax: product.priceInclTax, id: null, sku: null } : { price: product.price, id: null, sku: null }
       if (config.tax.alwaysSyncPlatformPricesOver) {
         key.id = product.id
       } else {
@@ -129,7 +130,7 @@ export default ({ config, db }) => resource({
 
     if (config.orders.useServerQueue) {
       try {
-        let queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
+        const queue = kue.createQueue(Object.assign(config.kue, { redis: config.redis }));
         const job = queue.create('order', incomingOrder).save((err) => {
           if (err) {
             Logger.error(err)

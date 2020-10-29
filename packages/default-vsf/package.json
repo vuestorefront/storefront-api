@@ -43,7 +43,7 @@
     "nodemailer": "^4.6.8",
     "request": "^2.85.0",
     "resource-router-middleware": "^0.6.0",
-    "typescript": "3.7.*",
+    "typescript": "3.9.*",
     "winston": "^3.2.0"
   },
   "devDependencies": {

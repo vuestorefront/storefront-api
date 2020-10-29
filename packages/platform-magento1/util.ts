@@ -9,14 +9,14 @@ import Logger from '@storefront-api/lib/logger'
  */
 export function multiStoreConfig (apiConfig, req) {
   let confCopy = Object.assign({}, apiConfig)
-  let storeCode = getCurrentStoreCode(req)
+  const storeCode = getCurrentStoreCode(req)
   const availableStores = config.get<string[]>('availableStores')
   const magento1Config = config.get<Record<string, any>>('magento1')
   if (storeCode && availableStores.indexOf(storeCode) >= 0) {
     if (magento1Config['api_' + storeCode]) {
       confCopy = Object.assign({}, magento1Config['api_' + storeCode]) // we're to use the specific api configuration - maybe even separate magento instance
     } else {
-      if (new RegExp('(/' + availableStores.join('|') + '/)', 'gm').exec(confCopy.url) === null) {
+      if (new RegExp('/(' + availableStores.join('|') + ')/', 'gm').exec(confCopy.url) === null) {
         confCopy.url = (confCopy.url).replace(/(vsbridge)/gm, `${storeCode}/$1`);
       }
     }

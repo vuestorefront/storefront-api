@@ -3,7 +3,7 @@ import { Express } from 'express';
 import { RedisClient } from 'redis';
 import { Client } from '@elastic/elasticsearch'
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer'
-import {BaseLogger} from '../logger';
+import { BaseLogger } from '../logger';
 
 export interface DbContext {
   getElasticClient(): Client,

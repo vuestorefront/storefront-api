@@ -35,7 +35,7 @@
     "jwt-simple": "^0.5.1",
     "lodash": "^4.17.10",
     "request": "^2.85.0",
-    "typescript": "3.7.*"
+    "typescript": "3.9.*"
   },
   "devDependencies": {
     "@types/config": "^0.0.34",

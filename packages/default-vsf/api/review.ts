@@ -5,7 +5,7 @@ import AbstractReviewProxy from '@storefront-api/platform-abstract/review';
 
 const Ajv = require('ajv'); // json validator
 
-export default ({config, db}) => {
+export default ({ config, db }) => {
   const reviewApi = Router();
 
   const _getProxy = (req): AbstractReviewProxy => {

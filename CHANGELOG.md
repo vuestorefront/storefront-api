@@ -9,18 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed / Improved
 
 - reduce the number of layers in the storefront-api Dockerfile - @EdwinBetanc0urt (#97)
+- updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
 
 ## [1.0-rc.3] -  2020.04.28
 
 ### Added
 
 - Add `Product.breadcrumbs`and `Category.breadcrumbs` - @gibkigonzo (#71)
+- Add changes from vsf-api hotfix 1.12.1 - @gibkigonzo (https://github.com/DivanteLtd/vue-storefront-api/pull/475)
 
 ### Fixed
 
 - fix semver for packages, add uniq names for docker containers, remove vips partial install in Dockerfile - @gibkigonzo (#65)
 - added missing parramenter to error handler for invalid requests - @gibkigonzo (#66)
 - added "useWorkspaces" to the lerna config - @resubaka (#73)
+- Bugfix for wrong JSON scheme url's and hostname resolution for `magento1` platform - @cewald (#443)
+- check if headers has been already sent in image middleware - @gibkigonzo (#434)
 
 ## [1.0-rc.2] -  2020.04.10
 
@@ -51,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `response_format` query parameter to the `/api/catalog` endpoint. Currently there is just one additional format supported: `response_format=compact`. When used, the response format got optimized by: a) remapping the results, removing the `_source` from the `hits.hits`; b) compressing the JSON fields names according to the `config.products.fieldsToCompact`; c) removing the JSON fields from the `product.configurable_children` when their values === parent product values; overall response size reduced over -70% - @pkarw
 - The support for `SearchQuery` instead of the ElasticSearch DSL as for the input to `/api/catalog` - using `storefront-query-builder` package - @pkarw - https://github.com/DivanteLtd/vue-storefront/issues/2167
 - updated yarn.lock to remove a lot possible vulnerabilities - @resubaka - https://github.com/DivanteLtd/storefront-api/pull/55
+- remove callbacks from es helper functions, instead use promise, refactor `db rebuild` => parallel process, refactor `db new`, add `db clear` - gibkigonzo (#72)
 
 ### Fixed
 

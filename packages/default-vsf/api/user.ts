@@ -7,6 +7,7 @@ import AbstractUserProxy from '@storefront-api/platform-abstract/user';
 
 const Ajv = require('ajv'); // json validator
 const fs = require('fs');
+const path = require('path');
 
 function addUserGroupToken (config, result) {
   /**
@@ -21,8 +22,8 @@ function addUserGroupToken (config, result) {
   result.groupToken = jwt.encode(data, config.authHashSecret ? config.authHashSecret : config.objHashSecret)
 }
 
-export default ({config, db}) => {
-  let userApi = Router();
+export default ({ config, db }) => {
+  const userApi = Router();
 
   const _getProxy = (req): AbstractUserProxy => {
     const platform = config.platform
@@ -81,7 +82,7 @@ export default ({config, db}) => {
     const ajv = new Ajv();
     const userRegisterSchema = require('../models/userRegister.schema.json')
     let userRegisterSchemaExtension = {};
-    if (fs.existsSync('../models/userRegister.schema.extension.json')) {
+    if (fs.existsSync(path.resolve(__dirname, '../models/userRegister.schema.extension.json'))) {
       userRegisterSchemaExtension = require('../models/userRegister.schema.extension.json');
     }
     const validate = ajv.compile(merge(userRegisterSchema, userRegisterSchemaExtension))
@@ -144,7 +145,7 @@ export default ({config, db}) => {
       /**
       * Second request for more user info
       */
-      apiStatus(res, result, 200, {refreshToken: encryptToken(jwt.encode(req.body, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret)});
+      apiStatus(res, result, 200, { refreshToken: encryptToken(jwt.encode(req.body, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret) });
     }).catch(err => {
       apiError(res, err);
     })
@@ -195,7 +196,7 @@ export default ({config, db}) => {
       }
 
       userProxy.login(decodedToken).then((result) => {
-        apiStatus(res, result, 200, {refreshToken: encryptToken(jwt.encode(decodedToken, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret)});
+        apiStatus(res, result, 200, { refreshToken: encryptToken(jwt.encode(decodedToken, config.authHashSecret ? config.authHashSecret : config.objHashSecret), config.authHashSecret ? config.authHashSecret : config.objHashSecret) });
       }).catch(err => {
         apiError(res, err);
       })
@@ -676,7 +677,7 @@ export default ({config, db}) => {
     const ajv = new Ajv();
     const userProfileSchema = require('../models/userProfile.schema.json')
     let userProfileSchemaExtension = {};
-    if (fs.existsSync('../models/userProfile.schema.extension.json')) {
+    if (fs.existsSync(path.resolve(__dirname, '../models/userProfile.schema.extension.json'))) {
       userProfileSchemaExtension = require('../models/userProfile.schema.extension.json');
     }
     const validate = ajv.compile(merge(userProfileSchema, userProfileSchemaExtension))
@@ -692,7 +693,7 @@ export default ({config, db}) => {
     }
 
     const userProxy = _getProxy(req)
-    userProxy.update({token: req.query.token, body: req.body}).then((result) => {
+    userProxy.update({ token: req.query.token, body: req.body }).then((result) => {
       addUserGroupToken(config, result)
       apiStatus(res, result, 200)
     }).catch(err => {
@@ -712,7 +713,7 @@ export default ({config, db}) => {
    */
   userApi.post('/change-password', (req, res) => {
     const userProxy = _getProxy(req)
-    userProxy.changePassword({token: req.query.token, body: req.body}).then((result) => {
+    userProxy.changePassword({ token: req.query.token, body: req.body }).then((result) => {
       apiStatus(res, result, 200)
     }).catch(err => {
       apiStatus(res, err, 500)

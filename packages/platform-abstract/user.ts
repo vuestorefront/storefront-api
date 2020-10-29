@@ -4,7 +4,7 @@ import { IConfig } from 'config';
 class AbstractUserProxy {
   protected _request: Request
   protected _config: IConfig
-  public api: Record<string, Record<string, Function>>
+  public api: Record<string, Record<string, (...args: any[]) => any>>
 
   protected constructor (config, req) {
     this._config = config

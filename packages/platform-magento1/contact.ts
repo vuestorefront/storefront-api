@@ -7,6 +7,7 @@ class ContactProxy extends AbstractContactProxy {
     super(config, req)
     this.api = Magento1Client(multiStoreConfig(config.magento1.api, req));
   }
+
   public submit (form) {
     return this.api.contact.submit(form);
   }

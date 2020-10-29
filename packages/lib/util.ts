@@ -45,7 +45,7 @@ export function getCurrentStoreView (storeCode: string = null): any {
  *      collection.find({}, toRes(res));
  *    }
  */
-export function toRes (res, status: number = 200) {
+export function toRes (res, status = 200) {
   return (err, thing) => {
     if (err) return res.status(500).send(err);
 
@@ -71,8 +71,8 @@ export function sgnSrc (sgnObj, item) {
  *  @param {number} [code=200]    Status code to send on success
  *  @param {json} [result='OK']    Text message or result information object
  */
-export function apiStatus (res, result: string|Record<any, any> = 'OK', code: number = 200, meta = null): string|Record<any, any> {
-  let apiResult: Record<string, any> = { code: code, result: result };
+export function apiStatus (res, result: string|Record<any, any> = 'OK', code = 200, meta = null): string|Record<any, any> {
+  const apiResult: Record<string, any> = { code: code, result: result };
   if (meta !== null) {
     apiResult.meta = meta;
   }
@@ -88,25 +88,25 @@ export function apiStatus (res, result: string|Record<any, any> = 'OK', code: nu
  *  @return {json} [result='OK']    Text message or result information object
  */
 export function apiError (res, error: Record<any, any>): string|Record<any, any> {
-  let errorCode = error.code || error.status || 500;
+  let errorCode = error.code || error.status;
   let errorMessage = error.errorMessage || error;
   if (error instanceof Error) {
     // Class 'Error' is not serializable with JSON.stringify, extract data explicitly.
     errorCode = (error as any).code || errorCode;
     errorMessage = error.message;
   }
-  return apiStatus(res, errorMessage, errorCode);
+  return apiStatus(res, errorMessage, Number(errorCode) || 500);
 }
 
 export function encryptToken (textToken, secret): string {
-  const cipher = crypto.createCipher(algorithm, secret)
+  const cipher = crypto.createCipheriv(algorithm, secret, null)
   let crypted = cipher.update(textToken, 'utf8', 'hex')
   crypted += cipher.final('hex');
   return crypted;
 }
 
 export function decryptToken (textToken, secret): string {
-  const decipher = crypto.createDecipher(algorithm, secret)
+  const decipher = crypto.createDecipheriv(algorithm, secret, null)
   let dec = decipher.update(textToken, 'hex', 'utf8')
   dec += decipher.final('utf8');
   return dec;

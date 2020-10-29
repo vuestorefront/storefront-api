@@ -7,7 +7,7 @@ import jwa from 'jwa';
 const hmac = jwa('HS256');
 
 export default ({ config, db }) => {
-  let productApi = Router();
+  const productApi = Router();
 
   const _getProxy = (req): AbstractProductProxy => {
     const platform = config.platform

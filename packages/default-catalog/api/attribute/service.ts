@@ -84,7 +84,7 @@ function clearAttributeOpitons (attribute, optionsIds: number[]) {
 
 async function list (attributesParam: AttributeListParam, config, indexName: string): Promise<any[]> {
   // we start with all attributeCodes that are requested
-  let attributeCodes = Object.keys(attributesParam)
+  const attributeCodes = Object.keys(attributesParam)
 
   // here we check if some of attribute are in cache
   const rawCachedAttributeList = await Promise.all(

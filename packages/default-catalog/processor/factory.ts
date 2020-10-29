@@ -39,7 +39,7 @@ export class ProcessorFactory {
       Logger.info('No additional data adapter for ' + entityType)
       return null
     } else {
-      let adapter_instance = new AdapterClass(this.config, entityType, indexName, req, res);
+      const adapter_instance = new AdapterClass(this.config, entityType, indexName, req, res);
 
       if ((typeof adapter_instance.isValidFor === 'function') && !adapter_instance.isValidFor(entityType)) { throw new Error('Not valid adapter class or adapter is not valid for ' + entityType); }
 

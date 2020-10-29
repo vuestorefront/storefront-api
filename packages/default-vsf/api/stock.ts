@@ -4,7 +4,7 @@ import PlatformFactory from '@storefront-api/platform/factory'
 import AbstractStockProxy from '@storefront-api/platform-abstract/stock';
 
 export default ({ config, db }) => {
-  let api = Router();
+  const api = Router();
 
   const _getProxy = (req): AbstractStockProxy => {
     const platform = config.platform
@@ -13,7 +13,7 @@ export default ({ config, db }) => {
   };
 
   const _getStockId = (storeCode) => {
-    let storeView = config.storeViews[storeCode]
+    const storeView = config.storeViews[storeCode]
     return storeView ? storeView.msi.stockId : config.msi.defaultStockId
   };
 
@@ -181,7 +181,7 @@ export default ({ config, db }) => {
     const skuArray = (req.query.skus as string).split(',')
     const promisesList = []
     for (const sku of skuArray) {
-      promisesList.push(stockProxy.check({sku: sku, stockId: config.msi.enabled ? _getStockId(req.query.storeCode) : null}))
+      promisesList.push(stockProxy.check({ sku: sku, stockId: config.msi.enabled ? _getStockId(req.query.storeCode) : null }))
     }
     Promise.all(promisesList).then((results) => {
       apiStatus(res, results, 200);

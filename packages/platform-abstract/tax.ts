@@ -3,7 +3,7 @@ import { IConfig } from 'config';
 
 class AbstractTaxProxy {
   protected _config: IConfig
-  public api: Record<string, Record<string, Function>>
+  public api: Record<string, Record<string, (...args: any[]) => any>>
   public _entityType: any
   public _indexName: any
   public _sourcePriceInclTax: any

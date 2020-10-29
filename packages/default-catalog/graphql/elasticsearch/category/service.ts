@@ -6,7 +6,7 @@ import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
 import { aggregationsToAttributes } from '../attribute/aggregations'
 
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue = null, _sourceIncludes, _sourceExcludes = null }) {
-  let query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
+  const query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
 
   const esIndex = getIndexName(context.req.url)
   let response = getResponseObject(await client.search(adjustQuery({
@@ -19,7 +19,7 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
   // Process hits
   response.items = []
   response.hits.hits.forEach(hit => {
-    let item = hit._source
+    const item = hit._source
     item._score = hit._score
     response.items.push(item)
   });
@@ -28,8 +28,8 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
   response.total_count = response.hits.total
 
   // Process sort
-  let sortOptions = []
-  for (var sortAttribute in sort) {
+  const sortOptions = []
+  for (const sortAttribute in sort) {
     sortOptions.push(
       {
         label: sortAttribute,
@@ -51,9 +51,12 @@ export async function list ({ search, filter, currentPage, pageSize = 200, sort,
 }
 
 export async function listSingleCategory ({ id, url_path, context, rootValue, _sourceIncludes, _sourceExcludes }) {
-  const filter = {}
-  if (id) filter['id'] = { eq: id }
-  if (url_path) filter['url_path'] = { eq: url_path }
+  const filter = {
+    id: undefined,
+    url_path: undefined
+  }
+  if (id) filter.id = { eq: id }
+  if (url_path) filter.url_path = { eq: url_path }
   const categoryList = await list({ search: '', filter, currentPage: 0, pageSize: 1, sort: null, context, rootValue, _sourceIncludes, _sourceExcludes })
   if (categoryList && categoryList.items.length > 0) {
     return categoryList.items[0]
@@ -81,7 +84,7 @@ export async function listBreadcrumbs ({ category, context, addCurrentCategory =
   const validResponse = (response && response.items) || []
   const categoryList = (addCurrentCategory ? [...validResponse, category] : validResponse)
     .sort((a, b) => a.level - b.level)
-    .map(({ id, level, ...rest }) => ({category_id: id, ...rest}))
+    .map(({ id, level, ...rest }) => ({ category_id: id, ...rest }))
 
   return categoryList
 }

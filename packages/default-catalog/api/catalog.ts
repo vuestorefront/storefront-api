@@ -39,7 +39,7 @@ function _outputFormatter (responseBody, format = 'standard') {
   return responseBody
 }
 
-export default ({config, db}) => async function (req, res, body) {
+export default ({ config, db }) => async function (req, res, body) {
   let groupId = null
 
   // Request method handling: exit if not GET or POST
@@ -115,6 +115,7 @@ export default ({config, db}) => async function (req, res, body) {
       auth: auth
     }, async (_err, _res, _resBody) => { // TODO: add caching layer to speed up SSR? How to invalidate products (checksum on the response BEFORE processing it)
       if (_err || _resBody.error) {
+        Logger.error(_err || _resBody.error)
         apiError(res, _err || _resBody.error);
         return
       }

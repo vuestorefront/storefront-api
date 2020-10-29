@@ -8,12 +8,12 @@ import { IConfig } from 'config';
 import Logger from '@storefront-api/lib/logger'
 
 function _updateQueryStringParameter (uri: string, key: string|number, value: string|number) {
-  let re = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
-  if (uri.match(re)) {
+  const regExp = new RegExp('([?&])' + key + '=.*?(&|#|$)', 'i');
+  if (uri.match(regExp)) {
     if (value) {
-      return uri.replace(re, '$1' + key + '=' + value + '$2');
+      return uri.replace(regExp, '$1' + key + '=' + value + '$2');
     } else {
-      return uri.replace(re, '$1' + '$2');
+      return uri.replace(regExp, '$1' + '$2');
     }
   } else {
     let hash = '';
@@ -21,7 +21,7 @@ function _updateQueryStringParameter (uri: string, key: string|number, value: st
       hash = uri.replace(/.*#/, '#');
       uri = uri.replace(/#.*/, '');
     }
-    let separator = uri.indexOf('?') !== -1 ? '&' : '?';
+    const separator = uri.indexOf('?') !== -1 ? '&' : '?';
     return uri + separator + key + '=' + value + hash;
   }
 }
@@ -65,6 +65,9 @@ export function adjustBackendProxyUrl (req, indexName: string, entityType: strin
     delete parsedQuery.request
     delete parsedQuery.request_format
     delete parsedQuery.response_format
+    if (config.get<boolean>('elasticsearch.cacheRequest')) {
+      parsedQuery.request_cache = !!config.get<boolean>('elasticsearch.cacheRequest')
+    }
     url = config.get<string>('elasticsearch.host') + ':' + config.get<number>('elasticsearch.port') + '/' + adjustIndexName(indexName, entityType, config) + '/_search?' + queryString.stringify(parsedQuery)
   }
   if (!url.startsWith('http')) {
@@ -99,8 +102,9 @@ export function getHits (result) {
   }
 }
 
+let esClient = null
 export function getClient (config: IConfig): Client {
-  let { host, port, protocol, requestTimeout } = config.get('elasticsearch')
+  const { host, port, protocol, requestTimeout } = config.get('elasticsearch')
   const node = `${protocol}://${host}:${port}`
 
   let auth
@@ -110,110 +114,95 @@ export function getClient (config: IConfig): Client {
     auth = { username: user, password }
   }
 
-  return new Client({ node, auth, requestTimeout })
+  if (!esClient) {
+    esClient = new Client({ node, auth, requestTimeout })
+  }
+
+  return esClient
 }
 
-export function putAlias (db: Client, originalName: string, aliasName: string, next) {
-  let step2 = () => {
-    db.indices.putAlias({ index: originalName, name: aliasName }).then(_ => {
-      Logger.info('Index alias created')
-    }).then(next).catch(err => {
-      Logger.info(err.message)
-      next()
+export async function putAlias (db: Client, originalName: string, aliasName: string) {
+  try {
+    await db.indices.deleteAlias({
+      index: aliasName,
+      name: originalName
     })
-  }
-  return db.indices.deleteAlias({
-    index: aliasName,
-    name: originalName
-  }).then((_) => {
     Logger.info('Public index alias deleted')
-    step2()
-  }).catch((err) => {
+  } catch (err) {
     Logger.info('Public index alias does not exists', err.message)
-    step2()
-  })
+  } finally {
+    try {
+      await db.indices.putAlias({ index: originalName, name: aliasName })
+      Logger.info('Index alias created')
+    } catch (err) {
+      Logger.info(err.message)
+    }
+  }
 }
 
 export function search (db: Client, query: RequestParams.Search) {
   return db.search(query)
 }
 
-export function deleteIndex (db: Client, indexName: string, next: () => void) {
-  db.indices.delete({
-    'index': indexName
-  }).then((_) => {
-    next()
-  }).catch(_ => {
-    return db.indices.deleteAlias({
+export async function deleteIndex (db: Client, indexName: string) {
+  try {
+    await db.indices.delete({ index: indexName })
+    Logger.info('Public index deleted')
+  } catch (err) {
+    Logger.info('Public index does not exists', err.message)
+    try {
+      await db.indices.deleteAlias({
+        index: '*',
+        name: indexName
+      })
+      Logger.info('Public index alias deleted')
+    } catch (err) {
+      Logger.info('Public index alias does not exists', err.message)
+    }
+  }
+}
+
+export async function reIndex (db: Client, fromIndexName: string, toIndexName: string) {
+  try {
+    db.reindex({
+      wait_for_completion: true,
+      body: {
+        source: {
+          index: fromIndexName
+        },
+        dest: {
+          index: toIndexName
+        }
+      }
+    })
+  } catch (err) {
+    Logger.info('Reindex failed with message', err.message)
+  }
+}
+
+export async function createIndex<T = any> (db: Client, indexName: string, indexSchema: T) {
+  try {
+    await db.indices.deleteAlias({
       index: '*',
       name: indexName
-    }).then((_) => {
-      Logger.info('Public index alias deleted')
-      next()
-    }).catch((err) => {
-      Logger.info('Public index alias does not exists', err.message)
-      next()
     })
-  })
-}
-
-export function reIndex (db: Client, fromIndexName: string, toIndexName: string, next: (args?: Error) => void) {
-  db.reindex({
-    wait_for_completion: true,
-    body: {
-      'source': {
-        'index': fromIndexName
-      },
-      'dest': {
-        'index': toIndexName
-      }
-    }
-  }).then(_ => {
-    next()
-  }).catch(err => {
-    next(err)
-  })
-}
-
-export function createIndex<T = any> (db: Client, indexName: string, indexSchema: T, next: (args?: Error) => void) {
-  const step2 = () => {
-    db.indices.delete({
-      'index': indexName
-    }).then(_ => {
-      db.indices.create(
-        {
-          'index': indexName,
-          'body': indexSchema
-        }).then(_ => {
-        next()
-      }).catch(err => {
-        Logger.error(err)
-        next(err)
-      })
-    }).catch(() => {
-      db.indices.create(
-        {
-          'index': indexName,
-          'body': indexSchema
-        }).then(_ => {
-        next()
-      }).catch(err => {
-        Logger.error(err)
-        next(err)
-      })
-    })
-  }
-
-  return db.indices.deleteAlias({
-    index: '*',
-    name: indexName
-  }).then((_) => {
     Logger.info('Public index alias deleted')
-    step2()
-  }).catch((err) => {
+  } catch (err) {
     Logger.info('Public index alias does not exists', err.message)
-    step2()
-  })
+  } finally {
+    try {
+      await db.indices.delete({ index: indexName })
+      Logger.info('Public index deleted')
+    } catch (err) {
+      Logger.info('Public index does not exists', err.message)
+    } finally {
+      await db.indices.create({
+        index: indexName,
+        body: indexSchema
+      })
+      Logger.info('Public index has been created')
+    }
+  }
 }
 
 /**
@@ -222,7 +211,7 @@ export function createIndex<T = any> (db: Client, indexName: string, indexSchema
  * @param {String} entityType
  * @param {String} apiVersion
  */
-export function loadSchema (rootPath: string, entityType: string, apiVersion: string = '7.1') {
+export function loadSchema (rootPath: string, entityType: string, apiVersion = '7.1') {
   const rootSchemaPath = path.join(rootPath, 'elastic.schema.' + entityType + '.json')
   if (!fs.existsSync(rootSchemaPath)) {
     return null
@@ -232,7 +221,7 @@ export function loadSchema (rootPath: string, entityType: string, apiVersion: st
   const extensionsPath = path.join(__dirname, 'elastic.schema.' + entityType + '.extension.json');
   if (fs.existsSync(extensionsPath)) {
     schemaContent = jsonFile.readFileSync(extensionsPath)
-    let elasticSchemaExtensions = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
+    const elasticSchemaExtensions = parseInt(apiVersion) < 6 ? schemaContent : Object.assign({}, { mappings: schemaContent });
     elasticSchema = _.merge(elasticSchema, elasticSchemaExtensions) // user extensions
   }
   return elasticSchema
