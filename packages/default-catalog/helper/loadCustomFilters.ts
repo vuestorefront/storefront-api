@@ -5,7 +5,7 @@ export default async function loadModuleCustomFilters (config: Record<string, an
   const filterPromises: Promise<any>[] = []
 
   for (const mod of config.modules.defaultCatalog.registeredExtensions) {
-    if (Object.prototype.hasOwnProperty.call(config.extensions, mod) && Object.prototype.hasOwnProperty.call(config.extensions, type + 'Filter') && Array.isArray(config.extensions[mod][type + 'Filter'])) {
+    if (Object.prototype.hasOwnProperty.call(config.extensions, mod) && Object.prototype.hasOwnProperty.call(config.extensions[mod], type + 'Filter') && Array.isArray(config.extensions[mod][type + 'Filter'])) {
       const moduleFilter = config.extensions[mod][type + 'Filter']
       const dirPath = [__dirname, '../api/extensions/' + mod + '/filter/', type]
       for (const filterName of moduleFilter) {
@@ -23,5 +23,5 @@ export default async function loadModuleCustomFilters (config: Record<string, an
     }
   }
 
-  return Promise.all(filterPromises).then((e) => filters)
+  return Promise.all(filterPromises).then(() => filters)
 }
