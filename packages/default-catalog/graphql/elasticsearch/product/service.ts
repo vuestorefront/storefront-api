@@ -3,7 +3,7 @@ import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import esResultsProcessor from './processor'
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { adjustQuery, getHits } from '@storefront-api/lib/elastic'
 import { aggregationsToAttributes } from '../attribute/aggregations'
 
 export async function list ({ filter, sort = null, currentPage = null, pageSize, search = null, context, rootValue, _sourceIncludes = null, _sourceExcludes = null }) {
@@ -25,7 +25,7 @@ export async function list ({ filter, sort = null, currentPage = null, pageSize,
 
   const esIndex = getIndexName(context.req.url)
 
-  let response = getResponseObject(await client.search(adjustQuery({
+  let response = getHits(await client.search(adjustQuery({
     index: esIndex,
     type: 'product',
     body: query,

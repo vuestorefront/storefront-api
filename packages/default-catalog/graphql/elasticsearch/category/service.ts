@@ -2,14 +2,14 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder'
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { adjustQuery, getHits } from '@storefront-api/lib/elastic'
 import { aggregationsToAttributes } from '../attribute/aggregations'
 
 export async function list ({ search, filter, currentPage, pageSize = 200, sort, context, rootValue = null, _sourceIncludes, _sourceExcludes = null }) {
   const query = buildQuery({ search, filter, currentPage, pageSize, sort, type: 'category' });
 
   const esIndex = getIndexName(context.req.url)
-  let response = getResponseObject(await client.search(adjustQuery({
+  let response = getHits(await client.search(adjustQuery({
     index: esIndex,
     body: query,
     _source_excludes: _sourceExcludes,

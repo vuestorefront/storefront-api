@@ -2,12 +2,12 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { adjustQuery, getHits } from '@storefront-api/lib/elastic'
 
 async function list ({ filter, currentPage, pageSize = 200, context, _source_include, type }) {
   const query = buildQuery({ filter, currentPage, pageSize, type });
 
-  const response = getResponseObject(await client.search(adjustQuery({
+  const response = getHits(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
     body: query,
     _source_include
