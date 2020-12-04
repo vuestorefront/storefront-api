@@ -1,6 +1,18 @@
 import config from 'config'
 import crypto from 'crypto'
+import fs from 'fs'
+
 const algorithm = 'aes-256-ctr'
+const iv = ((buildFilePath = '../config/build.json', ivLength = 16): string | Buffer => {
+  if (!config.get<boolean>('cipherIVByBuildTime')) return 'XXXXXXXXXXXXXXXX'
+  const buildFile = fs.existsSync(buildFilePath) && fs.readFileSync(buildFilePath, 'utf8')
+  if (buildFile) {
+    const build: { time: string|number } = JSON.parse(buildFile)
+    const buildHash = crypto.createHash('md5').update(`${build.time}`, 'utf8').digest('hex')
+    return buildHash.slice(0, ivLength)
+  }
+  return crypto.randomBytes(ivLength)
+})()
 
 /**
  * Get current store code from parameter passed from the vue storefront frotnend app
@@ -98,16 +110,30 @@ export function apiError (res, error: Record<any, any>): string|Record<any, any>
   return apiStatus(res, errorMessage, Number(errorCode) || 500);
 }
 
-export function encryptToken (textToken, secret): string {
-  const cipher = crypto.createCipheriv(algorithm, secret, null)
+/**
+ *  Encrypt a token string using `aes-256-ctr` algorithm
+ *
+ *  @param {string} textToken
+ *  @param {secret} string Needs to be a 16 bit/32 glyphs sized string to fit the `aes-256-ctr` requirements
+ *  @return {string}
+ */
+export function encryptToken (textToken: string, secret: string): string {
+  const cipher = crypto.createCipheriv(algorithm, secret, iv)
   let crypted = cipher.update(textToken, 'utf8', 'hex')
-  crypted += cipher.final('hex');
-  return crypted;
+  crypted += cipher.final('hex')
+  return crypted
 }
 
-export function decryptToken (textToken, secret): string {
-  const decipher = crypto.createDecipheriv(algorithm, secret, null)
-  let dec = decipher.update(textToken, 'hex', 'utf8')
-  dec += decipher.final('utf8');
-  return dec;
+/**
+ *  Decrypt a token string using `aes-256-ctr` algorithm
+ *
+ *  @param {string} textToken
+ *  @param {secret} string Needs to be a 16 bit/32 glyphs sized string to fit the `aes-256-ctr` requirements
+ *  @return {string}
+ */
+export function decryptToken (textToken: string, secret: string): string {
+  const decipher = crypto.createDecipheriv(algorithm, secret, iv)
+  let decrypted = decipher.update(textToken, 'hex', 'utf8')
+  decrypted += decipher.final('utf8')
+  return decrypted
 }

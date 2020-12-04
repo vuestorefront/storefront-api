@@ -224,6 +224,7 @@
       }
     }
   },
+  "cipherIVByBuildTime": false,
   "authHashSecret": "__SECRET_CHANGE_ME__",
   "objHashSecret": "__SECRET_CHANGE_ME__",
   "cart": {
