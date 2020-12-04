@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import cache from '@storefront-api/lib/cache-instance'
 import { adjustQuery, getClient as getElasticClient } from '@storefront-api/lib/elastic'
 import bodybuilder from 'bodybuilder'
+import { IConfig } from 'config';
 
 export interface AttributeListParam {
   [key: string]: number[]
@@ -13,7 +14,7 @@ export interface AttributeListParam {
  * @param config - global config
  * @param indexName - current indexName
  */
-function transformAggsToAttributeListParam (aggregations): AttributeListParam {
+function transformAggsToAttributeListParam (aggregations: Record<string, any>): AttributeListParam {
   const attributeListParam: AttributeListParam = Object.keys(aggregations)
     .filter(key => aggregations[key].buckets.length) // leave only buckets with values
     .reduce((acc, key) => {
@@ -37,11 +38,12 @@ function transformAggsToAttributeListParam (aggregations): AttributeListParam {
 /**
  * Returns attributes from cache
  */
-async function getAttributeFromCache (attributeCode: string, config) {
+async function getAttributeFromCache (attributeCode: string, indexName: string, config) {
   if (config.server.useOutputCache && cache) {
     try {
       const res = await cache.get(
-        'api:attribute-list' + attributeCode
+        'api:attribute-list' + attributeCode,
+        `api:attribute-list:${indexName}:${attributeCode}`
       )
       return res
     } catch (err) {
@@ -54,12 +56,12 @@ async function getAttributeFromCache (attributeCode: string, config) {
 /**
  * Save attributes in cache
  */
-async function setAttributeInCache (attributeList, config) {
-  if (config.server.useOutputCache && cache) {
+async function setAttributeInCache (attributeList, indexName: string, config: IConfig) {
+  if (config.get<boolean>('server.useOutputCache') && cache) {
     try {
       await Promise.all(
         attributeList.map(attribute => cache.set(
-          'api:attribute-list' + attribute.attribute_code,
+          `api:attribute-list:${indexName}:${attribute.attribute_code}`,
           attribute
         ))
       )
@@ -82,13 +84,13 @@ function clearAttributeOpitons (attribute, optionsIds: number[]) {
   }
 }
 
-async function list (attributesParam: AttributeListParam, config, indexName: string): Promise<any[]> {
+async function list (attributesParam: AttributeListParam, config: IConfig, indexName: string): Promise<any[]> {
   // we start with all attributeCodes that are requested
   const attributeCodes = Object.keys(attributesParam)
 
   // here we check if some of attribute are in cache
   const rawCachedAttributeList = await Promise.all(
-    attributeCodes.map(attributeCode => getAttributeFromCache(attributeCode, config))
+    attributeCodes.map(attributeCode => getAttributeFromCache(attributeCode, indexName, config))
   )
 
   const cachedAttributeList = rawCachedAttributeList
@@ -122,7 +124,7 @@ async function list (attributesParam: AttributeListParam, config, indexName: str
     const fetchedAttributeList = get(response.body, 'hits.hits', []).map(hit => hit._source)
 
     // save atrributes in cache
-    await setAttributeInCache(fetchedAttributeList, config)
+    await setAttributeInCache(fetchedAttributeList, indexName, config)
 
     // cached and fetched attributes
     const allAttributes = [
@@ -157,7 +159,7 @@ function transformToMetadata ({
   attribute_code,
   slug,
   options = []
-}) {
+}): Record<string, any> {
   return {
     is_visible_on_front,
     is_visible,
