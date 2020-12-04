@@ -62,7 +62,8 @@ async function setAttributeInCache (attributeList, indexName: string, config: IC
       await Promise.all(
         attributeList.map(attribute => cache.set(
           `api:attribute-list:${indexName}:${attribute.attribute_code}`,
-          attribute
+          attribute,
+          []
         ))
       )
     } catch (err) {
