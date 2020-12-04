@@ -159,7 +159,7 @@ function transformToMetadata ({
   attribute_code,
   slug,
   options = []
-}): Record<string, any> {
+}): any {
   return {
     is_visible_on_front,
     is_visible,
