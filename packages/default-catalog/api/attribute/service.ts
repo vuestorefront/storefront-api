@@ -16,7 +16,7 @@ export interface AttributeListParam {
  */
 function transformAggsToAttributeListParam (aggregations: Record<string, any>): AttributeListParam {
   const attributeListParam: AttributeListParam = Object.keys(aggregations)
-    .filter(key => aggregations[key].buckets.length) // leave only buckets with values
+    .filter(key => aggregations[key].buckets && aggregations[key].buckets.length)
     .reduce((acc, key) => {
       const attributeCode = key.replace(/^(agg_terms_|agg_range_)|(_options)$/g, '')
       const bucketsIds = aggregations[key].buckets.map(bucket => bucket.key)
