@@ -42,7 +42,6 @@ async function getAttributeFromCache (attributeCode: string, indexName: string, 
   if (config.server.useOutputCache && cache) {
     try {
       const res = await cache.get(
-        'api:attribute-list' + attributeCode,
         `api:attribute-list:${indexName}:${attributeCode}`
       )
       return res
@@ -77,7 +76,7 @@ async function setAttributeInCache (attributeList, indexName: string, config: IC
  * @param attribute - attribute object
  * @param optionsIds - list of only needed options ids
  */
-function clearAttributeOpitons (attribute, optionsIds: number[]) {
+function clearAttributeOptions (attribute, optionsIds: number[]) {
   const stringOptionsIds = optionsIds.map(String)
   return {
     ...attribute,
@@ -103,7 +102,7 @@ async function list (attributesParam: AttributeListParam, config: IConfig, index
         attributeCodes.splice(index, 1)
 
         // clear unused options
-        return clearAttributeOpitons(cachedAttribute, attributeOptionsIds)
+        return clearAttributeOptions(cachedAttribute, attributeOptionsIds)
       }
     })
     // remove empty results from cache.get
@@ -134,7 +133,7 @@ async function list (attributesParam: AttributeListParam, config: IConfig, index
         const attributeOptionsIds = attributesParam[fetchedAttribute.attribute_code]
 
         // clear unused options
-        return clearAttributeOpitons(fetchedAttribute, attributeOptionsIds)
+        return clearAttributeOptions(fetchedAttribute, attributeOptionsIds)
       })
     ]
 
