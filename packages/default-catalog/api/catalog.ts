@@ -1,4 +1,4 @@
-import { getClient as esClient, adjustQuery, adjustQueryParams, getTotals } from '@storefront-api/lib/elastic'
+import { getClient as esClient, adjustQuery, adjustQueryParams, getHits, getTotals } from '@storefront-api/lib/elastic'
 import { elasticsearch, SearchQuery, ElasticsearchQueryConfig } from 'storefront-query-builder'
 import { apiError } from '@storefront-api/lib/util'
 import { Router, Request, Response } from 'express'
@@ -129,13 +129,14 @@ export default ({ config }: ExtensionAPIFunctionParameter) => async function (re
         }
 
         try {
+          _resBody.hits.hits = getHits(_resBody)
           if (_resBody && _resBody.hits && _resBody.hits.hits) { // we're signing up all objects returned to the client to be able to validate them when (for example order)
             const factory = new ProcessorFactory(config)
             const tagsArray = []
             if (config.get<boolean>('server.useOutputCache') && cache) {
               const tagPrefix = entityType[0].toUpperCase() // first letter of entity name: P, T, A ...
               tagsArray.push(entityType)
-              _resBody.hits.hits.map(item => {
+              _resBody.hits.hits.foreach(item => {
                 if (item._source.id) { // has common identifier
                   tagsArray.push(`${tagPrefix}${item._source.id}`)
                 }

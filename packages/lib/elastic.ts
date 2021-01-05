@@ -156,8 +156,8 @@ function getHits (result) {
  */
 const getTotals = body => typeof body.hits.total === 'object' ? body.hits.total.value : body.hits.total
 
-let esClient = null
-function getClient (config) {
+let esClient: Client | null = null
+function getClient (config): Client {
   if (esClient) {
     return esClient
   }
@@ -183,7 +183,7 @@ function getClient (config) {
   return esClient
 }
 
-function putAlias (db, originalName, aliasName, next) {
+async function putAlias (db: Client, originalName: string, aliasName: string, next = (v?: any) => null): Promise<any> {
   const step2 = () => {
     db.indices.putAlias({ index: originalName, name: aliasName }).then(() => {
       console.log('Index alias created')
@@ -204,12 +204,12 @@ function putAlias (db, originalName, aliasName, next) {
   })
 }
 
-function search (db, query) {
+function search (db: Client, query) {
   return db.search(query)
 }
 
-function deleteIndex (db, indexName, next) {
-  db.indices.delete({
+async function deleteIndex (db: Client, indexName: string, next = (v?: any) => null): Promise<void> {
+  await db.indices.delete({
     index: indexName
   }).then(() => {
     next()
@@ -230,10 +230,9 @@ function deleteIndex (db, indexName, next) {
   })
 }
 
-function reIndex (db, fromIndexName, toIndexName, next) {
-  db.reindex({
+async function reIndex (db: Client, fromIndexName: string, toIndexName: string, next = (v?: any) => null): Promise<void> {
+  await db.reindex({
     wait_for_completion: true,
-    waitForCompletion: true,
     body: {
       source: {
         index: fromIndexName
