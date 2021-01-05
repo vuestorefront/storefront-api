@@ -4,6 +4,7 @@ import { apiError } from '@storefront-api/lib/util'
 import { Router, Request, Response } from 'express'
 import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module'
 import cache from '@storefront-api/lib/cache-instance'
+import Logger from '@storefront-api/lib/logger'
 import AttributeService from './attribute/service'
 import ProcessorFactory from '../processor/factory'
 import loadCustomFilters from '../helper/loadCustomFilters'
@@ -20,7 +21,7 @@ async function _cacheStorageHandler (config: IConfig, result: Record<string, any
       result,
       tags
     ).catch((err) => {
-      console.error(err)
+      Logger.error(err)
     })
   }
 }
@@ -122,7 +123,7 @@ export default ({ config }: ExtensionAPIFunctionParameter) => async function (re
         let { body: _resBody } = response
 
         if (_resBody.error) {
-          console.error('An error occured during catalog request:', _resBody.error)
+          Logger.error('An error occured during catalog request:', _resBody.error)
           apiError(res, _resBody.error)
           return
         }
@@ -180,13 +181,13 @@ export default ({ config }: ExtensionAPIFunctionParameter) => async function (re
       if (output !== null) {
         res.setHeader('X-VS-Cache', 'Hit')
         res.json(output)
-        console.log(`cache hit [${req.url}], cached request: ${Date.now() - s}ms`)
+        Logger.info(`cache hit [${req.url}], cached request: ${Date.now() - s}ms`)
       } else {
         res.setHeader('X-VS-Cache', 'Miss')
-        console.log(`cache miss [${req.url}], request: ${Date.now() - s}ms`)
+        Logger.info(`cache miss [${req.url}], request: ${Date.now() - s}ms`)
         dynamicRequestHandler()
       }
-    }).catch(err => console.error(err))
+    }).catch(err => Logger.error(err))
   } else {
     dynamicRequestHandler()
   }
