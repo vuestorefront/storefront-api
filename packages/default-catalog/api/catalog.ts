@@ -129,14 +129,18 @@ export default ({ config }: ExtensionAPIFunctionParameter) => async function (re
         }
 
         try {
-          _resBody.hits.hits = getHits(_resBody)
-          if (_resBody && _resBody.hits && _resBody.hits.hits) { // we're signing up all objects returned to the client to be able to validate them when (for example order)
+          const hits = getHits(_resBody)
+          if (_resBody && hits) {
+            // Backwards compatibility for <ES7 as it could be nested under `body`
+            _resBody.hits.hits = hits
+
             const factory = new ProcessorFactory(config)
             const tagsArray = []
+
             if (config.get<boolean>('server.useOutputCache') && cache) {
               const tagPrefix = entityType[0].toUpperCase() // first letter of entity name: P, T, A ...
               tagsArray.push(entityType)
-              _resBody.hits.hits.foreach(item => {
+              _resBody.hits.hits.forEach(item => {
                 if (item._source.id) { // has common identifier
                   tagsArray.push(`${tagPrefix}${item._source.id}`)
                 }
