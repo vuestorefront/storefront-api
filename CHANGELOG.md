@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed 
+
+- Add initialization-vector to `encryptToken` and `decryptToken` methods - @cewald (#103)
+
 ### Changed / Improved
 - updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
 
