@@ -2,7 +2,7 @@ import path from 'path';
 import { fileLoader } from 'merge-graphql-schemas';
 
 export function loadModuleResolversArray (graphQlPath: string, extensionsPath?: string): any[] {
-  const fileLoaderExt = process.env.VS_ENV && process.env.VS_ENV === 'dev' ? 'ts' : 'js'
+  const fileLoaderExt = process.env.VS_ENV === 'dev' ? 'ts' : 'js'
   const rootResolvers = fileLoader(path.join(graphQlPath, `*.resolver.${fileLoaderExt}`))
   const coreResolvers = fileLoader(
     path.join(graphQlPath, `/**/resolver.${fileLoaderExt}`)
