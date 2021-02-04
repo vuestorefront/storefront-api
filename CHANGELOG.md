@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add extended ElasticSearch 7+ support and more flexibility to `elastic` lib - @cewald (#102)
 
+### Fixed
+
+- Bugfix for loading correct resolvers files in production build - @cewald (#104)
+
 ### Changed / Improved
 - updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
 
