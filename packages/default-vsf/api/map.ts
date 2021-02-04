@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import semver from 'semver'
+import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module'
 import { apiStatus, getCurrentStoreView, getCurrentStoreCode } from '@storefront-api/lib/util';
 import ProcessorFactory from '@storefront-api/default-catalog/processor/factory';
 import { getClient as getElasticClient } from '@storefront-api/lib/elastic'
@@ -70,7 +71,7 @@ const checkFieldValueEquality = ({ config, result, value }) => {
   return Boolean(isEqualValue)
 }
 
-const map = ({ config }) => {
+const map = ({ config, db }: ExtensionAPIFunctionParameter): Router => {
   const router = Router()
   router.post('/', async (req, res) => {
     const { url, excludeFields, includeFields } = req.body

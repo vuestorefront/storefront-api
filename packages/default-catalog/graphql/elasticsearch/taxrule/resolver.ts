@@ -2,12 +2,12 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { adjustQuery, getHits } from '@storefront-api/lib/elastic'
 
 async function taxrule ({ filter, context, rootValue }) {
   const query = buildQuery({ filter, pageSize: 150, type: 'taxrule' });
 
-  const response = getResponseObject(await client.search(adjustQuery({
+  const response = getHits(await client.search(adjustQuery({
     index: getIndexName(context.req.url),
     body: query
   }, 'taxrule', config)))

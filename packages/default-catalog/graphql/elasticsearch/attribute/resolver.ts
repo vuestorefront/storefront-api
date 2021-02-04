@@ -2,7 +2,7 @@ import config from 'config';
 import client from '../client';
 import { buildQuery } from '../queryBuilder';
 import { getIndexName } from '../mapping'
-import { adjustQuery, getResponseObject } from '@storefront-api/lib/elastic'
+import { adjustQuery, getHits } from '@storefront-api/lib/elastic'
 
 async function listAttributes ({ attributes = null, filter = null, context, rootValue, _sourceIncludes, _sourceExcludes }) {
   const query = buildQuery({ filter: filter || attributes, pageSize: 150, type: 'attribute' });
@@ -14,7 +14,7 @@ async function listAttributes ({ attributes = null, filter = null, context, root
     _source_excludes: _sourceExcludes
   }
 
-  const response = getResponseObject(await client.search(adjustQuery(esQuery, 'attribute', config)));
+  const response = getHits(await client.search(adjustQuery(esQuery, 'attribute', config)))
 
   response.items = []
   response.total_count = response.hits.total

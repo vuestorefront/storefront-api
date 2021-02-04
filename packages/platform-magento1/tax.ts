@@ -2,7 +2,7 @@ import AbstractTaxProxy from '@storefront-api/platform-abstract/tax'
 import { calculateProductTax, checkIfTaxWithUserGroupIsActive, getUserGroupIdToUse } from '@storefront-api/lib/taxcalc'
 import TierHelper from '@storefront-api/lib/helpers/priceTiers'
 import bodybuilder from 'bodybuilder'
-import es from '@storefront-api/lib/elastic'
+import * as es from '@storefront-api/lib/elastic'
 
 class TaxProxy extends AbstractTaxProxy {
   private readonly _deprecatedPriceFieldsSupport: any

@@ -1,12 +1,14 @@
 import path from 'path'
+import { IConfig } from 'config'
+import { FilterInterface } from 'storefront-query-builder'
 
-export default async function loadModuleCustomFilters (config: Record<string, any>, type = 'catalog'): Promise<any> {
-  const filters: any = {}
-  const filterPromises: Promise<any>[] = []
+export default async function loadModuleCustomFilters (config: IConfig, type = 'catalog'): Promise<Record<string, FilterInterface>> {
+  const filters: Record<string, FilterInterface> = {}
+  const filterPromises: Promise<void>[] = []
 
-  for (const mod of config.modules.defaultCatalog.registeredExtensions) {
-    if (Object.prototype.hasOwnProperty.call(config.extensions, mod) && Object.prototype.hasOwnProperty.call(config.extensions, type + 'Filter') && Array.isArray(config.extensions[mod][type + 'Filter'])) {
-      const moduleFilter = config.extensions[mod][type + 'Filter']
+  for (const mod of config.get<string[]>('modules.defaultCatalog.registeredExtensions')) {
+    if (config.has(`extensions.${mod}.${type}Filter`) && Array.isArray(config.get<string[]>(`extensions.${mod}.${type}Filter`))) {
+      const moduleFilter = config.get<string[]>(`extensions.${mod}.${type}Filter`)
       const dirPath = [__dirname, '../api/extensions/' + mod + '/filter/', type]
       for (const filterName of moduleFilter) {
         const filePath = path.resolve(...dirPath, filterName)
@@ -23,5 +25,5 @@ export default async function loadModuleCustomFilters (config: Record<string, an
     }
   }
 
-  return Promise.all(filterPromises).then((e) => filters)
+  return Promise.all(filterPromises).then(() => filters)
 }
