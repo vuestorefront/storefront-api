@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format base on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0-rc.4] - 2020.02.18
 
 ### Fixed
 
@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed / Improved
 - updated eslint and typescript eslint plugin to newest version to have better typescript support - @resubaka (#78)
+- Using `@vue-storefront/storefront-query-builder` package instead of `storefront-query-builder`
 
 ## [1.0-rc.3] -  2020.04.28
 
