@@ -1,5 +1,5 @@
 import bodybuilder from 'bodybuilder';
-import { elasticsearch, ElasticsearchQueryConfig } from 'storefront-query-builder'
+import { elasticsearch, ElasticsearchQueryConfig } from '@vue-storefront/storefront-query-builder'
 import config from 'config'
 
 export function buildQuery ({

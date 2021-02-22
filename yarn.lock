@@ -2623,6 +2623,14 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
+"@vue-storefront/storefront-query-builder@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/storefront-query-builder/-/storefront-query-builder-1.0.2.tgz#9c585fd4cd96919211d67458f8c64975c01a5b00"
+  integrity sha512-TGfTyi709svAQdQGroMA0TuCI0igzkkCOek2HehJUUjnR9hqsycHTK2t/UCRxUcPLdOoIHWwIYfbXBTkwcnJLQ==
+  dependencies:
+    "@typescript-eslint/parser" "^2.26.0"
+    clone-deep "^4.0.1"
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.0.0.tgz#048fe579958da408fb7a8b2a3ec050b50a661040"
@@ -14648,14 +14656,6 @@ stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
-
-storefront-query-builder@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/storefront-query-builder/-/storefront-query-builder-1.0.0.tgz#8bab0b6bd61a574dfa913cad5c2fdd17858f8b07"
-  integrity sha512-j0JhHOYhcfDcsBUMYWVJ0UApQDOem5zo20XikxJcxfFEcM5Et1Z16674wx3++KrWCbU5raEMgHvqEPxkDFajdw==
-  dependencies:
-    "@typescript-eslint/parser" "^2.26.0"
-    clone-deep "^4.0.1"
 
 stream-browserify@^2.0.1:
   version "2.0.2"

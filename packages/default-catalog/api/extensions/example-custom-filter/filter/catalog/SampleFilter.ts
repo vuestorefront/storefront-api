@@ -1,4 +1,4 @@
-import { FilterInterface } from 'storefront-query-builder'
+import { FilterInterface } from '@vue-storefront/storefront-query-builder'
 
 const filter: FilterInterface = {
   priority: 1,
