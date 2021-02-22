@@ -1,6 +1,6 @@
 {
   "name": "@storefront-api/default-catalog",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0-rc.4",
   "description": "Storefront GraphQL API",
   "license": "MIT",
   "scripts": {
@@ -28,8 +28,8 @@
   ],
   "author": "Piotr Karwatka <pkarwatka@divante.pl>",
   "dependencies": {
-    "@storefront-api/lib": "^1.0.0-rc.3",
-    "@storefront-api/platform": "^1.0.0-rc.3",
+    "@storefront-api/lib": "^1.0.0-rc.4",
+    "@storefront-api/platform": "^1.0.0-rc.4",
     "@vue-storefront/storefront-query-builder": "^1.0.2",
     "bodybuilder": "^2.2.21",
     "config": "^1.30.0",
