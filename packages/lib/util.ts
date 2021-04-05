@@ -1,5 +1,7 @@
 import config from 'config'
 import crypto from 'crypto'
+import { Cipher, Decipher } from 'crypto'
+
 const algorithm = 'aes-256-ctr'
 
 /**
@@ -18,7 +20,7 @@ export function getCurrentStoreCode (req): string|null {
 
 /**
  * Get the config.storeViews[storeCode]
- * @param {string} storeCode
+ * @param {String} storeCode
  */
 export function getCurrentStoreView (storeCode: string = null): any {
   let storeView = { // current, default store
@@ -37,7 +39,7 @@ export function getCurrentStoreView (storeCode: string = null): any {
 }
 
 /**  Creates a callback that proxies node callback style arguments to an Express Response object.
- *  @param {express.Response} res  Express HTTP Response
+ *  @param {Express.Response} res  Express HTTP Response
  *  @param {number} [status=200]  Status code to send on success
  *
  *  @example
@@ -67,7 +69,7 @@ export function sgnSrc (sgnObj, item) {
 }
 
 /**  Creates a api status call and sends it thru to Express Response object.
- *  @param {express.Response} res  Express HTTP Response
+ *  @param {Express.Response} res  Express HTTP Response
  *  @param {number} [code=200]    Status code to send on success
  *  @param {json} [result='OK']    Text message or result information object
  */
@@ -83,7 +85,7 @@ export function apiStatus (res, result: string|Record<any, any> = 'OK', code = 2
 /**
  *  Creates an error for API status of Express Response object.
  *
- *  @param {express.Response} res   Express HTTP Response
+ *  @param {Express.Response} res   Express HTTP Response
  *  @param {object} error    Error object or error message
  *  @return {json} [result='OK']    Text message or result information object
  */
@@ -98,16 +100,41 @@ export function apiError (res, error: Record<any, any>): string|Record<any, any>
   return apiStatus(res, errorMessage, Number(errorCode) || 500);
 }
 
-export function encryptToken (textToken, secret): string {
-  const cipher = crypto.createCipheriv(algorithm, secret, null)
-  let crypted = cipher.update(textToken, 'utf8', 'hex')
+/**
+ * @param {String} textToken
+ * @param {String} secret
+ * @return {String}
+ */
+export function encryptToken (textToken: string, secret: string): string {
+  const iv: Buffer = crypto.randomBytes(16),
+    cipher: Cipher = crypto.createCipheriv(algorithm, secret, iv);
+
+  let crypted: string = cipher.update(textToken, 'utf8', 'hex');
   crypted += cipher.final('hex');
-  return crypted;
+
+  const payload: { [key: string]: string; } = {
+    data: crypted,
+    iv: iv.toString('hex')
+  };
+
+  const resultBuffer: Buffer = Buffer.from(JSON.stringify(payload));
+
+  return resultBuffer.toString('hex');
 }
 
-export function decryptToken (textToken, secret): string {
-  const decipher = crypto.createDecipheriv(algorithm, secret, null)
-  let dec = decipher.update(textToken, 'hex', 'utf8')
-  dec += decipher.final('utf8');
-  return dec;
+/**
+ * @param {String} textToken
+ * @param {String} secret
+ * @return {String}
+ */
+export function decryptToken (textToken: string, secret: string): string {
+  const dataBuffer: Buffer = Buffer.from(textToken, 'hex'),
+    payload: { [key: string]: string; } = JSON.parse(dataBuffer.toString('ascii')),
+    ivBuffer: Buffer = Buffer.from(payload.iv, 'hex'),
+    decipher: Decipher = crypto.createDecipheriv(algorithm, secret, ivBuffer);
+
+  let decrypted: string = decipher.update(payload.data, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+
+  return decrypted;
 }
