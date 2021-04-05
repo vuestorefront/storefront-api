@@ -1,6 +1,5 @@
 import config from 'config'
-import crypto from 'crypto'
-import { Cipher, Decipher } from 'crypto'
+import { Cipher, Decipher, createCipheriv, createDecipheriv, randomBytes} from 'crypto'
 
 const algorithm = 'aes-256-ctr'
 
@@ -106,8 +105,8 @@ export function apiError (res, error: Record<any, any>): string|Record<any, any>
  * @return {String}
  */
 export function encryptToken (textToken: string, secret: string): string {
-  const iv: Buffer = crypto.randomBytes(16),
-    cipher: Cipher = crypto.createCipheriv(algorithm, secret, iv);
+  const iv: Buffer = randomBytes(16),
+    cipher: Cipher = createCipheriv(algorithm, secret, iv);
 
   let crypted: string = cipher.update(textToken, 'utf8', 'hex');
   crypted += cipher.final('hex');
@@ -131,7 +130,7 @@ export function decryptToken (textToken: string, secret: string): string {
   const dataBuffer: Buffer = Buffer.from(textToken, 'hex'),
     payload: { [key: string]: string; } = JSON.parse(dataBuffer.toString('ascii')),
     ivBuffer: Buffer = Buffer.from(payload.iv, 'hex'),
-    decipher: Decipher = crypto.createDecipheriv(algorithm, secret, ivBuffer);
+    decipher: Decipher = createDecipheriv(algorithm, secret, ivBuffer);
 
   let decrypted: string = decipher.update(payload.data, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
