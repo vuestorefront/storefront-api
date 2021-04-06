@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Add initialization-vector to `encryptToken` and `decryptToken` methods - @cewald (#103)
+- Add initialization-vector to `encryptToken` and `decryptToken` methods - @cewald, @oleksii-lisovyi (#103, #110)
 - Bugfix for loading correct resolvers files in production build - @cewald (#104)
 
 ### Changed / Improved
