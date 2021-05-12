@@ -98,7 +98,7 @@
     "migrate": "^1.6.2",
     "mime-types": "^2.1.18",
     "module-alias": "^2.2.2",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^6.4.16",
     "oauth-1.0a": "^1.0.1",
     "pm2": "^3.5.2",
     "redis-tag-cache": "^1.2.1",
