@@ -5,7 +5,9 @@ Storefront API
 
 ![version](https://img.shields.io/badge/node-v10.x-blue.svg)
 ![Branch Develop](https://img.shields.io/badge/dev%20branch-develop-blue.svg)
-<a href="http://slack.vuestorefront.io">![Join Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)</a>
+<a href="http://discord.vuestorefront.io/">
+<img src="https://discordapp.com/api/guilds/770285988244750366/widget.png?style=shield" alt="Discord Shield"/>
+</a>
 
 ### 🔨 Current status: Release Candidate 2 (rc2)
 
